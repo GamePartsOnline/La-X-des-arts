@@ -91,7 +91,6 @@ function renderCourses() {
           <span>Durée conseillée : <strong class="text-slate-200">${currentCourse.duration || '25 min'}</strong></span>
         </div>
         <h1 class="text-2xl lg:text-3xl font-bold text-white leading-snug">${currentCourse.num} : ${currentCourse.title}</h1>
-        ${getActiveRole() === 'admin' ? (() => { const lesson = (typeof backendLessons !== 'undefined' ? backendLessons : []).find(item => item.num === currentCourse.num.replace(/^D-/, 'L-') || item.id === currentCourse.id) || (typeof backendLessons !== 'undefined' ? backendLessons[currentIndex] : null); const checked = lesson?.status === 'validee'; return `<label class="inline-flex items-center gap-2 cursor-pointer"><input type="checkbox" onchange="adminToggleCurrentCourse()" ${checked ? 'checked' : ''} class="peer sr-only"><span class="relative w-11 h-6 rounded-full bg-slate-600 peer-checked:bg-emerald-600 after:absolute after:top-0.5 after:left-0.5 after:w-5 after:h-5 after:rounded-full after:bg-white after:transition-transform peer-checked:after:translate-x-5"></span><span class="text-xs font-semibold text-slate-200">${checked ? 'Cours validé' : 'Cours à valider'}</span></label>`; })() : ''}
         <p class="text-base text-slate-200 leading-relaxed">${currentCourse.summary}</p>
         <p class="text-xs text-slate-400 pt-1 border-t border-[#262b35]">Repère méthodologique : <strong class="text-slate-200">${currentTheme.norme}</strong></p>
       </div>
