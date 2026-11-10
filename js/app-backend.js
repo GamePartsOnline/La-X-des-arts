@@ -155,6 +155,7 @@ async function resetLessonsToSingleExample() {
 stagiaireSubmitLesson = async id => { try { await api('/lessons/' + id, 'PUT', { status: 'en_attente' }); await refreshBackend(false); } catch (e) { backendError(e); } };
 adminValidateLesson = async (id, note, commentAdmin) => { try { await api('/lessons/' + id + studentQuery(), 'PUT', { status: 'validee', note: 'Acquis', commentAdmin }); await refreshBackend(false); } catch (e) { backendError(e); } };
 adminRejectLesson = async (id, commentAdmin) => { try { await api('/lessons/' + id + studentQuery(), 'PUT', { status: 'a_faire', note: 'Non acquis', commentAdmin }); await refreshBackend(false); } catch (e) { backendError(e); } };
+adminToggleCurrentCourse = () => { const course = currentCourse; const lesson = backendLessons.find(item => item.num === course?.num || item.id === course?.id); if (lesson) return adminToggleLesson(lesson.id); backendError(new Error('Aucun suivi de stage associé à ce cours')); };
 adminToggleLesson = async id => { const lesson = backendLessons.find(item => item.id === id); if (!lesson) return; const acquired = lesson.status !== 'validee'; try { await api('/lessons/' + id + studentQuery(), 'PUT', { status: acquired ? 'validee' : 'a_faire', note: acquired ? 'Acquis' : 'Non acquis', commentAdmin: '' }); await refreshBackend(false); } catch (e) { backendError(e); } };
 
 getCourseSubmission = id => {
@@ -218,5 +219,5 @@ Object.assign(window, {
   openLoginModal, closeLoginModal, quickConnectProfile, submitLoginForm, submitRegistrationForm, logoutBackendUser, previewAsRole,
   selectBackendStudent, reviewBackendSubmission, deleteBackendSubmission,
   createBackendAccount, updateBackendUserAccess, deleteBackendAccount, resetLessonsToSingleExample,
-  submitCustomCourse, switchUserRole, getStageLessons, saveStageLessons, adminToggleLesson
+  submitCustomCourse, switchUserRole, getStageLessons, saveStageLessons, adminToggleLesson, adminToggleCurrentCourse
 });

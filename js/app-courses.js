@@ -91,6 +91,7 @@ function renderCourses() {
           <span>Durée conseillée : <strong class="text-slate-200">${currentCourse.duration || '25 min'}</strong></span>
         </div>
         <h1 class="text-2xl lg:text-3xl font-bold text-white leading-snug">${currentCourse.num} : ${currentCourse.title}</h1>
+        ${getActiveRole() === 'admin' ? '<button type="button" onclick="adminToggleCurrentCourse()" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-bold">Valider / Désactiver ce cours</button>' : ''}
         <p class="text-base text-slate-200 leading-relaxed">${currentCourse.summary}</p>
         <p class="text-xs text-slate-400 pt-1 border-t border-[#262b35]">Repère méthodologique : <strong class="text-slate-200">${currentTheme.norme}</strong></p>
       </div>
