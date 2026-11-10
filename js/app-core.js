@@ -26,17 +26,12 @@ function playChime(freq = 440, duration = 0.25) {
 }
 
 function showTab(tabId) {
-  if (!currentRole) {
-    if (typeof updateAppForCurrentRole === 'function') updateAppForCurrentRole();
-    return;
-  }
-
   const r = typeof getActiveRole === 'function' ? getActiveRole() : currentRole;
-  const allowedTabs = typeof getRoleNavTabs === 'function' ? getRoleNavTabs(r).map(t => t.id) : ['visiteur'];
+  const allowedTabs = typeof getRoleNavTabs === 'function' ? getRoleNavTabs(currentRole).map(t => t.id) : ['visiteur'];
 
   // Redirection de sécurité selon le rôle
   if (tabId === 'accueil' || tabId === 'dashboard' || tabId === 'tableau-de-bord' || tabId === 'prof' || !allowedTabs.includes(tabId)) {
-    tabId = getProfileMeta(r).defaultTab || allowedTabs[0];
+    tabId = currentRole ? (getProfileMeta(r).defaultTab || allowedTabs[0]) : allowedTabs[0];
   }
 
   document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));

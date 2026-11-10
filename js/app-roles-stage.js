@@ -3,7 +3,7 @@
 // ENTRÉE DIRECTE SUR LA CONNEXION & REDIRECTION DYNAMIQUE SELON LE RÔLE
 // =====================================================================
 
-let currentRole = null; // null = non connecté (écran Login affiché)
+let currentRole = null; // null = navigation publique sans session
 let currentCourseAccess = 'aucun'; // 'dessin' | 'graphisme' | 'complet' | 'aucun'
 let isGraphismeUnlocked = false;
 
@@ -106,6 +106,11 @@ function handleCourseClickSecurity(courseId) {
 // Onglets autorisés dans la barre supérieure selon le rôle connecté (3 rôles stricts)
 function getRoleNavTabs(role) {
   const r = normalizeRoleName(role);
+  if (!r) return [
+    { id: 'veille', label: 'ACTU & NEWS' },
+    { id: 'metiers', label: '24 Métiers' },
+    { id: 'ecoles', label: 'Écoles & Tarifs (26)' }
+  ];
   if (r === 'admin') {
     return [
       { id: 'admin', label: 'Administration & Tuteur' },
@@ -141,7 +146,7 @@ function getRoleNavTabs(role) {
 
 function renderRoleHeaderNav() {
   const navEl = document.getElementById('role-main-nav');
-  if (!navEl || !currentRole) return;
+  if (!navEl) return;
   const tabs = getRoleNavTabs(currentRole);
   navEl.innerHTML = tabs.map(t => `
     <button id="btn-${t.id}" onclick="showTab('${t.id}')" class="nav-btn px-3.5 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-[#1e222b] transition-all whitespace-nowrap">
@@ -154,13 +159,6 @@ function updateAppForCurrentRole() {
   const loginGate = document.getElementById('login-gate-view');
   const appHeader = document.getElementById('app-top-header');
   const appMain = document.getElementById('app-main-workspace');
-
-  if (!currentRole) {
-    if (loginGate) loginGate.classList.remove('hidden');
-    if (appHeader) appHeader.classList.add('hidden');
-    if (appMain) appMain.classList.add('hidden');
-    return;
-  }
 
   if (loginGate) loginGate.classList.add('hidden');
   if (appHeader) appHeader.classList.remove('hidden');

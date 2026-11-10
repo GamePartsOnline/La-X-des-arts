@@ -29,6 +29,8 @@ function renderLoginGateView() {
         </div>
       </div>
 
+      <button type="button" onclick="closeLoginModal()" class="text-sm text-slate-300 hover:text-white">Retour aux rubriques publiques</button>
+
       <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
         <form onsubmit="submitLoginForm(event)" class="p-5 rounded-xl bg-[#111317] border border-[#262b35] space-y-3.5 flex flex-col justify-between">
           <div class="space-y-3">
@@ -110,10 +112,16 @@ async function submitRegistrationForm(e) {
 async function logoutBackendUser() {
   try { await api('/logout', 'POST', {}); } catch {}
   backendUser = null; backendStudent = null; currentRole = null; isGraphismeUnlocked = false;
-  updateAppForCurrentRole(); renderLoginGateView();
+  currentCourseAccess = 'aucun'; backendLessons = []; backendSubmissions = [];
+  updateAppForCurrentRole(); renderLoginGateView(); showTab('veille');
 }
-function openLoginModal() { logoutBackendUser(); }
-function closeLoginModal() {}
+function openLoginModal() {
+  renderLoginGateView();
+  document.getElementById('login-gate-view')?.classList.remove('hidden');
+  document.getElementById('app-top-header')?.classList.add('hidden');
+  document.getElementById('app-main-workspace')?.classList.add('hidden');
+}
+function closeLoginModal() { updateAppForCurrentRole(); showTab('veille'); }
 
 getStageLessons = () => (backendLessons.length ? backendLessons : (window.DEFAULT_STAGE_LESSONS || [])).map(l => ({ ...l, titre: escapeBackend(l.titre), commentAdmin: escapeBackend(l.commentAdmin), note: l.status === 'validee' ? 'Acquis' : 'Non acquis' }));
 saveStageLessons = () => {};
@@ -121,7 +129,11 @@ switchUserRole = role => quickConnectProfile(role);
 
 updateHeaderRoleUI = () => {
   const el = document.getElementById('role-switcher-container');
-  if (!el || !backendUser) return;
+  if (!el) return;
+  if (!backendUser) {
+    el.innerHTML = '<button type="button" onclick="openLoginModal()" class="px-3 py-2 rounded-lg bg-[#f8485e] text-white text-sm font-bold">Se connecter</button>';
+    return;
+  }
   const meta = getProfileMeta(currentRole);
   el.innerHTML = `<div class="flex items-center gap-2"><span class="px-3 py-1.5 rounded-lg bg-[#181b21] border border-[#262b35] text-xs text-white font-semibold truncate max-w-[220px]">${escapeBackend(backendUser.name)} · <span class="text-[#f8485e] font-mono">${escapeBackend(meta.label)}</span></span><button onclick="logoutBackendUser()" class="px-3 py-1.5 rounded-lg bg-[#181b21] hover:bg-rose-950/80 border border-[#262b35] text-xs font-bold text-slate-200 transition-all">Déconnexion</button></div>`;
 };
@@ -187,7 +199,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   backendLessons = (window.DEFAULT_STAGE_LESSONS || []).map(l => ({ ...l }));
   renderLoginGateView();
   updateAppForCurrentRole();
-  try { await refreshBackend(true); } catch { currentRole = null; updateAppForCurrentRole(); }
+  try { await refreshBackend(true); } catch { backendUser = null; currentRole = null; currentCourseAccess = 'aucun'; updateAppForCurrentRole(); showTab('veille'); }
 });
 
 Object.assign(window, {
