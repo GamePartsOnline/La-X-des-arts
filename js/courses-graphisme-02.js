@@ -12,7 +12,7 @@ const COURSES_GRAPHISME_P2 = [
     domain: "Typographie & Histoire des Écritures",
     level: "Fondamental",
     duration: "30 min",
-    image: "assets/masterclass_paul_rand_logo.jpg",
+    image: "assets/session_mucha_art.jpg",
     summary: "Étude académique de la lettre : jambages, empattements, fûts, œil et ligne de base. Maîtriser la classification Vox-Atypi (Humanes, Garaldes, Réales, Didones, Mécanes, Linéales) et choisir les graisses adaptées.",
     artist: {
       name: "Maximilien Vox & Adrian Frutiger",
@@ -92,7 +92,7 @@ const COURSES_GRAPHISME_P2 = [
     domain: "Mise en Page Éditoriale & Structure",
     level: "Technique",
     duration: "35 min",
-    image: "assets/planche_pedagogique_bords.jpg",
+    image: "assets/planche_pedagogique_composition_cinema.jpg",
     summary: "L'armature invisible de la page : construction d'une grille modulaire à 12 colonnes, calcul des gouttières et calage vertical sur la grille de ligne de base pour une rigueur d'alignement totale.",
     artist: {
       name: "Wim Crouwel & Jan Tschichold",
@@ -132,7 +132,7 @@ const COURSES_GRAPHISME_P2 = [
     domain: "Colorimétrie & Physique de la Couleur",
     level: "Fondamental",
     duration: "25 min",
-    image: "assets/masterclass_sargent_portrait.jpg",
+    image: "assets/planche_pedagogique_gamut_masking.jpg",
     summary: "Différence scientifique entre synthèse additive (RVB écran) et synthèse soustractive (CMJN encre papier). Maîtriser le gamut de reproduction, les profils colorimétriques ISO Coated v2 FOGRA39 et éviter les déconvenues d'impression.",
     artist: {
       name: "Johannes Itten (Bauhaus)",
@@ -172,7 +172,7 @@ const COURSES_GRAPHISME_P2 = [
     domain: "Colorimétrie & Identité de Marque",
     level: "Technique",
     duration: "25 min",
-    image: "assets/planche_pedagogique_cadrage.jpg",
+    image: "assets/mockup_plateforme_web_la_croisee_des_arts.jpg",
     summary: "Méthode de sélection des teintes : utilisation des tons directs du nuancier normalisé Pantone Solid Coated et application de la règle d'équilibre visuel (60 % couleur dominante, 30 % couleur secondaire, 10 % couleur d'accent).",
     artist: {
       name: "Atelier GPO Nuancier",

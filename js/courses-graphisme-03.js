@@ -12,7 +12,7 @@ const COURSES_GRAPHISME_P3 = [
     domain: "Identité Visuelle & Sémiotique de Marque",
     level: "Technique",
     duration: "30 min",
-    image: "assets/masterclass_paul_rand_logo.jpg",
+    image: "assets/planche_pedagogique_edge_control.jpg",
     summary: "Méthode académique de création de logo : soumettre la forme au test impitoyable du noir pur 1-bit sur fond blanc sans aucun dégradé, définir la zone d'exclusion et la taille minimale de lisibilité.",
     artist: {
       name: "Paul Rand & Saul Bass",
@@ -52,7 +52,7 @@ const COURSES_GRAPHISME_P3 = [
     domain: "Chaîne Graphique & Normes Prépresse RPIP",
     level: "Atelier Pro",
     duration: "30 min",
-    image: "assets/planche_pedagogique_bords.jpg",
+    image: "assets/planche_pedagogique_textures_brosses.jpg",
     summary: "Règles strictes de fabrication d'imprimerie : fond perdu obligatoire de 3 mm sur chaque bord, zone tranquille de sécurité à 5 mm, profil FOGRA39 certifié, formules de noir (texte 100K vs aplat enrichi) et vérification du TAC.",
     artist: {
       name: "Atelier GPO Prépresse",
@@ -92,7 +92,7 @@ const COURSES_GRAPHISME_P3 = [
     domain: "Fabrication d'Atelier & Plotter Numérique",
     level: "Atelier Pro",
     duration: "30 min",
-    image: "assets/planche_pedagogique_shape_language.jpg",
+    image: "assets/session_burton_encre.jpg",
     summary: "Conception de fichiers pour impression et découpe vinyle : création du filet vectoriel magenta 100% nommé CutContour en ton direct et surimpression, débord d'encre technique de 2 mm et gestion de l'échenillage.",
     artist: {
       name: "Atelier GPO Découpe & Vinyle",
@@ -132,7 +132,7 @@ const COURSES_GRAPHISME_P3 = [
     domain: "Découpe Numérique & Peinture Industrielle",
     level: "Technique",
     duration: "25 min",
-    image: "assets/masterclass_sargent_portrait.jpg",
+    image: "assets/atelier_demo_digital_painting.jpg",
     summary: "Physique du pochoir : comprendre la chute inévitable des îlots centraux sur les lettres et formes fermées (A, B, D, O, P, R, 0, 4, 6, 8, 9). Concevoir des ponts de matière rigides de 1.5 à 2 mm pour le maintien mécanique.",
     artist: {
       name: "Atelier GPO Sérigraphie & Pochoirs",
@@ -172,7 +172,7 @@ const COURSES_GRAPHISME_P3 = [
     domain: "Signalétique Grand Format & Projets Industriels",
     level: "Avancé",
     duration: "40 min",
-    image: "assets/planche_pedagogique_cadrage.jpg",
+    image: "assets/planche_pedagogique_shape_language.jpg",
     summary: "Conception millimétrée à l'échelle 1:1 pour la fabrication d'objets réels : habillage complet d'une borne d'arcade, zones d'exclusion des boutons de 28 mm et joystick, overbleed de pose de 10 mm et gestion des flancs en miroir.",
     artist: {
       name: "Atelier GPO Mobilier & Bornes",
@@ -212,7 +212,7 @@ const COURSES_GRAPHISME_P3 = [
     domain: "Gestion de Production & Rigueur Professionnelle",
     level: "Atelier Pro",
     duration: "25 min",
-    image: "assets/masterclass_paul_rand_logo.jpg",
+    image: "assets/studio_dessin_interactif_chrono_croisee.jpg",
     summary: "La traçabilité absolue d'un studio professionnel : structuration en 6 dossiers normés ISO-GPO, convention stricte de nommage de fichiers sans espace ni accent, cycle des versions V01/V02 et protocole d'exportation BAT.",
     artist: {
       name: "Système de Gestion ISO-GPO",
@@ -223,7 +223,7 @@ const COURSES_GRAPHISME_P3 = [
       { title: "1. L'Arborescence Normalisée en 6 Répertoires", desc: "01_BRIEF (cahier des charges), 02_SOURCES (docs, photos, polices), 03_TRAVAIL (fichiers natifs AI/PSD), 04_VALIDATION (BAT client), 05_IMPRESSION (PDF HD certifiés), 99_ARCHIVES." },
       { title: "2. La Syntaxe Stricte de Nommage de Fichiers", desc: "Format universel : AAAA-MM-JJ_TYPE_sujet-court_V01.ext (ex: 2026-11-10_PROJ_borne-arcade_V01.ai). Jamais d'accents, jamais d'espaces, uniquement des tirets bas et tirets du milieu." },
       { title: "3. La Gestion des Versions (Ne Jamais Écraser un Master)", desc: "Dès qu'une modification substantielle intervient, incrémenter le numéro de version (V01, V02, V03). Conserver l'historique de chaque étape de retouche." },
-      { title: "4. Le Bon à Tirer Électronique (BAT)", desc: "Export d'un PDF de validation basse définition verrouillé avec cartouche de signature, date, mentions légales et rappel des dimensions finales avant lancement machine." }
+      { title: "4. BAT & Automatisation d'Atelier (Norme OpenAPI)", desc: "Export BAT verrouillé et interfaçage des flux de fabrication via la norme universelle OpenAPI (openapis.org) : transmission des cotes, fichiers et métadonnées aux machines sans saisie manuelle." }
     ],
     exercise: {
       title: "Exercice : Structuration Complète d'un Dossier Client",

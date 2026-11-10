@@ -139,6 +139,9 @@ function renderCourses() {
         </div>
       </div>
 
+      <!-- Sélecteur de Persona : Débutant, Niveau Avancé, Professeur -->
+      ${typeof renderPersonaNavigation === 'function' ? renderPersonaNavigation() : ''}
+
       <!-- En-tête du Cours -->
       <div class="space-y-2">
         <div class="flex flex-wrap items-center gap-2">
@@ -149,105 +152,59 @@ function renderCourses() {
             Niveau : ${currentCourse.level}
           </span>
           <span class="text-[10px] font-semibold px-2 py-0.5 rounded bg-[#272b35] text-slate-300">
-            Durée estimée : ${currentCourse.duration}
+            Durée : ${currentCourse.duration}
           </span>
         </div>
         <h2 class="font-serif text-2xl lg:text-3xl font-black text-white">${currentCourse.title}</h2>
         <p class="text-xs lg:text-sm text-slate-300 leading-relaxed">${currentCourse.summary}</p>
       </div>
 
-      <!-- Citation & Référence -->
-      <div class="p-4 rounded-xl bg-[#1f2233] border-l-4 ${isGraphDetail ? 'border-[#00f2c3]' : 'border-[#e14eca]'} space-y-2">
-        <p class="text-xs italic text-slate-200">"${currentCourse.artist.quote}"</p>
-        <div class="flex items-center justify-between text-[11px]">
-          <span class="font-bold text-white">${currentCourse.artist.name}</span>
-          <span class="text-slate-400 text-[10px]">${currentCourse.artist.bio}</span>
+      <!-- Grande Planche Visuelle Démonstrative HD -->
+      <div class="space-y-2">
+        <div class="relative rounded-2xl overflow-hidden border border-[#2b3553] shadow-2xl bg-black/60 group">
+          <img src="${currentCourse.image}" alt="${currentCourse.title}" class="w-full max-h-[440px] object-contain mx-auto transition-transform duration-500 group-hover:scale-[1.01]" />
+          <div class="absolute top-3 right-3 px-3 py-1 rounded-lg bg-black/70 backdrop-blur-md border border-white/10 text-[10px] font-mono text-slate-300">
+            Planche HD · ${currentCourse.num}
+          </div>
         </div>
+
+        <!-- Citation et Référence de la Source Officielle -->
+        ${typeof renderCourseSourceCard === 'function' ? renderCourseSourceCard(currentCourse) : ''}
       </div>
 
-      <!-- Fondements Théoriques -->
-      <div class="space-y-3">
-        <h3 class="font-serif font-bold text-base text-white">Méthodologie & Fondements Clés</h3>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-          ${currentCourse.theory.map(t => `
-            <div class="p-4 rounded-xl bg-[#27293d] border border-[#2b3553]/60">
-              <h4 class="font-bold text-sm text-slate-200 mb-1">${t.title}</h4>
-              <p class="text-xs text-slate-400 leading-relaxed">${t.desc}</p>
-            </div>
-          `).join('')}
-        </div>
-      </div>
+      <!-- Contenu Pédagogique Recadré selon le Persona (Débutant, Avancé ou Professeur) -->
+      ${typeof renderCourseDetailContent === 'function' ? renderCourseDetailContent(currentCourse) : ''}
 
-      <!-- Module de Réalisation & Envoi de Travail pour Correction Pédagogique -->
+      <!-- Module d'Exercice & Envoi du Travail -->
       ${typeof renderCourseExerciseBlock === 'function' ? renderCourseExerciseBlock(currentCourse) : ''}
 
       ${currentCourse.correction ? `
-        <!-- Correction d'Élève & Analyse Comparative Avant / Après -->
-        <div class="p-6 rounded-2xl bg-[#27293d] border border-[#2b3553]/60 space-y-6">
-          <div class="flex items-center justify-between pb-3 border-b border-[#2b3553]">
-            <div>
-              <span class="text-[10px] font-bold px-2.5 py-1 rounded bg-[#ba54f5]/20 text-[#ba54f5] uppercase tracking-wider">ÉTUDE COMPARATIVE AVANT / APRÈS</span>
-              <h3 class="font-serif font-bold text-white text-lg mt-1">Critique Constructive & Remédiation Académique</h3>
-            </div>
-            <span class="text-xs font-semibold px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400">
-              Note Pédagogique : 9.3 / 10
-            </span>
+        <!-- Grille Officielle des 5 Critères d'Évaluation -->
+        <div class="p-5 rounded-2xl bg-[#27293d] border border-[#2b3553]/60 space-y-3">
+          <div class="flex items-center justify-between pb-2 border-b border-[#2b3553]">
+            <h4 class="text-xs font-bold text-slate-200 uppercase tracking-wider">Barème Continu d'Atelier (5 Critères Clés)</h4>
+            <span class="text-xs font-bold text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-full border border-emerald-500/20">Moyenne Promotion : 9.2 / 10</span>
           </div>
-
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="p-4 rounded-xl bg-red-950/20 border border-red-500/30 space-y-3">
-              <h4 class="text-xs font-bold uppercase tracking-wider text-red-400 flex items-center gap-1.5">
-                <span class="w-2 h-2 rounded-full bg-red-400"></span> 3 Erreurs Typiques Détectées
-              </h4>
-              <div class="space-y-2">
-                ${currentCourse.correction.student_errors.map(err => `
-                  <div class="text-xs">
-                    <span class="font-semibold text-slate-200">${err.label} : </span>
-                    <span class="text-slate-400">${err.detail}</span>
-                  </div>
-                `).join('')}
-              </div>
+          <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
+            <div class="p-3 rounded-xl bg-[#1f2233] border border-[#2b3553] text-center">
+              <p class="text-[10px] text-slate-400 uppercase">Silhouette</p>
+              <p class="text-base font-extrabold text-[#e14eca] mt-0.5">${currentCourse.correction.grades.silhouette}/10</p>
             </div>
-
-            <div class="p-4 rounded-xl bg-emerald-950/20 border border-emerald-500/30 space-y-3">
-              <h4 class="text-xs font-bold uppercase tracking-wider text-emerald-400 flex items-center gap-1.5">
-                <span class="w-2 h-2 rounded-full bg-emerald-400"></span> Remédiations de l'École
-              </h4>
-              <div class="space-y-2">
-                ${currentCourse.correction.remediations.map(rem => `
-                  <div class="text-xs">
-                    <span class="font-semibold text-slate-200">${rem.label} : </span>
-                    <span class="text-slate-400">${rem.detail}</span>
-                  </div>
-                `).join('')}
-              </div>
+            <div class="p-3 rounded-xl bg-[#1f2233] border border-[#2b3553] text-center">
+              <p class="text-[10px] text-slate-400 uppercase">Structure</p>
+              <p class="text-base font-extrabold text-[#e14eca] mt-0.5">${currentCourse.correction.grades.structure}/10</p>
             </div>
-          </div>
-
-          <!-- Grille des 5 Critères Fondamentaux -->
-          <div class="pt-2">
-            <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider mb-3">Grille Officielle des 5 Critères d'Évaluation</h4>
-            <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
-              <div class="p-3 rounded-xl bg-[#1f2233] border border-[#2b3553] text-center">
-                <p class="text-[10px] text-slate-400 uppercase">Silhouette</p>
-                <p class="text-base font-extrabold text-[#e14eca] mt-0.5">${currentCourse.correction.grades.silhouette}/10</p>
-              </div>
-              <div class="p-3 rounded-xl bg-[#1f2233] border border-[#2b3553] text-center">
-                <p class="text-[10px] text-slate-400 uppercase">Structure</p>
-                <p class="text-base font-extrabold text-[#e14eca] mt-0.5">${currentCourse.correction.grades.structure}/10</p>
-              </div>
-              <div class="p-3 rounded-xl bg-[#1f2233] border border-[#2b3553] text-center">
-                <p class="text-[10px] text-slate-400 uppercase">Valeurs</p>
-                <p class="text-base font-extrabold text-[#e14eca] mt-0.5">${currentCourse.correction.grades.valeurs}/10</p>
-              </div>
-              <div class="p-3 rounded-xl bg-[#1f2233] border border-[#2b3553] text-center">
-                <p class="text-[10px] text-slate-400 uppercase">Bords</p>
-                <p class="text-base font-extrabold text-[#00f2c3] mt-0.5">${currentCourse.correction.grades.bords}/10</p>
-              </div>
-              <div class="p-3 rounded-xl bg-[#1f2233] border border-[#2b3553] text-center">
-                <p class="text-[10px] text-slate-400 uppercase">Technique</p>
-                <p class="text-base font-extrabold text-[#00f2c3] mt-0.5">${currentCourse.correction.grades.couleur}/10</p>
-              </div>
+            <div class="p-3 rounded-xl bg-[#1f2233] border border-[#2b3553] text-center">
+              <p class="text-[10px] text-slate-400 uppercase">Valeurs</p>
+              <p class="text-base font-extrabold text-[#e14eca] mt-0.5">${currentCourse.correction.grades.valeurs}/10</p>
+            </div>
+            <div class="p-3 rounded-xl bg-[#1f2233] border border-[#2b3553] text-center">
+              <p class="text-[10px] text-slate-400 uppercase">Bords</p>
+              <p class="text-base font-extrabold text-[#00f2c3] mt-0.5">${currentCourse.correction.grades.bords}/10</p>
+            </div>
+            <div class="p-3 rounded-xl bg-[#1f2233] border border-[#2b3553] text-center">
+              <p class="text-[10px] text-slate-400 uppercase">Finition</p>
+              <p class="text-base font-extrabold text-[#00f2c3] mt-0.5">${currentCourse.correction.grades.couleur}/10</p>
             </div>
           </div>
         </div>

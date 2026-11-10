@@ -12,7 +12,7 @@ const COURSES_GRAPHISME_P1 = [
     domain: "Méthodologie de Projet & Relation Client",
     level: "Fondamental",
     duration: "25 min",
-    image: "assets/masterclass_paul_rand_logo.jpg",
+    image: "assets/planche_pedagogique_shape_language.jpg",
     summary: "Méthodologie académique de cadrage : transformer une intention floue en cahier des charges mesurable. Poser les 6 questions obligatoires avant toute esquisse et formaliser les contraintes.",
     artist: {
       name: "Atelier GPO Givry-en-Argonne",
@@ -92,7 +92,7 @@ const COURSES_GRAPHISME_P1 = [
     domain: "Technologie Numérique & Chaîne PAO",
     level: "Fondamental",
     duration: "25 min",
-    image: "assets/masterclass_sargent_portrait.jpg",
+    image: "assets/session_bladerunner_lineart.jpg",
     summary: "Différence fondamentale entre grille de pixels matricielle et formules mathématiques vectorielles. Comprendre la résolution, le redimensionnement infini et les formats de fichiers d'atelier.",
     artist: {
       name: "Atelier GPO PAO",
@@ -132,7 +132,7 @@ const COURSES_GRAPHISME_P1 = [
     domain: "Dessin Vectoriel de Précision",
     level: "Technique",
     duration: "35 min",
-    image: "assets/planche_pedagogique_bords.jpg",
+    image: "assets/session_bladerunner_lineart.jpg",
     summary: "Méthode académique du tracé vectoriel : placement des points d'ancrage uniquement aux extremums, verrouillage des tangentes à 0°/90° et élimination des nœuds superflus pour une fluidité parfaite.",
     artist: {
       name: "Pierre Bézier (1910 - 1999)",
@@ -172,7 +172,7 @@ const COURSES_GRAPHISME_P1 = [
     domain: "Dessin Vectoriel & Pictogrammes",
     level: "Technique",
     duration: "30 min",
-    image: "assets/planche_pedagogique_cadrage.jpg",
+    image: "assets/session_burton_encre.jpg",
     summary: "Méthode de construction par primitives géométriques : créer des symboles et pictogrammes complexes par réunion, soustraction, exclusion et intersection (Pathfinder) plutôt que par tracé libre.",
     artist: {
       name: "Otis Shepard & Gerd Arntz",

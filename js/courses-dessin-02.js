@@ -12,7 +12,7 @@ const COURSES_DESSIN_P2 = [
     domain: "Anatomie Vivante & Dynamique Corporelle",
     level: "Académique",
     duration: "35 min",
-    image: "assets/planche_pedagogique_shape_language.jpg",
+    image: "assets/dune_pose_01_paul_cape_vent.jpg",
     summary: "Méthode académique du croquis de nu et de modèle vivant : capturer l'énergie en 30 secondes grâce à la ligne d'action unique, la bascule des épaules et du bassin (contrapposto) et le transfert du centre de gravité.",
     artist: {
       name: "Kim Jung Gi & George Bridgman",
@@ -52,7 +52,7 @@ const COURSES_DESSIN_P2 = [
     domain: "Dessin Textile & Matières Souples",
     level: "Technique",
     duration: "30 min",
-    image: "assets/planche_pedagogique_bords.jpg",
+    image: "assets/planche_pedagogique_drapes_plis.jpg",
     summary: "Règles physiques du drapé classique : comprendre les points de suspension, la pesanteur et la tension. Décoder les 7 types de plis fondamentaux (tombant, tubulaire, zigzag, spirale, emboîté, mémoire, étiré).",
     artist: {
       name: "Burne Hogarth & Léonard de Vinci",
@@ -92,7 +92,7 @@ const COURSES_DESSIN_P2 = [
     domain: "Harmonie Chromatique & Palette Restreinte",
     level: "Académique",
     duration: "30 min",
-    image: "assets/masterclass_sargent_portrait.jpg",
+    image: "assets/planche_pedagogique_gamut_masking.jpg",
     summary: "Méthode James Gurney : briser la palette arc-en-ciel en restreignant le cercle chromatique à l'intérieur d'un masque géométrique (Gamut Masking) pour créer une atmosphère lumineuse cinématographique unifiée.",
     artist: {
       name: "James Gurney (Dinotopia)",
@@ -132,7 +132,7 @@ const COURSES_DESSIN_P2 = [
     domain: "Carnation & Peinture Figurative",
     level: "Avancé",
     duration: "35 min",
-    image: "assets/masterclass_sargent_portrait.jpg",
+    image: "assets/planche_pedagogique_sss_peau.jpg",
     summary: "La physique de la chair humaine : comprendre la translucidité de la peau, la diffusion sous-cutanée (Subsurface Scattering), la ligne de transition orange saturée au terminateur et les 3 zones chromatiques du visage.",
     artist: {
       name: "William Bouguereau & John Singer Sargent",
@@ -172,7 +172,7 @@ const COURSES_DESSIN_P2 = [
     domain: "Concept Art & Narration Visuelle",
     level: "Maîtrise",
     duration: "35 min",
-    image: "assets/planche_pedagogique_cadrage.jpg",
+    image: "assets/planche_pedagogique_composition_cinema.jpg",
     summary: "Mettre en scène une image mémorable : la règle d'or et des tiers, le cheminement du regard par les lignes directrices, le point focal indiscutable, la superposition des plans (avant-plan, plan moyen, arrière-plan) et le ratio cinématographique 2.39:1.",
     artist: {
       name: "Syd Mead & Roger Deakins",

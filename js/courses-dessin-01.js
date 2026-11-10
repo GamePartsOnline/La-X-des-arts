@@ -12,7 +12,7 @@ const COURSES_DESSIN_P1 = [
     domain: "Dessin d'Observation Fondamental",
     level: "Initiation Académique",
     duration: "25 min",
-    image: "assets/masterclass_sargent_portrait.jpg",
+    image: "assets/session_sargent_croquis.jpg",
     summary: "Les bases de l'atelier classique : lâcher prise du poignet, dessin au coude et à l'épaule, tenue du crayon en plumeau et méthode de visée comparative à l'échelle optique 1:1 (Sight-Size).",
     artist: {
       name: "Charles Bargue & Jean-Léon Gérôme",
@@ -92,7 +92,7 @@ const COURSES_DESSIN_P1 = [
     domain: "Théorie de la Valeur & Clairs-Obscurs",
     level: "Académique",
     duration: "30 min",
-    image: "assets/masterclass_sargent_portrait.jpg",
+    image: "assets/masterclass_sargent_methode_correction.jpg",
     summary: "Méthode des grands maîtres : simplifier la scène en un Notan binaire (ombre pure vs lumière pure), puis graduer l'échelle en 5 valeurs distinctes (rehaut, demi-teinte claire, demi-teinte sombre, ombre propre, occlusion).",
     artist: {
       name: "John Singer Sargent (1856 - 1925)",
@@ -132,7 +132,7 @@ const COURSES_DESSIN_P1 = [
     domain: "Rendu & Modulation des Transitions",
     level: "Académique",
     duration: "25 min",
-    image: "assets/planche_pedagogique_bords.jpg",
+    image: "assets/planche_pedagogique_edge_control.jpg",
     summary: "Le secret de la douceur et du focus visuel : différencier et orchestrer les 4 types de transitions (Sharp, Firm, Soft, Lost) pour guider le regard du spectateur sans rigidité ni mollesse.",
     artist: {
       name: "Diego Vélasquez & Anders Zorn",
@@ -172,7 +172,7 @@ const COURSES_DESSIN_P1 = [
     domain: "Morphologie & Portrait Académique",
     level: "Avancé",
     duration: "40 min",
-    image: "assets/masterclass_sargent_portrait.jpg",
+    image: "assets/portrait_classique_masterclass.jpg",
     summary: "Méthode académique du portrait : repères osseux fixes du crâne, méthode des plans d'Andrew Loomis et John Asaro, canons de proportions en tiers et modélisation des volumes faciaux sans dessin superficiel.",
     artist: {
       name: "Andrew Loomis & John Asaro",
