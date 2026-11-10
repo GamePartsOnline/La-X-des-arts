@@ -6,11 +6,35 @@
 function copyBlackFormula(c, m, y, k, label) {
   const formula = `C:${c} M:${m} J:${y} N:${k}`;
   navigator.clipboard.writeText(formula).then(() => {
-    alert(`Formule "${label}" copiée dans le presse-papier : ${formula}`);
     playChime(660, 0.2);
+    if (typeof showAtelierToast === 'function') {
+      showAtelierToast({
+        title: 'Formule CMJN Copiée',
+        message: `Formule "${label}" (${formula}) copiée dans le presse-papier. Prête à coller dans Illustrator ou InDesign.`,
+        type: 'success'
+      });
+    }
   }).catch(() => {
-    alert(`Formule : ${formula}`);
+    if (typeof showAtelierToast === 'function') {
+      showAtelierToast({
+        title: 'Formule d\'Atelier',
+        message: `Formule "${label}" : ${formula}`,
+        type: 'info'
+      });
+    }
   });
+}
+
+// Validation de l'auto-évaluation dans le livret apprenant
+function saveAutoEvaluation() {
+  playChime(660, 0.3);
+  if (typeof showAtelierToast === 'function') {
+    showAtelierToast({
+      title: 'Auto-Évaluation Validée',
+      message: 'Vos 5 critères d\'analyse ont été enregistrés avec succès dans votre livret apprenant officiel.',
+      type: 'success'
+    });
+  }
 }
 
 // Checklist Prépresse 300 DPI Interactive

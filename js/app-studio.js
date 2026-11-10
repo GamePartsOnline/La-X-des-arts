@@ -45,7 +45,16 @@ function toggleTimer() {
         isTimerRunning = false;
         if (btn) btn.textContent = 'Terminé';
         playChime(520, 0.6);
-        alert('Chrono écoulé ! Déposez maintenant votre étude pour correction.');
+        if (typeof showAtelierDialog === 'function') {
+          showAtelierDialog({
+            title: 'Chronomètre d\'Atelier Écoulé',
+            message: 'Le temps imparti pour cet exercice est arrivé à expiration. Munissez-vous de votre feuille de dessin physique pour déposer votre travail pour correction.',
+            confirmText: 'Accéder au Dépôt de Devoir',
+            cancelText: 'Poursuivre le Dessin',
+            type: 'primary',
+            onConfirm: () => showTab('cours')
+          });
+        }
       }
     }, 1000);
   }
@@ -217,7 +226,13 @@ async function startWebcamCapture() {
     if (webcamContainer) webcamContainer.classList.remove('hidden');
     if (emptyState) emptyState.classList.add('hidden');
   } catch (err) {
-    alert("Impossible d'accéder à la caméra : " + (err.message || 'Permission refusée. Vous pouvez utiliser le dépôt de photo.'));
+    if (typeof showAtelierToast === 'function') {
+      showAtelierToast({
+        title: 'Accès Caméra Restreint',
+        message: 'Impossible d\'activer la webcam en direct. Vous pouvez sélectionner directement la photo de votre feuille depuis vos fichiers.',
+        type: 'warning'
+      });
+    }
   }
 }
 
