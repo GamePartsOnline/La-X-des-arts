@@ -17,8 +17,8 @@ function showAtelierToast(opts) {
   const duration = opts.duration || 4500;
 
   const colorMap = {
-    success: { border: 'border-[#00f2c3]', bg: 'bg-[#00f2c3]/15', text: 'text-[#00f2c3]', icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>' },
-    primary: { border: 'border-[#e14eca]', bg: 'bg-[#e14eca]/15', text: 'text-[#e14eca]', icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>' },
+    success: { border: 'border-emerald-500', bg: 'bg-emerald-500/15', text: 'text-emerald-400', icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>' },
+    primary: { border: 'border-[#f8485e]', bg: 'bg-[#f8485e]/15', text: 'text-[#f8485e]', icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>' },
     warning: { border: 'border-[#ff8d72]', bg: 'bg-[#ff8d72]/15', text: 'text-[#ff8d72]', icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>' },
     danger: { border: 'border-[#fd5d93]', bg: 'bg-[#fd5d93]/15', text: 'text-[#fd5d93]', icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>' },
     info: { border: 'border-[#1d8cf8]', bg: 'bg-[#1d8cf8]/15', text: 'text-[#1d8cf8]', icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>' }
@@ -90,9 +90,9 @@ function showAtelierDialog(opts) {
   if (iconWrap && opts.type === 'warning') {
     iconWrap.className = 'w-12 h-12 rounded-2xl bg-[#ff8d72]/15 text-[#ff8d72] flex items-center justify-center shrink-0';
   } else if (iconWrap && opts.type === 'success') {
-    iconWrap.className = 'w-12 h-12 rounded-2xl bg-[#00f2c3]/15 text-[#00f2c3] flex items-center justify-center shrink-0';
+    iconWrap.className = 'w-12 h-12 rounded-2xl bg-emerald-500/15 text-emerald-400 flex items-center justify-center shrink-0';
   } else if (iconWrap) {
-    iconWrap.className = 'w-12 h-12 rounded-2xl bg-[#e14eca]/15 text-[#e14eca] flex items-center justify-center shrink-0';
+    iconWrap.className = 'w-12 h-12 rounded-2xl bg-[#f8485e]/15 text-[#f8485e] flex items-center justify-center shrink-0';
   }
 
   modal.classList.remove('hidden');
@@ -156,17 +156,17 @@ function renderCustomSessionDropdown() {
 
   menu.innerHTML = SESSIONS_DATA.map(sess => {
     const isSelected = currentSession && currentSession.id === sess.id;
-    const dotColor = sess.discipline === 'graphisme' ? 'bg-[#00f2c3]' : 'bg-[#e14eca]';
+    const dotColor = sess.discipline === 'graphisme' ? 'bg-[#3b82f6]' : 'bg-[#f8485e]';
     return `
       <div onclick="selectCustomSession('${sess.id}')" class="p-2.5 rounded-xl hover:bg-[#27293d] cursor-pointer flex items-center justify-between gap-2.5 transition-all group ${isSelected ? 'bg-[#27293d] border border-[#2b3553]' : ''}">
         <div class="flex items-center gap-2.5 min-w-0">
           <span class="w-2.5 h-2.5 rounded-full ${dotColor} shrink-0"></span>
           <div class="truncate">
-            <p class="text-xs font-bold text-white group-hover:text-[#00f2c3] truncate">${sess.title}</p>
+            <p class="text-xs font-bold text-white group-hover:text-[#f8485e] truncate">${sess.title}</p>
             <p class="text-[10px] text-slate-400">${sess.category} · ${sess.duration} min</p>
           </div>
         </div>
-        ${isSelected ? '<span class="text-xs font-bold text-[#00f2c3] shrink-0">✓</span>' : ''}
+        ${isSelected ? '<span class="text-xs font-bold text-emerald-400 shrink-0">✓</span>' : ''}
       </div>
     `;
   }).join('');
@@ -180,7 +180,7 @@ function selectCustomSession(id) {
   const label = document.getElementById('custom-session-label');
   const sess = typeof SESSIONS_DATA !== 'undefined' ? SESSIONS_DATA.find(s => s.id === id) : null;
   if (label && sess) {
-    const dotColor = sess.discipline === 'graphisme' ? 'bg-[#00f2c3]' : 'bg-[#e14eca]';
+    const dotColor = sess.discipline === 'graphisme' ? 'bg-[#3b82f6]' : 'bg-[#f8485e]';
     label.innerHTML = `
       <span class="w-2 h-2 rounded-full ${dotColor} shrink-0"></span>
       <span class="truncate">${sess.title}</span>

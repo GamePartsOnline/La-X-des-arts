@@ -22,7 +22,7 @@ function renderCourseSourceCard(course) {
   return `
     <div class="p-3 rounded-2xl bg-[#1a1c24] border border-[#2b3553] flex flex-wrap items-center justify-between gap-3 text-xs">
       <div class="flex items-center gap-2.5">
-        <span class="px-2 py-0.5 rounded bg-[#00f2c3]/15 text-[#00f2c3] font-mono text-[10px] font-bold uppercase tracking-wider">Référence Vérifiée</span>
+        <span class="px-2 py-0.5 rounded bg-blue-500/15 text-blue-400 font-mono text-[10px] font-bold uppercase tracking-wider">Référence Vérifiée</span>
         <span class="font-bold text-white">${label}</span>
       </div>
       <div class="text-[11px] text-slate-400 font-medium">
@@ -37,13 +37,13 @@ function renderPersonaNavigation() {
     <div class="p-2 rounded-2xl bg-[#1f2233] border border-[#2b3553] flex flex-wrap items-center justify-between gap-3">
       <div class="flex items-center gap-1.5">
         <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 px-2.5">Cadrage du cours :</span>
-        <button onclick="setCoursePersona('debutant')" class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${currentCoursePersona === 'debutant' ? 'bg-[#e14eca] text-white shadow-lg shadow-pink-500/25' : 'text-slate-300 hover:text-white hover:bg-[#27293d]'}">
+        <button onclick="setCoursePersona('debutant')" class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${currentCoursePersona === 'debutant' ? 'bg-[#f8485e] text-white shadow-lg shadow-[#f8485e]/25' : 'text-slate-300 hover:text-white hover:bg-[#1c1e26]'}">
           Débutant (L'Essentiel Visuel)
         </button>
-        <button onclick="setCoursePersona('avance')" class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${currentCoursePersona === 'avance' ? 'bg-[#00f2c3] text-[#131417] shadow-lg shadow-cyan-500/25' : 'text-slate-300 hover:text-white hover:bg-[#27293d]'}">
+        <button onclick="setCoursePersona('avance')" class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${currentCoursePersona === 'avance' ? 'bg-[#3b82f6] text-white shadow-lg shadow-blue-500/25' : 'text-slate-300 hover:text-white hover:bg-[#1c1e26]'}">
           Niveau Avancé (Atelier & Métriques)
         </button>
-        <button onclick="setCoursePersona('professeur')" class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${currentCoursePersona === 'professeur' ? 'bg-[#ba54f5] text-white shadow-lg shadow-purple-500/25' : 'text-slate-300 hover:text-white hover:bg-[#27293d]'}">
+        <button onclick="setCoursePersona('professeur')" class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${currentCoursePersona === 'professeur' ? 'bg-[#10b981] text-white shadow-lg shadow-emerald-500/25' : 'text-slate-300 hover:text-white hover:bg-[#1c1e26]'}">
           Professeur (Référentiel & Barème)
         </button>
       </div>
@@ -60,10 +60,10 @@ function renderDebutantView(course) {
   return `
     <div class="space-y-5">
       <!-- Règle d'or synthétique (1 phrase percutante) -->
-      <div class="p-4 rounded-2xl bg-gradient-to-r from-[#2a1b3d] to-[#1a1c24] border border-[#e14eca]/40 flex items-center gap-3">
-        <span class="w-2.5 h-2.5 rounded-full bg-[#e14eca] shrink-0 animate-pulse"></span>
+      <div class="p-4 rounded-2xl bg-[#15171c] border border-[#f8485e]/40 flex items-center gap-3">
+        <span class="w-2.5 h-2.5 rounded-full bg-[#f8485e] shrink-0 animate-pulse"></span>
         <p class="text-xs sm:text-sm font-semibold text-white leading-relaxed">
-          <strong class="text-[#e14eca] uppercase tracking-wider text-[11px] block">Règle d'Or Immédiate :</strong>
+          <strong class="text-[#f8485e] uppercase tracking-wider text-[11px] block">Règle d'Or Immédiate :</strong>
           ${course.artist?.quote || course.summary}
         </p>
       </div>
@@ -119,7 +119,7 @@ function renderAvanceView(course) {
       <div class="p-5 rounded-2xl bg-[#1f2233] border border-[#2b3553] space-y-3">
         <div class="flex items-center justify-between border-b border-[#2b3553] pb-2">
           <h4 class="font-serif font-bold text-white text-sm">Normes Techniques & Tolérances d'Atelier</h4>
-          <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-[#00f2c3]/20 text-[#00f2c3] font-bold">Tolérance Zéro Défaut</span>
+          <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-400 font-bold">Tolérance Zéro Défaut</span>
         </div>
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
           <div class="p-3 rounded-xl bg-[#27293d] border border-[#2b3553]/60">
@@ -128,7 +128,7 @@ function renderAvanceView(course) {
           </div>
           <div class="p-3 rounded-xl bg-[#27293d] border border-[#2b3553]/60">
             <p class="text-[10px] text-slate-400 uppercase font-mono">Résolution / Gamut</p>
-            <p class="text-sm font-extrabold text-[#00f2c3] mt-1">${isGraph ? '300 DPI / FOGRA39' : '5 Valeurs Notan'}</p>
+            <p class="text-sm font-extrabold text-emerald-400 mt-1">${isGraph ? '300 DPI / FOGRA39' : '5 Valeurs Notan'}</p>
           </div>
           <div class="p-3 rounded-xl bg-[#27293d] border border-[#2b3553]/60">
             <p class="text-[10px] text-slate-400 uppercase font-mono">Sécurité / Marge</p>
@@ -136,7 +136,7 @@ function renderAvanceView(course) {
           </div>
           <div class="p-3 rounded-xl bg-[#27293d] border border-[#2b3553]/60">
             <p class="text-[10px] text-slate-400 uppercase font-mono">Traçabilité / BAT</p>
-            <p class="text-sm font-extrabold text-[#e14eca] mt-1">${isGraph ? 'Version V01 / BAT' : 'Planche Scannée'}</p>
+            <p class="text-sm font-extrabold text-[#f8485e] mt-1">${isGraph ? 'Version V01 / BAT' : 'Planche Scannée'}</p>
           </div>
         </div>
       </div>
@@ -155,7 +155,7 @@ function renderAvanceView(course) {
 
       <!-- Exercice Avancé Cadré -->
       <div class="p-4 rounded-2xl bg-[#1f2233] border border-[#2b3553] space-y-2">
-        <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-cyan-500/20 text-[#00f2c3] uppercase">Consigne Atelier Pro</span>
+        <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-blue-500/15 text-blue-400 uppercase">Consigne Atelier Pro</span>
         <h4 class="font-serif font-bold text-white text-sm">${course.exercise?.title || 'Exercice Pratique'}</h4>
         <p class="text-xs text-slate-300 leading-relaxed">${course.exercise?.instructions || ''}</p>
       </div>
@@ -185,11 +185,11 @@ function renderProfesseurView(course) {
         <h5 class="text-xs font-bold text-white uppercase tracking-wider">Barème d'Évaluation sur 20 Points</h5>
         <div class="grid grid-cols-1 sm:grid-cols-4 gap-2 text-xs">
           <div class="p-2.5 rounded-xl bg-[#1f2233] border border-[#2b3553]">
-            <span class="text-[#e14eca] font-bold block">1. Respect du Cadrage (5 pts)</span>
+            <span class="text-[#f8485e] font-bold block">1. Respect du Cadrage (5 pts)</span>
             <span class="text-slate-400 text-[11px]">Prise en compte des consignes, proportions et contraintes du sujet.</span>
           </div>
           <div class="p-2.5 rounded-xl bg-[#1f2233] border border-[#2b3553]">
-            <span class="text-[#00f2c3] font-bold block">2. Maîtrise Technique (5 pts)</span>
+            <span class="text-emerald-400 font-bold block">2. Maîtrise Technique (5 pts)</span>
             <span class="text-slate-400 text-[11px]">Précision du trait, gestion des ancrages ou décomposition des valeurs.</span>
           </div>
           <div class="p-2.5 rounded-xl bg-[#1f2233] border border-[#2b3553]">

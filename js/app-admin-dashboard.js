@@ -61,40 +61,40 @@ function renderAdminDashboard() {
 
   container.innerHTML = `
     <div class="space-y-6">
-      <div class="p-6 rounded-3xl bg-[#1b1e24] border border-purple-500/40 shadow-xl flex flex-wrap items-center justify-between gap-4">
+      <div class="p-6 rounded-3xl bg-[#1b1e24] border border-[#23262f] shadow-xl flex flex-wrap items-center justify-between gap-4">
         <div>
           <div class="flex items-center gap-2">
-            <span class="w-2.5 h-2.5 rounded-full bg-purple-400 animate-pulse"></span>
-            <span class="text-[10px] font-mono font-bold uppercase tracking-wider text-purple-300">Supervision d'Atelier</span>
-            <span class="text-xs px-2.5 py-0.5 rounded-full bg-[#131417] text-slate-300 border border-[#2b3553]">Stagiaire : Sarah Martin</span>
+            <span class="w-2.5 h-2.5 rounded-full bg-[#f8485e] animate-pulse"></span>
+            <span class="text-[10px] font-mono font-bold uppercase tracking-wider text-[#f8485e]">Supervision d'Atelier</span>
+            <span class="text-xs px-2.5 py-0.5 rounded-full bg-[#131417] text-slate-300 border border-[#23262f]">Stagiaire : Sarah Martin</span>
           </div>
           <h2 class="font-serif text-2xl font-black text-white mt-1">Tableau de Bord Administrateur</h2>
           <p class="text-xs text-slate-300">Validez les leçons au fur et à mesure et arbitrez le passage en Semaine 2 (Design Graphique).</p>
         </div>
 
         <div class="flex items-center gap-3">
-          <button onclick="toggleGraphismeUnlockByAdmin()" class="px-5 py-2.5 rounded-xl font-bold text-xs transition-all flex items-center gap-2 shadow-lg ${isS2Unlocked ? 'bg-amber-600 hover:bg-amber-500 text-white' : 'bg-[#00f2c3] hover:bg-[#00d6ac] text-[#131417] shadow-cyan-500/25'}">
+          <button onclick="toggleGraphismeUnlockByAdmin()" class="px-5 py-2.5 rounded-xl font-bold text-xs transition-all flex items-center gap-2 shadow-lg ${isS2Unlocked ? 'bg-[#1c1e26] hover:bg-[#252834] text-amber-400 border border-amber-500/30' : 'bg-[#f8485e] hover:bg-[#e0374c] text-white shadow-lg shadow-[#f8485e]/25'}">
             <span>${isS2Unlocked ? 'Re-verrouiller la Semaine 2 (Graphisme)' : 'Valider le Niveau Sarah & Débloquer la Semaine 2'}</span>
           </button>
         </div>
       </div>
 
       <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-center">
-        <div class="p-4 rounded-2xl bg-[#1f2233] border border-[#2b3553]">
+        <div class="p-4 rounded-2xl bg-[#15171c] border border-[#23262f]">
           <span class="text-[10px] uppercase font-mono font-bold text-slate-400">Total Leçons</span>
           <p class="text-2xl font-black text-white mt-0.5">${total}</p>
         </div>
-        <div class="p-4 rounded-2xl bg-[#1f2233] border border-emerald-500/30">
+        <div class="p-4 rounded-2xl bg-[#15171c] border border-emerald-500/30">
           <span class="text-[10px] uppercase font-mono font-bold text-emerald-400">Validées par l'Admin</span>
           <p class="text-2xl font-black text-emerald-400 mt-0.5">${validees}</p>
         </div>
-        <div class="p-4 rounded-2xl bg-[#1f2233] border border-amber-500/30">
+        <div class="p-4 rounded-2xl bg-[#15171c] border border-amber-500/30">
           <span class="text-[10px] uppercase font-mono font-bold text-amber-300">À Valider</span>
           <p class="text-2xl font-black text-amber-300 mt-0.5">${enAttente}</p>
         </div>
-        <div class="p-4 rounded-2xl bg-[#1f2233] border border-rose-500/30">
+        <div class="p-4 rounded-2xl bg-[#15171c] border border-rose-500/30">
           <span class="text-[10px] uppercase font-mono font-bold text-rose-300">Accès Semaine 2</span>
-          <p class="text-sm font-black ${isS2Unlocked ? 'text-[#00f2c3]' : 'text-rose-400'} mt-1">
+          <p class="text-sm font-black ${isS2Unlocked ? 'text-emerald-400' : 'text-[#f8485e]'} mt-1">
             ${isS2Unlocked ? 'DÉBLOQUÉE' : 'VERROUILLÉE'}
           </p>
         </div>
@@ -104,7 +104,7 @@ function renderAdminDashboard() {
         <div class="flex items-center gap-2">
           <span class="text-xs font-bold text-white uppercase tracking-wider">Leçons de Stage :</span>
           <div class="flex items-center gap-1 bg-[#131417] p-1 rounded-xl border border-[#272b35] text-xs">
-            <button onclick="setAdminLessonFilter('all')" class="px-3 py-1 rounded-lg font-bold transition-all ${currentAdminFilter === 'all' ? 'bg-[#27293d] text-white shadow' : 'text-slate-400 hover:text-white'}">
+            <button onclick="setAdminLessonFilter('all')" class="px-3 py-1 rounded-lg font-bold transition-all ${currentAdminFilter === 'all' ? 'bg-[#23262f] text-white shadow' : 'text-slate-400 hover:text-white'}">
               Toutes (${total})
             </button>
             <button onclick="setAdminLessonFilter('en_attente')" class="px-3 py-1 rounded-lg font-bold transition-all ${currentAdminFilter === 'en_attente' ? 'bg-amber-500/30 text-amber-300 shadow' : 'text-slate-400 hover:text-white'}">
@@ -154,7 +154,7 @@ function renderAdminLessonsList() {
       <div class="p-5 rounded-2xl bg-[#1b1e24] border ${isAttente ? 'border-amber-500/50' : 'border-[#272b35]'} shadow-lg space-y-4">
         <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-3 border-b border-[#272b35] pb-3">
           <div class="flex items-center gap-3">
-            <span class="w-8 h-8 rounded-xl ${lesson.semaine === 1 ? 'bg-[#e14eca]/20 text-[#e14eca]' : 'bg-[#00f2c3]/20 text-[#00f2c3]'} font-mono font-black text-xs flex items-center justify-center shrink-0">
+            <span class="w-8 h-8 rounded-xl ${lesson.semaine === 1 ? 'bg-[#f8485e]/15 text-[#f8485e]' : 'bg-blue-500/15 text-blue-400'} font-mono font-black text-xs flex items-center justify-center shrink-0">
               ${lesson.num}
             </span>
             <div>
@@ -172,7 +172,7 @@ function renderAdminLessonsList() {
                 <span>Valider la Leçon ✓</span>
               </button>
             ` : `
-              <button onclick="adminRejectLesson('${lesson.id}', 'Reprise demandée pour ajuster les valeurs.')" class="px-3.5 py-2 rounded-xl bg-[#27293d] hover:bg-amber-900/40 text-amber-300 text-xs font-semibold transition-all border border-amber-500/30">
+              <button onclick="adminRejectLesson('${lesson.id}', 'Reprise demandée pour ajuster les valeurs.')" class="px-3.5 py-2 rounded-xl bg-[#23262f] hover:bg-amber-900/40 text-amber-300 text-xs font-semibold transition-all border border-amber-500/30">
                 Demander Correction ↺
               </button>
             `}
@@ -196,7 +196,7 @@ function renderAdminLessonsList() {
                 <span>Date validation : <strong class="text-slate-200">${lesson.dateValidation || 'En attente'}</strong></span>
               </div>
               <p class="text-slate-300 text-[11px]">
-                <strong class="text-purple-300">Avis du Tuteur :</strong> ${lesson.commentAdmin}
+                <strong class="text-[#f8485e]">Avis du Tuteur :</strong> ${lesson.commentAdmin}
               </p>
             </div>
           </div>

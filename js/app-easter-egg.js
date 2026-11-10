@@ -59,7 +59,7 @@ function launchNeonSparks() {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 
-  const colors = ['#e14eca', '#ba54f5', '#00f2c3', '#0098f0', '#ff8d72', '#ffffff'];
+  const colors = ['#f8485e', '#e0374c', '#10b981', '#3b82f6', '#f59e0b', '#ffffff'];
   const particles = [];
   const count = 90;
 

@@ -178,7 +178,7 @@ function updateSidebarGraphismeLockUI() {
       badge.className = 'text-[9px] font-mono font-bold px-1.5 py-0.5 rounded bg-rose-500/20 text-rose-300 border border-rose-500/30 flex items-center gap-1';
       badge.innerHTML = `<span>🔒</span><span>Semaine 2</span>`;
     } else {
-      badge.className = 'text-[9px] font-mono font-bold px-1.5 py-0.5 rounded bg-[#00f2c3]/20 text-[#00f2c3]';
+      badge.className = 'text-[9px] font-mono font-bold px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-400';
       badge.textContent = '16 cours';
     }
   }

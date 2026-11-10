@@ -94,7 +94,7 @@ function setTheme(theme) {
   const themeIndicator = document.getElementById('theme-indicator-dot');
   const themeLabel = document.getElementById('theme-btn-label');
   if (themeLabel) {
-    if (theme === 'schdesign') themeLabel.textContent = 'schdesign.hu (Coral)';
+    if (theme === 'schdesign') themeLabel.textContent = 'schdesign.hu';
     if (theme === 'black-dashboard') themeLabel.textContent = 'Black Dashboard';
     if (theme === 'obsidian') themeLabel.textContent = 'Obsidienne';
     if (theme === 'midnight') themeLabel.textContent = 'Minuit OLED';
@@ -110,8 +110,13 @@ function setTheme(theme) {
 }
 
 function initTheme() {
-  const saved = localStorage.getItem('croisee_theme') || 'schdesign';
-  setTheme(saved);
+  const saved = localStorage.getItem('croisee_theme');
+  // Bascule immédiate sur la charte schdesign.hu pour tout thème antérieur obsolète
+  if (!saved || saved === 'black-dashboard' || saved === 'midnight') {
+    setTheme('schdesign');
+  } else {
+    setTheme(saved);
+  }
 }
 
 // Sélecteur de portée pour le Graphique Black Dashboard (All / Dessin / Graphisme)
@@ -125,16 +130,16 @@ function switchChartScope(scope) {
   Object.entries(tabs).forEach(([key, btn]) => {
     if (!btn) return;
     if (key === scope) {
-      btn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-bold bg-gradient-to-r from-[#e14eca] to-[#ba54f5] text-white shadow-md shadow-pink-500/20 transition-all';
+      btn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-bold bg-[#f8485e] text-white shadow-md shadow-[#f8485e]/25 transition-all';
     } else {
       btn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition-all';
     }
   });
 
   const pinkArea = document.querySelector('svg path[fill="url(#chartGlowPink)"]');
-  const pinkLine = document.querySelector('svg path[stroke="#e14eca"]');
+  const pinkLine = document.querySelector('svg path[stroke="#f8485e"]');
   const cyanArea = document.querySelector('svg path[fill="url(#chartGlowCyan)"]');
-  const cyanLine = document.querySelector('svg path[stroke="#00f2c3"]');
+  const cyanLine = document.querySelector('svg path[stroke="#3b82f6"]');
 
   if (scope === 'dessin') {
     if (pinkArea) pinkArea.style.opacity = '1';

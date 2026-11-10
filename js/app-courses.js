@@ -33,11 +33,11 @@ function setSidebarFiliere(mode) {
   if (mode === 'dessin') {
     if (groupDessin) groupDessin.classList.remove('hidden');
     if (groupGraph) groupGraph.classList.add('hidden');
-    if (btnDessin) btnDessin.className = 'py-1 rounded-lg bg-[#e14eca] text-white shadow transition-all';
+    if (btnDessin) btnDessin.className = 'py-1 rounded-lg bg-[#f8485e] text-white shadow-md shadow-[#f8485e]/25 transition-all';
   } else if (mode === 'graphisme') {
     if (groupDessin) groupDessin.classList.add('hidden');
     if (groupGraph) groupGraph.classList.remove('hidden');
-    if (btnGraph) btnGraph.className = 'py-1 rounded-lg bg-[#00f2c3] text-[#131417] shadow transition-all';
+    if (btnGraph) btnGraph.className = 'py-1 rounded-lg bg-[#3b82f6] text-white shadow-md shadow-blue-500/25 transition-all';
   } else {
     if (groupDessin) groupDessin.classList.remove('hidden');
     if (groupGraph) groupGraph.classList.remove('hidden');
@@ -77,15 +77,15 @@ function updateSidebarActiveCourse() {
       btn.className = 'course-nav-btn w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-xs font-bold text-white bg-[#252836] border border-[#2b3553] shadow-sm transition-all group';
       if (badge) {
         badge.className = isBtnGraph
-          ? 'course-badge text-[10px] font-mono font-black px-1.5 py-0.5 rounded bg-[#00f2c3] text-[#131417] shadow shadow-cyan-500/40 shrink-0'
-          : 'course-badge text-[10px] font-mono font-black px-1.5 py-0.5 rounded bg-[#e14eca] text-white shadow shadow-pink-500/40 shrink-0';
+          ? 'course-badge text-[10px] font-mono font-black px-1.5 py-0.5 rounded bg-[#3b82f6] text-white shadow shadow-cyan-500/40 shrink-0'
+          : 'course-badge text-[10px] font-mono font-black px-1.5 py-0.5 rounded bg-[#f8485e] text-white shadow shadow-pink-500/40 shrink-0';
       }
       if (arrow) arrow.classList.replace('opacity-0', 'opacity-100');
     } else {
       btn.className = 'course-nav-btn w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-[#20242c] transition-all group';
       if (badge) {
         badge.className = isBtnGraph
-          ? 'course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-cyan-500/15 text-[#00f2c3] shrink-0'
+          ? 'course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-blue-500/15 text-blue-400 shrink-0'
           : 'course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-pink-500/15 text-pink-400 shrink-0';
       }
       if (arrow) arrow.classList.replace('opacity-100', 'opacity-0');
@@ -101,8 +101,8 @@ function renderCourses() {
 
   const isGraphDetail = currentCourse.discipline === 'graphisme';
   const badgeColor = isGraphDetail 
-    ? 'bg-[#00f2c3]/15 text-[#00f2c3] border border-[#00f2c3]/30' 
-    : 'bg-[#e14eca]/15 text-[#e14eca] border border-[#e14eca]/30';
+    ? 'bg-blue-500/15 text-blue-400 border border-blue-500/30' 
+    : 'bg-[#f8485e]/15 text-[#f8485e] border border-[#f8485e]/30';
   const discName = isGraphDetail ? 'Design Graphique & PAO' : 'Dessin Classique & Peinture';
 
   const currentIndex = COURSES_DATA.findIndex(c => c.id === currentCourse.id);
@@ -116,7 +116,7 @@ function renderCourses() {
         <div class="flex items-center gap-2 text-xs text-slate-400">
           <span class="cursor-pointer hover:text-white transition-colors" onclick="showTab('accueil')">Dashboard</span>
           <span>/</span>
-          <span class="font-semibold ${isGraphDetail ? 'text-[#00f2c3]' : 'text-[#e14eca]'}">${discName}</span>
+          <span class="font-semibold ${isGraphDetail ? 'text-blue-400' : 'text-[#f8485e]'}">${discName}</span>
           <span>/</span>
           <span class="font-bold text-white">${currentCourse.num}</span>
         </div>
@@ -191,23 +191,23 @@ function renderCourses() {
           <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
             <div class="p-3 rounded-xl bg-[#1f2233] border border-[#2b3553] text-center">
               <p class="text-[10px] text-slate-400 uppercase">Silhouette</p>
-              <p class="text-base font-extrabold text-[#e14eca] mt-0.5">${currentCourse.correction.grades.silhouette}/10</p>
+              <p class="text-base font-extrabold text-[#f8485e] mt-0.5">${currentCourse.correction.grades.silhouette}/10</p>
             </div>
             <div class="p-3 rounded-xl bg-[#1f2233] border border-[#2b3553] text-center">
               <p class="text-[10px] text-slate-400 uppercase">Structure</p>
-              <p class="text-base font-extrabold text-[#e14eca] mt-0.5">${currentCourse.correction.grades.structure}/10</p>
+              <p class="text-base font-extrabold text-[#f8485e] mt-0.5">${currentCourse.correction.grades.structure}/10</p>
             </div>
             <div class="p-3 rounded-xl bg-[#1f2233] border border-[#2b3553] text-center">
               <p class="text-[10px] text-slate-400 uppercase">Valeurs</p>
-              <p class="text-base font-extrabold text-[#e14eca] mt-0.5">${currentCourse.correction.grades.valeurs}/10</p>
+              <p class="text-base font-extrabold text-[#f8485e] mt-0.5">${currentCourse.correction.grades.valeurs}/10</p>
             </div>
             <div class="p-3 rounded-xl bg-[#1f2233] border border-[#2b3553] text-center">
               <p class="text-[10px] text-slate-400 uppercase">Bords</p>
-              <p class="text-base font-extrabold text-[#00f2c3] mt-0.5">${currentCourse.correction.grades.bords}/10</p>
+              <p class="text-base font-extrabold text-emerald-400 mt-0.5">${currentCourse.correction.grades.bords}/10</p>
             </div>
             <div class="p-3 rounded-xl bg-[#1f2233] border border-[#2b3553] text-center">
               <p class="text-[10px] text-slate-400 uppercase">Finition</p>
-              <p class="text-base font-extrabold text-[#00f2c3] mt-0.5">${currentCourse.correction.grades.couleur}/10</p>
+              <p class="text-base font-extrabold text-emerald-400 mt-0.5">${currentCourse.correction.grades.couleur}/10</p>
             </div>
           </div>
         </div>

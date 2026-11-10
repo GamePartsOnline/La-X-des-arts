@@ -35,7 +35,7 @@
               gold: '#d6a55b',
               goldLight: '#e6bf65',
               goldDark: '#cf9c36',
-              cyan: '#00f2c3',
+              cyan: '#3b82f6',
               muted: '#8f95a3'
             }
           }
@@ -44,150 +44,131 @@
     }
   </script>
   <style>
+    /* ============================================================ */
+    /* CHARTE GRAPHIQUE OFFICIELLE SCHDESIGN.HU                     */
+    /* Minimaliste, Sombre Mat, Accent Signature Corail #f8485e     */
+    /* ============================================================ */
+    :root, [data-theme="schdesign"] {
+      --bg-canvas: #0e0f12;
+      --bg-sidebar: #0e0f12;
+      --bg-card: #15171c;
+      --bg-card-hover: #1c1e26;
+      --border-main: #23262f;
+      --border-subtle: #1c1e24;
+      --text-main: #ffffff;
+      --text-muted: #94a3b8;
+      --accent-primary: #f8485e;
+      --accent-hover: #e0374c;
+      --accent-glow: rgba(248, 72, 94, 0.35);
+    }
+
     body {
-      background-color: #111216;
+      background-color: #0e0f12 !important;
       color: #ffffff;
-      font-family: 'Montserrat', 'Plus Jakarta Sans', sans-serif;
+      font-family: 'Montserrat', sans-serif;
       transition: background-color 0.25s ease, color 0.25s ease;
     }
-    .schdesign-pill-active {
-      background-color: #f8485e !important;
+
+    /* Typography & Code */
+    .font-mono, code, pre {
+      font-family: 'Roboto Mono', monospace;
+    }
+
+    /* Active Pills & schdesign Buttons */
+    .schdesign-pill-active,
+    .gold-pill-active,
+    .pill-active-black {
+      background: #f8485e !important;
       color: #ffffff !important;
-      box-shadow: 0 4px 18px 0px rgba(248, 72, 94, 0.45) !important;
+      box-shadow: 0 4px 14px rgba(248, 72, 94, 0.35) !important;
+      border: 1px solid #f8485e !important;
     }
-    .btn-schdesign {
-      background-color: #f8485e;
-      color: #ffffff;
-      font-weight: 700;
-      box-shadow: 0 4px 18px 0px rgba(248, 72, 94, 0.35);
-      transition: all 0.2s ease;
-    }
-    .btn-schdesign:hover {
-      background-color: #e0374c;
-      box-shadow: 0 6px 22px 0px rgba(248, 72, 94, 0.55);
-      transform: translateY(-1px);
-    }
-    .gold-gradient-text {
-      background: linear-gradient(135deg, #fceda8 0%, #d6a55b 50%, #99732b 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .gold-pill-active, .pill-active-black {
-      background: linear-gradient(to bottom right, #e14eca 0%, #ba54f5 100%) !important;
-      color: #ffffff !important;
-      box-shadow: 0 4px 18px 0px rgba(225, 78, 202, 0.4) !important;
-    }
+
+    .btn-schdesign,
     .btn-gradient-primary {
-      background: linear-gradient(to bottom right, #e14eca 0%, #ba54f5 100%);
-      color: #ffffff;
-      box-shadow: 0 4px 18px 0px rgba(225, 78, 202, 0.35);
-      transition: all 0.2s ease;
-    }
-    .btn-gradient-primary:hover {
-      box-shadow: 0 6px 22px 0px rgba(225, 78, 202, 0.55);
-      transform: translateY(-1px);
-    }
-    .btn-gradient-cyan {
-      background: linear-gradient(to bottom right, #00f2c3 0%, #0098f0 100%);
-      color: #1e1e2f;
-      font-weight: 800;
-      box-shadow: 0 4px 18px 0px rgba(0, 242, 195, 0.35);
-      transition: all 0.2s ease;
-    }
-    .btn-gradient-cyan:hover {
-      box-shadow: 0 6px 22px 0px rgba(0, 242, 195, 0.55);
-      transform: translateY(-1px);
-    }
-    .btn-gradient-orange {
-      background: linear-gradient(to bottom right, #ff8d72 0%, #ff6491 100%);
-      color: #ffffff;
-      box-shadow: 0 4px 18px 0px rgba(255, 141, 114, 0.35);
-      transition: all 0.2s ease;
-    }
-    .btn-gradient-orange:hover {
-      box-shadow: 0 6px 22px 0px rgba(255, 141, 114, 0.55);
-      transform: translateY(-1px);
-    }
-    .card-black {
-      background-color: #27293d;
-      border: 1px solid rgba(43, 53, 83, 0.55);
-      box-shadow: 0 1px 20px 0px rgba(0, 0, 0, 0.15);
-      border-radius: 0.85rem;
-    }
-    .card-category {
-      font-size: 0.7rem;
+      background: #f8485e !important;
+      color: #ffffff !important;
       font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: #9a9a9a;
+      box-shadow: 0 4px 14px rgba(248, 72, 94, 0.35) !important;
+      border: 1px solid #f8485e !important;
+      transition: all 0.2s ease;
     }
-    .card-title {
-      font-size: 1.35rem;
-      font-weight: 800;
-      color: #ffffff;
-      line-height: 1.25;
+
+    .btn-schdesign:hover,
+    .btn-gradient-primary:hover {
+      background: #e0374c !important;
+      box-shadow: 0 6px 20px rgba(248, 72, 94, 0.5) !important;
+      transform: translateY(-1px);
     }
-    .stopwatch-ring-glow {
-      filter: drop-shadow(0 0 12px rgba(0, 242, 195, 0.35)) drop-shadow(0 0 12px rgba(225, 78, 202, 0.35));
+
+    .btn-gradient-cyan {
+      background: #1c1e26 !important;
+      color: #ffffff !important;
+      font-weight: 700;
+      border: 1px solid #2b303e !important;
+      box-shadow: none !important;
+      transition: all 0.2s ease;
     }
-    /* Custom scrollbars */
+
+    .btn-gradient-cyan:hover {
+      background: #252834 !important;
+      border-color: #3b4254 !important;
+      transform: translateY(-1px);
+    }
+
+    .btn-gradient-orange {
+      background: #f8485e !important;
+      color: #ffffff !important;
+      box-shadow: 0 4px 14px rgba(248, 72, 94, 0.35) !important;
+    }
+
+    /* Surfaces schdesign.hu */
+    .card-black,
+    .bg-\[\#1b1e24\],
+    .bg-\[\#1f2233\],
+    .bg-\[\#27293d\] {
+      background-color: #15171c !important;
+      border-color: #23262f !important;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+    }
+
+    aside,
+    header,
+    .bg-\[\#181a1f\],
+    .bg-\[\#181a1f\]\/95,
+    .bg-\[\#131417\] {
+      background-color: #0e0f12 !important;
+      border-color: #23262f !important;
+    }
+
+    .border-\[\#272b35\],
+    .border-\[\#2b3553\] {
+      border-color: #23262f !important;
+    }
+
+    .hover\:bg-\[\#20242c\]:hover {
+      background-color: #1a1d24 !important;
+    }
+
+    /* Scrollbars Minimalistes */
     ::-webkit-scrollbar {
       width: 6px;
       height: 6px;
     }
     ::-webkit-scrollbar-track {
-      background: #1e1e2f;
+      background: #0e0f12;
     }
     ::-webkit-scrollbar-thumb {
-      background: #2b3553;
-      border-radius: 4px;
+      background: #23262f;
+      border-radius: 3px;
     }
     ::-webkit-scrollbar-thumb:hover {
-      background: #ba54f5;
+      background: #f8485e;
     }
 
     /* ============================================================ */
-    /* THEME SYSTEM (Creative Tim Black Dashboard, Obsidian, OLED)  */
+    /* THEMES SECONDAIRES ACCESSIBLES DANS LE SÉLECTEUR            */
     /* ============================================================ */
-
-    /* THEME DÉFAUT : CREATIVE TIM BLACK DASHBOARD */
-    :root, [data-theme="black-dashboard"] {
-      --bg-canvas: #1e1e2f;
-      --bg-sidebar: #1e1e2f;
-      --bg-card: #27293d;
-      --bg-card-hover: #2f334d;
-      --border-main: #2b3553;
-      --text-main: #ffffff;
-      --text-muted: #9a9a9a;
-      --accent-primary: #e14eca;
-    }
-
-    /* Mappages automatiques pour le template Black Dashboard */
-    body,
-    .bg-\[\#131417\] {
-      background-color: #1e1e2f !important;
-    }
-    aside,
-    header,
-    .bg-\[\#181a1f\],
-    .bg-\[\#181a1f\]\/95 {
-      background-color: #1e1e2f !important;
-    }
-    .bg-\[\#1b1e24\] {
-      background-color: #27293d !important;
-      box-shadow: 0 1px 20px 0px rgba(0, 0, 0, 0.12) !important;
-      border-color: rgba(43, 53, 83, 0.6) !important;
-    }
-    .hover\:bg-\[\#20242c\]:hover,
-    .bg-\[\#20242c\],
-    .bg-\[\#232730\] {
-      background-color: #1f2233 !important;
-    }
-    .border-\[\#272b35\] {
-      border-color: #2b3553 !important;
-    }
-
-    /* THEME 2 : OBSIDIAN ATELIER (Warm Dark & Or) */
     [data-theme="obsidian"] body,
     [data-theme="obsidian"] .bg-\[\#131417\] {
       background-color: #131417 !important;
@@ -198,47 +179,13 @@
     [data-theme="obsidian"] .bg-\[\#181a1f\]\/95 {
       background-color: #181a1f !important;
     }
-    [data-theme="obsidian"] .bg-\[\#1b1e24\] {
+    [data-theme="obsidian"] .card-black,
+    [data-theme="obsidian"] .bg-\[\#1b1e24\],
+    [data-theme="obsidian"] .bg-\[\#1f2233\] {
       background-color: #1b1e24 !important;
-    }
-    [data-theme="obsidian"] .hover\:bg-\[\#20242c\]:hover,
-    [data-theme="obsidian"] .bg-\[\#20242c\],
-    [data-theme="obsidian"] .bg-\[\#232730\] {
-      background-color: #232730 !important;
-    }
-    [data-theme="obsidian"] .border-\[\#272b35\] {
       border-color: #272b35 !important;
     }
-    [data-theme="obsidian"] .gold-pill-active {
-      background: linear-gradient(135deg, #e6bf65 0%, #cf9c36 100%) !important;
-      color: #131417 !important;
-      box-shadow: 0 4px 14px rgba(207, 156, 54, 0.25) !important;
-    }
 
-    /* THEME 3 : MIDNIGHT OLED (Noir absolu 0% reflet) */
-    [data-theme="midnight"] body,
-    [data-theme="midnight"] .bg-\[\#131417\] {
-      background-color: #060709 !important;
-    }
-    [data-theme="midnight"] aside,
-    [data-theme="midnight"] header,
-    [data-theme="midnight"] .bg-\[\#181a1f\],
-    [data-theme="midnight"] .bg-\[\#181a1f\]\/95 {
-      background-color: #0b0c10 !important;
-    }
-    [data-theme="midnight"] .bg-\[\#1b1e24\] {
-      background-color: #0f1117 !important;
-    }
-    [data-theme="midnight"] .hover\:bg-\[\#20242c\]:hover,
-    [data-theme="midnight"] .bg-\[\#20242c\],
-    [data-theme="midnight"] .bg-\[\#232730\] {
-      background-color: #161922 !important;
-    }
-    [data-theme="midnight"] .border-\[\#272b35\] {
-      border-color: #1c212b !important;
-    }
-
-    /* THEME 4 : ATELIER CLAIR PARCHEMIN (Papier d'art) */
     [data-theme="parchment"] body,
     [data-theme="parchment"] .bg-\[\#131417\] {
       background-color: #f6f4ee !important;
@@ -250,13 +197,14 @@
     [data-theme="parchment"] .bg-\[\#181a1f\]\/95 {
       background-color: #ece7de !important;
       color: #1e1b18 !important;
-    }
-    [data-theme="parchment"] .bg-\[\#1b1e24\] {
-      background-color: #ffffff !important;
-      box-shadow: 0 4px 20px -2px rgba(44, 38, 30, 0.05) !important;
-    }
-    [data-theme="parchment"] .border-\[\#272b35\] {
       border-color: #ded7cb !important;
+    }
+    [data-theme="parchment"] .card-black,
+    [data-theme="parchment"] .bg-\[\#1b1e24\],
+    [data-theme="parchment"] .bg-\[\#1f2233\] {
+      background-color: #ffffff !important;
+      border-color: #ded7cb !important;
+      box-shadow: 0 4px 20px -2px rgba(44, 38, 30, 0.05) !important;
     }
     [data-theme="parchment"] .text-white {
       color: #1c1917 !important;
@@ -278,14 +226,14 @@
     <div class="space-y-5">
       <!-- Brand Logo & Title (Black Dashboard Signature) -->
       <div class="cursor-pointer flex items-center gap-3 pb-3 border-b border-[#2b3553]/60" onclick="showTab('accueil')">
-        <div id="brand-logo-badge" onclick="handleLogoEasterEggClick(event)" class="w-10 h-10 rounded-xl bg-gradient-to-br from-[#e14eca] to-[#ba54f5] flex items-center justify-center font-black text-white text-base shadow-lg shadow-pink-500/25 shrink-0 select-none cursor-pointer hover:scale-105 active:scale-95 transition-transform" title="La Croisée des Arts">
+        <div id="brand-logo-badge" onclick="handleLogoEasterEggClick(event)" class="w-10 h-10 rounded-xl bg-[#f8485e] flex items-center justify-center font-black text-white text-base shadow-lg shadow-[#f8485e]/30 shrink-0 select-none cursor-pointer hover:scale-105 active:scale-95 transition-transform" title="La Croisée des Arts">
           CA
         </div>
         <div>
           <h1 class="font-serif font-black text-sm tracking-wider text-white leading-tight">
             LA CROISÉE DES ARTS
           </h1>
-          <p class="text-[9px] uppercase tracking-widest text-[#00f2c3] font-bold">
+          <p class="text-[9px] uppercase tracking-widest text-[#f8485e] font-bold">
             École Supérieure d'Art & PAO
           </p>
         </div>
@@ -306,7 +254,7 @@
         </button>
 
         <button onclick="showTab('cours')" id="sidebar-btn-cours" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-[#20242c] transition-all">
-          <svg class="w-4 h-4 text-[#e14eca]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+          <svg class="w-4 h-4 text-[#f8485e]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
           <span>Programme des Leçons</span>
         </button>
 
@@ -316,7 +264,7 @@
         </button>
 
         <button onclick="showTab('graphisme')" id="sidebar-btn-graphisme" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-[#20242c] transition-all">
-          <svg class="w-4 h-4 text-[#00f2c3]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>
+          <svg class="w-4 h-4 text-[#3b82f6]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>
           <span>Filière Graphisme (S2)</span>
         </button>
 
@@ -342,81 +290,81 @@
 
         <!-- Section 1 : Dessin d'Art (10 cours) -->
         <div id="sidebar-group-dessin" class="space-y-1">
-          <div onclick="toggleSidebarAccordion('dessin')" class="flex items-center justify-between px-2 py-1.5 rounded-lg text-xs font-bold text-[#e14eca] hover:bg-[#20242c] cursor-pointer select-none">
+          <div onclick="toggleSidebarAccordion('dessin')" class="flex items-center justify-between px-2 py-1.5 rounded-lg text-xs font-bold text-[#f8485e] hover:bg-[#20242c] cursor-pointer select-none">
             <span class="flex items-center gap-2">
               <svg id="chevron-dessin" class="w-3.5 h-3.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
               <span>Dessin d'Art</span>
             </span>
-            <span class="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded bg-[#e14eca]/20 text-[#e14eca]">10 cours</span>
+            <span class="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded bg-[#f8485e]/20 text-[#f8485e]">10 cours</span>
           </div>
 
           <div id="sidebar-list-dessin" class="space-y-0.5 pl-1">
             <button onclick="showTab('cours'); selectCourse('cours-d01-visuelle-trait');" class="course-nav-btn w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-[#20242c] transition-all group" data-course-id="cours-d01-visuelle-trait">
               <span class="flex items-center gap-2 min-w-0">
-                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-pink-500/15 text-pink-400 shrink-0">D-01</span>
+                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-pink-500/15 text-[#f8485e] shrink-0">D-01</span>
                 <span class="truncate">Visée & Trait</span>
               </span>
               <svg class="w-3.5 h-3.5 text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
             </button>
             <button onclick="showTab('cours'); selectCourse('cours-d02-geometrie-perspective');" class="course-nav-btn w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-[#20242c] transition-all group" data-course-id="cours-d02-geometrie-perspective">
               <span class="flex items-center gap-2 min-w-0">
-                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-pink-500/15 text-pink-400 shrink-0">D-02</span>
+                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-pink-500/15 text-[#f8485e] shrink-0">D-02</span>
                 <span class="truncate">Volumes & Perspective</span>
               </span>
               <svg class="w-3.5 h-3.5 text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
             </button>
             <button onclick="showTab('cours'); selectCourse('cours-d03-notan-valeurs');" class="course-nav-btn w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-[#20242c] transition-all group" data-course-id="cours-d03-notan-valeurs">
               <span class="flex items-center gap-2 min-w-0">
-                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-pink-500/15 text-pink-400 shrink-0">D-03</span>
+                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-pink-500/15 text-[#f8485e] shrink-0">D-03</span>
                 <span class="truncate">Ombre & Lumière</span>
               </span>
               <svg class="w-3.5 h-3.5 text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
             </button>
             <button onclick="showTab('cours'); selectCourse('cours-d04-modulation-bords');" class="course-nav-btn w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-[#20242c] transition-all group" data-course-id="cours-d04-modulation-bords">
               <span class="flex items-center gap-2 min-w-0">
-                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-pink-500/15 text-pink-400 shrink-0">D-04</span>
+                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-pink-500/15 text-[#f8485e] shrink-0">D-04</span>
                 <span class="truncate">Les 4 Bords</span>
               </span>
               <svg class="w-3.5 h-3.5 text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
             </button>
             <button onclick="showTab('cours'); selectCourse('cours-d05-anatomie-portrait');" class="course-nav-btn w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-[#20242c] transition-all group" data-course-id="cours-d05-anatomie-portrait">
               <span class="flex items-center gap-2 min-w-0">
-                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-pink-500/15 text-pink-400 shrink-0">D-05</span>
+                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-pink-500/15 text-[#f8485e] shrink-0">D-05</span>
                 <span class="truncate">Anatomie du Visage</span>
               </span>
               <svg class="w-3.5 h-3.5 text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
             </button>
             <button onclick="showTab('cours'); selectCourse('cours-d06-modele-vivant-dune');" class="course-nav-btn w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-[#20242c] transition-all group" data-course-id="cours-d06-modele-vivant-dune">
               <span class="flex items-center gap-2 min-w-0">
-                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-pink-500/15 text-pink-400 shrink-0">D-06</span>
+                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-pink-500/15 text-[#f8485e] shrink-0">D-06</span>
                 <span class="truncate">Modèle Vivant</span>
               </span>
               <svg class="w-3.5 h-3.5 text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
             </button>
             <button onclick="showTab('cours'); selectCourse('cours-d07-drapes-mecanique-plis');" class="course-nav-btn w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-[#20242c] transition-all group" data-course-id="cours-d07-drapes-mecanique-plis">
               <span class="flex items-center gap-2 min-w-0">
-                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-pink-500/15 text-pink-400 shrink-0">D-07</span>
+                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-pink-500/15 text-[#f8485e] shrink-0">D-07</span>
                 <span class="truncate">Drapés & Plis</span>
               </span>
               <svg class="w-3.5 h-3.5 text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
             </button>
             <button onclick="showTab('cours'); selectCourse('cours-d08-gamut-masking-harmonie');" class="course-nav-btn w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-[#20242c] transition-all group" data-course-id="cours-d08-gamut-masking-harmonie">
               <span class="flex items-center gap-2 min-w-0">
-                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-pink-500/15 text-pink-400 shrink-0">D-08</span>
+                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-pink-500/15 text-[#f8485e] shrink-0">D-08</span>
                 <span class="truncate">Harmonie des Couleurs</span>
               </span>
               <svg class="w-3.5 h-3.5 text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
             </button>
             <button onclick="showTab('cours'); selectCourse('cours-d09-rendu-peau-sss');" class="course-nav-btn w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-[#20242c] transition-all group" data-course-id="cours-d09-rendu-peau-sss">
               <span class="flex items-center gap-2 min-w-0">
-                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-pink-500/15 text-pink-400 shrink-0">D-09</span>
+                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-pink-500/15 text-[#f8485e] shrink-0">D-09</span>
                 <span class="truncate">Rendu de la Peau</span>
               </span>
               <svg class="w-3.5 h-3.5 text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
             </button>
             <button onclick="showTab('cours'); selectCourse('cours-d10-composition-cadrage-cinema');" class="course-nav-btn w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-[#20242c] transition-all group" data-course-id="cours-d10-composition-cadrage-cinema">
               <span class="flex items-center gap-2 min-w-0">
-                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-pink-500/15 text-pink-400 shrink-0">D-10</span>
+                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-pink-500/15 text-[#f8485e] shrink-0">D-10</span>
                 <span class="truncate">Cadrage & Composition</span>
               </span>
               <svg class="w-3.5 h-3.5 text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
@@ -426,123 +374,123 @@
 
         <!-- Section 2 : Design Graphique & PAO (16 cours) -->
         <div id="sidebar-group-graphisme" class="space-y-1">
-          <div onclick="toggleSidebarAccordion('graphisme')" class="flex items-center justify-between px-2 py-1.5 rounded-lg text-xs font-bold text-[#00f2c3] hover:bg-[#20242c] cursor-pointer select-none">
+          <div onclick="toggleSidebarAccordion('graphisme')" class="flex items-center justify-between px-2 py-1.5 rounded-lg text-xs font-bold text-[#3b82f6] hover:bg-[#20242c] cursor-pointer select-none">
             <span class="flex items-center gap-2">
               <svg id="chevron-graphisme" class="w-3.5 h-3.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
               <span>Design Graphique</span>
             </span>
-            <span class="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded bg-[#00f2c3]/20 text-[#00f2c3]">16 cours</span>
+            <span class="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded bg-[#3b82f6]/20 text-[#3b82f6]">16 cours</span>
           </div>
 
           <div id="sidebar-list-graphisme" class="space-y-0.5 pl-1">
             <button onclick="showTab('cours'); selectCourse('cours-g01-brief');" class="course-nav-btn w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-[#20242c] transition-all group" data-course-id="cours-g01-brief">
               <span class="flex items-center gap-2 min-w-0">
-                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-cyan-500/15 text-[#00f2c3] shrink-0">G-01</span>
+                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-cyan-500/15 text-[#3b82f6] shrink-0">G-01</span>
                 <span class="truncate">Analyse du Brief</span>
               </span>
               <svg class="w-3.5 h-3.5 text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
             </button>
             <button onclick="showTab('cours'); selectCourse('cours-g02-pistes');" class="course-nav-btn w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-[#20242c] transition-all group" data-course-id="cours-g02-pistes">
               <span class="flex items-center gap-2 min-w-0">
-                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-cyan-500/15 text-[#00f2c3] shrink-0">G-02</span>
+                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-cyan-500/15 text-[#3b82f6] shrink-0">G-02</span>
                 <span class="truncate">Moodboard & Pistes</span>
               </span>
               <svg class="w-3.5 h-3.5 text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
             </button>
             <button onclick="showTab('cours'); selectCourse('cours-g03-bitmap-vectoriel');" class="course-nav-btn w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-[#20242c] transition-all group" data-course-id="cours-g03-bitmap-vectoriel">
               <span class="flex items-center gap-2 min-w-0">
-                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-cyan-500/15 text-[#00f2c3] shrink-0">G-03</span>
+                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-cyan-500/15 text-[#3b82f6] shrink-0">G-03</span>
                 <span class="truncate">Image Vectorielle</span>
               </span>
               <svg class="w-3.5 h-3.5 text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
             </button>
             <button onclick="showTab('cours'); selectCourse('cours-g04-bezier');" class="course-nav-btn w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-[#20242c] transition-all group" data-course-id="cours-g04-bezier">
               <span class="flex items-center gap-2 min-w-0">
-                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-cyan-500/15 text-[#00f2c3] shrink-0">G-04</span>
+                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-cyan-500/15 text-[#3b82f6] shrink-0">G-04</span>
                 <span class="truncate">Courbes de Bézier</span>
               </span>
               <svg class="w-3.5 h-3.5 text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
             </button>
             <button onclick="showTab('cours'); selectCourse('cours-g05-pathfinder');" class="course-nav-btn w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-[#20242c] transition-all group" data-course-id="cours-g05-pathfinder">
               <span class="flex items-center gap-2 min-w-0">
-                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-cyan-500/15 text-[#00f2c3] shrink-0">G-05</span>
+                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-cyan-500/15 text-[#3b82f6] shrink-0">G-05</span>
                 <span class="truncate">Outils Booléens</span>
               </span>
               <svg class="w-3.5 h-3.5 text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
             </button>
             <button onclick="showTab('cours'); selectCourse('cours-g06-typo-anatomie');" class="course-nav-btn w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-[#20242c] transition-all group" data-course-id="cours-g06-typo-anatomie">
               <span class="flex items-center gap-2 min-w-0">
-                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-cyan-500/15 text-[#00f2c3] shrink-0">G-06</span>
+                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-cyan-500/15 text-[#3b82f6] shrink-0">G-06</span>
                 <span class="truncate">Typographie & Polices</span>
               </span>
               <svg class="w-3.5 h-3.5 text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
             </button>
             <button onclick="showTab('cours'); selectCourse('cours-g07-hierarchie-typo');" class="course-nav-btn w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-[#20242c] transition-all group" data-course-id="cours-g07-hierarchie-typo">
               <span class="flex items-center gap-2 min-w-0">
-                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-cyan-500/15 text-[#00f2c3] shrink-0">G-07</span>
+                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-cyan-500/15 text-[#3b82f6] shrink-0">G-07</span>
                 <span class="truncate">Hiérarchie Typo</span>
               </span>
               <svg class="w-3.5 h-3.5 text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
             </button>
             <button onclick="showTab('cours'); selectCourse('cours-g08-grilles-composition');" class="course-nav-btn w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-[#20242c] transition-all group" data-course-id="cours-g08-grilles-composition">
               <span class="flex items-center gap-2 min-w-0">
-                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-cyan-500/15 text-[#00f2c3] shrink-0">G-08</span>
+                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-cyan-500/15 text-[#3b82f6] shrink-0">G-08</span>
                 <span class="truncate">Grilles & Mise en Page</span>
               </span>
               <svg class="w-3.5 h-3.5 text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
             </button>
             <button onclick="showTab('cours'); selectCourse('cours-g09-colorimetrie-rvb-cmjn');" class="course-nav-btn w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-[#20242c] transition-all group" data-course-id="cours-g09-colorimetrie-rvb-cmjn">
               <span class="flex items-center gap-2 min-w-0">
-                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-cyan-500/15 text-[#00f2c3] shrink-0">G-09</span>
+                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-cyan-500/15 text-[#3b82f6] shrink-0">G-09</span>
                 <span class="truncate">Couleurs RVB & CMJN</span>
               </span>
               <svg class="w-3.5 h-3.5 text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
             </button>
             <button onclick="showTab('cours'); selectCourse('cours-g10-pantone-harmonie');" class="course-nav-btn w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-[#20242c] transition-all group" data-course-id="cours-g10-pantone-harmonie">
               <span class="flex items-center gap-2 min-w-0">
-                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-cyan-500/15 text-[#00f2c3] shrink-0">G-10</span>
+                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-cyan-500/15 text-[#3b82f6] shrink-0">G-10</span>
                 <span class="truncate">Nuancier Pantone</span>
               </span>
               <svg class="w-3.5 h-3.5 text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
             </button>
             <button onclick="showTab('cours'); selectCourse('cours-g11-logo-1bit');" class="course-nav-btn w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-[#20242c] transition-all group" data-course-id="cours-g11-logo-1bit">
               <span class="flex items-center gap-2 min-w-0">
-                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-cyan-500/15 text-[#00f2c3] shrink-0">G-11</span>
+                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-cyan-500/15 text-[#3b82f6] shrink-0">G-11</span>
                 <span class="truncate">Création de Logotype</span>
               </span>
               <svg class="w-3.5 h-3.5 text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
             </button>
             <button onclick="showTab('cours'); selectCourse('cours-g12-prepresse-300dpi');" class="course-nav-btn w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-[#20242c] transition-all group" data-course-id="cours-g12-prepresse-300dpi">
               <span class="flex items-center gap-2 min-w-0">
-                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-cyan-500/15 text-[#00f2c3] shrink-0">G-12</span>
+                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-cyan-500/15 text-[#3b82f6] shrink-0">G-12</span>
                 <span class="truncate">Normes Prépresse</span>
               </span>
               <svg class="w-3.5 h-3.5 text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
             </button>
             <button onclick="showTab('cours'); selectCourse('cours-g13-stickers-cutcontour');" class="course-nav-btn w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-[#20242c] transition-all group" data-course-id="cours-g13-stickers-cutcontour">
               <span class="flex items-center gap-2 min-w-0">
-                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-cyan-500/15 text-[#00f2c3] shrink-0">G-13</span>
+                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-cyan-500/15 text-[#3b82f6] shrink-0">G-13</span>
                 <span class="truncate">Stickers & Découpe</span>
               </span>
               <svg class="w-3.5 h-3.5 text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
             </button>
             <button onclick="showTab('cours'); selectCourse('cours-g14-pochoir-ponts');" class="course-nav-btn w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-[#20242c] transition-all group" data-course-id="cours-g14-pochoir-ponts">
               <span class="flex items-center gap-2 min-w-0">
-                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-cyan-500/15 text-[#00f2c3] shrink-0">G-14</span>
+                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-cyan-500/15 text-[#3b82f6] shrink-0">G-14</span>
                 <span class="truncate">Découpe Vinyle</span>
               </span>
               <svg class="w-3.5 h-3.5 text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
             </button>
             <button onclick="showTab('cours'); selectCourse('cours-g15-gabarit-arcade-1-1');" class="course-nav-btn w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-[#20242c] transition-all group" data-course-id="cours-g15-gabarit-arcade-1-1">
               <span class="flex items-center gap-2 min-w-0">
-                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-cyan-500/15 text-[#00f2c3] shrink-0">G-15</span>
+                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-cyan-500/15 text-[#3b82f6] shrink-0">G-15</span>
                 <span class="truncate">Gabarit Grand Format</span>
               </span>
               <svg class="w-3.5 h-3.5 text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
             </button>
             <button onclick="showTab('cours'); selectCourse('cours-g16-organisation-atelier-nommage');" class="course-nav-btn w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-[#20242c] transition-all group" data-course-id="cours-g16-organisation-atelier-nommage">
               <span class="flex items-center gap-2 min-w-0">
-                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-cyan-500/15 text-[#00f2c3] shrink-0">G-16</span>
+                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-cyan-500/15 text-[#3b82f6] shrink-0">G-16</span>
                 <span class="truncate">Organisation & BAT</span>
               </span>
               <svg class="w-3.5 h-3.5 text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
@@ -590,7 +538,7 @@
           <span>Techniques & Médiums</span>
         </button>
         <button id="btn-graphisme" onclick="showTab('graphisme')" class="nav-btn px-4 py-2 rounded-full text-xs font-bold text-[#8f95a3] hover:text-white transition-all flex items-center gap-1.5">
-          <span class="w-1.5 h-1.5 rounded-full bg-[#00f2c3]"></span>
+          <span class="w-1.5 h-1.5 rounded-full bg-[#3b82f6]"></span>
           <span>Design Graphique (S2)</span>
         </button>
         <button id="btn-galerie" onclick="showTab('galerie')" class="nav-btn px-4 py-2 rounded-full text-xs font-bold text-[#8f95a3] hover:text-white transition-all">
@@ -599,7 +547,7 @@
       </nav>
 
       <!-- Search Bar (Black Dashboard Style) -->
-      <div class="hidden xl:flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#1f2233] border border-[#2b3553] text-xs text-slate-300 w-60 focus-within:border-[#e14eca] transition-all">
+      <div class="hidden xl:flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#1f2233] border border-[#2b3553] text-xs text-slate-300 w-60 focus-within:border-[#f8485e] transition-all">
         <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
         <input type="text" placeholder="Rechercher un cours..." class="bg-transparent border-none text-xs text-white placeholder-slate-500 focus:outline-none w-full" />
       </div>
@@ -612,15 +560,15 @@
         <!-- Notification Bell (Black Dashboard Style) -->
         <button class="relative p-2 rounded-xl bg-[#1f2233] border border-[#2b3553] text-slate-300 hover:text-white transition-all" title="Notifications">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
-          <span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-[#e14eca] ring-2 ring-[#1e1e2f] animate-pulse"></span>
+          <span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-[#f8485e] ring-2 ring-[#1e1e2f] animate-pulse"></span>
         </button>
         <!-- Theme Mode Selector Popover Button -->
         <div class="relative" id="theme-selector-container">
-          <button id="theme-menu-btn" onclick="toggleThemeMenu()" class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#1f2233] border border-[#2b3553] hover:border-[#e14eca] transition-all text-xs font-semibold text-slate-200" title="Changer le thème d'affichage">
-            <span id="theme-btn-icon" class="text-pink-400">
+          <button id="theme-menu-btn" onclick="toggleThemeMenu()" class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#1f2233] border border-[#2b3553] hover:border-[#f8485e] transition-all text-xs font-semibold text-slate-200" title="Changer le thème d'affichage">
+            <span id="theme-btn-icon" class="text-[#f8485e]">
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
             </span>
-            <span id="theme-btn-label" class="hidden sm:inline text-[11px] font-bold">Black Dashboard</span>
+            <span id="theme-btn-label" class="hidden sm:inline text-[11px] font-bold">schdesign.hu</span>
             <svg class="w-3 h-3 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
           </button>
 
@@ -643,13 +591,13 @@
 
             <button onclick="setTheme('black-dashboard')" id="theme-opt-black-dashboard" class="w-full flex items-center justify-between p-2.5 rounded-xl text-left text-xs font-semibold hover:bg-[#27293d] transition-all group">
               <div class="flex items-center gap-2.5">
-                <span class="w-4 h-4 rounded-full bg-gradient-to-br from-[#e14eca] to-[#ba54f5] border border-pink-400 flex items-center justify-center text-[10px]"></span>
+                <span class="w-4 h-4 rounded-full bg-gradient-to-br from-[#f8485e] to-[#e0374c] border border-[#f8485e] flex items-center justify-center text-[10px]"></span>
                 <div>
-                  <p class="text-white group-hover:text-pink-400 transition-colors">Black Dashboard (Défaut)</p>
+                  <p class="text-white group-hover:text-[#f8485e] transition-colors">Black Dashboard (Défaut)</p>
                   <p class="text-[10px] text-slate-400">Creative Tim dark & néon vibrant</p>
                 </div>
               </div>
-              <span class="theme-check text-pink-400 font-bold">✓</span>
+              <span class="theme-check text-[#f8485e] font-bold">✓</span>
             </button>
             
             <button onclick="setTheme('obsidian')" id="theme-opt-obsidian" class="w-full flex items-center justify-between p-2.5 rounded-xl text-left text-xs font-semibold hover:bg-[#27293d] transition-all group">
@@ -724,7 +672,7 @@
           <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#2b3553]/60 pb-4">
             <div class="space-y-1">
               <span class="card-category flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-[#00f2c3] animate-pulse"></span>
+                <span class="w-2 h-2 rounded-full bg-[#3b82f6] animate-pulse"></span>
                 PERFORMANCE ACADÉMIQUE · PROMOTION 2026
               </span>
               <h2 class="card-title">
@@ -737,7 +685,7 @@
 
             <!-- Chart Switcher Tabs (Creative Tim signature) -->
             <div class="inline-flex p-1 rounded-xl bg-[#1f2233] border border-[#2b3553] self-start md:self-auto shrink-0">
-              <button id="chart-tab-all" onclick="switchChartScope('all')" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-gradient-to-r from-[#e14eca] to-[#ba54f5] text-white shadow-md shadow-pink-500/20 transition-all">
+              <button id="chart-tab-all" onclick="switchChartScope('all')" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-gradient-to-r from-[#f8485e] to-[#e0374c] text-white shadow-md shadow-[#f8485e]/20 transition-all">
                 Tous les Cursus
               </button>
               <button id="chart-tab-dessin" onclick="switchChartScope('dessin')" class="px-3.5 py-1.5 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition-all">
@@ -756,14 +704,14 @@
                 <defs>
                   <!-- Neon Pink/Purple Gradient Fill -->
                   <linearGradient id="chartGlowPink" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stop-color="#e14eca" stop-opacity="0.45" />
-                    <stop offset="60%" stop-color="#ba54f5" stop-opacity="0.12" />
+                    <stop offset="0%" stop-color="#f8485e" stop-opacity="0.45" />
+                    <stop offset="60%" stop-color="#e0374c" stop-opacity="0.12" />
                     <stop offset="100%" stop-color="#1e1e2f" stop-opacity="0.0" />
                   </linearGradient>
                   <!-- Neon Cyan Gradient Fill -->
                   <linearGradient id="chartGlowCyan" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stop-color="#00f2c3" stop-opacity="0.35" />
-                    <stop offset="70%" stop-color="#0098f0" stop-opacity="0.08" />
+                    <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.35" />
+                    <stop offset="70%" stop-color="#3b82f6" stop-opacity="0.08" />
                     <stop offset="100%" stop-color="#1e1e2f" stop-opacity="0.0" />
                   </linearGradient>
                 </defs>
@@ -778,23 +726,23 @@
                 <!-- Area Fill Pink (Dessin & Synthèse) -->
                 <path d="M 50 230 Q 150 180, 240 140 T 430 110 T 620 60 T 800 40 L 800 230 Z" fill="url(#chartGlowPink)" />
                 <!-- Line Pink -->
-                <path d="M 50 230 Q 150 180, 240 140 T 430 110 T 620 60 T 800 40" fill="none" stroke="#e14eca" stroke-width="3" stroke-linecap="round" />
+                <path d="M 50 230 Q 150 180, 240 140 T 430 110 T 620 60 T 800 40" fill="none" stroke="#f8485e" stroke-width="3" stroke-linecap="round" />
 
                 <!-- Area Fill Cyan (Graphisme & Prépresse) -->
                 <path d="M 50 230 Q 160 210, 260 170 T 450 130 T 640 100 T 800 75 L 800 230 Z" fill="url(#chartGlowCyan)" />
                 <!-- Line Cyan -->
-                <path d="M 50 230 Q 160 210, 260 170 T 450 130 T 640 100 T 800 75" fill="none" stroke="#00f2c3" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="4 4" />
+                <path d="M 50 230 Q 160 210, 260 170 T 450 130 T 640 100 T 800 75" fill="none" stroke="#3b82f6" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="4 4" />
 
                 <!-- Dots with glowing halos -->
-                <circle cx="240" cy="140" r="4.5" fill="#e14eca" stroke="#ffffff" stroke-width="2" />
-                <circle cx="430" cy="110" r="4.5" fill="#e14eca" stroke="#ffffff" stroke-width="2" />
-                <circle cx="620" cy="60" r="5" fill="#e14eca" stroke="#ffffff" stroke-width="2.5" />
-                <circle cx="800" cy="40" r="6" fill="#ba54f5" stroke="#ffffff" stroke-width="3" />
+                <circle cx="240" cy="140" r="4.5" fill="#f8485e" stroke="#ffffff" stroke-width="2" />
+                <circle cx="430" cy="110" r="4.5" fill="#f8485e" stroke="#ffffff" stroke-width="2" />
+                <circle cx="620" cy="60" r="5" fill="#f8485e" stroke="#ffffff" stroke-width="2.5" />
+                <circle cx="800" cy="40" r="6" fill="#e0374c" stroke="#ffffff" stroke-width="3" />
 
-                <circle cx="260" cy="170" r="4" fill="#00f2c3" stroke="#ffffff" stroke-width="1.5" />
-                <circle cx="450" cy="130" r="4" fill="#00f2c3" stroke="#ffffff" stroke-width="1.5" />
-                <circle cx="640" cy="100" r="4" fill="#00f2c3" stroke="#ffffff" stroke-width="1.5" />
-                <circle cx="800" cy="75" r="5" fill="#00f2c3" stroke="#ffffff" stroke-width="2" />
+                <circle cx="260" cy="170" r="4" fill="#3b82f6" stroke="#ffffff" stroke-width="1.5" />
+                <circle cx="450" cy="130" r="4" fill="#3b82f6" stroke="#ffffff" stroke-width="1.5" />
+                <circle cx="640" cy="100" r="4" fill="#3b82f6" stroke="#ffffff" stroke-width="1.5" />
+                <circle cx="800" cy="75" r="5" fill="#3b82f6" stroke="#ffffff" stroke-width="2" />
 
                 <!-- Month labels -->
                 <text x="50" y="250" fill="#9a9a9a" font-size="11" font-family="sans-serif">Jan</text>
@@ -805,16 +753,16 @@
                 <text x="525" y="250" fill="#9a9a9a" font-size="11" font-family="sans-serif">Juin</text>
                 <text x="620" y="250" fill="#9a9a9a" font-size="11" font-family="sans-serif">Juil</text>
                 <text x="715" y="250" fill="#9a9a9a" font-size="11" font-family="sans-serif">Sep</text>
-                <text x="800" y="250" fill="#e14eca" font-weight="bold" font-size="11" font-family="sans-serif">Oct</text>
+                <text x="800" y="250" fill="#f8485e" font-weight="bold" font-size="11" font-family="sans-serif">Oct</text>
               </svg>
             </div>
             <div class="flex flex-wrap items-center justify-between text-xs text-slate-400 pt-2 border-t border-[#2b3553]/40">
               <div class="flex items-center gap-4">
                 <span class="flex items-center gap-1.5 text-xs text-slate-300">
-                  <span class="w-3 h-1 rounded-full bg-[#e14eca]"></span> Dessin d'Art (Visée & Anatomie)
+                  <span class="w-3 h-1 rounded-full bg-[#f8485e]"></span> Dessin d'Art (Visée & Anatomie)
                 </span>
                 <span class="flex items-center gap-1.5 text-xs text-slate-300">
-                  <span class="w-3 h-1 rounded-full bg-[#00f2c3]"></span> Design Graphique (Bézier & Prépresse)
+                  <span class="w-3 h-1 rounded-full bg-[#3b82f6]"></span> Design Graphique (Bézier & Prépresse)
                 </span>
               </div>
               <span class="text-[11px] text-emerald-400 font-semibold font-mono">
@@ -827,25 +775,25 @@
         <!-- CREATIVE TIM 4 MINI STAT CARDS IN 4-COL GRID -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <!-- Stat 1 : Modules Normés -->
-          <div class="card-black p-4 flex items-center justify-between group hover:border-[#00f2c3]/60 transition-all">
+          <div class="card-black p-4 flex items-center justify-between group hover:border-[#3b82f6]/60 transition-all">
             <div class="space-y-1">
-              <span class="card-category text-[#00f2c3]">CURRICULUM ATELIER</span>
+              <span class="card-category text-[#3b82f6]">CURRICULUM ATELIER</span>
               <h3 class="text-2xl font-black text-white">26 Cours</h3>
               <p class="text-[11px] text-slate-400">10 Dessin · 16 Graphisme</p>
             </div>
-            <div class="w-12 h-12 rounded-2xl bg-[#00f2c3]/10 border border-[#00f2c3]/30 flex items-center justify-center text-[#00f2c3]">
+            <div class="w-12 h-12 rounded-2xl bg-[#3b82f6]/10 border border-[#3b82f6]/30 flex items-center justify-center text-[#3b82f6]">
               <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
             </div>
           </div>
 
           <!-- Stat 2 : Modalité Hors-Écran -->
-          <div class="card-black p-4 flex items-center justify-between group hover:border-[#e14eca]/60 transition-all">
+          <div class="card-black p-4 flex items-center justify-between group hover:border-[#f8485e]/60 transition-all">
             <div class="space-y-1">
-              <span class="card-category text-[#e14eca]">TRAVAIL D'ATELIER</span>
+              <span class="card-category text-[#f8485e]">TRAVAIL D'ATELIER</span>
               <h3 class="text-2xl font-black text-white">100% Réel</h3>
               <p class="text-[11px] text-slate-400">Papier Canson & Vectoriel</p>
             </div>
-            <div class="w-12 h-12 rounded-2xl bg-[#e14eca]/10 border border-[#e14eca]/30 flex items-center justify-center text-[#e14eca]">
+            <div class="w-12 h-12 rounded-2xl bg-[#f8485e]/10 border border-[#f8485e]/30 flex items-center justify-center text-[#f8485e]">
               <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
             </div>
           </div>
@@ -878,16 +826,16 @@
         <!-- DUAL CURRICULUM LAUNCHERS : DESSIN & GRAPHISME -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <!-- Carte Filière Dessin -->
-          <div class="card-black p-5 lg:p-6 flex flex-col justify-between space-y-4 group hover:border-[#e14eca]/60 transition-all">
+          <div class="card-black p-5 lg:p-6 flex flex-col justify-between space-y-4 group hover:border-[#f8485e]/60 transition-all">
             <div class="space-y-2">
               <div class="flex items-center justify-between">
-                <span class="card-category text-[#e14eca] flex items-center gap-1.5">
-                  <span class="w-2 h-2 rounded-full bg-[#e14eca]"></span>
+                <span class="card-category text-[#f8485e] flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full bg-[#f8485e]"></span>
                   FILIÈRE A · DESSIN CLASSIQUE & PEINTURE
                 </span>
-                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-[#e14eca]/10 text-[#e14eca]">4 Paliers</span>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-[#f8485e]/10 text-[#f8485e]">4 Paliers</span>
               </div>
-              <h3 class="text-lg font-bold text-white group-hover:text-[#ba54f5] transition-colors">
+              <h3 class="text-lg font-bold text-white group-hover:text-[#e0374c] transition-colors">
                 De la Visée d'Observation au Cadrage Cinéma
               </h3>
               <p class="text-xs text-slate-300 leading-relaxed">
@@ -906,16 +854,16 @@
           </div>
 
           <!-- Carte Filière Graphisme -->
-          <div class="card-black p-5 lg:p-6 flex flex-col justify-between space-y-4 group hover:border-[#00f2c3]/60 transition-all">
+          <div class="card-black p-5 lg:p-6 flex flex-col justify-between space-y-4 group hover:border-[#3b82f6]/60 transition-all">
             <div class="space-y-2">
               <div class="flex items-center justify-between">
-                <span class="card-category text-[#00f2c3] flex items-center gap-1.5">
-                  <span class="w-2 h-2 rounded-full bg-[#00f2c3]"></span>
+                <span class="card-category text-[#3b82f6] flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full bg-[#3b82f6]"></span>
                   FILIÈRE B · DESIGN GRAPHIQUE & PRÉPRESSE
                 </span>
-                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-[#00f2c3]/10 text-[#00f2c3]">6 Blocs RPIP</span>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-[#3b82f6]/10 text-[#3b82f6]">6 Blocs RPIP</span>
               </div>
-              <h3 class="text-lg font-bold text-white group-hover:text-[#00f2c3] transition-colors">
+              <h3 class="text-lg font-bold text-white group-hover:text-[#3b82f6] transition-colors">
                 Du Diagnostic de Brief au Gabarit Borne d'Arcade 1:1
               </h3>
               <p class="text-xs text-slate-300 leading-relaxed">
@@ -961,13 +909,13 @@
             </div>
 
             <!-- Carte 2 : G-01 Analyse du Brief -->
-            <div class="p-4 rounded-2xl bg-[#1b1e24] border border-[#272b35] hover:border-[#00e1d9] transition-all flex flex-col justify-between cursor-pointer group" onclick="showTab('cours'); selectCourse('cours-g01-brief');">
+            <div class="p-4 rounded-2xl bg-[#1b1e24] border border-[#272b35] hover:border-[#f8485e] transition-all flex flex-col justify-between cursor-pointer group" onclick="showTab('cours'); selectCourse('cours-g01-brief');">
               <div class="space-y-2">
-                <span class="text-[9px] font-bold px-2 py-0.5 rounded bg-[#00e1d9]/20 text-[#00e1d9] uppercase">Graphisme · G-01</span>
-                <h4 class="font-bold text-sm text-white group-hover:text-[#00e1d9] transition-colors">Analyse du Brief</h4>
+                <span class="text-[9px] font-bold px-2 py-0.5 rounded bg-[#f8485e]/20 text-[#f8485e] uppercase">Graphisme · G-01</span>
+                <h4 class="font-bold text-sm text-white group-hover:text-[#f8485e] transition-colors">Analyse du Brief</h4>
                 <p class="text-[11px] text-slate-400 leading-relaxed">Poser les 6 questions indispensables face à un client vague avant tout croquis.</p>
               </div>
-              <span class="text-xs font-bold text-[#00e1d9] mt-3 flex items-center justify-between pt-2 border-t border-[#272b35]">
+              <span class="text-xs font-bold text-[#f8485e] mt-3 flex items-center justify-between pt-2 border-t border-[#272b35]">
                 <span>Accéder au cours</span>
                 <span>→</span>
               </span>
@@ -1011,7 +959,7 @@
                 <div>
                   <div class="flex items-center gap-2">
                     <span class="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-mono text-[10px] font-bold uppercase tracking-wider">Immersion Atelier · Débutante Absolue</span>
-                    <span class="px-2.5 py-0.5 rounded-full bg-[#e14eca]/20 text-pink-300 font-mono text-[10px] font-bold">Semaine 1 sur 2</span>
+                    <span class="px-2.5 py-0.5 rounded-full bg-[#f8485e]/20 text-slate-300 font-mono text-[10px] font-bold">Semaine 1 sur 2</span>
                   </div>
                   <h3 class="font-serif text-2xl font-black text-white mt-1">Parcours d'Apprentissage : Sarah Martin</h3>
                   <p class="text-xs text-slate-300">Aucun prérequis requis. Entraînement direct au trait, à la perspective et aux valeurs d'ombre sur papier.</p>
@@ -1019,7 +967,7 @@
               </div>
 
               <div class="flex items-center gap-2">
-                <button onclick="showTab('cours'); selectCourse('cours-d01-visuelle-trait');" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#e14eca] to-[#ba54f5] text-white text-xs font-black shadow-lg shadow-pink-500/25 hover:scale-[1.02] transition-transform">
+                <button onclick="showTab('cours'); selectCourse('cours-d01-visuelle-trait');" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#f8485e] to-[#e0374c] text-white text-xs font-black shadow-lg shadow-[#f8485e]/25 hover:scale-[1.02] transition-transform">
                   Démarrer le Cours D-01 (Visée & Trait) →
                 </button>
               </div>
@@ -1028,9 +976,9 @@
             <!-- Calendrier Séquencé 2 Semaines -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
               <!-- Semaine 1 : Dessin d'Art (Active) -->
-              <div class="p-5 rounded-2xl bg-[#1f2233] border-2 border-[#e14eca]/60 space-y-3 relative overflow-hidden">
+              <div class="p-5 rounded-2xl bg-[#1f2233] border-2 border-[#f8485e]/60 space-y-3 relative overflow-hidden">
                 <div class="flex items-center justify-between">
-                  <span class="px-2.5 py-1 rounded-lg bg-[#e14eca]/20 text-[#e14eca] font-mono text-[11px] font-black uppercase">SEMAINE 1 · EN COURS</span>
+                  <span class="px-2.5 py-1 rounded-lg bg-[#f8485e]/20 text-[#f8485e] font-mono text-[11px] font-black uppercase">SEMAINE 1 · EN COURS</span>
                   <span class="text-xs font-bold text-emerald-400 flex items-center gap-1">
                     <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
                     Section Active
@@ -1042,7 +990,7 @@
                 </p>
                 <div class="pt-2 flex items-center justify-between text-xs">
                   <span class="text-slate-400">Progression : 10 cours ouverts</span>
-                  <button onclick="showTab('cours'); setDisciplineFilter('dessin');" class="text-[#e14eca] font-bold hover:underline">Voir les 10 fiches de dessin →</button>
+                  <button onclick="showTab('cours'); setDisciplineFilter('dessin');" class="text-[#f8485e] font-bold hover:underline">Voir les 10 fiches de dessin →</button>
                 </div>
               </div>
 
@@ -1082,7 +1030,7 @@
 
               <!-- Action Bouton Validation Déblocage -->
               <div class="flex items-center gap-3">
-                <button onclick="toggleGraphismeUnlockByAdmin()" class="px-5 py-2.5 rounded-xl font-bold text-xs transition-all flex items-center gap-2 shadow-lg ${isGraphismeUnlocked ? 'bg-amber-600 hover:bg-amber-500 text-white' : 'bg-[#00f2c3] hover:bg-[#00d6ac] text-[#131417] shadow-cyan-500/25'}">
+                <button onclick="toggleGraphismeUnlockByAdmin()" class="px-5 py-2.5 rounded-xl font-bold text-xs transition-all flex items-center gap-2 shadow-lg ${isGraphismeUnlocked ? 'bg-[#1c1e26] hover:bg-[#252834] text-amber-400 border border-amber-500/30' : 'bg-[#f8485e] hover:bg-[#e0374c] text-white shadow-lg shadow-[#f8485e]/25'}">
                   <span>${isGraphismeUnlocked ? 'Re-verrouiller la Section Graphisme' : 'Valider le Niveau & Débloquer le Graphisme'}</span>
                 </button>
               </div>
@@ -1098,7 +1046,7 @@
 
               <div class="p-4 rounded-2xl bg-[#1f2233] border border-[#2b3553] space-y-2">
                 <span class="text-[10px] font-mono font-bold text-slate-400 uppercase">2. État du Cursus Graphisme</span>
-                <p class="text-sm font-bold ${isGraphismeUnlocked ? 'text-[#00f2c3]' : 'text-rose-400'}">
+                <p class="text-sm font-bold ${isGraphismeUnlocked ? 'text-[#3b82f6]' : 'text-rose-400'}">
                   ${isGraphismeUnlocked ? 'Débloqué (Niveau Validé)' : 'Verrouillé (Semaine 1 en cours)'}
                 </p>
                 <p class="text-slate-400 text-[11px]">Le tuteur décide souverainement quand la stagiaire est prête à attaquer Bézier et la PAO.</p>
@@ -1132,9 +1080,6 @@
               </p>
             </div>
 
-          </div>
-        </div>
-
         <!-- BOTTOM SECTION : GALERIE DE SOUMISSIONS ÉTUDIANTS -->
         <section class="space-y-4 pt-2">
           <div class="flex items-center justify-between">
@@ -1161,7 +1106,7 @@
                 <p class="text-[11px] text-slate-400 truncate">Portrait Éclairé</p>
                 <div class="flex items-center justify-between pt-1">
                   <span class="text-[10px] text-[#8f95a3]">Critique</span>
-                  <span class="text-xs font-bold text-[#00e1d9] flex items-center gap-0.5">★ 8.8/10</span>
+                  <span class="text-xs font-bold text-[#f8485e] flex items-center gap-0.5">★ 8.8/10</span>
                 </div>
               </div>
             </div>
@@ -1175,8 +1120,8 @@
                 <p class="text-xs font-bold text-white truncate">Paul Dubois</p>
                 <p class="text-[11px] text-slate-400 truncate">Portrait Éclairé</p>
                 <div class="flex items-center justify-between pt-1">
-                  <span class="text-xs text-[#00e1d9]">★★★★★</span>
-                  <span class="text-xs font-bold text-[#00e1d9]">9.2/10</span>
+                  <span class="text-xs text-[#f8485e]">★★★★★</span>
+                  <span class="text-xs font-bold text-[#f8485e]">9.2/10</span>
                 </div>
               </div>
             </div>
@@ -1191,7 +1136,7 @@
                 <p class="text-[11px] text-slate-400 truncate">Écorché Musculaire</p>
                 <div class="flex items-center justify-between pt-1">
                   <span class="text-[10px] text-[#8f95a3]">Critique</span>
-                  <span class="text-xs font-bold text-[#00e1d9] flex items-center gap-0.5">★ 8.5/10</span>
+                  <span class="text-xs font-bold text-[#f8485e] flex items-center gap-0.5">★ 8.5/10</span>
                 </div>
               </div>
             </div>
@@ -1206,7 +1151,7 @@
                 <p class="text-[11px] text-slate-400 truncate">Portrait au Fusain</p>
                 <div class="flex items-center justify-between pt-1">
                   <span class="text-[10px] text-[#8f95a3]">Critique</span>
-                  <span class="text-xs font-bold text-[#00e1d9] flex items-center gap-0.5">★ 9.2/10</span>
+                  <span class="text-xs font-bold text-[#f8485e] flex items-center gap-0.5">★ 9.2/10</span>
                 </div>
               </div>
             </div>
@@ -1220,8 +1165,8 @@
                 <p class="text-xs font-bold text-white truncate">Léa Moreau</p>
                 <p class="text-[11px] text-slate-400 truncate">Profil Chevelure Rousse</p>
                 <div class="flex items-center justify-between pt-1">
-                  <span class="text-xs text-[#00e1d9]">★★★★★</span>
-                  <span class="text-xs font-bold text-[#00e1d9]">8.5/10</span>
+                  <span class="text-xs text-[#f8485e]">★★★★★</span>
+                  <span class="text-xs font-bold text-[#f8485e]">8.5/10</span>
                 </div>
               </div>
             </div>
@@ -1261,7 +1206,7 @@
 
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-2xl mx-auto text-left text-xs pt-2">
               <div class="p-3.5 rounded-xl bg-[#1f2233] border border-[#2b3553] space-y-1">
-                <span class="text-[#e14eca] font-bold block">Étape 1 (En cours)</span>
+                <span class="text-[#f8485e] font-bold block">Étape 1 (En cours)</span>
                 <span class="text-slate-300">Semaine 1 : 10 cours de dessin d'art sur papier.</span>
               </div>
               <div class="p-3.5 rounded-xl bg-[#1f2233] border border-[#2b3553] space-y-1">
@@ -1269,13 +1214,13 @@
                 <span class="text-slate-300">Évaluation des croquis par le maître de stage.</span>
               </div>
               <div class="p-3.5 rounded-xl bg-[#1f2233] border border-[#2b3553] space-y-1">
-                <span class="text-[#00f2c3] font-bold block">Étape 3 (Déblocage)</span>
+                <span class="text-[#3b82f6] font-bold block">Étape 3 (Déblocage)</span>
                 <span class="text-slate-300">Semaine 2 : Outils vectoriels, PAO et découpe.</span>
               </div>
             </div>
 
             <div class="pt-4 flex flex-wrap items-center justify-center gap-4">
-              <button onclick="showTab('cours'); selectCourse('cours-d01-visuelle-trait');" class="px-6 py-3 rounded-xl bg-gradient-to-r from-[#e14eca] to-[#ba54f5] text-white text-xs font-black shadow-lg shadow-pink-500/25 hover:scale-105 transition-transform">
+              <button onclick="showTab('cours'); selectCourse('cours-d01-visuelle-trait');" class="px-6 py-3 rounded-xl bg-gradient-to-r from-[#f8485e] to-[#e0374c] text-white text-xs font-black shadow-lg shadow-[#f8485e]/25 hover:scale-105 transition-transform">
                 Travailler le Dessin (Semaine 1) →
               </button>
               <button onclick="switchUserRole('admin')" class="px-5 py-3 rounded-xl bg-[#1f2233] hover:bg-[#2b3553] border border-[#2b3553] text-xs font-bold text-slate-300 hover:text-white transition-all">
@@ -1287,10 +1232,10 @@
 
         <!-- CONTENU NORMAL DE LA FILIÈRE GRAPHISME -->
         <div id="graphisme-normal-content" class="space-y-8">
-        <section class="rounded-3xl bg-gradient-to-r from-[#0d2328] via-[#161c22] to-[#1a1c24] border border-[#00e1d9]/40 p-6 lg:p-8 flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden">
+        <section class="rounded-3xl bg-gradient-to-r from-[#0d2328] via-[#161c22] to-[#1a1c24] border border-[#f8485e]/40 p-6 lg:p-8 flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden">
           <div class="space-y-2 max-w-2xl z-10">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#00e1d9]/10 border border-[#00e1d9]/30 text-[#00e1d9] text-[11px] font-bold tracking-wider uppercase">
-              <span class="w-2 h-2 rounded-full bg-[#00e1d9] animate-ping"></span>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#f8485e]/10 border border-[#f8485e]/30 text-[#f8485e] text-[11px] font-bold tracking-wider uppercase">
+              <span class="w-2 h-2 rounded-full bg-[#f8485e] animate-ping"></span>
               Filière Officielle · Design Graphique, PAO & Prépresse
             </div>
             <h2 class="font-serif text-2xl lg:text-3xl font-black text-white leading-tight">
@@ -1300,7 +1245,7 @@
               Programme scolaire et professionnel complet structuré en 6 blocs de compétences : du diagnostic de brief client jusqu'au gabarit industriel d'arcade 1:1 et à la certification prépresse 300 DPI FOGRA39.
             </p>
             <div class="flex flex-wrap items-center gap-3 pt-2">
-              <button onclick="showTab('cours'); setDisciplineFilter('graphisme'); selectCourse('cours-g01-brief');" class="px-5 py-2.5 rounded-xl bg-[#00e1d9] hover:bg-[#00c4bd] text-[#131417] text-xs font-black transition-all shadow-lg shadow-cyan-500/20">
+              <button onclick="showTab('cours'); setDisciplineFilter('graphisme'); selectCourse('cours-g01-brief');" class="px-5 py-2.5 rounded-xl bg-[#f8485e] hover:bg-[#00c4bd] text-[#131417] text-xs font-black transition-all shadow-lg shadow-blue-500/20">
                 Commencer par le Brief Client (G-01) →
               </button>
               <button onclick="showTab('cours'); selectCourse('cours-g04-bezier');" class="px-5 py-2.5 rounded-xl bg-[#232730] hover:bg-[#2c323f] border border-[#272b35] text-white text-xs font-bold transition-all">
@@ -1309,8 +1254,8 @@
             </div>
           </div>
           <div class="flex flex-col sm:flex-row gap-3 z-10 shrink-0">
-            <div class="p-4 rounded-2xl bg-[#131417]/80 border border-[#00e1d9]/30 text-center min-w-[120px]">
-              <span class="text-2xl font-black text-[#00e1d9]">16</span>
+            <div class="p-4 rounded-2xl bg-[#131417]/80 border border-[#f8485e]/30 text-center min-w-[120px]">
+              <span class="text-2xl font-black text-[#f8485e]">16</span>
               <p class="text-[10px] text-slate-400 font-bold uppercase mt-0.5">Cours Métier</p>
             </div>
             <div class="p-4 rounded-2xl bg-[#131417]/80 border border-[#d6a55b]/30 text-center min-w-[120px]">
@@ -1334,38 +1279,38 @@
           <!-- BLOC 1 : MÉTHODOLOGIE & CADRAGE DE PROJET -->
           <div class="space-y-3">
             <div class="flex items-center gap-3 pb-2 border-b border-[#272b35]">
-              <span class="w-7 h-7 rounded-lg bg-[#00e1d9]/20 text-[#00e1d9] font-black text-xs flex items-center justify-center">1</span>
+              <span class="w-7 h-7 rounded-lg bg-[#f8485e]/20 text-[#f8485e] font-black text-xs flex items-center justify-center">1</span>
               <div>
                 <h4 class="font-serif font-bold text-base text-white">Bloc 1 : Méthodologie, Culture Visuelle & Cadrage</h4>
                 <p class="text-xs text-slate-400">Questionnement du client vague, formalisation du cahier des charges et divergence créative.</p>
               </div>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div class="p-4 rounded-2xl bg-[#1b1e24] border border-[#272b35] hover:border-[#00e1d9] transition-all flex flex-col justify-between group">
+              <div class="p-4 rounded-2xl bg-[#1b1e24] border border-[#272b35] hover:border-[#f8485e] transition-all flex flex-col justify-between group">
                 <div class="space-y-2">
                   <div class="flex items-center justify-between">
-                    <span class="text-[10px] font-black px-2 py-0.5 rounded bg-[#00e1d9]/20 text-[#00e1d9]">G-01 · FONDAMENTAL</span>
+                    <span class="text-[10px] font-black px-2 py-0.5 rounded bg-[#f8485e]/20 text-[#f8485e]">G-01 · FONDAMENTAL</span>
                     <span class="text-[10px] text-slate-400 font-mono">25 min</span>
                   </div>
-                  <h5 class="text-sm font-bold text-white group-hover:text-[#00e1d9] transition-colors">Analyse du Brief & Client Vague</h5>
+                  <h5 class="text-sm font-bold text-white group-hover:text-[#f8485e] transition-colors">Analyse du Brief & Client Vague</h5>
                   <p class="text-xs text-slate-300">Les 6 questions obligatoires à poser, la grille de diagnostic et la validation du cahier des charges.</p>
                 </div>
-                <button onclick="showTab('cours'); selectCourse('cours-g01-brief');" class="mt-3 pt-2.5 border-t border-[#272b35] flex items-center justify-between text-xs font-bold text-[#00e1d9] hover:underline">
+                <button onclick="showTab('cours'); selectCourse('cours-g01-brief');" class="mt-3 pt-2.5 border-t border-[#272b35] flex items-center justify-between text-xs font-bold text-[#f8485e] hover:underline">
                   <span>Accéder au cours G-01</span>
                   <span>→</span>
                 </button>
               </div>
 
-              <div class="p-4 rounded-2xl bg-[#1b1e24] border border-[#272b35] hover:border-[#00e1d9] transition-all flex flex-col justify-between group">
+              <div class="p-4 rounded-2xl bg-[#1b1e24] border border-[#272b35] hover:border-[#f8485e] transition-all flex flex-col justify-between group">
                 <div class="space-y-2">
                   <div class="flex items-center justify-between">
-                    <span class="text-[10px] font-black px-2 py-0.5 rounded bg-[#00e1d9]/20 text-[#00e1d9]">G-02 · FONDAMENTAL</span>
+                    <span class="text-[10px] font-black px-2 py-0.5 rounded bg-[#f8485e]/20 text-[#f8485e]">G-02 · FONDAMENTAL</span>
                     <span class="text-[10px] text-slate-400 font-mono">30 min</span>
                   </div>
-                  <h5 class="text-sm font-bold text-white group-hover:text-[#00e1d9] transition-colors">Moodboard & 3 Pistes Graphiques</h5>
+                  <h5 class="text-sm font-bold text-white group-hover:text-[#f8485e] transition-colors">Moodboard & 3 Pistes Graphiques</h5>
                   <p class="text-xs text-slate-300">Veille documentaire référencée, dépassement de la première idée et déclinaison en 3 directions tranchées.</p>
                 </div>
-                <button onclick="showTab('cours'); selectCourse('cours-g02-pistes');" class="mt-3 pt-2.5 border-t border-[#272b35] flex items-center justify-between text-xs font-bold text-[#00e1d9] hover:underline">
+                <button onclick="showTab('cours'); selectCourse('cours-g02-pistes');" class="mt-3 pt-2.5 border-t border-[#272b35] flex items-center justify-between text-xs font-bold text-[#f8485e] hover:underline">
                   <span>Accéder au cours G-02</span>
                   <span>→</span>
                 </button>
@@ -1648,7 +1593,7 @@
         <section class="p-6 lg:p-8 rounded-3xl bg-[#1b1e24] border border-[#272b35] space-y-6">
           <div class="flex flex-wrap items-center justify-between gap-4 border-b border-[#272b35] pb-4">
             <div>
-              <span class="text-[10px] font-bold px-2.5 py-1 rounded bg-[#00e1d9]/20 text-[#00e1d9] uppercase tracking-wider">MÉMENTO INDUSTRIEL</span>
+              <span class="text-[10px] font-bold px-2.5 py-1 rounded bg-[#f8485e]/20 text-[#f8485e] uppercase tracking-wider">MÉMENTO INDUSTRIEL</span>
               <h3 class="font-serif font-bold text-xl text-white mt-1">Boîte à Outils Techniques & Protocoles d'Atelier</h3>
               <p class="text-xs text-slate-400">Ressources normées issues de l'atelier de fabrication et du programme pilote GPO SARL.</p>
             </div>
@@ -1662,34 +1607,34 @@
             <div class="p-4 rounded-2xl bg-[#131417] border border-[#272b35] space-y-3 flex flex-col justify-between">
               <div class="space-y-2">
                 <div class="flex items-center justify-between pb-2 border-b border-[#272b35]">
-                  <span class="text-xs font-bold text-[#00e1d9] flex items-center gap-1.5">
-                    <span class="w-2 h-2 rounded-full bg-[#00e1d9]"></span> Checklist Prépresse 300 DPI
+                  <span class="text-xs font-bold text-[#f8485e] flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-[#f8485e]"></span> Checklist Prépresse 300 DPI
                   </span>
                   <span class="text-[10px] text-slate-500">Contrôle Fichier</span>
                 </div>
                 <div class="space-y-2 text-xs text-slate-300">
                   <label class="flex items-center gap-2 cursor-pointer hover:text-white">
-                    <input type="checkbox" id="chk-bleed" onchange="toggleChecklistItem('chk-bleed')" class="rounded border-slate-700 text-[#00e1d9] focus:ring-0" />
+                    <input type="checkbox" id="chk-bleed" onchange="toggleChecklistItem('chk-bleed')" class="rounded border-slate-700 text-[#f8485e] focus:ring-0" />
                     <span>Fond perdu de 3 mm sur chaque bord</span>
                   </label>
                   <label class="flex items-center gap-2 cursor-pointer hover:text-white">
-                    <input type="checkbox" id="chk-safe" onchange="toggleChecklistItem('chk-safe')" class="rounded border-slate-700 text-[#00e1d9] focus:ring-0" />
+                    <input type="checkbox" id="chk-safe" onchange="toggleChecklistItem('chk-safe')" class="rounded border-slate-700 text-[#f8485e] focus:ring-0" />
                     <span>Zone de sécurité interne à 5 mm (texte)</span>
                   </label>
                   <label class="flex items-center gap-2 cursor-pointer hover:text-white">
-                    <input type="checkbox" id="chk-dpi" onchange="toggleChecklistItem('chk-dpi')" class="rounded border-slate-700 text-[#00e1d9] focus:ring-0" />
+                    <input type="checkbox" id="chk-dpi" onchange="toggleChecklistItem('chk-dpi')" class="rounded border-slate-700 text-[#f8485e] focus:ring-0" />
                     <span>Résolution 300 DPI à échelle 100 %</span>
                   </label>
                   <label class="flex items-center gap-2 cursor-pointer hover:text-white">
-                    <input type="checkbox" id="chk-cmyk" onchange="toggleChecklistItem('chk-cmyk')" class="rounded border-slate-700 text-[#00e1d9] focus:ring-0" />
+                    <input type="checkbox" id="chk-cmyk" onchange="toggleChecklistItem('chk-cmyk')" class="rounded border-slate-700 text-[#f8485e] focus:ring-0" />
                     <span>Espace CMJN profil FOGRA39 certifié</span>
                   </label>
                   <label class="flex items-center gap-2 cursor-pointer hover:text-white">
-                    <input type="checkbox" id="chk-fonts" onchange="toggleChecklistItem('chk-fonts')" class="rounded border-slate-700 text-[#00e1d9] focus:ring-0" />
+                    <input type="checkbox" id="chk-fonts" onchange="toggleChecklistItem('chk-fonts')" class="rounded border-slate-700 text-[#f8485e] focus:ring-0" />
                     <span>Vectorisation de toutes les polices</span>
                   </label>
                   <label class="flex items-center gap-2 cursor-pointer hover:text-white">
-                    <input type="checkbox" id="chk-black" onchange="toggleChecklistItem('chk-black')" class="rounded border-slate-700 text-[#00e1d9] focus:ring-0" />
+                    <input type="checkbox" id="chk-black" onchange="toggleChecklistItem('chk-black')" class="rounded border-slate-700 text-[#f8485e] focus:ring-0" />
                     <span>Noir texte pur 100K (aucun noir quadri)</span>
                   </label>
                 </div>
@@ -1783,7 +1728,7 @@
                 <p class="text-[9px] text-slate-400 mt-0.5">Demande client</p>
               </div>
               <div class="p-2.5 rounded-xl bg-[#1b1e24] border border-[#272b35]">
-                <p class="font-bold text-[#00e1d9]">02_SOURCES</p>
+                <p class="font-bold text-[#f8485e]">02_SOURCES</p>
                 <p class="text-[9px] text-slate-400 mt-0.5">Docs & Références</p>
               </div>
               <div class="p-2.5 rounded-xl bg-[#1b1e24] border border-[#272b35]">
@@ -1951,12 +1896,12 @@
               <p class="text-[11px] text-slate-500">Réciprocité respectée (lumière chaude et ombres froides).</p>
             </div>
 
-            <div class="p-4 rounded-xl bg-gradient-to-br from-[#d6a55b]/10 to-[#00e1d9]/10 border border-[#d6a55b]/30 flex flex-col justify-between">
+            <div class="p-4 rounded-xl bg-gradient-to-br from-[#d6a55b]/10 to-[#f8485e]/10 border border-[#d6a55b]/30 flex flex-col justify-between">
               <div>
                 <h4 class="text-xs font-bold text-white mb-1">Enregistrer cette auto-évaluation</h4>
                 <p class="text-[11px] text-slate-400">Consignez votre score dans votre livret d'apprentissage personnel.</p>
               </div>
-              <button onclick="saveAutoEvaluation()" class="w-full py-2.5 rounded-xl btn-gradient-primary text-xs font-bold transition-all shadow-md shadow-pink-500/20">
+              <button onclick="saveAutoEvaluation()" class="w-full py-2.5 rounded-xl btn-gradient-primary text-xs font-bold transition-all shadow-md shadow-[#f8485e]/20">
                 Valider l'Évaluation Atelier
               </button>
             </div>
@@ -1998,7 +1943,7 @@
             </div>
             <div class="p-4 rounded-2xl bg-[#131417] border border-[#272b35]">
               <span class="text-[11px] text-[#8f95a3] font-medium">Semaine 1 (Active)</span>
-              <p class="text-lg font-black text-[#e14eca] mt-1">10 Cours Dessin</p>
+              <p class="text-lg font-black text-[#f8485e] mt-1">10 Cours Dessin</p>
             </div>
             <div class="p-4 rounded-2xl bg-[#131417] border border-[#272b35]">
               <span class="text-[11px] text-[#8f95a3] font-medium">Semaine 2 (Graphisme)</span>
@@ -2127,7 +2072,7 @@
   <div id="atelier-dialog-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
     <div class="card-black max-w-md w-full p-6 space-y-5 border border-[#2b3553] shadow-2xl shadow-black/70 relative">
       <div class="flex items-start gap-4">
-        <div id="atelier-dialog-icon-wrap" class="w-12 h-12 rounded-2xl bg-[#e14eca]/15 text-[#e14eca] flex items-center justify-center shrink-0">
+        <div id="atelier-dialog-icon-wrap" class="w-12 h-12 rounded-2xl bg-[#f8485e]/15 text-[#f8485e] flex items-center justify-center shrink-0">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
         </div>
         <div class="space-y-1.5 flex-1 min-w-0">
@@ -2139,7 +2084,7 @@
         <button id="atelier-dialog-cancel-btn" onclick="closeAtelierDialog(false)" class="hidden px-4 py-2 rounded-xl bg-[#1f2233] hover:bg-[#2d324d] border border-[#2b3553] text-xs font-semibold text-slate-300 hover:text-white transition-all">
           Annuler
         </button>
-        <button id="atelier-dialog-confirm-btn" onclick="closeAtelierDialog(true)" class="px-5 py-2 rounded-xl btn-gradient-primary text-xs font-bold transition-all shadow-md shadow-pink-500/20">
+        <button id="atelier-dialog-confirm-btn" onclick="closeAtelierDialog(true)" class="px-5 py-2 rounded-xl btn-gradient-primary text-xs font-bold transition-all shadow-md shadow-[#f8485e]/20">
           Compris
         </button>
       </div>

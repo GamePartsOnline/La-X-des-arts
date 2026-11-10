@@ -36,14 +36,14 @@ function renderStagiaireDashboard() {
           <div>
             <div class="flex items-center gap-2">
               <span class="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-mono text-[10px] font-bold uppercase">Stagiaire Débutante</span>
-              <span class="px-2.5 py-0.5 rounded-full bg-[#e14eca]/20 text-pink-300 font-mono text-[10px] font-bold">Semaine 1 : Dessin Réel</span>
+              <span class="px-2.5 py-0.5 rounded-full bg-[#f8485e]/15 text-[#f8485e] font-mono text-[10px] font-bold">Semaine 1 : Dessin Réel</span>
             </div>
             <h2 class="font-serif text-2xl font-black text-white mt-1">Mon Espace de Stage · Sarah Martin</h2>
             <p class="text-xs text-slate-300">Réalisez les exercices sur papier réel. Dès qu'une planche est finie, soumettez-la pour validation par votre maître de stage.</p>
           </div>
         </div>
 
-        <div class="p-3.5 rounded-2xl bg-[#131417] border border-[#2b3553] text-center min-w-[140px]">
+        <div class="p-3.5 rounded-2xl bg-[#131417] border border-[#23262f] text-center min-w-[140px]">
           <span class="text-[10px] font-mono text-slate-400 uppercase">Leçons Validées</span>
           <p class="text-2xl font-black text-emerald-400 mt-0.5">${validees} / ${lessons.length}</p>
         </div>
@@ -61,7 +61,7 @@ function renderStagiaireDashboard() {
               <div class="p-5 rounded-2xl bg-[#1b1e24] border ${isVal ? 'border-emerald-500/40' : isAtt ? 'border-amber-500/40' : 'border-[#272b35]'} shadow-lg flex flex-col justify-between space-y-4">
                 <div class="space-y-2">
                   <div class="flex items-center justify-between">
-                    <span class="text-xs font-mono font-bold px-2 py-0.5 rounded ${lesson.semaine === 1 ? 'bg-[#e14eca]/20 text-[#e14eca]' : 'bg-[#00f2c3]/20 text-[#00f2c3]'}">
+                    <span class="text-xs font-mono font-bold px-2 py-0.5 rounded ${lesson.semaine === 1 ? 'bg-[#f8485e]/15 text-[#f8485e]' : 'bg-blue-500/15 text-blue-400'}">
                       ${lesson.num} · Semaine ${lesson.semaine}
                     </span>
                     ${isVal
@@ -92,7 +92,7 @@ function renderStagiaireDashboard() {
                 <div class="pt-2 border-t border-[#272b35] flex items-center justify-between">
                   <span class="text-[11px] text-slate-400 font-mono">${lesson.support}</span>
                   ${!isVal && !isLocked && !isAtt ? `
-                    <button onclick="stagiaireSubmitLesson('${lesson.id}')" class="px-3.5 py-1.5 rounded-xl btn-gradient-primary text-xs font-bold transition-all shadow-md">
+                    <button onclick="stagiaireSubmitLesson('${lesson.id}')" class="px-3.5 py-1.5 rounded-xl btn-schdesign text-xs font-bold transition-all shadow-md">
                       Soumettre au Tuteur →
                     </button>
                   ` : ''}
