@@ -236,9 +236,9 @@ function renderCreatorShowcaseView() {
       ` : ''}
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
         ${items.map(w => `
-          <div onclick="if(typeof openImageModal==='function')openImageModal('${w.image}')" class="rounded-2xl bg-[#181b21] border border-[#262b35] hover:border-[#f8485e] overflow-hidden cursor-pointer transition-all group flex flex-col justify-between">
+          <div class="rounded-2xl bg-[#181b21] border border-[#262b35] overflow-hidden flex flex-col justify-between">
             <div>
-              <div class="h-48 bg-black overflow-hidden border-b border-[#262b35] relative"><img src="${w.image}" alt="${w.titre}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" /><span class="absolute top-2.5 left-2.5 px-2.5 py-0.5 rounded bg-black/80 border border-white/20 text-xs font-mono font-bold text-white">${w.categorie}</span></div>
+              <div class="p-4 pb-0"><span class="px-2.5 py-0.5 rounded bg-black border border-[#262b35] text-xs font-mono font-bold text-white">${w.categorie}</span></div>
               <div class="p-4 space-y-1.5"><h2 class="text-base font-bold text-white">${w.titre}</h2><p class="text-xs text-slate-300 leading-relaxed">${w.technique}</p></div>
             </div>
             <div class="px-4 py-2.5 border-t border-[#262b35] bg-[#111317] flex items-center justify-between text-xs font-mono"><span class="text-amber-300 truncate">${w.norme}</span><span class="text-[#f8485e] font-bold shrink-0">Agrandi →</span></div>
