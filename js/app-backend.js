@@ -33,8 +33,8 @@ function renderLoginGateView() {
         <form onsubmit="submitLoginForm(event)" class="p-5 rounded-xl bg-[#111317] border border-[#262b35] space-y-3.5 flex flex-col justify-between">
           <div class="space-y-3">
             <h2 class="text-sm font-bold text-white">Se connecter avec ses identifiants</h2>
-            <label class="block text-xs text-slate-300 space-y-1"><span>Adresse e-mail</span><input name="email" type="email" value="stagiaire@croisee-arts.local" required class="w-full px-3 py-2 rounded-lg bg-[#181b21] border border-[#262b35] text-white text-xs"></label>
-            <label class="block text-xs text-slate-300 space-y-1"><span>Mot de passe</span><input name="password" type="password" value="Atelier-Croisee-2026!" required class="w-full px-3 py-2 rounded-lg bg-[#181b21] border border-[#262b35] text-white text-xs"></label>
+            <label class="block text-xs text-slate-300 space-y-1"><span>Adresse e-mail</span><input name="email" type="email" required class="w-full px-3 py-2 rounded-lg bg-[#181b21] border border-[#262b35] text-white text-xs"></label>
+            <label class="block text-xs text-slate-300 space-y-1"><span>Mot de passe</span><input name="password" type="password" required class="w-full px-3 py-2 rounded-lg bg-[#181b21] border border-[#262b35] text-white text-xs"></label>
           </div>
           <div class="space-y-2 pt-1">
             <p id="backend-login-error" role="alert" class="text-xs text-[#f8485e] font-semibold"></p>
