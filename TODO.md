@@ -15,28 +15,34 @@ Emplacement de travail : C:\DEV\la-croisee-des-arts
 - Fiches 01 à 08 : Contrôle des bords, Gamut masking, Shape language, Drapés et plis, SSS carnation, Cadrage cinéma, Anatomie vivante, Textures brosses.
 - Ateliers chrono : 11 sessions minutées (Sargent, Dune, Mucha, Ghibli, Van Gogh, Arcane, etc.).
 
-### Pôle B : Design Graphique & Typographie (Référentiel GPO SARL)
-- Fiche G-01 (Masterclass Paul Rand) : Test de logo en 7 critères, silhouette 1-bit, exploration 3 directions et traitement du brief client vague.
-- Fiche G-02 (Typographie) : Hiérarchie visuelle en 3 niveaux, calcul d'interlignage 135 %, et affiche A5 100 % typographique sans illustration.
-- Fiche G-03 (Prépresse 300 DPI) : Fonds perdus 3 mm, zone tranquille 5 mm, FOGRA39, formules de noir (texte 100K vs enrichi) et vectorisation.
-- Fiche G-04 (Outils Vectoriels) : Courbes de Bézier aux extremums, tangentes 0°/90°, Pathfinder et conception de pochoir découpe avec ponts.
-- Fiche G-05 (Colorimétrie) : Règle des 60-30-10, tons directs Pantone et sticker sous contrainte 80x80 mm 3 couleurs max avec CutContour.
-- Fiche G-06 (Gabarits Industriels) : Habillage de borne d'arcade échelle 1:1, zones d'exclusion techniques (boutons 28mm, écran, vis) et overbleed 10 mm.
-- Fiche G-07 (UI Design) : Grille modulaire 8px, accessibilité WCAG AA 4.5:1 et cibles tactiles 44px.
-- Fiche G-08 (Guides & Repères) : Grille magnétique 12 colonnes, règle des tiers et baseline grid.
+### Pôle B : Design Graphique & Prépresse d'Atelier (Référentiel Officiel GPO SARL)
+Cursus professionnel articulé en 4 grands axes métier et 10 cours réels :
+
+- Axe 1 : Méthodologie & Relation Client
+  - Cours G-01 : Comprendre un Brief Graphique & Analyser la Demande Client (exercice du client vague, 6 questions clés).
+  - Cours G-02 : Explorer & Proposer 3 Pistes Graphiques Distinctes (Rétro 80s, Minimaliste Moderne, Illustré/Cartoon).
+- Axe 2 : Dessin Vectoriel & Typographie
+  - Cours G-03 : Dessin Vectoriel vs Bitmap & Courbes de Bézier (ancrages aux extremums, tangentes orthogonales).
+  - Cours G-04 : Typographie, Graisses & Composition d'une Affiche 100% Typo (3 niveaux de lecture, interlignage 135%).
+- Axe 3 : Couleur, Prépresse 300 DPI & Découpe
+  - Cours G-05 : Systèmes de Couleurs, Nuancier Pantone & Règle 60-30-10 (CMJN vs RVB, tons directs).
+  - Cours G-06 : Prépresse Imprimerie, 300 DPI, Fonds Perdus & Noirs (fond perdu 3 mm, zone sécurité 5 mm, FOGRA39, noir 100K).
+  - Cours G-07 : Création de Stickers sous Contrainte & Filet de Découpe CutContour (format 80x80 mm, magenta 100%, surimpression).
+  - Cours G-08 : Pochoir Découpe Vinyle & Conception de Ponts de Maintien (îlots fermés, ponts de matière 1.5 à 2 mm).
+- Axe 4 : Gabarits Industriels, Projets Réels & Gestion d'Atelier
+  - Cours G-09 : Gabarit Industriel à l'Échelle 1:1 pour Borne d'Arcade (boutons 28 mm, overbleed 10 mm, flancs miroir).
+  - Cours G-10 : Organisation des Fichiers d'Atelier, Versions V01/BAT & Charte de Nommage (arborescence 6 dossiers, ISO-GPO).
 
 ## 3. Avancement technique
 
 - [x] Initialisation du fork Git dans C:\DEV\la-croisee-des-arts
 - [x] Lancement du serveur HTTP local sur le port 5173
-- [x] Ajout de l'onglet et de la vue dédiée "Design Graphique" dans index.html
-- [x] Intégration de la section Graphisme dans la barre latérale gauche
-- [x] Rédaction et intégration des 8 cours de graphisme basés sur les documents du pilote d'école de graphisme GPO SARL
-- [x] Filtrage dynamique par discipline (Tous, Dessin, Graphisme)
+- [x] Refonte complète de la filière Design Graphique : remplacement des dénominations abstraites par 10 cours métier concrets (G-01 à G-10)
+- [x] Structuration du Pôle Graphisme en 4 grands axes opérationnels (Méthodologie, Vectoriel/Typo, Prépresse/Découpe, Gabarits/Atelier)
+- [x] Suppression définitive de la colonne centrale intermédiaire : affichage direct en pleine largeur avec breadcrumb, navigation précédente/suivante et surbrillance dans l'arborescence latérale
 - [x] Module complet de dépôt de fichier pour correction pédagogique dans chaque fiche de cours avec persistance localStorage
-- [x] Dashboard Nouvel Élève sur la page d'accueil : onboarding, orientation double filière, 3 premières actions et cours de démarrage
+- [x] Dashboard Nouvel Élève sur la page d'accueil : onboarding, orientation double filière, 3 premières actions et cours de démarrage (G-01 Brief)
 - [x] Boîte à outils interactive : Checklist 300 DPI, nuancier des formules de noir cliquables, échelle UI 8px, arborescence d'atelier GPO et barème d'évaluation en 100 points
 - [x] Découpage architectural modulaire strict : 100 % des fichiers de code sous la limite des 300 lignes
-- [x] Suppression de la colonne centrale intermédiaire dans l'onglet Cours : affichage direct en pleine largeur avec barre de navigation rapide et surbrillance dans l'arborescence latérale
 - [ ] Ajout d'outils vectoriels interactifs avancés dans le studio canvas
 - [ ] Système d'export PDF/SVG des travaux d'ateliers

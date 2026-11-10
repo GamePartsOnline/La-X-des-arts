@@ -42,6 +42,10 @@ function showTab(tabId) {
     activeBtn.className = 'nav-btn px-5 py-2 rounded-full text-xs font-bold gold-pill-active transition-all';
   }
 
+  if (tabId === 'cours' && typeof renderCourses === 'function') {
+    renderCourses();
+  }
+
   if (tabId === 'studio' && !studio) {
     setTimeout(() => {
       studio = new DrawingStudio('drawing-canvas');
