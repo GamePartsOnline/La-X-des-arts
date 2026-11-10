@@ -16,12 +16,7 @@ const DEFAULT_VEILLE_ITEMS = [
   { id: 'veille-8', cat: 'art', date: '2026-11-04 · Écoles d\'Art', badge: 'Pédagogie & Admissions', titre: 'L\'hybridation Papier Traditionnel & Numérique dans les Écoles Supérieures', sourceNom: 'GOBELINS & Estienne', sourceUrl: 'https://www.gobelins.fr/', norme: 'Carnet de croquis physique obligatoire avant toute modélisation ou PAO', resume: 'Les jurys d\'admission et les studios (Fortiche, Ubisoft, maisons d\'édition) rappellent que la maîtrise du dessin d\'observation sur papier reste le socle irremplaçable face aux outils numériques.' }
 ];
 
-const DEFAULT_JOBS_OFFERS = [
-  { id: 'job-gpo-1', type: 'Stage', title: 'Stage Graphiste Print, Stickers & Habillage Jeux d\'Arcade (4 semaines)', company: 'GPO SARL · Atelier Graph2Print', location: 'Givry-en-Argonne (51330 · Grand Est)', region: 'grand-est', remuneration: 'Stage conventionné · Projet réel Foire de Châlons 2027', norme: 'Illustrator · CutContour · 300 DPI · Pochoirs & Bornes 1:1', description: 'Participation à la création de la planche de stickers Foire de Châlons 2027 (prix public 10 €), habillage de bornes d\'arcade et flippers, pochoirs de découpe et préparation de dossiers d\'impression (01_BRIEF à 06_ARCHIVES).', contact_url: 'https://laxdesarts.gposarl.com' },
-  { id: 'job-rpip-2', type: 'Alternance', title: 'Apprenti(e) Opérateur Prépresse & Signalétique Grand Format (Bac Pro RPIP / BTS ERPC)', company: 'Imprimerie & Signalétique Partenaire', location: 'Nantes / Rennes / Paris', region: 'ouest', remuneration: 'Contrat d\'apprentissage rémunéré (27 % à 100 % du SMIC)', norme: 'ISO 12647-2 (FOGRA51) · PDF/X-4 · Traceur Éco-Solvant & Plotter', description: 'Contrôle en amont des fichiers clients (preflight PDF/X-4), imposition, profils ICC, amalgame de stickers sur laize vinyle et conduite de traceur d\'impression-découpe.', contact_url: 'https://grafipolis.fr/' },
-  { id: 'job-illu-3', type: 'Stage', title: 'Stage Assistant(e) Illustrateur Éditorial & Maquettiste PAO', company: 'Studio d\'Édition Jeunesse & Bande Dessinée', location: 'Lyon / Angoulême', region: 'auvergne-rhone-alpes', remuneration: 'Gratification légale de stage', norme: 'InDesign Grilles 12 colonnes · Séparation trait 100% K / CMJN', description: 'Recherches de personnages (shape language), crayonnés préparatoires, mise au net haute résolution (600 DPI) et assemblage des cahiers sous Adobe InDesign.', contact_url: 'https://www.cohl.fr/' },
-  { id: 'job-ui-4', type: 'Emploi', title: 'Designer Graphique & UI/UX Junior (Design System WCAG 2.2 & Identité 1-Bit)', company: 'Agence Digitale & Branding', location: 'Paris / Télétravail hybride', region: 'ile-de-france', remuneration: '30 000 € à 36 000 € brut / an', norme: 'Figma · Courbes de Bézier orthogonales · Contraste AA >= 4.5:1', description: 'Conception de logotypes vectoriels validés au test de la silhouette 1-Bit (15 mm), déclinaison de chartes graphiques print/web et composants d\'interface accessibles.', contact_url: 'https://www.gobelins.fr/' }
-];
+const DEFAULT_JOBS_OFFERS = [];
 
 const DEFAULT_CREATOR_SHOWCASE = [
   { id: 'expo-1', categorie: 'Illustration & Valeurs', titre: 'Étude Académique & Méthode de Correction Sargent', technique: 'Fusain, pierre noire et rehauts sur papier 300g · Contrôle des 4 bords', norme: 'Notan 5 valeurs · Visée Sight-Size 1:1', image: 'assets/masterclass_sargent_methode_correction.jpg' },
@@ -118,7 +113,7 @@ function renderVeilleView() {
               <a href="${item.sourceUrl}" target="_blank" rel="noopener noreferrer" class="font-bold text-emerald-400 hover:underline">Source officielle : ${item.sourceNom} ↗</a>
             </div>
           </article>
-        `).join('')}
+        `).join('') || '<p class="md:col-span-2 p-6 text-center text-slate-300">Aucune offre publiée pour le moment.</p>'}
       </div>
     </div>
   `;
@@ -154,9 +149,9 @@ async function renderJobsView() {
     <div class="space-y-6">
       <div class="p-6 lg:p-8 rounded-2xl bg-[#181b21] border border-[#262b35] flex flex-col lg:flex-row lg:items-center justify-between gap-4">
         <div class="space-y-1.5 max-w-3xl">
-          <span class="px-2.5 py-1 rounded-md bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 font-mono text-xs font-semibold">ESPACE CONNECTÉ · ${allJobs.length} Offres Vérifiées</span>
+          <span class="px-2.5 py-1 rounded-md bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 font-mono text-xs font-semibold">ESPACE CONNECTÉ · ${allJobs.length} Offres publiées</span>
           <h1 class="text-2xl lg:text-3xl font-bold text-white">JOBS & STAGES : Immersion Atelier, Alternance RPIP & Studios</h1>
-          <p class="text-sm text-slate-300">Offres de stages graphistes (dont le stage 4 semaines chez GPO SARL), contrats d'apprentissage RPIP/PAO et postes en illustration et prépresse.</p>
+          <p class="text-sm text-slate-300">Seules les offres publiées par l’administration sont affichées.</p>
         </div>
         <div class="flex flex-wrap items-center gap-1.5 bg-[#111317] p-1.5 rounded-2xl border border-[#262b35] shrink-0">
           ${['all', 'Stage', 'Alternance', 'Emploi'].map(t => `<button onclick="setJobsTypeFilter('${t}')" class="px-3.5 py-2 rounded-xl text-xs font-bold ${currentJobsTypeFilter === t ? 'bg-[#f8485e] text-white' : 'text-slate-300 hover:text-white'}">${t === 'all' ? `Toutes (${allJobs.length})` : t}</button>`).join('')}
