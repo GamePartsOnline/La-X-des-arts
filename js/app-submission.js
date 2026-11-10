@@ -1,74 +1,5 @@
-// =====================================================================
-// MODULE DE DÉPÔT ET SOUMISSION DE FICHIER POUR CORRECTION PÉDAGOGIQUE
-// =====================================================================
 let pendingCourseUploads = {};
-
-function getCourseSubmission(courseId) {
-  try {
-    const raw = localStorage.getItem(`croisee_submission_${courseId}`);
-    return raw ? JSON.parse(raw) : null;
-  } catch (e) {
-    return null;
-  }
-}
-
-function handleCourseFileUpload(event, courseId) {
-  const file = event.target.files && event.target.files[0];
-  if (!file) return;
-
-  const reader = new FileReader();
-  reader.onload = function(e) {
-    pendingCourseUploads[courseId] = {
-      name: file.name,
-      size: (file.size / 1024).toFixed(1) + ' Ko',
-      type: file.type || 'Fichier exercice',
-      dataUrl: file.type.startsWith('image/') ? e.target.result : null,
-      selectedAt: new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })
-    };
-    renderCourses();
-  };
-  reader.readAsDataURL(file);
-}
-
-function cancelCoursePendingUpload(courseId) {
-  delete pendingCourseUploads[courseId];
-  renderCourses();
-}
-
-function submitCourseFile(courseId) {
-  const upload = pendingCourseUploads[courseId];
-  const notesEl = document.getElementById(`course-student-notes-${courseId}`);
-  const studentNotes = notesEl ? notesEl.value.trim() : '';
-
-  const submission = {
-    courseId: courseId,
-    fileName: upload ? upload.name : 'Travail_apprenant.png',
-    fileSize: upload ? upload.size : '850 Ko',
-    dataUrl: upload ? upload.dataUrl : null,
-    studentNotes: studentNotes,
-    submittedAt: new Date().toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }),
-    status: 'Validé & Corrigé par l\'Académie',
-    grade: '9.4 / 10'
-  };
-
-  try {
-    localStorage.setItem(`croisee_submission_${courseId}`, JSON.stringify(submission));
-  } catch (e) {
-    console.warn('Stockage local indisponible, maintien en session', e);
-  }
-
-  delete pendingCourseUploads[courseId];
-  playChime(660, 0.4);
-  renderCourses();
-}
-
-function resetCourseFileUpload(courseId) {
-  delete pendingCourseUploads[courseId];
-  try {
-    localStorage.removeItem(`croisee_submission_${courseId}`);
-  } catch (e) {}
-  renderCourses();
-}
+function cancelCoursePendingUpload(id) { delete pendingCourseUploads[id]; renderCourses(); }
 
 function renderCourseExerciseBlock(course) {
   const submission = getCourseSubmission(course.id);
@@ -82,12 +13,12 @@ function renderCourseExerciseBlock(course) {
           <div class="flex items-center gap-2.5">
             <span class="w-3 h-3 rounded-full bg-emerald-400 animate-pulse"></span>
             <div>
-              <span class="text-[10px] font-bold uppercase tracking-wider text-emerald-400">TRAVAIL REÇU & ANALYSÉ PAR L'ÉCOLE</span>
+              <span class="text-[10px] font-bold uppercase tracking-wider text-emerald-400">TRAVAIL TRANSMIS AU TUTEUR</span>
               <h4 class="text-sm font-bold text-white mt-0.5">${course.exercise.title}</h4>
             </div>
           </div>
           <span class="text-xs font-bold px-3 py-1.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
-            Note Pédagogique : ${submission.grade || '9.4 / 10'}
+            Note Pédagogique : ${submission.grade || 'En attente'}
           </span>
         </div>
 
@@ -119,7 +50,7 @@ function renderCourseExerciseBlock(course) {
             ` : ''}
 
             <p class="text-xs text-emerald-300/90 leading-relaxed">
-              Votre exercice a été pris en compte dans votre carnet d'apprentissage. La rigueur technique, le respect des proportions et l'application de la méthode sont conformes aux attendus académiques.
+              ${submission.feedback || (submission.status === 'en_attente' ? 'Votre travail attend la correction du tuteur.' : 'Correction enregistrée par le tuteur.')}
             </p>
 
             <div class="pt-1 flex items-center gap-3">

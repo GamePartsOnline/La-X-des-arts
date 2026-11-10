@@ -1,0 +1,1 @@
+{"private":true,"name":"la-croisee-des-arts","version":"1.0.0","type":"module","engines":{"node":">=24"},"scripts":{"start":"node server/main.mjs","test":"node --test tests/*.mjs","account":"node server/account.mjs"}}

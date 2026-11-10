@@ -216,21 +216,8 @@ const DEFAULT_STAGE_LESSONS = [
   }
 ];
 
-function getStageLessons() {
-  const saved = localStorage.getItem('croisee_stage_lessons');
-  if (saved) {
-    try {
-      return JSON.parse(saved);
-    } catch (e) {
-      console.error("Erreur lecture leçons", e);
-    }
-  }
-  return DEFAULT_STAGE_LESSONS;
-}
-
-function saveStageLessons(lessons) {
-  localStorage.setItem('croisee_stage_lessons', JSON.stringify(lessons));
-}
+function getStageLessons() { return []; }
+function saveStageLessons() { throw new Error('Connexion au serveur requise'); }
 
 if (typeof window !== 'undefined') {
   window.DEFAULT_STAGE_LESSONS = DEFAULT_STAGE_LESSONS;

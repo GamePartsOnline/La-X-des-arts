@@ -7,8 +7,8 @@ const STAGE_STORAGE_KEY_ROLE = 'croisee_active_role';
 const STAGE_STORAGE_KEY_UNLOCKED = 'croisee_graphisme_unlocked';
 
 // État courant
-let currentRole = localStorage.getItem(STAGE_STORAGE_KEY_ROLE) || 'stagiaire';
-let isGraphismeUnlocked = localStorage.getItem(STAGE_STORAGE_KEY_UNLOCKED) === 'true';
+let currentRole = 'stagiaire';
+let isGraphismeUnlocked = false;
 
 // Données de la stagiaire modèle (débutante absolue en immersion atelier)
 const STAGIAIRE_PROFILE = {
@@ -41,51 +41,8 @@ function isGraphismeLockedForCurrent() {
   return !isGraphismeUnlocked;
 }
 
-function switchUserRole(newRole) {
-  currentRole = newRole === 'admin' ? 'admin' : 'stagiaire';
-  localStorage.setItem(STAGE_STORAGE_KEY_ROLE, currentRole);
-  
-  if (typeof playChime === 'function') playChime(newRole === 'admin' ? 520 : 440, 0.2);
-  
-  if (typeof showCustomToast === 'function') {
-    const msg = currentRole === 'admin'
-      ? "Session Administrateur active : Contrôle tuteur et validation du niveau stagiaire."
-      : "Session Stagiaire active : Parcours Semaine 1 (Fondamentaux du Dessin).";
-    showCustomToast("Changement de Compte", msg, "info");
-  }
-
-  updateAppForCurrentRole();
-  if (typeof showTab === 'function') {
-    showTab(currentRole === 'admin' ? 'admin' : 'stagiaire');
-  }
-}
-
-function toggleGraphismeUnlockByAdmin(state) {
-  if (currentRole !== 'admin') {
-    if (typeof showCustomToast === 'function') {
-      showCustomToast("Action Réservée", "Seul le tuteur de stage peut valider le niveau.", "warning");
-    }
-    return;
-  }
-
-  isGraphismeUnlocked = typeof state === 'boolean' ? state : !isGraphismeUnlocked;
-  localStorage.setItem(STAGE_STORAGE_KEY_UNLOCKED, isGraphismeUnlocked ? 'true' : 'false');
-
-  if (typeof playChime === 'function') playChime(isGraphismeUnlocked ? 660 : 330, 0.25);
-
-  if (typeof showCustomToast === 'function') {
-    if (isGraphismeUnlocked) {
-      showCustomToast("Niveau Validé", "Le niveau dessin de Sarah est validé. La filière Graphisme (Semaine 2) est débloquée.", "success");
-    } else {
-      showCustomToast("Section Verrouillée", "La filière Graphisme (Semaine 2) est verrouillée pour la stagiaire.", "warning");
-    }
-  }
-
-  updateAppForCurrentRole();
-  if (typeof showTab === 'function') {
-    showTab(currentRole === 'admin' ? 'admin' : 'stagiaire');
-  }
-}
+function switchUserRole() { throw new Error('Connexion au serveur requise'); }
+function toggleGraphismeUnlockByAdmin() { throw new Error('Connexion au serveur requise'); }
 
 function handleCourseClickSecurity(courseId) {
   const isGraph = courseId.includes('-g') || courseId.startsWith('cours-g');
