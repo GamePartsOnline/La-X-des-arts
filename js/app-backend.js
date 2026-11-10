@@ -4,6 +4,7 @@
 // =====================================================================
 
 let backendUser = null, backendStudent = null, backendLessons = [], backendSubmissions = [], backendCustomCourses = [];
+let adminPreviewRole = null;
 const escapeBackend = value => String(value ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
 async function api(path, method = 'GET', body) {
@@ -115,6 +116,14 @@ async function logoutBackendUser() {
   currentCourseAccess = 'aucun'; backendLessons = []; backendSubmissions = [];
   updateAppForCurrentRole(); renderLoginGateView(); showTab('veille');
 }
+function previewAsRole(role) {
+  if (backendUser?.role !== 'admin' || !['stagiaire', 'visiteur', null].includes(role)) return;
+  adminPreviewRole = role;
+  currentRole = role || 'admin';
+  if (role === 'visiteur') { backendStudent = null; backendLessons = []; backendSubmissions = []; }
+  updateAppForCurrentRole();
+  showTab(role ? getProfileMeta(role).defaultTab : 'admin');
+}
 function openLoginModal() {
   renderLoginGateView();
   document.getElementById('login-gate-view')?.classList.remove('hidden');
@@ -135,7 +144,9 @@ updateHeaderRoleUI = () => {
     return;
   }
   const meta = getProfileMeta(currentRole);
+  const preview = backendUser.role === 'admin' ? '<select aria-label="Aperçu du site" onchange="previewAsRole(this.value || null)" class="px-2 py-1.5 rounded-lg bg-[#181b21] border border-[#262b35] text-xs text-white"><option value="" ' + (!adminPreviewRole ? 'selected' : '') + '>Administration</option><option value="stagiaire" ' + (adminPreviewRole === 'stagiaire' ? 'selected' : '') + '>Voir comme stagiaire</option><option value="visiteur" ' + (adminPreviewRole === 'visiteur' ? 'selected' : '') + '>Voir comme visiteur</option></select>' : '';
   el.innerHTML = `<div class="flex items-center gap-2"><span class="px-3 py-1.5 rounded-lg bg-[#181b21] border border-[#262b35] text-xs text-white font-semibold truncate max-w-[220px]">${escapeBackend(backendUser.name)} · <span class="text-[#f8485e] font-mono">${escapeBackend(meta.label)}</span></span><button onclick="logoutBackendUser()" class="px-3 py-1.5 rounded-lg bg-[#181b21] hover:bg-rose-950/80 border border-[#262b35] text-xs font-bold text-slate-200 transition-all">Déconnexion</button></div>`;
+  el.insertAdjacentHTML('afterbegin', preview);
 };
 
 async function resetLessonsToSingleExample() {
@@ -203,7 +214,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 Object.assign(window, {
-  openLoginModal, closeLoginModal, quickConnectProfile, submitLoginForm, submitRegistrationForm, logoutBackendUser,
+  openLoginModal, closeLoginModal, quickConnectProfile, submitLoginForm, submitRegistrationForm, logoutBackendUser, previewAsRole,
   selectBackendStudent, reviewBackendSubmission, deleteBackendSubmission,
   createBackendAccount, updateBackendUserAccess, deleteBackendAccount, resetLessonsToSingleExample,
   submitCustomCourse, switchUserRole, getStageLessons, saveStageLessons

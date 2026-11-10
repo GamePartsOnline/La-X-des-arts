@@ -203,6 +203,15 @@ export async function handleExtendedApiRoutes(req, res, url, path, u, isStaff, b
     );
     return json(res, 201, { id });
   }
+  const newsEdit = /^\/api\/news\/([a-zA-Z0-9_-]+)$/.exec(path);
+  if (newsEdit && req.method === 'PUT') {
+    if (!isStaff(u)) fail(403, 'Administrateur requis');
+    const b = await body(req);
+    if (typeof b.titre !== 'string' || !b.titre.trim() || typeof b.resume !== 'string') fail(400, 'Titre et résumé requis');
+    const result = db.prepare('UPDATE news_articles SET titre=?, resume=? WHERE id=?').run(b.titre.trim().slice(0,160), b.resume.trim().slice(0,1500), newsEdit[1]);
+    if (!result.changes) fail(404, 'Article introuvable');
+    return json(res, 200, {ok:true});
+  }
   const newsDel = /^\/api\/news\/([a-zA-Z0-9_-]+)$/.exec(path);
   if (newsDel && req.method === 'DELETE') {
     if (!isStaff(u)) fail(403, 'Administrateur requis');

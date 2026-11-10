@@ -30,6 +30,20 @@ const DEFAULT_CREATOR_SHOWCASE = [
 function getVeilleItems() { try { return [...JSON.parse(localStorage.getItem('croisee_veille_items_v1') || '[]'), ...DEFAULT_VEILLE_ITEMS]; } catch { return DEFAULT_VEILLE_ITEMS; } }
 function getCreatorShowcaseItems() { try { return [...JSON.parse(localStorage.getItem('croisee_creator_showcase_v1') || '[]'), ...DEFAULT_CREATOR_SHOWCASE]; } catch { return DEFAULT_CREATOR_SHOWCASE; } }
 function setVeilleCategoryFilter(cat) { currentVeilleCategory = cat; renderVeilleView(); }
+async function editVeilleArticle(id) {
+  const item = window.__veilleArticles?.find(article => article.id === id);
+  if (!item || !String(id).startsWith('news-')) return;
+  const titre = window.prompt('Titre de l’article', item.titre);
+  if (titre === null || !titre.trim()) return;
+  const resume = window.prompt('Résumé de l’article', item.resume);
+  if (resume === null) return;
+  try {
+    const response = await fetch('/api/news/' + encodeURIComponent(id), {method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({titre,resume})});
+    if (!response.ok) throw new Error('Modification refusée');
+    renderVeilleView();
+  } catch (error) { if (typeof showCustomToast === 'function') showCustomToast('Erreur', error.message, 'warning'); }
+}
+
 function setJobsTypeFilter(type) { currentJobsTypeFilter = type; renderJobsView(); }
 
 function addVeilleArticle(e) {
@@ -55,10 +69,12 @@ function addCreatorShowcaseItem(e) {
 }
 
 // 1. ONGLET ACTU & NEWS EN FLUX CONTINU (#content-veille)
-function renderVeilleView() {
+async function renderVeilleView() {
   const container = document.getElementById('veille-workspace-container');
   if (!container) return;
-  const all = getVeilleItems();
+  let all = getVeilleItems();
+  try { const response = await fetch('/api/news'); if (response.ok) { const data = await response.json(); const remote = data.articles.map(a => ({id:a.id,cat:a.cat,badge:a.badge,titre:a.titre,sourceNom:a.sourceNom,sourceUrl:a.sourceUrl,norme:a.norme,resume:a.resume,date:a.date})); const ids=new Set(remote.map(a=>a.id)); all=[...remote,...all.filter(a=>!ids.has(a.id))]; } } catch {}
+  window.__veilleArticles = all;
   const filtered = currentVeilleCategory === 'all' ? all : all.filter(i => i.cat === currentVeilleCategory);
   const isAdmin = (typeof getActiveRole === 'function' ? getActiveRole() : 'visiteur') === 'admin';
 
@@ -106,7 +122,7 @@ function renderVeilleView() {
               <span class="px-2.5 py-0.5 rounded bg-[#f8485e]/15 text-[#f8485e] font-mono text-xs font-bold">${item.badge}</span>
               <span class="text-xs font-mono text-emerald-400">${item.date}</span>
             </div>
-            <h2 class="text-lg font-bold text-white leading-snug">${item.titre}</h2>
+            <div class="flex items-start justify-between gap-3"><h2 class="text-lg font-bold text-white leading-snug">${item.titre}</h2>${isAdmin && String(item.id).startsWith('news-') ? `<button onclick="editVeilleArticle('${item.id}')" class="px-3 py-1 rounded-lg border border-emerald-500/40 text-emerald-300 text-xs">Modifier</button>` : ''}</div>
             <p class="text-sm text-slate-300 leading-relaxed">${item.resume}</p>
             <div class="pt-3 border-t border-[#262b35] flex flex-wrap items-center justify-between gap-3 text-xs">
               <span class="font-mono text-amber-300">Norme : ${item.norme}</span>
@@ -245,5 +261,5 @@ function renderCreatorShowcaseView() {
 }
 
 if (typeof window !== 'undefined') {
-  Object.assign(window, { renderVeilleView, setVeilleCategoryFilter, addVeilleArticle, renderJobsView, setJobsTypeFilter, submitJobOffer, deleteJobOffer, renderCreatorShowcaseView, addCreatorShowcaseItem });
+  Object.assign(window, { renderVeilleView, setVeilleCategoryFilter, addVeilleArticle, editVeilleArticle, renderJobsView, setJobsTypeFilter, submitJobOffer, deleteJobOffer, renderCreatorShowcaseView, addCreatorShowcaseItem });
 }
