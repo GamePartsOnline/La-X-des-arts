@@ -523,49 +523,49 @@ const COURSES_DATA = [
     id: "fiche-g03",
     num: "G-03",
     discipline: "graphisme",
-    title: "Vectoriel & Plume de Bézier : Géométrie et Économie de Points",
+    title: "Courbes de Bézier : Tracés Paramétriques, Tangentes & Anatomie Vectorielle",
     domain: "Outils Vectoriels & Illustrator",
     level: "Tous Niveaux",
     duration: "20 min",
     image: "assets/planche_pedagogique_textures_brosses.jpg",
-    summary: "Maîtriser la trajectoire des courbes de Bézier : placer les points d'ancrage uniquement aux extremums (sommets horizontaux et verticaux), aligner les poignées à 0° ou 90°, et combiner les formes avec le Pathfinder.",
+    summary: "Maîtrise approfondie de la plume et des courbes de Bézier : placement exclusif des points d'ancrage aux extremums orthogonaux (0° et 90°), gestion des leviers de tangence (règle du tiers d'arc), distinction stricte entre points lisses, points d'angle et points raccord, et manipulation experte par raccourcis (P, Alt, Maj, Ctrl/Cmd).",
     artist: {
       name: "Pierre Bézier (1910 - 1999)",
       quote: "Une courbe parfaite ne se dessine pas par tâtonnement, elle se calcule avec un minimum absolu de repères directeurs.",
-      bio: "Ingénieur français chez Renault qui a mathématisé les courbes paramétriques devenues le standard absolu de toute la création vectorielle numérique moderne (PostScript, SVG, Illustrator, glyphes de polices)."
+      bio: "Ingénieur français chez Renault qui a mathématisé les courbes paramétriques devenues le standard absolu de toute la création vectorielle numérique moderne (PostScript, SVG, Illustrator, typographie numérique)."
     },
     theory: [
       {
         title: "1. La Règle d'Or des Extremums",
-        desc: "Ne poser un point d'ancrage que là où la courbe atteint son sommet horizontal ou vertical absolu. Moins un tracé contient de points, plus la courbe est lisse."
+        desc: "Ne poser un point d'ancrage que là où la courbe atteint son sommet horizontal ou vertical absolu. Moins un tracé contient de points, plus la courbe est pure et exempte de facettes parasites."
       },
       {
-        title: "2. Poignées Orthogonales à 0° et 90°",
-        desc: "Maintenir la touche Maj pour verrouiller les tangentes des poignées à l'horizontale ou la verticale : cela supprime 99 % des bosses parasites."
+        title: "2. Les Leviers de Tangence (Règle du Tiers)",
+        desc: "La longueur idéale des poignées de Bézier représente environ un tiers (33 %) de la longueur de l'arc de cercle à décrire. Maintenir la touche Maj pour verrouiller les angles à 0°, 45° ou 90°."
       },
       {
-        title: "3. Opérations Booléennes (Pathfinder)",
-        desc: "Privilégier la composition par cercles et rectangles parfaits fusionnés (Union, Soustraction, Intersection) plutôt que le dessin manuel approximatif."
+        title: "3. Typologie des Points (Lisse vs Angle vs Raccord)",
+        desc: "Point lisse : les deux poignées restent solidaires en ligne droite. Point d'angle : poignées brisées avec la touche Alt pour changer brusquement de direction. Point raccord : jonction fluide entre une ligne droite et une courbe."
       },
       {
-        title: "4. Tracés Fermés et Nettoyage",
-        desc: "Vérifier que les tracés sont parfaitement clos et fusionnés pour autoriser la découpe vinyle, l'usinage laser et un affichage SVG ultra-léger."
+        title: "4. Opérations Booléennes et Tracé Machine",
+        desc: "Combiner la plume avec le Pathfinder (Union, Soustraction, Intersection) pour des formes parfaites. Vérifier que les tracés sont clos et nettoyés pour l'usinage laser ou la découpe vinyle."
       }
     ],
     exercise: {
-      title: "Vectorisation d'un Pictogramme en 8 Points Maximum (Chrono 20 min)",
-      instructions: "Choisissez une forme stylisée (goutte d'eau, nuage ou oiseau géométrique) et vectorisez-la rigoureusement en limitant le contour à un maximum strict de 8 points d'ancrage aux extremums."
+      title: "Vectorisation d'une arabesque et d'un monogramme en 10 points maximum",
+      instructions: "Prenez une lettre calligraphiée complexe avec volute Art Nouveau et vectorisez l'intégralité du contour extérieur en utilisant un maximum strict de 10 points d'ancrage placés rigoureusement aux extremums."
     },
     correction: {
       student_errors: [
-        { label: "Prolifération de points inutiles", detail: "Tracé instable comptant 48 points d'ancrage créant des facettes anguleuses." },
+        { label: "Prolifération de points inutiles", detail: "Tracé instable comptant 48 points d'ancrage créant des facettes anguleuses disgracieuses." },
         { label: "Poignées asymétriques brisées", detail: "Tangentes désalignées brisant la continuité de la courbure." },
-        { label: "Tracés ouverts non jointifs", detail: "Forme impossible à remplir ou découper sur machine à commande numérique." }
+        { label: "Tracés ouverts non jointifs", detail: "Forme impossible à remplir de couleur ou à découper sur plotter." }
       ],
       remediations: [
-        { label: "Suppression de 80 % des points", detail: "Recentrage exclusif sur les 4 sommets directeurs cardinaux." },
-        { label: "Tangentes parfaitement lisses", detail: "Harmonisation des longueurs de leviers de Bézier." },
-        { label: "Tracé fermé certifié", detail: "Jonction propre des points d'extrémité." }
+        { label: "Suppression de 80 % des points", detail: "Recentrage exclusif sur les sommets directeurs cardinaux." },
+        { label: "Tangentes parfaitement lisses", detail: "Harmonisation des longueurs de leviers de Bézier pour un flux tendu." },
+        { label: "Tracé fermé certifié", detail: "Jonction propre des points d'extrémité validée." }
       ],
       grades: { silhouette: 9.5, structure: 9.5, valeurs: 8.5, bords: 10, couleur: 9 }
     }
@@ -670,6 +670,57 @@ const COURSES_DATA = [
         { label: "Bouton tactile 44px de hauteur", detail: "Surface d'appui confortable conforme aux directives ergonomiques." }
       ],
       grades: { silhouette: 9.5, structure: 9.5, valeurs: 9, bords: 9, couleur: 9.5 }
+    }
+  },
+  {
+    id: "fiche-g06",
+    num: "G-06",
+    discipline: "graphisme",
+    title: "Guides & Repères : Grilles Magnétiques, Règle des Tiers et Baseline Grid",
+    domain: "Mise en Page, Précision & Typométrie",
+    level: "Fondamental à Intermédiaire",
+    duration: "20 min",
+    image: "assets/planche_pedagogique_composition_cinema.jpg",
+    summary: "Maîtriser l'ossature invisible de tout design réussi : mise en place de la grille magnétique à 12 colonnes, règle des tiers pour les points focaux, grille de ligne de base (baseline grid) pour un alignement typographique sans faille, marges intérieures et fonds perdus.",
+    artist: {
+      name: "Josef Müller-Brockmann (1914 - 1996)",
+      quote: "La grille est un système d'ordre qui rend l'information visuelle claire, lisible et harmonieuse.",
+      bio: "Pionnier du Style Typographique International suisse et auteur de Systèmes de Grille en Design Graphique. Son approche rigoureuse des repères structure aujourd'hui toute la mise en page imprimée et web."
+    },
+    theory: [
+      {
+        title: "1. La Grille Modulaire à 12 Colonnes",
+        desc: "Division géométrique ultra-polyvalente permettant des agencements en 1, 2, 3, 4 ou 6 colonnes sans rupture d'harmonie. Gouttières fixes régulières (16px, 20px ou 5mm) pour cadencer l'espace blanc."
+      },
+      {
+        title: "2. La Baseline Grid (Grille de Ligne de Base)",
+        desc: "Alignement vertical obligatoire de toutes les lignes de texte courant et des titres sur un pas régulier (ex: pas de 12pt ou 16px). Cela empêche les décalages de lignes disgracieux entre deux colonnes adjacentes."
+      },
+      {
+        title: "3. Règle des Tiers et Points d'Accroche Visuelle",
+        desc: "Découpage de l'espace en 9 rectangles réguliers par deux lignes horizontales et deux verticales. Placer les éléments clés (titre, visuel d'appel, bouton) aux 4 intersections de ces lignes pour un dynamisme naturel."
+      },
+      {
+        title: "4. Repères d'Atelier Print : Fonds Perdus & Zones de Sécurité",
+        desc: "Ne jamais concevoir sans repères techniques : 3 mm de fond perdu (bleed) pour les couleurs au bord, traits de coupe, et zone tranquille (marge intérieure de sécurité de 5 mm minimum) exempte de texte."
+      }
+    ],
+    exercise: {
+      title: "Mise en Page Structurée d'une Affiche A4 ou Double Page Éditoriale (Chrono 20 min)",
+      instructions: "Instaurez une grille rigoureuse à 12 colonnes et une baseline grid de 12pt. Disposez un titre percutant, un chapô, deux colonnes de texte justifiées sur la baseline, une citation sur 4 colonnes et un bloc visuel calé sur un tiers stratégique avec marge technique de sécurité de 5 mm."
+    },
+    correction: {
+      student_errors: [
+        { label: "Texte flottant hors baseline", detail: "Les lignes de texte d'une colonne ne correspondent pas en hauteur à celles de la colonne voisine." },
+        { label: "Éléments collés au bord de coupe", detail: "Absence de marge de sécurité de 5 mm, risquant un massicotage involontaire du texte." },
+        { label: "Gouttières anarchiques", detail: "Espacements variables entre les colonnes cassant le rythme visuel global." }
+      ],
+      remediations: [
+        { label: "Verrouillage sur la grille de ligne de base", detail: "Activer l'alignement sur la grille dans les paramètres de paragraphe." },
+        { label: "Respect des zones de sécurité et fonds perdus", detail: "3 mm de débord extérieur pour les fonds et 5 mm de marge intérieure minimale." },
+        { label: "Rigidité modulaire des 12 colonnes", detail: "Largeurs de blocs strictement calées sur 3, 4, 6 ou 8 colonnes avec gouttières fixes." }
+      ],
+      grades: { silhouette: 9.5, structure: 10, valeurs: 9, bords: 9.5, couleur: 9 }
     }
   }
 ];

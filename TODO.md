@@ -22,6 +22,7 @@ Emplacement de travail : C:\DEV\la-croisee-des-arts
 - Fiche G-03 : Vectoriel de précision, courbes de Bézier aux extremums et opérations booléennes.
 - Fiche G-04 : Systèmes de couleurs, nuanciers Pantone, règle des 60-30-10 et harmonies triadiques.
 - Fiche G-05 : UI / UX Design, grille modulaire de 8px, accessibilité WCAG AA 4.5:1 et composants atomiques.
+- Fiche G-06 : Guides & Repères, grilles magnétiques 12 colonnes, règle des tiers, baseline grid et fonds perdus.
 - Ateliers chrono graphiste : 4 sessions ciblées (Logo 1-bit 15 min, Affiche typo 15 min, Pictogramme Bézier 10 min, Palette 60-30-10 10 min).
 
 ## 3. Avancement technique
@@ -30,12 +31,14 @@ Emplacement de travail : C:\DEV\la-croisee-des-arts
 - [x] Lancement du serveur HTTP local sur le port 5173
 - [x] Ajout de l'onglet et de la vue dédiée "Design Graphique" dans index.html
 - [x] Intégration de la section Graphisme dans la barre latérale gauche
-- [x] Rédaction et intégration des 6 cours de graphisme dans courses.js
+- [x] Rédaction et intégration des 7 cours de graphisme dans courses.js (incluant Bézier et Guides & Repères)
 - [x] Filtrage dynamique par discipline (Tous, Dessin, Graphisme) dans app.js
 - [x] Ajout des ateliers chrono et travaux de galerie dédiés au graphisme
 - [x] Correction du lien de script vers canvas.js
 - [x] Intégration du mode traditionnel feuille de papier obligatoire pour l'exercice Dune 1 & 2
 - [x] Génération des 4 illustrations artistiques de référence pour les poses de personnages Dune (Paul au vent, Éclaireur accroupi, Guerrier duel krys, Marcheur tempête)
 - [x] Module complet de dépôt photo / scan et capture webcam avec filtres de contraste
+- [x] Module de dépôt de fichier pour correction pédagogique dans chaque fiche de cours (remplaçant le chrono inadapté) avec persistance localStorage et note académique
+- [x] Dashboard Nouvel Élève sur la page d'accueil : onboarding, orientation double filière, 3 premières actions, et cours de démarrage
 - [ ] Ajout d'outils vectoriels interactifs avancés dans le studio canvas
 - [ ] Système d'export PDF/SVG des travaux d'ateliers
