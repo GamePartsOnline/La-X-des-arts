@@ -34,5 +34,8 @@ Emplacement de travail : C:\DEV\la-croisee-des-arts
 - [x] Filtrage dynamique par discipline (Tous, Dessin, Graphisme) dans app.js
 - [x] Ajout des ateliers chrono et travaux de galerie dédiés au graphisme
 - [x] Correction du lien de script vers canvas.js
+- [x] Intégration du mode traditionnel feuille de papier obligatoire pour l'exercice Dune 1 & 2
+- [x] Génération des 4 illustrations artistiques de référence pour les poses de personnages Dune (Paul au vent, Éclaireur accroupi, Guerrier duel krys, Marcheur tempête)
+- [x] Module complet de dépôt photo / scan et capture webcam avec filtres de contraste
 - [ ] Ajout d'outils vectoriels interactifs avancés dans le studio canvas
 - [ ] Système d'export PDF/SVG des travaux d'ateliers

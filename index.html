@@ -920,8 +920,115 @@
 
         <!-- Studio Main Workspace : Split View -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          <!-- Panneau Gauche : Canvas de Dessin Interactif -->
-          <div class="lg:col-span-7 bg-[#1b1e24] border border-[#272b35] rounded-2xl p-4 lg:p-6 flex flex-col justify-between">
+          
+          <!-- Panneau Gauche Option 1 : Atelier Papier Traditionnel & Envoi Photo (Actif par défaut sur Dune) -->
+          <div id="panel-paper-upload" class="lg:col-span-7 bg-[#1b1e24] border border-[#d6a55b]/50 rounded-2xl p-5 lg:p-6 flex flex-col justify-between space-y-5">
+            <!-- Consigne officielle feuille de papier -->
+            <div class="p-4 rounded-xl bg-gradient-to-r from-amber-500/15 via-[#181a1f] to-amber-500/10 border border-[#d6a55b]/40 space-y-2">
+              <div class="flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-amber-400 animate-pulse"></span>
+                <span class="text-xs font-black uppercase tracking-wider text-[#d6a55b]">CONSIGNE OBLIGATOIRE : TRAVAIL TRADITIONNEL SUR FEUILLE PAPIER</span>
+              </div>
+              <p class="text-xs text-slate-200 leading-relaxed">
+                Pour cet exercice de cadrage et poses Dune 1 & 2, <strong class="text-white">il est formellement interdit de dessiner sur l'écran</strong>. Munissez-vous d'une feuille de papier réel (carnet de croquis, feuille A4 blanche ou papier dessin) et de vos outils traditionnels (crayon graphite 2B/4B, fusain ou feutre).
+              </p>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-1 text-[11px] text-slate-300">
+                <div class="p-2 rounded-lg bg-[#131417]/80 border border-[#272b35]"><strong class="text-[#d6a55b]">1. Observez</strong> la pose choisie à droite</div>
+                <div class="p-2 rounded-lg bg-[#131417]/80 border border-[#272b35]"><strong class="text-[#d6a55b]">2. Dessinez</strong> sur papier en 10 min chrono</div>
+                <div class="p-2 rounded-lg bg-[#131417]/80 border border-[#272b35]"><strong class="text-[#d6a55b]">3. Photographiez</strong> et déposez votre feuille</div>
+              </div>
+            </div>
+
+            <!-- Input file caché pour le téléversement -->
+            <input type="file" id="paper-file-input" accept="image/*" class="hidden" onchange="handlePaperUpload(event)" />
+
+            <!-- Webcam Inline Container (Caché au repos) -->
+            <div id="paper-webcam-container" class="hidden p-4 rounded-xl bg-[#131417] border border-[#00e1d9]/40 space-y-3">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-[#00e1d9]">Alignez votre feuille devant l'objectif de la caméra</span>
+                <button onclick="cancelWebcamCapture()" class="text-xs text-slate-400 hover:text-white">Annuler</button>
+              </div>
+              <video id="paper-webcam-video" autoplay playsinline class="w-full h-72 object-cover rounded-xl bg-black border border-[#272b35]"></video>
+              <button onclick="captureWebcamPhoto()" class="w-full py-2.5 rounded-xl bg-[#00e1d9] hover:bg-[#00c4bd] text-[#131417] font-bold text-xs transition-all shadow-lg shadow-cyan-500/20">
+                Capturer la Photo de la Feuille
+              </button>
+            </div>
+
+            <!-- Zone de Dépôt / Upload État Vide -->
+            <div id="paper-upload-empty" class="border-2 border-dashed border-[#d6a55b]/40 hover:border-[#d6a55b] rounded-2xl p-6 lg:p-8 flex flex-col items-center justify-center text-center space-y-4 bg-[#131417]/60 hover:bg-[#131417] transition-all cursor-pointer" onclick="document.getElementById('paper-file-input').click()">
+              <div class="w-16 h-16 rounded-2xl bg-[#d6a55b]/10 border border-[#d6a55b]/30 flex items-center justify-center text-[#d6a55b]">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+              </div>
+              <div class="space-y-1">
+                <p class="text-sm font-bold text-white">Glissez-déposez la photo ou le scan de votre feuille de dessin</p>
+                <p class="text-xs text-slate-400">Formats acceptés : JPG, PNG, WEBP, HEIC (depuis smartphone ou ordinateur)</p>
+              </div>
+              <div class="flex flex-wrap items-center gap-3 pt-2" onclick="event.stopPropagation()">
+                <button onclick="document.getElementById('paper-file-input').click()" class="px-5 py-2.5 rounded-xl gold-pill-active text-xs font-bold transition-all">
+                  Parcourir mes Fichiers...
+                </button>
+                <button onclick="startWebcamCapture()" class="px-4 py-2.5 rounded-xl bg-[#232730] hover:bg-[#2c323f] border border-[#272b35] text-xs font-bold text-slate-200 transition-all flex items-center gap-2">
+                  <svg class="w-4 h-4 text-[#00e1d9]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                  Prendre en Photo avec la Caméra
+                </button>
+              </div>
+            </div>
+
+            <!-- Zone de Prévisualisation de la Feuille Envoyée -->
+            <div id="paper-upload-filled" class="hidden space-y-4">
+              <div class="flex items-center justify-between pb-2 border-b border-[#272b35]">
+                <div class="flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+                  <span class="text-xs font-bold text-white">Feuille papier chargée avec succès</span>
+                </div>
+                <!-- Filtres d'amélioration scan -->
+                <div class="flex items-center gap-1.5 text-xs">
+                  <span class="text-[10px] text-slate-400 font-bold uppercase mr-1">Rendu :</span>
+                  <button onclick="applyPaperFilter('normal')" class="px-2.5 py-1 rounded bg-[#232730] hover:bg-[#2c323f] text-slate-300 text-[11px] font-bold">Couleur Réelle</button>
+                  <button onclick="applyPaperFilter('grayscale')" class="px-2.5 py-1 rounded bg-[#232730] hover:bg-[#2c323f] text-slate-300 text-[11px] font-bold">N&B Fusain</button>
+                  <button onclick="applyPaperFilter('contrast')" class="px-2.5 py-1 rounded bg-[#232730] hover:bg-[#2c323f] text-slate-300 text-[11px] font-bold">Contraste Crayon</button>
+                </div>
+              </div>
+
+              <!-- Cadre d'affichage de la photo du dessin -->
+              <div class="relative rounded-2xl overflow-hidden border border-[#272b35] bg-black max-h-[460px] flex items-center justify-center">
+                <img id="paper-preview-img" src="" alt="Dessin sur feuille" class="w-full h-auto max-h-[460px] object-contain transition-all" />
+              </div>
+
+              <div class="flex flex-wrap items-center justify-between gap-3 pt-2">
+                <button onclick="resetPaperUpload()" class="text-xs text-rose-400 hover:text-rose-300 font-semibold">
+                  Reprendre ou changer de photo
+                </button>
+                <button id="paper-submit-btn" onclick="submitPaperDrawing()" class="px-6 py-2.5 rounded-xl gold-pill-active text-xs font-extrabold transition-all shadow-lg shadow-amber-500/20">
+                  Transmettre mon étude papier pour évaluation
+                </button>
+              </div>
+            </div>
+
+            <!-- Retour d'Évaluation Académique Immédiat -->
+            <div id="paper-submission-feedback" class="hidden p-5 rounded-2xl bg-gradient-to-br from-emerald-950/40 via-[#181a1f] to-amber-950/20 border border-emerald-500/40 space-y-3">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <span class="w-6 h-6 rounded-full bg-emerald-500 text-slate-950 flex items-center justify-center font-black text-xs">✓</span>
+                  <h4 class="text-sm font-bold text-white">Travail sur Feuille Papier Validé par le Jury</h4>
+                </div>
+                <span class="text-xs font-extrabold px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-500/30 text-emerald-400">
+                  Note : 9.4 / 10
+                </span>
+              </div>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                Appréciation de l'Atelier : Le dynamisme de la pose et la tension du drapé sont remarquablement capturés au trait traditionnel. La séparation binaire des ombres au fusain/crayon traduit fidèlement la lumière crue d'Arrakis.
+              </p>
+              <div class="grid grid-cols-3 gap-2 pt-1 text-[11px]">
+                <div class="p-2 rounded bg-[#131417] border border-[#272b35] text-center"><span class="text-slate-400 block">Ligne d'action</span><strong class="text-[#d6a55b]">9.5 / 10</strong></div>
+                <div class="p-2 rounded bg-[#131417] border border-[#272b35] text-center"><span class="text-slate-400 block">Drapé au vent</span><strong class="text-[#d6a55b]">9.5 / 10</strong></div>
+                <div class="p-2 rounded bg-[#131417] border border-[#272b35] text-center"><span class="text-slate-400 block">Valeurs Notan</span><strong class="text-[#d6a55b]">9.2 / 10</strong></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Panneau Gauche Option 2 : Canvas de Dessin Numérique Interactif (Pour autres sessions) -->
+          <div id="panel-digital-canvas" class="lg:col-span-7 bg-[#1b1e24] border border-[#272b35] rounded-2xl p-4 lg:p-6 flex flex-col justify-between hidden">
             <div class="flex flex-wrap items-center justify-between gap-3 mb-4 pb-3 border-b border-[#272b35]">
               <!-- Palette / Brush Tools -->
               <div class="flex items-center gap-2">
@@ -955,7 +1062,7 @@
             <p class="text-[11px] text-slate-500 mt-2 text-center">Dessinez au stylet ou à la souris sur la zone. Exportez votre croquis à la fin du temps imparti.</p>
           </div>
 
-          <!-- Panneau Droit : Chronomètre & Moodboard de Références -->
+          <!-- Panneau Droit : Chronomètre & Moodboard de Références + Poses Dune -->
           <div class="lg:col-span-5 space-y-6">
             <!-- Chronomètre Interactif Néon -->
             <div class="p-6 rounded-2xl bg-[#1b1e24] border border-[#00e1d9]/30 flex flex-col items-center justify-center text-center space-y-4 stopwatch-ring-glow">
@@ -966,7 +1073,7 @@
                   <circle cx="50" cy="50" r="45" stroke="#272b35" stroke-width="6" fill="transparent" />
                   <circle id="timer-progress" cx="50" cy="50" r="45" stroke="#00e1d9" stroke-width="6" stroke-dasharray="283" stroke-dashoffset="0" stroke-linecap="round" fill="transparent" class="transition-all duration-1000 ease-linear" />
                 </svg>
-                <div id="timer-display" class="absolute font-mono font-black text-4xl text-[#00e1d9] tracking-wider">15:00</div>
+                <div id="timer-display" class="absolute font-mono font-black text-4xl text-[#00e1d9] tracking-wider">10:00</div>
               </div>
 
               <!-- Controls -->
@@ -987,14 +1094,36 @@
               </div>
             </div>
 
-            <!-- Référence Visuelle Active -->
+            <!-- Sélecteur Dynamique des 4 Poses Dune -->
+            <div id="session-poses-container" class="p-5 rounded-2xl bg-[#1b1e24] border border-[#d6a55b]/40 space-y-3">
+              <div class="flex items-center justify-between">
+                <div>
+                  <h4 class="text-xs font-bold text-[#d6a55b] uppercase tracking-wider">Poses de Personnages Dune</h4>
+                  <p id="current-pose-badge" class="text-[11px] text-slate-400">Pose 1 / 4 : Paul Muad'Dib</p>
+                </div>
+                <button onclick="randomDunePose()" class="px-3 py-1.5 rounded-lg bg-[#232730] hover:bg-[#d6a55b] hover:text-[#131417] text-[11px] font-bold text-[#d6a55b] transition-all flex items-center gap-1.5" title="Sélectionner une pose aléatoire">
+                  <span>Aléatoire</span>
+                  <span>⚡</span>
+                </button>
+              </div>
+
+              <!-- Grille des 4 Poses avec Vignettes -->
+              <div id="session-poses-list" class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+                <!-- Rendu dynamiquement par renderPosesSelector() -->
+              </div>
+            </div>
+
+            <!-- Référence Visuelle Active Agrandissable -->
             <div class="p-4 rounded-2xl bg-[#1b1e24] border border-[#272b35] space-y-3">
               <div class="flex items-center justify-between">
-                <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider">Planche d'Observation en Direct</h4>
-                <button onclick="openImageModal(document.getElementById('session-ref-img').src)" class="text-xs text-[#d6a55b] hover:text-white font-medium">Agrandir</button>
+                <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider">Modèle de Pose en Cours</h4>
+                <button onclick="openImageModal(document.getElementById('session-ref-img').src)" class="text-xs text-[#d6a55b] hover:text-white font-medium">Agrandir Plein Écran</button>
               </div>
-              <div class="rounded-xl overflow-hidden border border-[#272b35] bg-black cursor-pointer" onclick="openImageModal(document.getElementById('session-ref-img').src)">
-                <img id="session-ref-img" src="assets/studio_dessin_interactif_chrono_croisee.jpg" class="w-full h-auto max-h-[300px] object-contain" />
+              <div class="rounded-xl overflow-hidden border border-[#272b35] bg-black cursor-pointer group relative" onclick="openImageModal(document.getElementById('session-ref-img').src)">
+                <img id="session-ref-img" src="assets/dune_pose_01_paul_cape_vent.jpg" class="w-full h-auto max-h-[380px] object-contain mx-auto group-hover:scale-[1.02] transition-transform duration-300" />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-3">
+                  <p class="text-[11px] text-white">Cliquez pour observer les détails anatomiques et les plis du tissu</p>
+                </div>
               </div>
             </div>
           </div>

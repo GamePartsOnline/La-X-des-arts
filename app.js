@@ -380,6 +380,9 @@ function resetTimerMain(seconds = 15 * 60) {
   if (btn) btn.textContent = 'Démarrer la Pose';
 }
 
+let currentPoseIndex = 0;
+let webcamStream = null;
+
 function selectSession(id) {
   currentSession = SESSIONS_DATA.find(s => s.id === id) || SESSIONS_DATA[0];
   resetTimer(currentSession.duration * 60);
@@ -387,9 +390,200 @@ function selectSession(id) {
   const refImg = document.getElementById('session-ref-img');
   const titleEl = document.getElementById('session-title');
   const tipsEl = document.getElementById('session-tips');
+  const canvasPanel = document.getElementById('panel-digital-canvas');
+  const paperPanel = document.getElementById('panel-paper-upload');
+  const posesContainer = document.getElementById('session-poses-container');
+
   if (refImg) refImg.src = currentSession.image;
   if (titleEl) titleEl.textContent = currentSession.title;
   if (tipsEl) tipsEl.textContent = currentSession.tips;
+
+  // Si l'exercice exige un travail sur feuille de papier (ex: Dune 1 & 2)
+  if (currentSession.isTraditionalPaper) {
+    if (canvasPanel) canvasPanel.classList.add('hidden');
+    if (paperPanel) paperPanel.classList.remove('hidden');
+  } else {
+    if (canvasPanel) canvasPanel.classList.remove('hidden');
+    if (paperPanel) paperPanel.classList.add('hidden');
+  }
+
+  // Si des poses spécifiques existent (ex: Dune 1 & 2)
+  if (posesContainer) {
+    if (currentSession.poses && currentSession.poses.length > 0) {
+      posesContainer.classList.remove('hidden');
+      currentPoseIndex = 0;
+      renderPosesSelector();
+    } else {
+      posesContainer.classList.add('hidden');
+    }
+  }
+}
+
+function renderPosesSelector() {
+  const container = document.getElementById('session-poses-list');
+  if (!container || !currentSession.poses) return;
+
+  container.innerHTML = currentSession.poses.map((p, idx) => `
+    <button onclick="selectDunePose(${idx})" class="p-2.5 rounded-xl border text-left transition-all ${
+      idx === currentPoseIndex 
+        ? 'bg-[#d6a55b]/20 border-[#d6a55b] text-white shadow-lg shadow-amber-500/10 ring-1 ring-[#d6a55b]' 
+        : 'bg-[#131417] border-[#272b35] text-slate-400 hover:text-white hover:border-slate-500'
+    }">
+      <div class="flex items-center gap-2.5">
+        <div class="w-11 h-11 rounded-lg overflow-hidden shrink-0 border border-[#272b35] bg-black">
+          <img src="${p.image}" alt="${p.title}" class="w-full h-full object-cover" />
+        </div>
+        <div class="min-w-0 flex-1">
+          <p class="text-xs font-bold truncate ${idx === currentPoseIndex ? 'text-[#d6a55b]' : 'text-slate-200'}">Pose ${idx + 1} : ${p.title.split(':')[0]}</p>
+          <p class="text-[10px] text-slate-400 truncate">${p.subtitle}</p>
+        </div>
+      </div>
+    </button>
+  `).join('');
+}
+
+function selectDunePose(index) {
+  if (!currentSession.poses || !currentSession.poses[index]) return;
+  currentPoseIndex = index;
+  const pose = currentSession.poses[index];
+
+  const refImg = document.getElementById('session-ref-img');
+  const tipsEl = document.getElementById('session-tips');
+  const poseBadge = document.getElementById('current-pose-badge');
+
+  if (refImg) {
+    refImg.src = pose.image;
+    refImg.alt = pose.title;
+  }
+  if (tipsEl) tipsEl.textContent = `${pose.title} - ${pose.tips}`;
+  if (poseBadge) poseBadge.textContent = `Pose ${index + 1} / ${currentSession.poses.length} : ${pose.title}`;
+
+  renderPosesSelector();
+}
+
+function randomDunePose() {
+  if (!currentSession.poses) return;
+  const randIdx = Math.floor(Math.random() * currentSession.poses.length);
+  selectDunePose(randIdx);
+}
+
+function handlePaperUpload(event) {
+  const file = event.target.files && event.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const previewImg = document.getElementById('paper-preview-img');
+    const emptyState = document.getElementById('paper-upload-empty');
+    const filledState = document.getElementById('paper-upload-filled');
+
+    if (previewImg) previewImg.src = e.target.result;
+    if (emptyState) emptyState.classList.add('hidden');
+    if (filledState) filledState.classList.remove('hidden');
+  };
+  reader.readAsDataURL(file);
+}
+
+function applyPaperFilter(mode) {
+  const img = document.getElementById('paper-preview-img');
+  if (!img) return;
+
+  if (mode === 'normal') {
+    img.style.filter = 'none';
+  } else if (mode === 'grayscale') {
+    img.style.filter = 'grayscale(100%) contrast(140%) brightness(105%)';
+  } else if (mode === 'contrast') {
+    img.style.filter = 'contrast(170%) brightness(95%)';
+  }
+}
+
+function submitPaperDrawing() {
+  const feedbackEl = document.getElementById('paper-submission-feedback');
+  const submitBtn = document.getElementById('paper-submit-btn');
+
+  if (submitBtn) {
+    submitBtn.textContent = 'Croquis transmis avec succès !';
+    submitBtn.classList.remove('gold-pill-active');
+    submitBtn.classList.add('bg-emerald-500', 'text-slate-950');
+  }
+
+  if (feedbackEl) {
+    feedbackEl.classList.remove('hidden');
+    playChime(660, 0.4);
+  }
+}
+
+async function startWebcamCapture() {
+  const video = document.getElementById('paper-webcam-video');
+  const webcamContainer = document.getElementById('paper-webcam-container');
+  const emptyState = document.getElementById('paper-upload-empty');
+
+  try {
+    webcamStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
+    if (video) {
+      video.srcObject = webcamStream;
+      video.play();
+    }
+    if (webcamContainer) webcamContainer.classList.remove('hidden');
+    if (emptyState) emptyState.classList.add('hidden');
+  } catch (err) {
+    alert("Impossible d'accéder à la caméra : " + (err.message || 'Permission refusée. Vous pouvez utiliser le dépôt de photo.'));
+  }
+}
+
+function captureWebcamPhoto() {
+  const video = document.getElementById('paper-webcam-video');
+  const canvas = document.createElement('canvas');
+  if (!video) return;
+
+  canvas.width = video.videoWidth || 640;
+  canvas.height = video.videoHeight || 480;
+  const ctx = canvas.getContext('2d');
+  ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+  const dataUrl = canvas.toDataURL('image/jpeg');
+  const previewImg = document.getElementById('paper-preview-img');
+  const webcamContainer = document.getElementById('paper-webcam-container');
+  const filledState = document.getElementById('paper-upload-filled');
+
+  if (previewImg) previewImg.src = dataUrl;
+  if (webcamContainer) webcamContainer.classList.add('hidden');
+  if (filledState) filledState.classList.remove('hidden');
+
+  if (webcamStream) {
+    webcamStream.getTracks().forEach(track => track.stop());
+    webcamStream = null;
+  }
+}
+
+function cancelWebcamCapture() {
+  const webcamContainer = document.getElementById('paper-webcam-container');
+  const emptyState = document.getElementById('paper-upload-empty');
+
+  if (webcamStream) {
+    webcamStream.getTracks().forEach(track => track.stop());
+    webcamStream = null;
+  }
+  if (webcamContainer) webcamContainer.classList.add('hidden');
+  if (emptyState) emptyState.classList.remove('hidden');
+}
+
+function resetPaperUpload() {
+  const emptyState = document.getElementById('paper-upload-empty');
+  const filledState = document.getElementById('paper-upload-filled');
+  const feedbackEl = document.getElementById('paper-submission-feedback');
+  const fileInput = document.getElementById('paper-file-input');
+  const submitBtn = document.getElementById('paper-submit-btn');
+
+  if (emptyState) emptyState.classList.remove('hidden');
+  if (filledState) filledState.classList.add('hidden');
+  if (feedbackEl) feedbackEl.classList.add('hidden');
+  if (fileInput) fileInput.value = '';
+  if (submitBtn) {
+    submitBtn.textContent = 'Transmettre mon étude papier pour évaluation';
+    submitBtn.classList.remove('bg-emerald-500', 'text-slate-950');
+    submitBtn.classList.add('gold-pill-active');
+  }
 }
 
 // Render Gallery in Tab 4
@@ -568,4 +762,7 @@ window.addEventListener('DOMContentLoaded', () => {
       <option value="${s.id}">[${s.discipline === 'graphisme' ? 'Graphisme' : 'Dessin'}] ${s.title} (${s.duration} min)</option>
     `).join('');
   }
+
+  // Initialiser la session par défaut (ou Dune si sélectionnée)
+  selectSession(currentSession.id);
 });

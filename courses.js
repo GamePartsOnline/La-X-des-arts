@@ -691,13 +691,45 @@ const SESSIONS_DATA = [
   },
   {
     id: "session-dune",
-    title: "Dune 1 & 2 : Monumentalité et Cadrage Cinéma",
+    title: "Dune 1 & 2 : Monumentalité, Cadrage & Poses de Personnages",
     category: "Cinéma & Narration",
     discipline: "dessin",
     duration: 10,
-    image: "assets/session_dune_cinema.jpg",
+    isTraditionalPaper: true,
+    paperNotice: "Consigne d'atelier : Travail traditionnel sur feuille obligatoire. Ne dessinez pas sur votre écran. Munissez-vous d'une feuille de papier blanc ou carnet de croquis, d'un crayon 2B/4B ou d'un fusain. Observez la pose de personnage ci-contre, esquissez votre étude sur votre feuille pendant les 10 minutes du compte à rebours, puis prenez en photo ou déposez votre dessin pour l'envoyer à la correction.",
+    image: "assets/dune_pose_01_paul_cape_vent.jpg",
     director: "Denis Villeneuve",
-    tips: "Focus sur la petitesse des silhouettes face au gigantisme des vaisseaux et les contrastes de valeurs chaudes."
+    tips: "Focus sur la silhouette dynamique, la tension du drapé au vent et la petitesse de la silhouette face au gigantisme des dunes.",
+    poses: [
+      {
+        id: "pose-paul-cape",
+        title: "Paul Muad'Dib : Cape au vent sur la crête de dune",
+        subtitle: "Contre-plongée dramatique & drapé flottant",
+        image: "assets/dune_pose_01_paul_cape_vent.jpg",
+        tips: "Tracer d'abord la ligne d'action du corps en légère diagonale, puis les arabesques des plis de la cape qui s'étirent horizontalement."
+      },
+      {
+        id: "pose-fremen-accroupi",
+        title: "Éclaireur Fremen : Guet accroupi avec thumper",
+        subtitle: "Tension athlétique & centre de gravité bas",
+        image: "assets/dune_pose_02_fremen_accroupi.jpg",
+        tips: "Compresser la boîte du torse contre les cuisses, positionner le bâton comme axe vertical directeur."
+      },
+      {
+        id: "pose-duel-krys",
+        title: "Guerrier Fremen : Posture de duel aux dagues Krys",
+        subtitle: "Garde basse d'esquive & couteaux de ver",
+        image: "assets/dune_pose_03_duel_couteau_krys.jpg",
+        tips: "Écarter la base de sustentation des jambes, fléchir les genoux et faire claquer la silhouette des lames blanches."
+      },
+      {
+        id: "pose-marcheur-tempete",
+        title: "Marcheur de l'Erg : Traversée dans la tempête de sable",
+        subtitle: "Résistance au vent & silhouette en biseau",
+        image: "assets/dune_pose_04_marcheur_tempete.jpg",
+        tips: "Incliner le buste à 30° contre le vent, simplifier la silhouette en une masse pyramidale dense."
+      }
+    ]
   },
   {
     id: "session-mucha",
