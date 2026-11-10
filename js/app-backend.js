@@ -155,6 +155,7 @@ async function resetLessonsToSingleExample() {
 stagiaireSubmitLesson = async id => { try { await api('/lessons/' + id, 'PUT', { status: 'en_attente' }); await refreshBackend(false); } catch (e) { backendError(e); } };
 adminValidateLesson = async (id, note, commentAdmin) => { try { await api('/lessons/' + id + studentQuery(), 'PUT', { status: 'validee', note: 'Acquis', commentAdmin }); await refreshBackend(false); } catch (e) { backendError(e); } };
 adminRejectLesson = async (id, commentAdmin) => { try { await api('/lessons/' + id + studentQuery(), 'PUT', { status: 'a_faire', note: 'Non acquis', commentAdmin }); await refreshBackend(false); } catch (e) { backendError(e); } };
+adminToggleLesson = async id => { const lesson = backendLessons.find(item => item.id === id); if (!lesson) return; const acquired = lesson.status !== 'validee'; try { await api('/lessons/' + id + studentQuery(), 'PUT', { status: acquired ? 'validee' : 'a_faire', note: acquired ? 'Acquis' : 'Non acquis', commentAdmin: '' }); await refreshBackend(false); } catch (e) { backendError(e); } };
 
 getCourseSubmission = id => {
   const s = backendSubmissions.find(s => s.courseId === id);
@@ -217,5 +218,5 @@ Object.assign(window, {
   openLoginModal, closeLoginModal, quickConnectProfile, submitLoginForm, submitRegistrationForm, logoutBackendUser, previewAsRole,
   selectBackendStudent, reviewBackendSubmission, deleteBackendSubmission,
   createBackendAccount, updateBackendUserAccess, deleteBackendAccount, resetLessonsToSingleExample,
-  submitCustomCourse, switchUserRole, getStageLessons, saveStageLessons
+  submitCustomCourse, switchUserRole, getStageLessons, saveStageLessons, adminToggleLesson
 });

@@ -175,15 +175,7 @@ function renderAdminLessonsList(targetId = 'admin-lessons-list') {
           <p class="text-xs text-slate-400">${lesson.consigne}</p>
         </div>
         <div class="flex items-center gap-2 shrink-0">
-          ${canValidate ? (!isValidee ? `
-            <button onclick="adminValidateLesson('${lesson.id}', 'Acquis', 'Compétence acquise selon les normes d\\'atelier GPO.')" class="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs">
-              Marquer Acquis
-            </button>
-          ` : `
-            <button onclick="adminRejectLesson('${lesson.id}', 'Compétence non acquise : à retravailler.')" class="px-3.5 py-2 rounded-xl bg-[#181b21] hover:bg-amber-900/40 text-amber-300 text-xs font-semibold border border-amber-500/30">
-              Repasser Non acquis
-            </button>
-          `) : ''}
+          ${canValidate ? `<button onclick="adminToggleLesson('${lesson.id}')" class="px-4 py-2 rounded-xl ${isValidee ? 'bg-amber-700 hover:bg-amber-600' : 'bg-emerald-600 hover:bg-emerald-500'} text-white font-bold text-xs">${isValidee ? 'Désactiver' : 'Valider'}</button>` : ''}
         </div>
       </div>
     `;
