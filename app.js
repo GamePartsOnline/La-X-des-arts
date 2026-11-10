@@ -5,6 +5,7 @@ let initialTime = 15 * 60;
 let isTimerRunning = false;
 let currentSession = SESSIONS_DATA[0];
 let currentCourse = COURSES_DATA[0];
+let currentDiscipline = 'all';
 
 // Main Dashboard Timer State
 let mainTimeLeft = 15 * 60;
@@ -54,20 +55,56 @@ function showTab(tabId) {
   }
 }
 
+// Filter courses by discipline
+function setDisciplineFilter(disc) {
+  currentDiscipline = disc;
+  renderCourses();
+}
+
 // Render Courses View
 function renderCourses() {
   const listEl = document.getElementById('courses-list');
   const detailEl = document.getElementById('course-detail');
   if (!listEl || !detailEl) return;
 
-  listEl.innerHTML = COURSES_DATA.map(c => `
-    <button onclick="selectCourse('${c.id}')" class="w-full text-left p-4 rounded-xl border transition-all ${
+  const filtered = currentDiscipline === 'all' 
+    ? COURSES_DATA 
+    : COURSES_DATA.filter(c => c.discipline === currentDiscipline);
+
+  const countAll = COURSES_DATA.length;
+  const countDessin = COURSES_DATA.filter(c => c.discipline === 'dessin').length;
+  const countGraphisme = COURSES_DATA.filter(c => c.discipline === 'graphisme').length;
+
+  const filterHeader = `
+    <div class="flex items-center gap-1.5 p-1.5 rounded-xl bg-[#131417] border border-[#272b35] mb-3">
+      <button onclick="setDisciplineFilter('all')" class="flex-1 py-1.5 px-2 rounded-lg text-[11px] font-bold transition-all ${
+        currentDiscipline === 'all' ? 'bg-[#d6a55b] text-[#131417]' : 'text-slate-400 hover:text-white'
+      }">
+        Tous (${countAll})
+      </button>
+      <button onclick="setDisciplineFilter('dessin')" class="flex-1 py-1.5 px-2 rounded-lg text-[11px] font-bold transition-all ${
+        currentDiscipline === 'dessin' ? 'bg-[#d6a55b] text-[#131417]' : 'text-slate-400 hover:text-white'
+      }">
+        Dessin (${countDessin})
+      </button>
+      <button onclick="setDisciplineFilter('graphisme')" class="flex-1 py-1.5 px-2 rounded-lg text-[11px] font-bold transition-all ${
+        currentDiscipline === 'graphisme' ? 'bg-[#00e1d9] text-[#131417]' : 'text-slate-400 hover:text-white'
+      }">
+        Graphisme (${countGraphisme})
+      </button>
+    </div>
+  `;
+
+  listEl.innerHTML = filterHeader + filtered.map(c => `
+    <button onclick="selectCourse('${c.id}')" class="w-full text-left p-4 rounded-xl border transition-all mb-2.5 ${
       c.id === currentCourse.id 
-        ? 'bg-[#d6a55b]/10 border-[#d6a55b] shadow-lg shadow-amber-500/5' 
+        ? (c.discipline === 'graphisme' ? 'bg-[#00e1d9]/10 border-[#00e1d9] shadow-lg shadow-cyan-500/5' : 'bg-[#d6a55b]/10 border-[#d6a55b] shadow-lg shadow-amber-500/5')
         : 'bg-[#1b1e24] border-[#272b35] hover:border-slate-600'
     }">
       <div class="flex items-center justify-between mb-2">
-        <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-[#d6a55b]/20 text-[#d6a55b] uppercase tracking-wider">${c.num}</span>
+        <span class="text-[10px] font-bold px-2 py-0.5 rounded ${
+          c.discipline === 'graphisme' ? 'bg-[#00e1d9]/20 text-[#00e1d9]' : 'bg-[#d6a55b]/20 text-[#d6a55b]'
+        } uppercase tracking-wider">${c.num}</span>
         <span class="text-xs text-[#8f95a3] font-mono">${c.duration}</span>
       </div>
       <h3 class="font-bold text-white text-sm mb-1">${c.title}</h3>
@@ -80,12 +117,16 @@ function renderCourses() {
       <div class="flex flex-wrap items-center justify-between gap-4 pb-5 border-b border-[#272b35]">
         <div>
           <div class="flex items-center gap-2 mb-1.5">
-            <span class="text-[10px] font-bold px-2.5 py-1 rounded-full bg-[#d6a55b]/20 text-[#d6a55b] uppercase tracking-wider">${currentCourse.num}</span>
+            <span class="text-[10px] font-bold px-2.5 py-1 rounded-full ${
+              currentCourse.discipline === 'graphisme' ? 'bg-[#00e1d9]/20 text-[#00e1d9]' : 'bg-[#d6a55b]/20 text-[#d6a55b]'
+            } uppercase tracking-wider">${currentCourse.num}</span>
             <span class="text-xs text-[#8f95a3]">${currentCourse.domain}</span>
           </div>
           <h2 class="text-2xl lg:text-3xl font-extrabold text-white tracking-tight font-serif">${currentCourse.title}</h2>
         </div>
-        <button onclick="openImageModal('${currentCourse.image}')" class="px-5 py-2.5 rounded-xl gold-pill-active text-xs font-bold transition-all flex items-center gap-2">
+        <button onclick="openImageModal('${currentCourse.image}')" class="px-5 py-2.5 rounded-xl ${
+          currentCourse.discipline === 'graphisme' ? 'bg-[#00e1d9] text-[#131417] font-extrabold' : 'gold-pill-active'
+        } text-xs font-bold transition-all flex items-center gap-2">
           Zoom Plein Écran
         </button>
       </div>
@@ -221,7 +262,13 @@ function renderCourses() {
 }
 
 function selectCourse(id) {
-  currentCourse = COURSES_DATA.find(c => c.id === id) || COURSES_DATA[0];
+  const found = COURSES_DATA.find(c => c.id === id);
+  if (found) {
+    currentCourse = found;
+    if (currentDiscipline !== 'all' && found.discipline !== currentDiscipline) {
+      currentDiscipline = 'all';
+    }
+  }
   renderCourses();
 }
 
@@ -518,7 +565,7 @@ window.addEventListener('DOMContentLoaded', () => {
   const sessionSelect = document.getElementById('session-select');
   if (sessionSelect) {
     sessionSelect.innerHTML = SESSIONS_DATA.map(s => `
-      <option value="${s.id}">${s.title} (${s.duration} min)</option>
+      <option value="${s.id}">[${s.discipline === 'graphisme' ? 'Graphisme' : 'Dessin'}] ${s.title} (${s.duration} min)</option>
     `).join('');
   }
 });
