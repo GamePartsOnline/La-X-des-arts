@@ -1,48 +1,66 @@
-# Plan de refonte et feuille de route : La Croisée des Arts V2
+# Plan de Refonte & Référentiel Académique : La Croisée des Arts V2
 
 Dossier source du fork : C:\DEV\HISTORIQUE_ET_DEMOSCENE\la-croisee-des-arts
 Emplacement de travail : C:\DEV\la-croisee-des-arts
 
-## 1. Diagnostic et orientation générale
+## 1. Architecture Double Pôle Académique
 
-- Structure étendue : Plateforme double pôle réunissant l'Art / Dessin et le Design Graphique professionnel.
-- Directives d'inspiration et de propriété intellectuelle : S'inspirer de la clarté pédagogique et de la progression pratique par paliers (exemples : cycles de 21 jours, ateliers ciblés, décomposition morphologique), tout en produisant un contenu 100 % original, sans aucune reproduction textuelle ou visuelle de supports propriétaires (21 Draw, etc.).
+L'école réunit deux filières indépendantes et complémentaires formées aux normes professionnelles :
+1. **Filière A : Dessin d'Art Classique & Peinture Numérique** (10 cours d'atelier, de la visée sight-size à la composition cinématographique).
+2. **Filière B : Design Graphique, PAO & Fabrication d'Atelier** (16 cours structurés en 6 blocs de compétences scolaires RPIP et DNMADE).
 
-## 2. Piliers pédagogiques par pôle
+---
 
-### Pôle A : Dessin & Peinture Numérique
-- Masterclass John Singer Sargent : Méthode Notan binaire, 4 bords et rehauts alla prima.
-- Fiches 01 à 08 : Contrôle des bords, Gamut masking, Shape language, Drapés et plis, SSS carnation, Cadrage cinéma, Anatomie vivante, Textures brosses.
-- Ateliers chrono : 11 sessions minutées (Sargent, Dune, Mucha, Ghibli, Van Gogh, Arcane, etc.).
+## 2. Programme Académique Détaillé
 
-### Pôle B : Design Graphique & Prépresse d'Atelier (Référentiel Officiel GPO SARL)
-Cursus professionnel articulé en 4 grands axes métier et 10 cours réels :
+### Pôle A : Dessin d'Art Classique (10 Cours)
+- **D-01 : Tenue de l'Outil, Mémoire Musculaire & Visée Sight-Size** (Méthode Bargue, geste de l'épaule, visée comparative 1:1).
+- **D-02 : Volumes Primaires & Perspective Linéaire Spatiale** (Perspective 1, 2 et 3 points de fuite, boîtes englobantes, ellipses).
+- **D-03 : Notan Binaire & Décomposition des 5 Valeurs** (Méthode Sargent, séparation stricte ombre/lumière, terminateur).
+- **D-04 : Contrôle des 4 Bords de Transition** (Tranchant, Ferme, Doux, Perdu, guidage du point focal).
+- **D-05 : Anatomie Crânienne, Proportions & Portrait Alla Prima** (Méthode Loomis, plans d'Asaro, repères osseux fixes).
+- **D-06 : Modèle Vivant, Ligne d'Action, Contrapposto & Poses** (Ligne d'action, bascule des ceintures, poses dynamiques Dune).
+- **D-07 : Mécanique des Plis & Drapés d'Atelier** (7 types de plis d'atelier : tombant, tubulaire, zigzag, spirale, emboîté, mémoire, étiré).
+- **D-08 : Théorie de la Couleur en Peinture & Gamut Masking** (Méthode James Gurney, palette restreinte, dialogue thermique chaud/froid).
+- **D-09 : Rendu de Peau, Sous-Couche Chair & Diffusion SSS** (Diffusion sous-cutanée, liseré saturé du terminateur, 3 zones thermiques).
+- **D-10 : Composition, Narration Visuelle & Cadrage Cinéma** (Point focal unique, règle des tiers, 3 plans de profondeur, ratio 2.39:1).
 
-- Axe 1 : Méthodologie & Relation Client
-  - Cours G-01 : Comprendre un Brief Graphique & Analyser la Demande Client (exercice du client vague, 6 questions clés).
-  - Cours G-02 : Explorer & Proposer 3 Pistes Graphiques Distinctes (Rétro 80s, Minimaliste Moderne, Illustré/Cartoon).
-- Axe 2 : Dessin Vectoriel & Typographie
-  - Cours G-03 : Dessin Vectoriel vs Bitmap & Courbes de Bézier (ancrages aux extremums, tangentes orthogonales).
-  - Cours G-04 : Typographie, Graisses & Composition d'une Affiche 100% Typo (3 niveaux de lecture, interlignage 135%).
-- Axe 3 : Couleur, Prépresse 300 DPI & Découpe
-  - Cours G-05 : Systèmes de Couleurs, Nuancier Pantone & Règle 60-30-10 (CMJN vs RVB, tons directs).
-  - Cours G-06 : Prépresse Imprimerie, 300 DPI, Fonds Perdus & Noirs (fond perdu 3 mm, zone sécurité 5 mm, FOGRA39, noir 100K).
-  - Cours G-07 : Création de Stickers sous Contrainte & Filet de Découpe CutContour (format 80x80 mm, magenta 100%, surimpression).
-  - Cours G-08 : Pochoir Découpe Vinyle & Conception de Ponts de Maintien (îlots fermés, ponts de matière 1.5 à 2 mm).
-- Axe 4 : Gabarits Industriels, Projets Réels & Gestion d'Atelier
-  - Cours G-09 : Gabarit Industriel à l'Échelle 1:1 pour Borne d'Arcade (boutons 28 mm, overbleed 10 mm, flancs miroir).
-  - Cours G-10 : Organisation des Fichiers d'Atelier, Versions V01/BAT & Charte de Nommage (arborescence 6 dossiers, ISO-GPO).
+### Pôle B : Design Graphique, PAO & Normes RPIP (16 Cours)
+- **Bloc 1 : Méthodologie, Culture Visuelle & Cadrage**
+  - G-01 : Analyse de la Demande & Traitement du Brief Client Vague (6 questions obligatoires, grille de cadrage).
+  - G-02 : Veille Visuelle, Moodboard & Exploration de 3 Pistes (univers Rétro, Minimaliste, Illustré).
+- **Bloc 2 : Outils Vectoriels, Géométrie & Tracés de Précision**
+  - G-03 : Fondements Numériques : Image Matricielle vs Vectorielle (pixels, formules mathématiques, formats).
+  - G-04 : Maîtrise des Courbes de Bézier & Tangentes Orthogonales (ancrage aux extremums, tangentes 0°/90°).
+  - G-05 : Construction Géométrique & Opérations Booléennes (Pathfinder : union, soustraction, exclusion).
+- **Bloc 3 : Typographie Fondamentale & Architecture de Page**
+  - G-06 : Anatomie du Caractère & Classification Vox-Atypi (empattements, fûts, familles historiques, graisses).
+  - G-07 : Hiérarchie Visuelle (3 Niveaux) & Affiche 100% Typo (interlignage optique 135%, blancs tournants).
+  - G-08 : Grilles Modulaires, Système 12 Colonnes & Baseline (gouttières, magnétisme, ligne de base).
+- **Bloc 4 : Colorimétrie & Identité Visuelle de Marque**
+  - G-09 : Théorie de la Couleur : RVB vs CMJN & Profils ICC (synthèse additive/soustractive, FOGRA39).
+  - G-10 : Nuancier Pantone & Règle d'Harmonie 60-30-10 (tons directs Solid Coated, équilibre chromatique).
+  - G-11 : Conception de Logotype & Test de la Silhouette 1-Bit (test noir pur sur blanc, réduction 16x16, exclusion).
+- **Bloc 5 : Prépresse, Découpe & Fabrication Industrielle (RPIP)**
+  - G-12 : Conformité Prépresse 300 DPI, Fonds Perdus & Noirs (fond perdu 3 mm, zone sécurité 5 mm, noir 100K).
+  - G-13 : Signalétique & Stickers : Tracé de Découpe CutContour (filet magenta 100% ton direct, débord 2 mm).
+  - G-14 : Pochoir Découpe Vinyle & Ponts de Maintien Mécaniques (îlots fermés A, O, P, B, ponts 1.5 à 2 mm).
+  - G-15 : Gabarit Industriel à l'Échelle 1:1 : Borne d'Arcade (boutons 28 mm, overbleed 10 mm, flancs miroir).
+- **Bloc 6 : Organisation d'Atelier, Traçabilité & Validation BAT**
+  - G-16 : Organisation des Fichiers d'Atelier, Versions V01/BAT & Charte de Nommage (arborescence 6 dossiers, ISO-GPO).
 
-## 3. Avancement technique
+---
+
+## 3. Avancement Technique
 
 - [x] Initialisation du fork Git dans C:\DEV\la-croisee-des-arts
-- [x] Lancement du serveur HTTP local sur le port 5173
-- [x] Refonte complète de la filière Design Graphique : remplacement des dénominations abstraites par 10 cours métier concrets (G-01 à G-10)
-- [x] Structuration du Pôle Graphisme en 4 grands axes opérationnels (Méthodologie, Vectoriel/Typo, Prépresse/Découpe, Gabarits/Atelier)
-- [x] Suppression définitive de la colonne centrale intermédiaire : affichage direct en pleine largeur avec breadcrumb, navigation précédente/suivante et surbrillance dans l'arborescence latérale
-- [x] Module complet de dépôt de fichier pour correction pédagogique dans chaque fiche de cours avec persistance localStorage
-- [x] Dashboard Nouvel Élève sur la page d'accueil : onboarding, orientation double filière, 3 premières actions et cours de démarrage (G-01 Brief)
-- [x] Boîte à outils interactive : Checklist 300 DPI, nuancier des formules de noir cliquables, échelle UI 8px, arborescence d'atelier GPO et barème d'évaluation en 100 points
-- [x] Découpage architectural modulaire strict : 100 % des fichiers de code sous la limite des 300 lignes
-- [ ] Ajout d'outils vectoriels interactifs avancés dans le studio canvas
-- [ ] Système d'export PDF/SVG des travaux d'ateliers
+- [x] Serveur HTTP local opérationnel sur le port 5173
+- [x] Refonte complète du cursus Graphisme : 16 cours concrets structurés en 6 blocs conformes au Bac Pro RPIP et DNMADE
+- [x] Refonte complète du cursus Dessin : 10 cours académiques d'atelier classique conformes aux méthodes Bargue, Sargent, Loomis et Gurney
+- [x] Suppression définitive de la colonne médiane : navigation pleine largeur immédiate avec synchronisation latérale
+- [x] Module complet de dépôt de fichier d'exercice (papier scanné pour le dessin, vectoriel/PDF pour le graphisme) avec persistance locale
+- [x] Grille corrective détaillée par cours : 3 erreurs types, 3 remédiations pédagogiques, notation sur 5 compétences
+- [x] Dashboard Nouvel Élève : accueil, sélection des filières et cours recommandés
+- [x] Boîte à outils interactive d'atelier : Checklist 300 DPI, nuancier des noirs, arborescence GPO, notation 100 points
+- [x] Respect strict de la limite de 300 lignes par fichier de code (100% des 15 modules JS sous le plafond)
+- [ ] Export PDF / SVG récapitulatif des planches de cours

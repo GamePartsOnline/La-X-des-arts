@@ -1,123 +1,240 @@
 // =====================================================================
-// AXE 4 : POCHOIR, GABARITS INDUSTRIELS & ORGANISATION D'ATELIER
-// Issu du référentiel officiel du programme de formation GPO SARL
+// FILIÈRE DESIGN GRAPHIQUE - PROGRAMME ACADÉMIQUE OFFICIEL (PARTIE 3)
+// BLOCS 5 & 6 : PRÉPRESSE RPIP, DÉCOUPE VINYLE, GABARITS 1:1 & GESTION
 // =====================================================================
 const COURSES_GRAPHISME_P3 = [
   {
-    id: "cours-g08-pochoir",
-    num: "G-08",
+    id: "cours-g11-logo-1bit",
+    num: "G-11",
     discipline: "graphisme",
-    title: "Découpe de Pochoir 1 Couleur & Gestion des Ponts Physiques",
-    domain: "Fabrication d'Atelier & Pochoirs",
-    level: "Intermédiaire",
-    duration: "20 min",
-    image: "assets/planche_pedagogique_bords_peinture.jpg",
-    summary: "Méthode d'atelier GPO : transformer un dessin vectoriel en pochoir découpable physique (mylar, carton, vinyle), créer des ponts de maintien solides (minimum 2 mm) et supprimer les parties flottantes.",
+    title: "Conception de Logotype & Test de la Silhouette 1-Bit",
+    domain: "Identité Visuelle & Sémiotique de Marque",
+    level: "Technique",
+    duration: "30 min",
+    image: "assets/masterclass_paul_rand_logo.jpg",
+    summary: "Méthode académique de création de logo : soumettre la forme au test impitoyable du noir pur 1-bit sur fond blanc sans aucun dégradé, définir la zone d'exclusion et la taille minimale de lisibilité.",
     artist: {
-      name: "Atelier GPO Givry-en-Argonne",
-      quote: "Dans un pochoir, tout ce qui n'est pas physiquement rattaché au cadre principal tombe lors de la découpe et disparaît pour toujours.",
-      bio: "Spécialiste de la signalétique et du marquage au pochoir sur bois et métal. La gestion des ponts est une compétence clé entre design graphique et fabrication manuelle."
+      name: "Paul Rand & Saul Bass",
+      quote: "Si un logo ne fonctionne pas en noir pur à la taille d'un timbre-poste et agrandi sur un panneau routier, son dessin est défaillant.",
+      bio: "Maîtres historiques de l'identité visuelle moderne et des symboles graphiques intemporels."
     },
     theory: [
-      { title: "1. La Contrainte Physique du Pochoir", desc: "Contrairement à une impression où l'encre est déposée, le pochoir est une feuille évidée. Toute zone blanche intérieure (comme le centre des lettres O, A, P, D, B) doit rester reliée au cadre." },
-      { title: "2. Les Ponts de Maintien (Bridges)", desc: "Créer des bandes de matière reliant les îlots intérieurs au fond extérieur. Largeur minimale recommandée à l'atelier : 2 mm pour du vinyle adhésif, 3 à 4 mm pour du mylar ou pochoir réutilisable." },
-      { title: "3. Suppression des Parties Flottantes", desc: "Vérifier le tracé en mode contour : aucun polygone intérieur ne doit être isolé sans attache. Si nécessaire, réagencer le dessin pour intégrer les ponts comme éléments graphiques naturels." },
-      { title: "4. Solidité & Tenue sous l'Aérosol", desc: "Éviter les languettes fines et pointues qui se soulèvent lors du passage du rouleau ou sous le souffle de la bombe de peinture, provoquant des coulures disgracieuses." }
+      { title: "1. Le Test de la Silhouette 1-Bit Noir et Blanc", desc: "Avant toute couleur, tester le symbole en noir absolu sans nuance de gris. S'il nécessite un effet de brillance ou une ombre portée pour être lisible, la géométrie est déficiente." },
+      { title: "2. La Réduction Maximale à 16x16 Pixels", desc: "Le logo doit rester identifiable à très petite échelle (favicon, broderie de col, bouton de manchette, icône d'application mobile)." },
+      { title: "3. La Zone d'Exclusion Magnétique", desc: "Définir un périmètre de sécurité inviolable autour du logotype (basé sur un module x, souvent la hauteur d'une lettre du nom) interdisant tout texte ou élément parasite." },
+      { title: "4. Les Interdits de la Charte Graphique", desc: "Documenter explicitement les déformations proscrites : pas d'étirement anamorphique, pas d'ombrage kitsch, pas de rotation libre, pas de fond non contrasté." }
     ],
     exercise: {
-      title: "Création d'un Pochoir Logo 1 Couleur Découpable (Chrono 20 min)",
-      instructions: "Sujet officiel du cahier d'exercices GPO SARL : Transformez un visuel ou lettrage en pochoir 1 couleur. Créez des ponts réguliers d'au moins 2 mm sur chaque boucle fermée pour garantir que toutes les parties restent solidaires après découpe."
+      title: "Exercice : Création d'un Monogramme 1-Bit",
+      instructions: "Concevez un logotype en monogramme (2 lettres entrelacées) pour une marque de luxe contemporaine. Présentez la version 1-bit noir sur blanc, la version inversée blanc sur noir, la zone d'exclusion cotée et la déclinaison à 16 mm de large."
     },
     correction: {
       student_errors: [
-        { label: "Centres de lettres perdus", detail: "L'intérieur des lettres P et O n'a pas de pont et tombe au moment de la découpe." },
-        { label: "Ponts trop fins cassants", detail: "Ponts de 0.5 mm qui se déchirent dès la première manipulation du pochoir." },
-        { label: "Bavures de peinture prévisibles", detail: "Angles aigus non maintenus qui vont flotter sous le jet de peinture." }
+        { label: "Détails microscopiques qui bouchent", detail: "Ajouter des traits ultra-fins de 0.1 mm qui disparaissent à l'impression ou bavent au tampon." },
+        { label: "Dépendance totale à la couleur", detail: "Créer un logo qui n'est compréhensible que grâce à son dégradé de couleur." },
+        { label: "Absence de zone de protection", detail: "Coller le slogan publicitaire contre le logo sans aucun espace de respiration." }
       ],
       remediations: [
-        { label: "Audit des îlots intérieurs", detail: "Passer mentalement en revue chaque boucle pour vérifier qu'elle possède au moins 2 ponts opposés." },
-        { label: "Épaisseur minimale d'atelier", detail: "Mesurer les ponts avec l'outil règle pour garantir 2 mm minimum." },
-        { label: "Intégration esthétique des ponts", detail: "Dessiner les ponts en suivant les lignes de force du logo plutôt que de simples fentes arbitraires." }
+        { label: "Épuration géométrique", detail: "Épaissir les fûts et simplifier les interstices pour garantir une robustesse à toute épreuve." },
+        { label: "Validation monochrome préalable", detail: "Interdiction formelle d'ajouter de la couleur avant que la version 1-bit ne soit validée." },
+        { label: "Normalisation de la zone d'exclusion", detail: "Fixer une zone de sécurité d'au moins 1x de marge tout autour du cartouche." }
       ],
-      grades: { silhouette: 9.5, structure: 9.5, valeurs: 9, bords: 9.5, couleur: 9 }
+      grades: { silhouette: 9.5, structure: 9.5, valeurs: 9, bords: 9, couleur: 9 }
     }
   },
   {
-    id: "cours-g09-gabarit",
-    num: "G-09",
+    id: "cours-g12-prepresse-300dpi",
+    num: "G-12",
     discipline: "graphisme",
-    title: "Gabarit Industriel Échelle 1:1 : Habillage de Borne d'Arcade",
-    domain: "Gabarits Industriels & Grands Formats",
-    level: "Intermédiaire à Avancé",
-    duration: "25 min",
+    title: "Conformité Prépresse 300 DPI, Fonds Perdus & Noirs",
+    domain: "Chaîne Graphique & Normes Prépresse RPIP",
+    level: "Atelier Pro",
+    duration: "30 min",
+    image: "assets/planche_pedagogique_bords.jpg",
+    summary: "Règles strictes de fabrication d'imprimerie : fond perdu obligatoire de 3 mm sur chaque bord, zone tranquille de sécurité à 5 mm, profil FOGRA39 certifié, formules de noir (texte 100K vs aplat enrichi) et vérification du TAC.",
+    artist: {
+      name: "Atelier GPO Prépresse",
+      quote: "En imprimerie, le massicot coupe avec une tolérance mécanique de 1 millimètre. Sans fond perdu et sans marge de sécurité, votre document est irrémédiablement gâché.",
+      bio: "Conducteurs de presse et techniciens prépresse certifiés selon les normes industrielles ISO 12647."
+    },
+    theory: [
+      { title: "1. Le Fond Perdu Obligatoire de 3 mm", desc: "Prolonger systématiquement tous les fonds de couleur et images de 3 mm au-delà de la ligne de coupe finale. Cela évite l'apparition d'un filet blanc en cas de décalage au massicot." },
+      { title: "2. La Zone Tranquille de Sécurité (5 mm)", desc: "Ne placer aucun texte, logo ou information importante à moins de 5 mm du bord de coupe final pour parer à toute déviation de la lame." },
+      { title: "3. Résolution d'Impression 300 DPI à Échelle 100%", desc: "Vérifier que toutes les images matricielles intégrées possèdent au minimum 300 DPI effectifs à leur taille finale sur le document." },
+      { title: "4. Formules de Noir Texte vs Noir Enrichi", desc: "Texte courant : Noir pur C:0 M:0 J:0 N:100 (aucun flou de repérage quadri). Grands aplats de fond : Noir enrichi C:40 M:30 J:30 N:100 pour une profondeur dense avec TAC < 300 %." }
+    ],
+    exercise: {
+      title: "Exercice : Contrôle & Mise en Conformité d'un Dépliant",
+      instructions: "Un fichier défaillant fourni par un client présente des textes en noir quadri à 2 mm de la coupe et aucun fond perdu. Rectifiez le document : ajoutez 3 mm de fond perdu, replacez les textes en zone tranquille et appliquez les bonnes formules de noir."
+    },
+    correction: {
+      student_errors: [
+        { label: "Filet blanc sur tranche au massicotage", detail: "Arrêter les fonds colorés exactement sur la ligne de coupe finale." },
+        { label: "Texte coupé au massicot", detail: "Placer un numéro de téléphone ou un contact à 1 mm du bord du papier." },
+        { label: "Maculage par sur-encrage (TAC > 300%)", detail: "Appliquer un noir 4x100% (400% de taux d'encrage total) qui ne sèche pas et colle les feuilles." }
+      ],
+      remediations: [
+        { label: "Débord d'encre systématique", detail: "Paramétrer 3 mm de fond perdu dans le document et activer les repères de coupe à l'export." },
+        { label: "Repères de sécurité verrouillés", detail: "Créer des repères magnétiques internes à 5 mm du bord et aligner les textes dessus." },
+        { label: "Séparation quadri contrôlée", detail: "Utiliser l'outil Aperçu des séparations pour vérifier que le texte est exclusivement sur la plaque noire (K)." }
+      ],
+      grades: { silhouette: 9, structure: 9.5, valeurs: 9, bords: 9.5, couleur: 9 }
+    }
+  },
+  {
+    id: "cours-g13-stickers-cutcontour",
+    num: "G-13",
+    discipline: "graphisme",
+    title: "Signalétique & Stickers : Tracé de Découpe CutContour",
+    domain: "Fabrication d'Atelier & Plotter Numérique",
+    level: "Atelier Pro",
+    duration: "30 min",
     image: "assets/planche_pedagogique_shape_language.jpg",
-    summary: "Méthode d'atelier GPO SARL : concevoir un habillage graphique (Side-Art, Marquee, Bezel) sur gabarit industriel échelle 1:1, sécuriser les zones d'exclusion techniques (boutons, écran, vis, serrures) et gérer l'overbleed de pose.",
+    summary: "Conception de fichiers pour impression et découpe vinyle : création du filet vectoriel magenta 100% nommé CutContour en ton direct et surimpression, débord d'encre technique de 2 mm et gestion de l'échenillage.",
     artist: {
-      name: "Atelier GPO Givry-en-Argonne",
-      quote: "Un habillage magnifique sur écran est un échec s'il place le visage du personnage principal en plein sous un trou de bouton de 28 mm.",
-      bio: "Atelier de fabrication et de restauration de bornes d'arcade, flippers et signalétique d'art. Leur protocole de gabarit industriel garantit une fabrication sans rebut."
+      name: "Atelier GPO Découpe & Vinyle",
+      quote: "Le traceur de découpe ne lit pas vos yeux mais la couleur spot exacte nommée par le pilote machine. La rigueur du nommage vectoriel est une question de fabrication.",
+      bio: "Opérateurs traceurs Roland VersaWorks et SummaCut en production de stickers et décors adhésifs."
     },
     theory: [
-      { title: "1. Travailler sur Gabarit Échelle 1:1", desc: "Toujours importer le fichier vectoriel aux cotes exactes en millimètres. Verrouiller le calque technique des découpes et perçages dès l'ouverture." },
-      { title: "2. Les Zones d'Exclusion Techniques", desc: "Identifier les perçages de boutons (diamètre 28 mm), l'axe du joystick, l'ouverture de l'écran, les cornières d'angle et les serrures. Aucun texte ni visage dans ces zones." },
-      { title: "3. Débord de Pose (Overbleed 10 mm)", desc: "Pour les vinyles polymères adhésifs posés sur bois ou métal, prévoir 10 mm de fond perdu supplémentaire pour permettre l'arasement au cutter lors de la pose en atelier." },
-      { title: "4. Symétrie & Miroir des Flancs Latéraux", desc: "Vérifier la cohérence entre le côté gauche et le côté droit : les personnages et éléments dynamiques doivent toujours regarder vers l'avant de la machine." }
+      { title: "1. Le Filet Technique de Découpe (CutContour)", desc: "Créer une nuance de couleur nommée exactement 'CutContour' (respecter la casse), type 'Ton direct' (Spot Color), valeur Magenta 100 %." },
+      { title: "2. Épaisseur et Propriété de Surimpression", desc: "Appliquer une épaisseur de contour de 0.25 pt (filet technique fin) et cocher obligatoirement 'Surimpression du contour' pour que la lame n'efface pas l'encre sous-jacente." },
+      { title: "3. Le Débord d'Encre Technique (2 mm)", desc: "Prolonger le visuel imprimé de 2 mm au-delà du tracé CutContour pour absorber le micro-décalage mécanique d'avance du rouleau de vinyle." },
+      { title: "4. Angle et Facilité d'Échenillage", desc: "Éviter les pointes et angles aigus inférieurs à 30° qui déchirent le vinyle lors du pelage manuel de l'adhésif." }
     ],
     exercise: {
-      title: "Habillage d'un Flanc (Side-Art) d'Arcade sur Gabarit (Chrono 25 min)",
-      instructions: "Sujet officiel GPO SARL : À partir d'un gabarit de borne d'arcade, composez le visuel du flanc latéral (Side-Art). Préservez les zones de perçage, intégrez 10 mm de débord de pose et préparez le fichier d'impression CMJN 300 DPI."
+      title: "Exercice : Planche de Stickers Arcade 80x80 mm",
+      instructions: "Créez une série de 3 stickers thématiques rétro d'un diamètre maximal de 80 mm. Configurez le tracé vectoriel CutContour en ton direct magenta avec son débord d'encre de 2 mm et vérifiez l'échenillage."
     },
     correction: {
       student_errors: [
-        { label: "Visage percé par un bouton", detail: "Visuel clé positionné pile sous l'axe d'un perçage de bouton ou d'une vis de fixation." },
-        { label: "Absence de débord de pose", detail: "Fichier fourni aux cotes exactes sans les 10 mm d'arasement pour le poseur." },
-        { label: "Texte coupé par la moulure", detail: "Typographie collée au bord extérieur masquée par le T-molding en caoutchouc." }
+        { label: "Nom de nuance incorrect ou manquant", detail: "Nommer la nuance 'decoupe' au lieu de 'CutContour', ce qui rend le fichier invisible pour le RIP." },
+        { label: "Absence de débord d'encre extérieur", detail: "Faire coïncider exactement la couleur avec la découpe, créant un liseré blanc au moindre décalage." },
+        { label: "Tracés ouverts ou multipoints parasites", detail: "Laisser un contour de découpe disjoint qui bloque la lame du plotter." }
       ],
       remediations: [
-        { label: "Calque technique rouge en surimpression", detail: "Conserver le calque des perçages visible en rouge semi-transparent pendant toute la composition." },
-        { label: "Overbleed d'atelier 10 mm", detail: "Étendre systématiquement les fonds 10 mm au-delà du trait de coupe réel." },
-        { label: "Marge de sécurité T-molding", detail: "Garder une marge intérieure de sécurité de 25 mm par rapport au contour extérieur." }
+        { label: "Vérification dans le gestionnaire de nuances", detail: "Contrôler que la pastille de nuance comporte le triangle et le point de ton direct." },
+        { label: "Création d'un calque de découpe dédié", detail: "Isoler le tracé CutContour sur un calque verrouillé nommé 'DECOUPE'." },
+        { label: "Tracé fermé continu obligatoire", detail: "Joindre tous les points d'ancrage avec l'outil Jonction avant d'exporter en EPS ou PDF." }
       ],
-      grades: { silhouette: 9.5, structure: 10, valeurs: 9, bords: 9.5, couleur: 9 }
+      grades: { silhouette: 9.5, structure: 9.5, valeurs: 9, bords: 9, couleur: 9 }
     }
   },
   {
-    id: "cours-g10-organisation",
-    num: "G-10",
+    id: "cours-g14-pochoir-ponts",
+    num: "G-14",
     discipline: "graphisme",
-    title: "Organisation d'Atelier, Versions V01/BAT & Nommage",
-    domain: "Gestion de Projet & Méthode Professionnelle",
-    level: "Tous Niveaux",
-    duration: "15 min",
-    image: "assets/planche_pedagogique_composition_cinema.jpg",
-    summary: "Méthode d'atelier GPO : structurer son dossier en 6 répertoires normés, gérer le cycle des versions (V01, V02, BAT, FINAL), appliquer la charte de nommage ISO et garantir la traçabilité des fichiers dans le temps.",
+    title: "Pochoir Découpe Vinyle & Ponts de Maintien Mécaniques",
+    domain: "Découpe Numérique & Peinture Industrielle",
+    level: "Technique",
+    duration: "25 min",
+    image: "assets/masterclass_sargent_portrait.jpg",
+    summary: "Physique du pochoir : comprendre la chute inévitable des îlots centraux sur les lettres et formes fermées (A, B, D, O, P, R, 0, 4, 6, 8, 9). Concevoir des ponts de matière rigides de 1.5 à 2 mm pour le maintien mécanique.",
     artist: {
-      name: "Atelier GPO Givry-en-Argonne",
-      quote: "Un bon graphiste ne se reconnaît pas seulement à son trait, mais à sa capacité à retrouver un fichier source intact et prêt à imprimer deux ans après sa création.",
-      bio: "Règles de gestion et charte de nommage appliquées au quotidien pour la traçabilité de toutes les commandes et projets clients chez GPO SARL."
+      name: "Atelier GPO Sérigraphie & Pochoirs",
+      quote: "Une lettre sans pont perd son centre dès qu'on décolle le vinyle. En pochoir, le vide et le plein obéissent à la gravité terrestre.",
+      bio: "Spécialistes du marquage au pochoir sur bois, métal et caisses de jeux arcade."
     },
     theory: [
-      { title: "1. Les 6 Dossiers Obligatoires du Projet", desc: "01_BRIEF (cahier des charges), 02_SOURCES (docs, photos, logos clients), 03_TRAVAIL (fichiers natifs AI/PSD), 04_VALIDATION (BAT, maquettes présentées), 05_IMPRESSION (PDF HD certifiés), 06_ARCHIVES (sauvegardes finies)." },
-      { title: "2. Le Cycle des Versions (V01, V02, BAT, FINAL)", desc: "Ne jamais écraser un fichier existant. Incrémenter les versions à chaque étape : V01 (première proposition), V02 (corrections), BAT (bon à tirer validé par le client), FINAL (prêt pour la production)." },
-      { title: "3. La Syntaxe de Nommage Standardisée ISO", desc: "Format : AAAA-MM-JJ_TYPE_sujet-court_V01.ext (exemple : 2026-11-10_PROJ_sticker-arcade_V01.ai). Jamais d'accents, jamais d'espaces, jamais de symboles parasites." },
-      { title: "4. Sauvegarde & Clôture de Fin de Journée", desc: "Règle quotidienne d'atelier : en fin de journée, sauvegarder son travail, vérifier l'arborescence et consigner 5 minutes de notes de suivi dans le journal de bord." }
+      { title: "1. Le Problème des Îlots Libres Flottants", desc: "Dans une forme évidée, tout contour fermé intérieur (l'œil du O, le triangle du A) tombe au sol dès la découpe si aucun lien physique ne le retient au reste de la feuille." },
+      { title: "2. Dimensionnement des Ponts de Maintien", desc: "Créer des bandes d'attache d'une largeur minimale de 1.5 à 2 mm pour le vinyle souple, et de 3 à 5 mm pour le pochoir réutilisable rigide (Mylar, polypropylène)." },
+      { title: "3. Intégration Esthétique des Césures", desc: "Positionner les ponts de matière dans l'axe de lecture ou sur des lignes de force de la forme pour qu'ils s'intègrent comme un parti pris graphique et non comme un pansement." },
+      { title: "4. Nettoyage Vectoriel après Découpe Booléenne", desc: "Utiliser la soustraction par un rectangle de césure, puis nettoyer les points superflus sur les jonctions." }
     ],
     exercise: {
-      title: "Organisation & Nommage d'un Dossier Client Réel (Chrono 15 min)",
-      instructions: "Sujet officiel d'évaluation GPO SARL : Vous disposez d'un brief client, d'images sources, de croquis, d'une version V01, d'une correction client et d'un PDF d'impression. Rangez-les dans l'arborescence des 6 dossiers et proposez les noms de fichiers successifs."
+      title: "Exercice : Typographie 'STENCIL' avec Ponts Parfaits",
+      instructions: "Vectorisez le mot 'ARCADE 2026' avec une typographie classique sans empattement. Identifiez chaque îlot fermé et intégrez manuellement les ponts de maintien de 2 mm de large pour rendre le mot 100% découpable en pochoir."
     },
     correction: {
       student_errors: [
-        { label: "Fichiers jetés en vrac", detail: "Fichiers tous mélangés sur le bureau ou à la racine sans classement logique." },
-        { label: "Noms de fichiers anarchiques", detail: "Fichiers nommés 'logo final', 'logo final 2', 'vrai final.ai' impossibles à dater et tracer." },
-        { label: "Caractères interdits et espaces", detail: "Noms comportant des accents, des espaces ou des parenthèses risquant de corrompre les liens PAO." }
+        { label: "Oubli d'un îlot fermé", detail: "Oublier le chiffre 6 ou la boucle du R, entraînant la perte du centre lors de la pose." },
+        { label: "Ponts trop fins (< 1 mm)", detail: "Créer des attaches fragiles qui se déchirent dès le passage de la racle de peinture." },
+        { label: "Césures disgracieuses déséquilibrées", detail: "Placer un pont de travers qui déforme la silhouette optique de la lettre." }
       ],
       remediations: [
-        { label: "Structure en 6 sous-dossiers", detail: "Créer systématiquement l'arborescence 01_BRIEF à 06_ARCHIVES dès l'ouverture du projet." },
-        { label: "Incrémentation stricte V01 / V02", detail: "Garder l'historique complet des versions pour pouvoir revenir en arrière si le client change d'avis." },
-        { label: "Application de la charte de nommage", detail: "Remplacer les espaces par des tirets bas (_) et retirer tout accent ou symbole." }
+        { label: "Contrôle visuel systématique de l'alphabet", detail: "Repasser manuellement chaque lettre contenant une contreforme fermée." },
+        { label: "Caliper millimétré de contrôle", detail: "Mesurer précisément l'épaisseur des ponts au zoom 400% avec l'outil de mesure." },
+        { label: "Alignement vertical ou horizontal des ponts", detail: "Aligner les césures sur les axes cardinaux pour préserver la lisibilité." }
       ],
-      grades: { silhouette: 9.5, structure: 10, valeurs: 9, bords: 9.5, couleur: 9 }
+      grades: { silhouette: 9, structure: 9.5, valeurs: 9, bords: 9, couleur: 8.5 }
+    }
+  },
+  {
+    id: "cours-g15-gabarit-arcade-1-1",
+    num: "G-15",
+    discipline: "graphisme",
+    title: "Gabarit Industriel à l'Échelle 1:1 : Borne d'Arcade",
+    domain: "Signalétique Grand Format & Projets Industriels",
+    level: "Avancé",
+    duration: "40 min",
+    image: "assets/planche_pedagogique_cadrage.jpg",
+    summary: "Conception millimétrée à l'échelle 1:1 pour la fabrication d'objets réels : habillage complet d'une borne d'arcade, zones d'exclusion des boutons de 28 mm et joystick, overbleed de pose de 10 mm et gestion des flancs en miroir.",
+    artist: {
+      name: "Atelier GPO Mobilier & Bornes",
+      quote: "Une erreur de 2 millimètres sur l'écran d'ordinateur devient une planche de bois gâchée à l'atelier. L'échelle 1:1 exige une précision chirurgicale.",
+      bio: "Fabricants français de bornes d'arcade sur mesure et d'habillages graphiques industriels."
+    },
+    theory: [
+      { title: "1. Travailler à l'Échelle Réelle (1:1)", desc: "Configurer le plan de travail aux cotes exactes du panneau physique en millimètres (ex: flanc de 600 x 1750 mm). Aucune approximation permise." },
+      { title: "2. Les Zones d'Exclusion Mécanique", desc: "Repérer les perçages de boutons de 28 mm, le passage du joystick (diamètre 40 mm), l'écran et les vis de structure. Interdiction formelle d'y placer un visage ou un texte important." },
+      { title: "3. L'Overbleed Technique de Pose (10 mm)", desc: "Pour les adhésifs posés sur des chants avec profilé T-Molding, prévoir 10 mm de débord de pose tout autour de la silhouette pour l'arasage au cutter lors de l'application." },
+      { title: "4. Flancs Symétriques en Miroir", desc: "Vérifier que le côté gauche et le côté droit sont orientés face à la marche, avec inversion des textes si nécessaire pour éviter qu'un mot ne soit lu à l'envers." }
+    ],
+    exercise: {
+      title: "Exercice : Habillage Complet d'un Control Panel Arcade",
+      instructions: "Sur le gabarit coté fourni (panneau de 600 x 250 mm avec 6 boutons de 28 mm et 1 joystick), composez un visuel percutant dont les éléments clés évitent soigneusement les perçages et intégrez les 5 mm d'overbleed de pose."
+    },
+    correction: {
+      student_errors: [
+        { label: "Bouton percé au milieu d'un visage ou texte", detail: "Placer le bouton d'action principal en plein sur le logo ou le regard d'un personnage." },
+        { label: "Oubli de l'overbleed de pose", detail: "Faire le fichier à la taille exacte du panneau sans surplus pour l'arasage, rendant la pose impossible." },
+        { label: "Texte inversé en miroir sur le flanc", detail: "Retourner l'ensemble du fichier flanc gauche pour le flanc droit sans redresser le texte de marque." }
+      ],
+      remediations: [
+        { label: "Calque technique de perçage superposé", detail: "Conserver un calque non imprimable matérialisant chaque trou mécanique au millimètre." },
+        { label: "Overbleed généreux de 10 mm", detail: "Étendre les fonds pour permettre au poseur d'ajuster l'adhésif sur le bois sans risquer de blanc." },
+        { label: "Contrôle de lecture des deux flancs", detail: "Vérifier séparément le flanc gauche et le flanc droit en position debout réelle." }
+      ],
+      grades: { silhouette: 9.5, structure: 9.5, valeurs: 9, bords: 9, couleur: 9 }
+    }
+  },
+  {
+    id: "cours-g16-organisation-atelier-nommage",
+    num: "G-16",
+    discipline: "graphisme",
+    title: "Organisation d'Atelier, Versions V01/BAT & Charte de Nommage",
+    domain: "Gestion de Production & Rigueur Professionnelle",
+    level: "Atelier Pro",
+    duration: "25 min",
+    image: "assets/masterclass_paul_rand_logo.jpg",
+    summary: "La traçabilité absolue d'un studio professionnel : structuration en 6 dossiers normés ISO-GPO, convention stricte de nommage de fichiers sans espace ni accent, cycle des versions V01/V02 et protocole d'exportation BAT.",
+    artist: {
+      name: "Système de Gestion ISO-GPO",
+      quote: "Un bon graphiste ne se reconnaît pas seulement à son coup de crayon, mais au fait qu'un collègue peut reprendre son fichier 2 ans plus tard en 30 secondes sans poser une question.",
+      bio: "Protocole opérationnel d'organisation et de nommage déployé au sein des ateliers de production graphique."
+    },
+    theory: [
+      { title: "1. L'Arborescence Normalisée en 6 Répertoires", desc: "01_BRIEF (cahier des charges), 02_SOURCES (docs, photos, polices), 03_TRAVAIL (fichiers natifs AI/PSD), 04_VALIDATION (BAT client), 05_IMPRESSION (PDF HD certifiés), 99_ARCHIVES." },
+      { title: "2. La Syntaxe Stricte de Nommage de Fichiers", desc: "Format universel : AAAA-MM-JJ_TYPE_sujet-court_V01.ext (ex: 2026-11-10_PROJ_borne-arcade_V01.ai). Jamais d'accents, jamais d'espaces, uniquement des tirets bas et tirets du milieu." },
+      { title: "3. La Gestion des Versions (Ne Jamais Écraser un Master)", desc: "Dès qu'une modification substantielle intervient, incrémenter le numéro de version (V01, V02, V03). Conserver l'historique de chaque étape de retouche." },
+      { title: "4. Le Bon à Tirer Électronique (BAT)", desc: "Export d'un PDF de validation basse définition verrouillé avec cartouche de signature, date, mentions légales et rappel des dimensions finales avant lancement machine." }
+    ],
+    exercise: {
+      title: "Exercice : Structuration Complète d'un Dossier Client",
+      instructions: "À partir d'un ensemble de 10 fichiers désordonnés nommés 'logo final version 2 copie (1).jpg', réorganisez-les dans l'arborescence officielle en 6 répertoires et renommez chaque fichier selon la charte ISO-GPO."
+    },
+    correction: {
+      student_errors: [
+        { label: "Nommage avec espaces et accents", detail: "Utiliser des noms comme 'affiche été 2026 !.ai' provoquant des erreurs sur serveurs et RIP." },
+        { label: "Écrasement du fichier original", detail: "Modifier le fichier V01 sans créer de V02, perdant les éléments validés par le client." },
+        { label: "Fichiers de travail déposés sur le bureau", detail: "Laisser traîner des polices et liens sans les ranger dans 02_SOURCES." }
+      ],
+      remediations: [
+        { label: "Application rigoureuse de la syntaxe ISO-GPO", detail: "Remplacer les espaces par des tirets bas et supprimer tous les caractères spéciaux." },
+        { label: "Incrémentation systématique des versions", detail: "Toujours enregistrer une copie incrémentée à chaque reprise de travail." },
+        { label: "Archivage structuré immédiat", detail: "Ranger chaque fichier dans son répertoire dédié dès son téléchargement ou son export." }
+      ],
+      grades: { silhouette: 9, structure: 10, valeurs: 9, bords: 9, couleur: 9 }
     }
   }
 ];
