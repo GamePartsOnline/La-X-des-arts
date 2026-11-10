@@ -14,24 +14,19 @@ function setCoursePersona(persona) {
 }
 
 function renderCourseSourceCard(course) {
-  const src = typeof getCourseSource === 'function' ? getCourseSource(course) : {
-    work: "Planche d'Atelier Officielle",
-    author: course.artist?.name || "Académie",
-    institution: "La Croisée des Arts",
-    license: "Référence Académique"
-  };
+  const isUserPhoto = course.image && course.image.includes('session_sargent_croquis');
+  const label = isUserPhoto 
+    ? "Photographie & Planche d'Étude Réalisée à l'Atelier"
+    : "Planche Pédagogique Officielle de l'École";
 
   return `
-    <div class="p-3.5 rounded-2xl bg-[#1a1c24] border border-[#2b3553] flex flex-wrap items-center justify-between gap-3 text-xs">
+    <div class="p-3 rounded-2xl bg-[#1a1c24] border border-[#2b3553] flex flex-wrap items-center justify-between gap-3 text-xs">
       <div class="flex items-center gap-2.5">
-        <span class="px-2 py-0.5 rounded bg-amber-500/15 text-amber-300 font-mono text-[10px] font-extrabold uppercase tracking-wider">Source Officielle Citée</span>
-        <span class="font-bold text-white">${src.work}</span>
-        <span class="text-slate-400">· ${src.author}</span>
+        <span class="px-2 py-0.5 rounded bg-[#00f2c3]/15 text-[#00f2c3] font-mono text-[10px] font-bold uppercase tracking-wider">Référence Vérifiée</span>
+        <span class="font-bold text-white">${label}</span>
       </div>
       <div class="text-[11px] text-slate-400 font-medium">
-        <span>${src.institution}</span>
-        <span class="text-slate-600 px-1">/</span>
-        <span class="text-[#00f2c3]">${src.license}</span>
+        <span>La Croisée des Arts · Atelier d'Apprentissage</span>
       </div>
     </div>
   `;

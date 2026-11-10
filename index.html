@@ -268,26 +268,31 @@
 
       <!-- Navigation Générale -->
       <nav class="space-y-1">
-        <div class="px-2 pb-1 text-[10px] font-bold uppercase tracking-wider text-slate-500">Navigation</div>
+        <div class="px-2 pb-1 text-[10px] font-bold uppercase tracking-wider text-slate-500">Supervision & Stage</div>
         
-        <button onclick="showTab('accueil')" id="sidebar-btn-accueil" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-[#20242c] transition-all">
-          <svg class="w-4 h-4 text-[#e14eca]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
-          <span>Tableau de Bord</span>
+        <button onclick="showTab('admin')" id="sidebar-btn-admin" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-semibold text-purple-300 hover:text-white hover:bg-[#20242c] transition-all">
+          <svg class="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          <span class="font-bold">Dashboard Admin</span>
+        </button>
+
+        <button onclick="showTab('stagiaire')" id="sidebar-btn-stagiaire" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-semibold text-amber-300 hover:text-white hover:bg-[#20242c] transition-all">
+          <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+          <span>Espace Stagiaire (Sarah)</span>
+        </button>
+
+        <button onclick="showTab('cours')" id="sidebar-btn-cours" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-[#20242c] transition-all">
+          <svg class="w-4 h-4 text-[#e14eca]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+          <span>Programme des Leçons</span>
         </button>
 
         <button onclick="showTab('graphisme')" id="sidebar-btn-graphisme" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-[#20242c] transition-all">
           <svg class="w-4 h-4 text-[#00f2c3]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>
-          <span>Filière Graphisme RPIP</span>
+          <span>Filière Graphisme (S2)</span>
         </button>
 
         <button onclick="showTab('galerie')" id="sidebar-btn-galerie" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-[#20242c] transition-all">
           <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
           <span>Galerie des Devoirs</span>
-        </button>
-
-        <button onclick="showTab('dashboard')" id="sidebar-btn-dashboard" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-[#20242c] transition-all">
-          <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
-          <span>Espace Étudiant</span>
         </button>
       </nav>
 
@@ -539,21 +544,23 @@
     <header class="sticky top-0 z-40 bg-[#181a1f]/95 backdrop-blur-md border-b border-[#272b35] px-4 lg:px-8 py-3 flex items-center justify-between">
       <!-- Navigation Pills -->
       <nav class="flex items-center gap-2">
-        <button id="btn-accueil" onclick="showTab('accueil')" class="nav-btn px-5 py-2 rounded-full text-xs font-bold gold-pill-active transition-all">
-          Dashboard Élève
+        <button id="btn-admin" onclick="showTab('admin')" class="nav-btn px-4 py-2 rounded-full text-xs font-bold text-purple-300 hover:text-white transition-all flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-purple-400"></span>
+          <span>Dashboard Admin (Validation)</span>
         </button>
-        <button id="btn-cours" onclick="showTab('cours')" class="nav-btn px-5 py-2 rounded-full text-xs font-bold text-[#8f95a3] hover:text-white transition-all">
-          Cours & Fiches (Plein Écran)
+        <button id="btn-stagiaire" onclick="showTab('stagiaire')" class="nav-btn px-4 py-2 rounded-full text-xs font-bold gold-pill-active transition-all flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+          <span>Espace Stagiaire (Sarah)</span>
         </button>
-        <button id="btn-graphisme" onclick="showTab('graphisme')" class="nav-btn px-5 py-2 rounded-full text-xs font-bold text-[#8f95a3] hover:text-white transition-all flex items-center gap-1.5">
+        <button id="btn-cours" onclick="showTab('cours')" class="nav-btn px-4 py-2 rounded-full text-xs font-bold text-[#8f95a3] hover:text-white transition-all">
+          Programme des Leçons
+        </button>
+        <button id="btn-graphisme" onclick="showTab('graphisme')" class="nav-btn px-4 py-2 rounded-full text-xs font-bold text-[#8f95a3] hover:text-white transition-all flex items-center gap-1.5">
           <span class="w-1.5 h-1.5 rounded-full bg-[#00f2c3]"></span>
-          Design Graphique
+          <span>Design Graphique (S2)</span>
         </button>
-        <button id="btn-galerie" onclick="showTab('galerie')" class="nav-btn px-5 py-2 rounded-full text-xs font-bold text-[#8f95a3] hover:text-white transition-all">
+        <button id="btn-galerie" onclick="showTab('galerie')" class="nav-btn px-4 py-2 rounded-full text-xs font-bold text-[#8f95a3] hover:text-white transition-all">
           Galerie des Devoirs
-        </button>
-        <button id="btn-dashboard" onclick="showTab('dashboard')" class="nav-btn px-5 py-2 rounded-full text-xs font-bold text-[#8f95a3] hover:text-white transition-all">
-          Espace Étudiant
         </button>
       </nav>
 
@@ -649,8 +656,18 @@
     <!-- CONTENT BODY -->
     <main class="flex-1 p-4 lg:p-6 space-y-6 max-w-7xl w-full mx-auto">
 
-      <!-- TAB 1 : DASHBOARD NOUVEL ÉLÈVE & ATELIERS DE L'ÉCOLE -->
-      <div id="content-accueil" class="tab-content space-y-6">
+      <!-- TAB ADMIN : DASHBOARD ADMINISTRATEUR & VALIDATION DES LEÇONS -->
+      <div id="content-admin" class="tab-content hidden space-y-6">
+        <div id="admin-dashboard-container"></div>
+      </div>
+
+      <!-- TAB STAGIAIRE : ESPACE DE STAGE SARAH MARTIN -->
+      <div id="content-stagiaire" class="tab-content space-y-6">
+        <div id="stagiaire-dashboard-container"></div>
+      </div>
+
+      <!-- TAB 1 : DASHBOARD GÉNÉRAL & STATISTIQUES -->
+      <div id="content-accueil" class="tab-content hidden space-y-6">
 
         <!-- CREATIVE TIM BLACK DASHBOARD : BIG PERFORMANCE CHART CARD -->
         <section class="card-black p-5 lg:p-6 space-y-4 relative overflow-hidden">
@@ -2087,11 +2104,13 @@
   <script src="js/courses-graphisme-03.js"></script>
   <script src="js/sessions-data.js"></script>
   <script src="js/courses-data.js"></script>
-  <script src="js/courses-sources.js"></script>
   <script src="js/app-course-views.js"></script>
   <script src="js/app-core.js"></script>
   <script src="js/app-custom-ui.js"></script>
   <script src="js/app-submission.js"></script>
+  <script src="js/stage-lessons-data.js"></script>
+  <script src="js/app-admin-dashboard.js"></script>
+  <script src="js/app-stagiaire-dashboard.js"></script>
   <script src="js/app-roles-stage.js"></script>
   <script src="js/app-courses.js"></script>
   <script src="js/app-easter-egg.js"></script>

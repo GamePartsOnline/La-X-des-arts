@@ -7,17 +7,17 @@ const COURSES_DESSIN_P1 = [
     id: "cours-d01-visuelle-trait",
     num: "D-01",
     discipline: "dessin",
-    shortTitle: "Visée & Trait",
-    title: "Tenue de l'Outil & Visée Comparative",
-    domain: "Dessin d'Observation Fondamental",
-    level: "Initiation Académique",
+    shortTitle: "Croquis Animaux",
+    title: "Croquis d'Animaux & Observation sur Papier",
+    domain: "Observation & Dessin sur Papier Réel",
+    level: "Initiation Atelier",
     duration: "25 min",
     image: "assets/session_sargent_croquis.jpg",
-    summary: "Les bases de l'atelier classique : lâcher prise du poignet, dessin au coude et à l'épaule, tenue du crayon en plumeau et méthode de visée comparative à l'échelle optique 1:1 (Sight-Size).",
+    summary: "Planche d'observation réalisée à l'atelier : croquis direct au crayon graphite sur papier réel d'attitudes et d'expressions animales (lapin, chouette, oiseau, raton-laveur).",
     artist: {
-      name: "Charles Bargue & Jean-Léon Gérôme",
-      quote: "L'œil doit apprendre à juger les distances et les angles avec la précision d'un compas avant que la main ne pose le moindre détail.",
-      bio: "Auteurs du célèbre Cours de Dessin de l'Académie des Beaux-Arts de Paris (1866), référence absolue de l'enseignement classique."
+      name: "Atelier La Croisée des Arts",
+      quote: "Poser le geste franc et observer la silhouette vivante sans hésitation.",
+      bio: "Planche originale d'étude réalisée à l'atelier."
     },
     theory: [
       { title: "1. Tenue de l'Outil & Articulation Motrice", desc: "Ne jamais tenir le crayon comme un stylo d'écriture coincé entre les doigts. Tenir le manche à mi-longueur, paume ouverte, pour faire partir le geste de l'épaule et du coude." },
@@ -47,17 +47,17 @@ const COURSES_DESSIN_P1 = [
     id: "cours-d02-geometrie-perspective",
     num: "D-02",
     discipline: "dessin",
-    shortTitle: "Volumes & Perspective",
-    title: "Volumes Primaires & Perspective Spatiale",
-    domain: "Géométrie Descriptive & Espace 3D",
+    shortTitle: "Shape Language",
+    title: "Character Design : Shape Language & Silhouettes",
+    domain: "Conception Visuelle & Dynamique des Formes",
     level: "Fondamental",
     duration: "30 min",
     image: "assets/planche_pedagogique_shape_language.jpg",
-    summary: "Construire l'illusion de la profondeur : cube, sphère, cylindre et cône dans l'espace. Ligne d'horizon, perspective à 1, 2 et 3 points de fuite, raccourcis visuels et boîtes englobantes.",
+    summary: "Planche d'instruction La Croisée des Arts : langage des formes primaires et dynamique de silhouette. Carré et rectangle (défense, masse, stabilité), triangle et angles vifs (éclaireur, vitesse, agilité), cercle et courbes (sage, bienveillance, fluidité).",
     artist: {
-      name: "Albrecht Dürer & Piero della Francesca",
-      quote: "La perspective est le gouvernail et le gouvernail de la peinture : sans elle, aucune forme ne trouve sa véritable place dans l'espace.",
-      bio: "Maîtres de la Renaissance ayant codifié les lois géométriques de la projection perspective et des volumes dans l'espace."
+      name: "La Croisée des Arts",
+      quote: "La silhouette et la forme primaire dictent instantanément l'énergie et la lisibilité du personnage.",
+      bio: "Planche pédagogique originale de l'école."
     },
     theory: [
       { title: "1. La Ligne d'Horizon (Hauteur des Yeux)", desc: "La ligne d'horizon correspond exactement au niveau des yeux du dessinateur. Tout ce qui est au-dessus se voit par en dessous, tout ce qui est en dessous se voit en plongée." },

@@ -55,6 +55,9 @@ function switchUserRole(newRole) {
   }
 
   updateAppForCurrentRole();
+  if (typeof showTab === 'function') {
+    showTab(currentRole === 'admin' ? 'admin' : 'stagiaire');
+  }
 }
 
 function toggleGraphismeUnlockByAdmin(state) {
@@ -79,6 +82,9 @@ function toggleGraphismeUnlockByAdmin(state) {
   }
 
   updateAppForCurrentRole();
+  if (typeof showTab === 'function') {
+    showTab(currentRole === 'admin' ? 'admin' : 'stagiaire');
+  }
 }
 
 function handleCourseClickSecurity(courseId) {
@@ -107,6 +113,9 @@ function updateAppForCurrentRole() {
   updateDashboardRoleUI();
   updateGraphismeTabLockUI();
   
+  if (typeof renderAdminDashboard === 'function') renderAdminDashboard();
+  if (typeof renderStagiaireDashboard === 'function') renderStagiaireDashboard();
+
   if (typeof renderCourses === 'function' && document.getElementById('content-cours') && !document.getElementById('content-cours').classList.contains('hidden')) {
     renderCourses();
   }
@@ -265,6 +274,9 @@ function updateDashboardRoleUI() {
 // Initialisation au chargement
 document.addEventListener('DOMContentLoaded', () => {
   updateAppForCurrentRole();
+  if (typeof showTab === 'function') {
+    showTab(currentRole === 'admin' ? 'admin' : 'stagiaire');
+  }
 });
 
 if (typeof window !== 'undefined') {
