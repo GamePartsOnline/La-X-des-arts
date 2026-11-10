@@ -253,7 +253,7 @@
     <div class="space-y-6">
       <!-- Brand Logo & Title (Black Dashboard Signature) -->
       <div class="cursor-pointer flex items-center gap-3 pb-3 border-b border-[#2b3553]/60" onclick="showTab('accueil')">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-[#e14eca] to-[#ba54f5] flex items-center justify-center font-black text-white text-base shadow-lg shadow-pink-500/25 shrink-0">
+        <div id="brand-logo-badge" onclick="handleLogoEasterEggClick(event)" class="w-10 h-10 rounded-xl bg-gradient-to-br from-[#e14eca] to-[#ba54f5] flex items-center justify-center font-black text-white text-base shadow-lg shadow-pink-500/25 shrink-0 select-none cursor-pointer hover:scale-105 active:scale-95 transition-transform" title="La Croisée des Arts">
           CA
         </div>
         <div>
@@ -2255,6 +2255,7 @@
   <script src="js/app-submission.js"></script>
   <script src="js/app-studio.js"></script>
   <script src="js/app-courses.js"></script>
+  <script src="js/app-easter-egg.js"></script>
   <script src="js/app-tools.js"></script>
   <script src="canvas.js"></script>
 </body>
