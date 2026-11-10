@@ -30,6 +30,10 @@ function playChime(freq = 440, duration = 0.3) {
 
 // Navigation between tabs
 function showTab(tabId) {
+  if (tabId === 'studio') {
+    tabId = 'accueil';
+  }
+
   document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
   document.querySelectorAll('.nav-btn').forEach(btn => {
     btn.className = 'nav-btn px-5 py-2 rounded-full text-xs font-bold text-[#8f95a3] hover:text-white transition-all';
@@ -57,10 +61,8 @@ function showTab(tabId) {
     renderCourses();
   }
 
-  if (tabId === 'studio' && !studio) {
-    setTimeout(() => {
-      studio = new DrawingStudio('drawing-canvas');
-    }, 50);
+  if (tabId === 'graphisme' && typeof updateGraphismeTabLockUI === 'function') {
+    updateGraphismeTabLockUI();
   }
 
   // Remonter en haut de page lors du changement d'onglet

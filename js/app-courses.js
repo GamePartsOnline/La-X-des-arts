@@ -8,6 +8,9 @@ function setDisciplineFilter(disc) {
 }
 
 function selectCourse(id) {
+  if (typeof handleCourseClickSecurity === 'function' && !handleCourseClickSecurity(id)) {
+    return;
+  }
   const found = COURSES_DATA.find(c => c.id === id);
   if (found) {
     currentCourse = found;

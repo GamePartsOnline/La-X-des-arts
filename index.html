@@ -275,11 +275,6 @@
           <span>Tableau de Bord</span>
         </button>
 
-        <button onclick="showTab('studio')" id="sidebar-btn-studio" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-[#20242c] transition-all">
-          <svg class="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
-          <span>Studio de Dessin</span>
-        </button>
-
         <button onclick="showTab('graphisme')" id="sidebar-btn-graphisme" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-[#20242c] transition-all">
           <svg class="w-4 h-4 text-[#00f2c3]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>
           <span>Filière Graphisme RPIP</span>
@@ -523,18 +518,17 @@
     </div>
 
     <!-- User Profile Footer in Sidebar -->
-    <div class="pt-4 mt-6 border-t border-[#272b35] flex items-center justify-between">
+    <div id="sidebar-user-footer" class="pt-4 mt-6 border-t border-[#272b35] flex items-center justify-between">
       <div class="flex items-center gap-3">
-        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&auto=format&fit=crop&q=80" alt="Avatar" class="w-9 h-9 rounded-full border border-[#272b35] object-cover" />
+        <img src="assets/etudiant_portrait_lea.jpg" alt="Avatar" class="w-9 h-9 rounded-full border border-amber-400 object-cover" />
         <div>
-          <p class="text-xs font-bold text-white leading-tight">C. Dubois</p>
-          <p class="text-[10px] text-[#8f95a3]">Apprenant · Cycle 3</p>
+          <p class="text-xs font-bold text-white leading-tight">Sarah Martin</p>
+          <p class="text-[10px] text-amber-300 font-mono">Stagiaire Semaine 1</p>
         </div>
       </div>
-      <div class="relative cursor-pointer p-1.5 rounded-lg hover:bg-[#20242c] text-slate-400">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
-        <span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-rose-500 ring-2 ring-[#181a1f]"></span>
-      </div>
+      <button onclick="switchUserRole('admin')" class="p-1.5 rounded-lg bg-[#20242c] hover:bg-[#2b3553] text-slate-300 text-[10px] font-bold transition-all" title="Basculer en mode tuteur">
+        Admin
+      </button>
     </div>
   </aside>
 
@@ -571,6 +565,9 @@
 
       <!-- Theme Switcher & Right Profile Menu -->
       <div class="flex items-center gap-3">
+        <!-- Sélecteur de Compte Stagiaire vs Administrateur -->
+        <div id="role-switcher-container"></div>
+
         <!-- Notification Bell (Black Dashboard Style) -->
         <button class="relative p-2 rounded-xl bg-[#1f2233] border border-[#2b3553] text-slate-300 hover:text-white transition-all" title="Notifications">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
@@ -937,86 +934,117 @@
           </div>
         </section>
 
-        <!-- CENTER SPLIT : LIVE DEMO STUDIO & ATELIER CHRONO STOPWATCH -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- PARCOURS STAGIAIRE (SEMAINE 1 DESSIN) & PANNEAU SUPERVISION TUTEUR -->
+        <!-- 1. VUE STAGIAIRE : IMMERSION ATELIER DÉBUTANTE -->
+        <div id="stagiaire-progress-panel" class="space-y-6">
+          <div class="p-6 lg:p-8 rounded-3xl bg-gradient-to-r from-[#201828] via-[#1a1c24] to-[#161c22] border border-amber-500/40 shadow-xl space-y-6">
+            <div class="flex flex-wrap items-center justify-between gap-4 border-b border-[#2b3553]/60 pb-5">
+              <div class="flex items-center gap-4">
+                <img src="assets/etudiant_portrait_lea.jpg" alt="Sarah Martin" class="w-16 h-16 rounded-2xl border-2 border-amber-400 object-cover shadow-lg" />
+                <div>
+                  <div class="flex items-center gap-2">
+                    <span class="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-mono text-[10px] font-bold uppercase tracking-wider">Immersion Atelier · Débutante Absolue</span>
+                    <span class="px-2.5 py-0.5 rounded-full bg-[#e14eca]/20 text-pink-300 font-mono text-[10px] font-bold">Semaine 1 sur 2</span>
+                  </div>
+                  <h3 class="font-serif text-2xl font-black text-white mt-1">Parcours d'Apprentissage : Sarah Martin</h3>
+                  <p class="text-xs text-slate-300">Aucun prérequis requis. Entraînement direct au trait, à la perspective et aux valeurs d'ombre sur papier.</p>
+                </div>
+              </div>
 
-          <!-- Left Column : Live Digital Painting Player / Canvas Workspace -->
-          <div class="lg:col-span-8 bg-[#1b1e24] border border-[#272b35] rounded-2xl p-4 lg:p-5 flex flex-col justify-between space-y-4">
-            <!-- Header bar of the demo -->
-            <div class="flex items-center justify-between pb-3 border-b border-[#272b35]">
               <div class="flex items-center gap-2">
-                <span class="w-2.5 h-2.5 rounded-full bg-[#00e1d9] animate-pulse"></span>
-                <span class="text-xs font-bold text-white">Atelier Démonstration · Anatomie Faciale & Plans de Face</span>
-              </div>
-              <button onclick="showTab('studio')" class="px-3 py-1 rounded-lg bg-[#232730] hover:bg-[#d6a55b] hover:text-[#131417] text-xs font-bold text-[#d6a55b] transition-all flex items-center gap-1.5">
-                Passer en Mode Toile Stylet →
-              </button>
-            </div>
-
-            <!-- Video Player Image Frame -->
-            <div class="relative rounded-xl overflow-hidden border border-[#272b35] bg-black group">
-              <img src="assets/atelier_demo_digital_painting.jpg" alt="Atelier Peinture Numérique" class="w-full h-auto max-h-[420px] object-contain mx-auto" />
-              <!-- Video Controls Overlay -->
-              <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent p-3 flex flex-col gap-2">
-                <!-- Golden Timeline Bar -->
-                <div class="w-full h-1 bg-slate-700/80 rounded-full cursor-pointer relative">
-                  <div class="w-1/3 h-full bg-[#d6a55b] rounded-full relative">
-                    <span class="absolute right-0 top-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-white shadow"></span>
-                  </div>
-                </div>
-                <div class="flex items-center justify-between text-xs text-slate-300">
-                  <div class="flex items-center gap-3">
-                    <button class="text-[#d6a55b] hover:text-white" title="Play">
-                      <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"/></svg>
-                    </button>
-                    <span class="text-[11px] font-mono">14:32 / 45:10</span>
-                  </div>
-                  <div class="flex items-center gap-3">
-                    <span class="text-[11px] text-[#00e1d9]">Qualité HD 1080p</span>
-                    <button onclick="openImageModal(this.closest('.space-y-4').querySelector('img').src)" class="hover:text-white" title="Plein écran">
-                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/></svg>
-                    </button>
-                  </div>
-                </div>
+                <button onclick="showTab('cours'); selectCourse('cours-d01-visuelle-trait');" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#e14eca] to-[#ba54f5] text-white text-xs font-black shadow-lg shadow-pink-500/25 hover:scale-[1.02] transition-transform">
+                  Démarrer le Cours D-01 (Visée & Trait) →
+                </button>
               </div>
             </div>
 
-            <p class="text-xs text-slate-400">
-              Décomposition des masses musculaires zygomatiques et de la ligne de terminateur. Suivez la démonstration puis lancez l'exercice chronométré.
-            </p>
+            <!-- Calendrier Séquencé 2 Semaines -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <!-- Semaine 1 : Dessin d'Art (Active) -->
+              <div class="p-5 rounded-2xl bg-[#1f2233] border-2 border-[#e14eca]/60 space-y-3 relative overflow-hidden">
+                <div class="flex items-center justify-between">
+                  <span class="px-2.5 py-1 rounded-lg bg-[#e14eca]/20 text-[#e14eca] font-mono text-[11px] font-black uppercase">SEMAINE 1 · EN COURS</span>
+                  <span class="text-xs font-bold text-emerald-400 flex items-center gap-1">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                    Section Active
+                  </span>
+                </div>
+                <h4 class="font-serif font-bold text-white text-base">Fondamentaux du Dessin d'Observation (10 Cours)</h4>
+                <p class="text-xs text-slate-300 leading-relaxed">
+                  Apprendre à regarder avant d'ouvrir un logiciel : visée Sight-Size, perspective à 1 et 2 points de fuite, Notan en 5 valeurs et étude anatomique.
+                </p>
+                <div class="pt-2 flex items-center justify-between text-xs">
+                  <span class="text-slate-400">Progression : 10 cours ouverts</span>
+                  <button onclick="showTab('cours'); setDisciplineFilter('dessin');" class="text-[#e14eca] font-bold hover:underline">Voir les 10 fiches de dessin →</button>
+                </div>
+              </div>
+
+              <!-- Semaine 2 : Design Graphique & PAO (Verrouillée) -->
+              <div class="p-5 rounded-2xl bg-[#171922] border border-[#2b3553] space-y-3 opacity-80">
+                <div class="flex items-center justify-between">
+                  <span class="px-2.5 py-1 rounded-lg bg-rose-500/20 text-rose-300 font-mono text-[11px] font-black uppercase flex items-center gap-1.5">
+                    <span>🔒</span> SEMAINE 2 · VERROUILLÉE
+                  </span>
+                  <span class="text-[11px] font-mono text-slate-400">Déblocage Tuteur</span>
+                </div>
+                <h4 class="font-serif font-bold text-slate-300 text-base">Design Graphique, PAO & Atelier RPIP (16 Cours)</h4>
+                <p class="text-xs text-slate-400 leading-relaxed">
+                  Bézier, vectoriel, règles typographiques, gestion FOGRA39, CutContour et gabarit d'arcade. Cette étape requiert impérativement la validation préalable des croquis de Semaine 1 par votre tuteur de stage.
+                </p>
+                <div class="pt-2 text-xs text-amber-400/90 font-medium flex items-center gap-1.5">
+                  <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                  <span>Votre tuteur validera votre niveau à la fin de la semaine.</span>
+                </div>
+              </div>
+            </div>
           </div>
+        </div>
 
-          <!-- Right Column : Atelier Chrono Glowing Stopwatch Card -->
-          <div class="lg:col-span-4 bg-[#1b1e24] border border-[#272b35] rounded-2xl p-5 flex flex-col justify-between space-y-6">
-            
-            <div class="flex items-center justify-between pb-2 border-b border-[#272b35]">
-              <span class="text-xs font-bold text-[#d6a55b] tracking-wider uppercase">ATELIER CHRONO</span>
-              <button onclick="showTab('studio')" class="text-slate-400 hover:text-white" title="Infos atelier">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-              </button>
-            </div>
-
-            <!-- Glowing Stopwatch Display -->
-            <div class="flex flex-col items-center justify-center py-2">
-              <div class="relative w-48 h-48 rounded-full p-1.5 flex items-center justify-center stopwatch-ring-glow" style="background: linear-gradient(135deg, #00e1d9 0%, #06b6d4 40%, #f59e0b 80%, #e6bf65 100%);">
-                <!-- Top crown button of stopwatch -->
-                <div class="absolute -top-3 w-6 h-3 rounded-t-md bg-[#d6a55b] border border-[#131417]"></div>
-                <div class="w-full h-full rounded-full bg-[#131417] flex flex-col items-center justify-center">
-                  <span id="timer-display-main" class="font-mono font-black text-4xl text-white tracking-wider">15:00</span>
-                  <span class="text-[10px] text-[#8f95a3] tracking-widest uppercase mt-1">minutes:seconds</span>
+        <!-- 2. VUE ADMINISTRATEUR : PANNEAU DE SUPERVISION TUTEUR -->
+        <div id="admin-supervision-panel" class="hidden space-y-6">
+          <div class="p-6 lg:p-8 rounded-3xl bg-gradient-to-r from-[#2a1738] via-[#1a1c24] to-[#16222b] border border-purple-500/50 shadow-2xl space-y-6">
+            <div class="flex flex-wrap items-center justify-between gap-4 border-b border-[#2b3553]/60 pb-5">
+              <div class="flex items-center gap-4">
+                <img src="assets/portrait_classique_masterclass.jpg" alt="Tuteur" class="w-16 h-16 rounded-2xl border-2 border-purple-400 object-cover shadow-lg" />
+                <div>
+                  <span class="px-2.5 py-0.5 rounded-full bg-purple-500/20 text-purple-300 font-mono text-[10px] font-bold uppercase tracking-wider">Supervision Pédagogique & Direction Atelier</span>
+                  <h3 class="font-serif text-2xl font-black text-white mt-1">Espace Maître de Stage (Administrateur)</h3>
+                  <p class="text-xs text-slate-300">Contrôle des acquis de la stagiaire Sarah Martin et arbitrage du passage en Semaine 2 (Design Graphique).</p>
                 </div>
               </div>
 
-              <!-- Quick Action Controls -->
-              <div class="flex items-center gap-3 mt-5">
-                <button id="main-timer-toggle-btn" onclick="toggleTimerMain()" class="px-6 py-2 rounded-full gold-pill-active text-xs font-extrabold transition-all">
-                  Démarrer la Pose
-                </button>
-                <button onclick="resetTimerMain(15 * 60)" class="px-4 py-2 rounded-full bg-[#272b35] hover:bg-slate-700 text-slate-300 text-xs font-bold transition-all">
-                  Reset
+              <!-- Action Bouton Validation Déblocage -->
+              <div class="flex items-center gap-3">
+                <button onclick="toggleGraphismeUnlockByAdmin()" class="px-5 py-2.5 rounded-xl font-bold text-xs transition-all flex items-center gap-2 shadow-lg ${isGraphismeUnlocked ? 'bg-amber-600 hover:bg-amber-500 text-white' : 'bg-[#00f2c3] hover:bg-[#00d6ac] text-[#131417] shadow-cyan-500/25'}">
+                  <span>${isGraphismeUnlocked ? 'Re-verrouiller la Section Graphisme' : 'Valider le Niveau & Débloquer le Graphisme'}</span>
                 </button>
               </div>
             </div>
+
+            <!-- Grille de Contrôle Tuteur -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+              <div class="p-4 rounded-2xl bg-[#1f2233] border border-[#2b3553] space-y-2">
+                <span class="text-[10px] font-mono font-bold text-slate-400 uppercase">1. Stagiaire Suivie</span>
+                <p class="text-sm font-bold text-white">Sarah Martin (Débutante)</p>
+                <p class="text-slate-400 text-[11px]">Convention de stage atelier 2 semaines. Objectif : autonomie sur traçage manuel puis initiation aux machines d'impression.</p>
+              </div>
+
+              <div class="p-4 rounded-2xl bg-[#1f2233] border border-[#2b3553] space-y-2">
+                <span class="text-[10px] font-mono font-bold text-slate-400 uppercase">2. État du Cursus Graphisme</span>
+                <p class="text-sm font-bold ${isGraphismeUnlocked ? 'text-[#00f2c3]' : 'text-rose-400'}">
+                  ${isGraphismeUnlocked ? 'Débloqué (Niveau Validé)' : 'Verrouillé (Semaine 1 en cours)'}
+                </p>
+                <p class="text-slate-400 text-[11px]">Le tuteur décide souverainement quand la stagiaire est prête à attaquer Bézier et la PAO.</p>
+              </div>
+
+              <div class="p-4 rounded-2xl bg-[#1f2233] border border-[#2b3553] space-y-2">
+                <span class="text-[10px] font-mono font-bold text-slate-400 uppercase">3. Critères d'Arbitrage</span>
+                <p class="text-sm font-bold text-purple-300">3 Planches Dessin Validées</p>
+                <p class="text-slate-400 text-[11px]">Vérifier la visée d'aplomb (D-01), la boîte perspective (D-02) et la séparation ombre/lumière (D-03).</p>
+              </div>
+            </div>
+          </div>
+        </div>
 
             <!-- Workshop Reference Strip (Étude de main 15 min) -->
             <div class="space-y-3 pt-3 border-t border-[#272b35]">
@@ -1145,7 +1173,53 @@
       <!-- TAB 2.5 : PÔLE DESIGN GRAPHIQUE & PRÉPRESSE -->
       <div id="content-graphisme" class="tab-content hidden space-y-8">
         
-        <!-- HERO BANNER GRAPHISME -->
+        <!-- ÉCRAN DE VERROUILLAGE SEMAINE 2 (ACTIF POUR LA STAGIAIRE) -->
+        <div id="graphisme-locked-screen" class="hidden">
+          <div class="max-w-4xl mx-auto p-8 lg:p-12 rounded-3xl bg-gradient-to-b from-[#22172a] via-[#1a1c24] to-[#131417] border border-amber-500/40 text-center space-y-6 shadow-2xl">
+            <div class="w-16 h-16 rounded-3xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center mx-auto text-2xl">
+              🔒
+            </div>
+
+            <div class="space-y-2">
+              <span class="px-3 py-1 rounded-full bg-rose-500/20 text-rose-300 font-mono text-xs font-bold uppercase tracking-wider">
+                Cursus Semaine 2 · Accès Verrouillé
+              </span>
+              <h3 class="font-serif text-2xl lg:text-3xl font-black text-white">
+                Filière Design Graphique, PAO & Atelier d'Impression
+              </h3>
+              <p class="text-sm text-slate-300 max-w-2xl mx-auto leading-relaxed">
+                Sarah Martin est en apprentissage des bases fondamentales. Cette section requiert la validation préalable des 10 modules de dessin d'observation sur papier réel par votre maître de stage.
+              </p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-2xl mx-auto text-left text-xs pt-2">
+              <div class="p-3.5 rounded-xl bg-[#1f2233] border border-[#2b3553] space-y-1">
+                <span class="text-[#e14eca] font-bold block">Étape 1 (En cours)</span>
+                <span class="text-slate-300">Semaine 1 : 10 cours de dessin d'art sur papier.</span>
+              </div>
+              <div class="p-3.5 rounded-xl bg-[#1f2233] border border-[#2b3553] space-y-1">
+                <span class="text-amber-400 font-bold block">Étape 2 (Validation)</span>
+                <span class="text-slate-300">Évaluation des croquis par le maître de stage.</span>
+              </div>
+              <div class="p-3.5 rounded-xl bg-[#1f2233] border border-[#2b3553] space-y-1">
+                <span class="text-[#00f2c3] font-bold block">Étape 3 (Déblocage)</span>
+                <span class="text-slate-300">Semaine 2 : Outils vectoriels, PAO et découpe.</span>
+              </div>
+            </div>
+
+            <div class="pt-4 flex flex-wrap items-center justify-center gap-4">
+              <button onclick="showTab('cours'); selectCourse('cours-d01-visuelle-trait');" class="px-6 py-3 rounded-xl bg-gradient-to-r from-[#e14eca] to-[#ba54f5] text-white text-xs font-black shadow-lg shadow-pink-500/25 hover:scale-105 transition-transform">
+                Travailler le Dessin (Semaine 1) →
+              </button>
+              <button onclick="switchUserRole('admin')" class="px-5 py-3 rounded-xl bg-[#1f2233] hover:bg-[#2b3553] border border-[#2b3553] text-xs font-bold text-slate-300 hover:text-white transition-all">
+                Connexion Maître de Stage (Admin)
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- CONTENU NORMAL DE LA FILIÈRE GRAPHISME -->
+        <div id="graphisme-normal-content" class="space-y-8">
         <section class="rounded-3xl bg-gradient-to-r from-[#0d2328] via-[#161c22] to-[#1a1c24] border border-[#00e1d9]/40 p-6 lg:p-8 flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden">
           <div class="space-y-2 max-w-2xl z-10">
             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#00e1d9]/10 border border-[#00e1d9]/30 text-[#00e1d9] text-[11px] font-bold tracking-wider uppercase">
@@ -1746,249 +1820,8 @@
             </div>
           </div>
         </section>
-
-      </div>
-
-      <!-- TAB 3 : STUDIO ATELIER CHRONO INTERACTIF -->
-      <div id="content-studio" class="tab-content hidden space-y-6">
-        <!-- Session Header & Selector -->
-        <div class="p-6 rounded-2xl bg-[#1b1e24] border border-[#272b35] flex flex-wrap items-center justify-between gap-4">
-          <div>
-            <span class="text-xs font-bold px-2.5 py-1 rounded bg-[#00e1d9]/20 text-[#00e1d9]">STUDIO CHRONO-CROISÉE EN DIRECT</span>
-            <h2 id="session-title" class="text-xl lg:text-2xl font-extrabold text-white mt-1">Dune 1 & 2 : Monumentalité et Cadrage Cinéma</h2>
-            <p id="session-tips" class="text-xs text-slate-400 mt-0.5">Focus sur les échelles de proportions et les contrastes de valeurs chaudes.</p>
-          </div>
-
-          <!-- Choose Session (Menu Déroulant Custom Black Dashboard) -->
-          <div class="flex items-center gap-3">
-            <label class="text-xs text-slate-400 font-medium">Session Atelier :</label>
-            <div class="relative" id="custom-session-dropdown-container">
-              <button id="custom-session-btn" onclick="toggleSessionDropdown()" type="button" class="flex items-center justify-between gap-3 px-4 py-2.5 rounded-xl bg-[#1f2233] border border-[#2b3553] hover:border-[#e14eca] text-xs font-semibold text-white transition-all min-w-[260px] shadow-lg shadow-black/20">
-                <span class="flex items-center gap-2 truncate" id="custom-session-label">
-                  <span class="w-2 h-2 rounded-full bg-[#00f2c3] shrink-0"></span>
-                  <span class="truncate">Dune 1 & 2 : Poses Personnages</span>
-                </span>
-                <svg class="w-3.5 h-3.5 text-slate-400 shrink-0 transition-transform duration-200" id="custom-session-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-              </button>
-
-              <div id="custom-session-menu" class="hidden absolute right-0 mt-2 w-80 rounded-2xl bg-[#1f2233] border border-[#2b3553] shadow-2xl p-2 z-50 space-y-1 max-h-72 overflow-y-auto">
-                <!-- Rempli dynamiquement par renderCustomSessionDropdown -->
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Studio Main Workspace : Split View -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          
-          <!-- Panneau Gauche Option 1 : Atelier Papier Traditionnel & Envoi Photo (Actif par défaut sur Dune) -->
-          <div id="panel-paper-upload" class="lg:col-span-7 bg-[#1b1e24] border border-[#d6a55b]/50 rounded-2xl p-5 lg:p-6 flex flex-col justify-between space-y-5">
-            <!-- Consigne officielle feuille de papier -->
-            <div class="p-4 rounded-xl bg-gradient-to-r from-amber-500/15 via-[#181a1f] to-amber-500/10 border border-[#d6a55b]/40 space-y-2">
-              <div class="flex items-center gap-2">
-                <span class="w-3 h-3 rounded-full bg-amber-400 animate-pulse"></span>
-                <span class="text-xs font-black uppercase tracking-wider text-[#d6a55b]">CONSIGNE OBLIGATOIRE : TRAVAIL TRADITIONNEL SUR FEUILLE PAPIER</span>
-              </div>
-              <p class="text-xs text-slate-200 leading-relaxed">
-                Pour cet exercice de cadrage et poses Dune 1 & 2, <strong class="text-white">il est formellement interdit de dessiner sur l'écran</strong>. Munissez-vous d'une feuille de papier réel (carnet de croquis, feuille A4 blanche ou papier dessin) et de vos outils traditionnels (crayon graphite 2B/4B, fusain ou feutre).
-              </p>
-              <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-1 text-[11px] text-slate-300">
-                <div class="p-2 rounded-lg bg-[#131417]/80 border border-[#272b35]"><strong class="text-[#d6a55b]">1. Observez</strong> la pose choisie à droite</div>
-                <div class="p-2 rounded-lg bg-[#131417]/80 border border-[#272b35]"><strong class="text-[#d6a55b]">2. Dessinez</strong> sur papier en 10 min chrono</div>
-                <div class="p-2 rounded-lg bg-[#131417]/80 border border-[#272b35]"><strong class="text-[#d6a55b]">3. Photographiez</strong> et déposez votre feuille</div>
-              </div>
-            </div>
-
-            <!-- Input file caché pour le téléversement -->
-            <input type="file" id="paper-file-input" accept="image/*" class="hidden" onchange="handlePaperUpload(event)" />
-
-            <!-- Webcam Inline Container (Caché au repos) -->
-            <div id="paper-webcam-container" class="hidden p-4 rounded-xl bg-[#131417] border border-[#00e1d9]/40 space-y-3">
-              <div class="flex items-center justify-between">
-                <span class="text-xs font-bold text-[#00e1d9]">Alignez votre feuille devant l'objectif de la caméra</span>
-                <button onclick="cancelWebcamCapture()" class="text-xs text-slate-400 hover:text-white">Annuler</button>
-              </div>
-              <video id="paper-webcam-video" autoplay playsinline class="w-full h-72 object-cover rounded-xl bg-black border border-[#272b35]"></video>
-              <button onclick="captureWebcamPhoto()" class="w-full py-2.5 rounded-xl bg-[#00e1d9] hover:bg-[#00c4bd] text-[#131417] font-bold text-xs transition-all shadow-lg shadow-cyan-500/20">
-                Capturer la Photo de la Feuille
-              </button>
-            </div>
-
-            <!-- Zone de Dépôt / Upload État Vide -->
-            <div id="paper-upload-empty" class="border-2 border-dashed border-[#d6a55b]/40 hover:border-[#d6a55b] rounded-2xl p-6 lg:p-8 flex flex-col items-center justify-center text-center space-y-4 bg-[#131417]/60 hover:bg-[#131417] transition-all cursor-pointer" onclick="document.getElementById('paper-file-input').click()">
-              <div class="w-16 h-16 rounded-2xl bg-[#d6a55b]/10 border border-[#d6a55b]/30 flex items-center justify-center text-[#d6a55b]">
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-              </div>
-              <div class="space-y-1">
-                <p class="text-sm font-bold text-white">Glissez-déposez la photo ou le scan de votre feuille de dessin</p>
-                <p class="text-xs text-slate-400">Formats acceptés : JPG, PNG, WEBP, HEIC (depuis smartphone ou ordinateur)</p>
-              </div>
-              <div class="flex flex-wrap items-center gap-3 pt-2" onclick="event.stopPropagation()">
-                <button onclick="document.getElementById('paper-file-input').click()" class="px-5 py-2.5 rounded-xl gold-pill-active text-xs font-bold transition-all">
-                  Parcourir mes Fichiers...
-                </button>
-                <button onclick="startWebcamCapture()" class="px-4 py-2.5 rounded-xl bg-[#232730] hover:bg-[#2c323f] border border-[#272b35] text-xs font-bold text-slate-200 transition-all flex items-center gap-2">
-                  <svg class="w-4 h-4 text-[#00e1d9]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                  Prendre en Photo avec la Caméra
-                </button>
-              </div>
-            </div>
-
-            <!-- Zone de Prévisualisation de la Feuille Envoyée -->
-            <div id="paper-upload-filled" class="hidden space-y-4">
-              <div class="flex items-center justify-between pb-2 border-b border-[#272b35]">
-                <div class="flex items-center gap-2">
-                  <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
-                  <span class="text-xs font-bold text-white">Feuille papier chargée avec succès</span>
-                </div>
-                <!-- Filtres d'amélioration scan -->
-                <div class="flex items-center gap-1.5 text-xs">
-                  <span class="text-[10px] text-slate-400 font-bold uppercase mr-1">Rendu :</span>
-                  <button onclick="applyPaperFilter('normal')" class="px-2.5 py-1 rounded bg-[#232730] hover:bg-[#2c323f] text-slate-300 text-[11px] font-bold">Couleur Réelle</button>
-                  <button onclick="applyPaperFilter('grayscale')" class="px-2.5 py-1 rounded bg-[#232730] hover:bg-[#2c323f] text-slate-300 text-[11px] font-bold">N&B Fusain</button>
-                  <button onclick="applyPaperFilter('contrast')" class="px-2.5 py-1 rounded bg-[#232730] hover:bg-[#2c323f] text-slate-300 text-[11px] font-bold">Contraste Crayon</button>
-                </div>
-              </div>
-
-              <!-- Cadre d'affichage de la photo du dessin -->
-              <div class="relative rounded-2xl overflow-hidden border border-[#272b35] bg-black max-h-[460px] flex items-center justify-center">
-                <img id="paper-preview-img" src="" alt="Dessin sur feuille" class="w-full h-auto max-h-[460px] object-contain transition-all" />
-              </div>
-
-              <div class="flex flex-wrap items-center justify-between gap-3 pt-2">
-                <button onclick="resetPaperUpload()" class="text-xs text-rose-400 hover:text-rose-300 font-semibold">
-                  Reprendre ou changer de photo
-                </button>
-                <button id="paper-submit-btn" onclick="submitPaperDrawing()" class="px-6 py-2.5 rounded-xl gold-pill-active text-xs font-extrabold transition-all shadow-lg shadow-amber-500/20">
-                  Transmettre mon étude papier pour évaluation
-                </button>
-              </div>
-            </div>
-
-            <!-- Retour d'Évaluation Académique Immédiat -->
-            <div id="paper-submission-feedback" class="hidden p-5 rounded-2xl bg-gradient-to-br from-emerald-950/40 via-[#181a1f] to-amber-950/20 border border-emerald-500/40 space-y-3">
-              <div class="flex items-center justify-between">
-                <div class="flex items-center gap-2">
-                  <span class="w-6 h-6 rounded-full bg-emerald-500 text-slate-950 flex items-center justify-center font-black text-xs">✓</span>
-                  <h4 class="text-sm font-bold text-white">Travail sur Feuille Papier Validé par le Jury</h4>
-                </div>
-                <span class="text-xs font-extrabold px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-500/30 text-emerald-400">
-                  Note : 9.4 / 10
-                </span>
-              </div>
-              <p class="text-xs text-slate-300 leading-relaxed">
-                Appréciation de l'Atelier : Le dynamisme de la pose et la tension du drapé sont remarquablement capturés au trait traditionnel. La séparation binaire des ombres au fusain/crayon traduit fidèlement la lumière crue d'Arrakis.
-              </p>
-              <div class="grid grid-cols-3 gap-2 pt-1 text-[11px]">
-                <div class="p-2 rounded bg-[#131417] border border-[#272b35] text-center"><span class="text-slate-400 block">Ligne d'action</span><strong class="text-[#d6a55b]">9.5 / 10</strong></div>
-                <div class="p-2 rounded bg-[#131417] border border-[#272b35] text-center"><span class="text-slate-400 block">Drapé au vent</span><strong class="text-[#d6a55b]">9.5 / 10</strong></div>
-                <div class="p-2 rounded bg-[#131417] border border-[#272b35] text-center"><span class="text-slate-400 block">Valeurs Notan</span><strong class="text-[#d6a55b]">9.2 / 10</strong></div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Panneau Gauche Option 2 : Canvas de Dessin Numérique Interactif (Pour autres sessions) -->
-          <div id="panel-digital-canvas" class="lg:col-span-7 bg-[#1b1e24] border border-[#272b35] rounded-2xl p-4 lg:p-6 flex flex-col justify-between hidden">
-            <div class="flex flex-wrap items-center justify-between gap-3 mb-4 pb-3 border-b border-[#272b35]">
-              <!-- Palette / Brush Tools -->
-              <div class="flex items-center gap-2">
-                <span class="text-xs font-bold text-slate-400">Outils :</span>
-                <button onclick="studio.setEraser(false)" class="p-2 rounded-lg bg-[#272b35] text-xs font-bold hover:bg-slate-700">Crayon</button>
-                <button onclick="studio.setEraser(true)" class="p-2 rounded-lg bg-[#272b35] text-xs font-bold hover:bg-slate-700">Gomme</button>
-                <input type="color" value="#e2e8f0" onchange="studio.setColor(this.value)" class="w-8 h-8 rounded cursor-pointer bg-transparent border-0" title="Couleur" />
-              </div>
-
-              <!-- Size Selector -->
-              <div class="flex items-center gap-2">
-                <span class="text-xs font-bold text-slate-400">Taille :</span>
-                <button onclick="studio.setSize(2)" class="w-7 h-7 rounded-lg bg-[#272b35] text-xs font-bold hover:bg-[#d6a55b] hover:text-[#131417]">2</button>
-                <button onclick="studio.setSize(6)" class="w-7 h-7 rounded-lg bg-[#272b35] text-xs font-bold hover:bg-[#d6a55b] hover:text-[#131417]">6</button>
-                <button onclick="studio.setSize(14)" class="w-7 h-7 rounded-lg bg-[#272b35] text-xs font-bold hover:bg-[#d6a55b] hover:text-[#131417]">14</button>
-                <button onclick="studio.setSize(26)" class="w-7 h-7 rounded-lg bg-[#272b35] text-xs font-bold hover:bg-[#d6a55b] hover:text-[#131417]">26</button>
-              </div>
-
-              <!-- Canvas Actions -->
-              <div class="flex items-center gap-2">
-                <button onclick="studio.undo()" class="p-2 rounded-lg bg-[#272b35] text-xs font-bold hover:bg-slate-700" title="Annuler">Annuler</button>
-                <button onclick="studio.clear()" class="p-2 rounded-lg bg-rose-500/20 text-rose-300 text-xs font-bold hover:bg-rose-500/30">Effacer</button>
-                <button onclick="studio.exportPNG()" class="px-3 py-2 rounded-lg gold-pill-active text-xs font-bold">Exporter PNG</button>
-              </div>
-            </div>
-
-            <!-- The Canvas -->
-            <div class="w-full flex-1 flex items-center justify-center rounded-xl overflow-hidden border border-[#272b35] bg-[#131417]">
-              <canvas id="drawing-canvas" class="cursor-crosshair w-full block"></canvas>
-            </div>
-            <p class="text-[11px] text-slate-500 mt-2 text-center">Dessinez au stylet ou à la souris sur la zone. Exportez votre croquis à la fin du temps imparti.</p>
-          </div>
-
-          <!-- Panneau Droit : Chronomètre & Moodboard de Références + Poses Dune -->
-          <div class="lg:col-span-5 space-y-6">
-            <!-- Chronomètre Interactif Néon -->
-            <div class="p-6 rounded-2xl bg-[#1b1e24] border border-[#00e1d9]/30 flex flex-col items-center justify-center text-center space-y-4 stopwatch-ring-glow">
-              <span class="text-xs font-bold tracking-widest uppercase text-[#00e1d9]">Temps de Pose Restant</span>
-              
-              <div class="relative w-44 h-44 flex items-center justify-center">
-                <svg class="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
-                  <circle cx="50" cy="50" r="45" stroke="#272b35" stroke-width="6" fill="transparent" />
-                  <circle id="timer-progress" cx="50" cy="50" r="45" stroke="#00e1d9" stroke-width="6" stroke-dasharray="283" stroke-dashoffset="0" stroke-linecap="round" fill="transparent" class="transition-all duration-1000 ease-linear" />
-                </svg>
-                <div id="timer-display" class="absolute font-mono font-black text-4xl text-[#00e1d9] tracking-wider">10:00</div>
-              </div>
-
-              <!-- Controls -->
-              <div class="flex items-center gap-3">
-                <button id="timer-toggle-btn" onclick="toggleTimer()" class="px-6 py-2.5 rounded-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-sm shadow-lg shadow-emerald-500/20 transition-all">
-                  Démarrer
-                </button>
-                <button onclick="resetTimer(initialTime)" class="px-4 py-2.5 rounded-full bg-[#272b35] hover:bg-slate-700 text-slate-300 font-bold text-sm transition-all">
-                  Réinitialiser
-                </button>
-              </div>
-
-              <!-- Quick Durations -->
-              <div class="flex items-center gap-2 pt-2">
-                <button onclick="resetTimer(10 * 60)" class="px-3 py-1 rounded-full bg-[#272b35] hover:bg-slate-700 text-xs text-slate-400 font-semibold">10 min</button>
-                <button onclick="resetTimer(15 * 60)" class="px-3 py-1 rounded-full bg-[#272b35] hover:bg-slate-700 text-xs text-slate-400 font-semibold">15 min</button>
-                <button onclick="resetTimer(20 * 60)" class="px-3 py-1 rounded-full bg-[#272b35] hover:bg-slate-700 text-xs text-slate-400 font-semibold">20 min</button>
-              </div>
-            </div>
-
-            <!-- Sélecteur Dynamique des 4 Poses Dune -->
-            <div id="session-poses-container" class="p-5 rounded-2xl bg-[#1b1e24] border border-[#d6a55b]/40 space-y-3">
-              <div class="flex items-center justify-between">
-                <div>
-                  <h4 class="text-xs font-bold text-[#d6a55b] uppercase tracking-wider">Poses de Personnages Dune</h4>
-                  <p id="current-pose-badge" class="text-[11px] text-slate-400">Pose 1 / 4 : Paul Muad'Dib</p>
-                </div>
-                <button onclick="randomDunePose()" class="px-3 py-1.5 rounded-lg bg-[#232730] hover:bg-[#d6a55b] hover:text-[#131417] text-[11px] font-bold text-[#d6a55b] transition-all flex items-center gap-1.5" title="Sélectionner une pose aléatoire">
-                  <span>Aléatoire</span>
-                  <span>⚡</span>
-                </button>
-              </div>
-
-              <!-- Grille des 4 Poses avec Vignettes -->
-              <div id="session-poses-list" class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
-                <!-- Rendu dynamiquement par renderPosesSelector() -->
-              </div>
-            </div>
-
-            <!-- Référence Visuelle Active Agrandissable -->
-            <div class="p-4 rounded-2xl bg-[#1b1e24] border border-[#272b35] space-y-3">
-              <div class="flex items-center justify-between">
-                <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider">Modèle de Pose en Cours</h4>
-                <button onclick="openImageModal(document.getElementById('session-ref-img').src)" class="text-xs text-[#d6a55b] hover:text-white font-medium">Agrandir Plein Écran</button>
-              </div>
-              <div class="rounded-xl overflow-hidden border border-[#272b35] bg-black cursor-pointer group relative" onclick="openImageModal(document.getElementById('session-ref-img').src)">
-                <img id="session-ref-img" src="assets/dune_pose_01_paul_cape_vent.jpg" class="w-full h-auto max-h-[380px] object-contain mx-auto group-hover:scale-[1.02] transition-transform duration-300" />
-                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-3">
-                  <p class="text-[11px] text-white">Cliquez pour observer les détails anatomiques et les plis du tissu</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+        </div><!-- Fin graphisme-normal-content -->
+      </div><!-- Fin content-graphisme -->
 
       <!-- TAB 4 : GALERIE & ÉVALUATIONS -->
       <div id="content-galerie" class="tab-content hidden space-y-8">
@@ -2070,38 +1903,43 @@
         </section>
       </div>
 
-      <!-- TAB 5 : ESPACE APPRENANT -->
+      <!-- TAB 5 : ESPACE STAGIAIRE & SUPERVISION TUTEUR -->
       <div id="content-dashboard" class="tab-content hidden space-y-8">
         <section class="p-8 rounded-3xl bg-[#1b1e24] border border-[#272b35] space-y-6">
           <div class="flex flex-wrap items-center justify-between gap-4 border-b border-[#272b35] pb-6">
             <div class="flex items-center gap-4">
-              <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&auto=format&fit=crop&q=80" alt="Avatar" class="w-16 h-16 rounded-2xl border-2 border-[#d6a55b] object-cover" />
+              <img id="dashboard-user-avatar" src="assets/etudiant_portrait_lea.jpg" alt="Avatar" class="w-16 h-16 rounded-2xl border-2 border-amber-400 object-cover" />
               <div>
-                <h2 class="text-2xl font-extrabold text-white">Cyril Dubois</h2>
-                <p class="text-xs text-[#d6a55b] font-medium">Cursus Peinture Numérique & Concept Art · Promotion 2026</p>
+                <h2 id="dashboard-user-name" class="text-2xl font-extrabold text-white">Sarah Martin</h2>
+                <p id="dashboard-user-sub" class="text-xs text-amber-300 font-medium font-mono">Stagiaire en Immersion Atelier · Semaine 1 (Dessin Réel sur Papier)</p>
               </div>
             </div>
             <div class="flex items-center gap-3">
-              <span class="px-4 py-2 rounded-xl bg-[#00e1d9]/10 border border-[#00e1d9]/30 text-[#00e1d9] text-xs font-bold">Cycle 3 en Cours</span>
+              <span id="dashboard-user-badge" class="px-4 py-2 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-bold">
+                Semaine 1 : Dessin Actif
+              </span>
+              <button onclick="switchUserRole(currentRole === 'admin' ? 'stagiaire' : 'admin')" class="px-4 py-2 rounded-xl bg-[#252836] hover:bg-[#32364a] border border-[#2b3553] text-xs font-bold text-white transition-all">
+                Changer de Compte
+              </button>
             </div>
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div class="p-4 rounded-2xl bg-[#131417] border border-[#272b35]">
-              <span class="text-[11px] text-[#8f95a3] font-medium">Sessions Complétées</span>
-              <p class="text-2xl font-black text-white mt-1">28</p>
+              <span class="text-[11px] text-[#8f95a3] font-medium">Programme de Stage</span>
+              <p class="text-lg font-black text-white mt-1">2 Semaines</p>
             </div>
             <div class="p-4 rounded-2xl bg-[#131417] border border-[#272b35]">
-              <span class="text-[11px] text-[#8f95a3] font-medium">Heures de Pratique</span>
-              <p class="text-2xl font-black text-[#d6a55b] mt-1">42 h</p>
+              <span class="text-[11px] text-[#8f95a3] font-medium">Semaine 1 (Active)</span>
+              <p class="text-lg font-black text-[#e14eca] mt-1">10 Cours Dessin</p>
             </div>
             <div class="p-4 rounded-2xl bg-[#131417] border border-[#272b35]">
-              <span class="text-[11px] text-[#8f95a3] font-medium">Moyenne Générale</span>
-              <p class="text-2xl font-black text-[#00e1d9] mt-1">9.1 / 10</p>
+              <span class="text-[11px] text-[#8f95a3] font-medium">Semaine 2 (Graphisme)</span>
+              <p class="text-lg font-black text-rose-400 mt-1" id="kpi-graphisme-status">Verrouillée</p>
             </div>
             <div class="p-4 rounded-2xl bg-[#131417] border border-[#272b35]">
-              <span class="text-[11px] text-[#8f95a3] font-medium">Badges d'Excellence</span>
-              <p class="text-2xl font-black text-purple-400 mt-1">6 / 8</p>
+              <span class="text-[11px] text-[#8f95a3] font-medium">Validation Tuteur</span>
+              <p class="text-lg font-black text-amber-300 mt-1" id="kpi-validation-status">En Attente</p>
             </div>
           </div>
 
@@ -2254,10 +2092,9 @@
   <script src="js/app-core.js"></script>
   <script src="js/app-custom-ui.js"></script>
   <script src="js/app-submission.js"></script>
-  <script src="js/app-studio.js"></script>
+  <script src="js/app-roles-stage.js"></script>
   <script src="js/app-courses.js"></script>
   <script src="js/app-easter-egg.js"></script>
   <script src="js/app-tools.js"></script>
-  <script src="canvas.js"></script>
 </body>
 </html>
