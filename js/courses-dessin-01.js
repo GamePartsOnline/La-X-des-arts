@@ -12,9 +12,9 @@ const COURSES_DESSIN_P1 = [
     domain: "Fondamentaux du Trait & Construction Géométrique",
     level: "Initiation · Fondamentaux",
     duration: "3 × 20 min",
-    materiel: "Crayon HB (construction légère), crayon 2B ou feutre fin (trait final), feuilles A4 (sans règle).",
+    materiel: "Crayon HB (construction légère), crayon 2B ou feutre fin (trait final), feuilles A4 (sans règle ni gomme).",
     methode: "Dater sa feuille et conserver tous les traits de construction sans gommer afin de mesurer sa progression.",
-    image: "assets/2026-11-10_cours-d01_V01.webp",
+    image: "assets/2026-11-10_cours-d01_V02.png",
     imageCaption: "Du tracé de construction géométrique (cercles, axes et ellipses au crayon léger) au trait franc.",
     summary: "Apprendre à libérer le geste depuis l'épaule, tracer des lignes droites et des ellipses régulières à main levée, bâtir des cylindres et décomposer tout objet réel en formes géométriques simples.",
     artist: {
