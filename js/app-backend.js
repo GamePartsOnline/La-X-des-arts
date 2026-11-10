@@ -26,19 +26,6 @@ function renderLoginGateView() {
         <img src="assets/logo_croisee_nb.svg" alt="Logo La Croisée des Arts" class="w-12 h-12 rounded-xl border border-white bg-black object-contain shrink-0" />
         <div>
           <h1 class="text-xl lg:text-2xl font-bold text-white">La Croisée des Arts</h1>
-          <p class="text-xs font-medium text-slate-300">Nouvelle façon d'apprendre gratuitement ! · Portail de connexion (3 profils stricts)</p>
-        </div>
-      </div>
-
-      <div class="p-4 rounded-xl bg-[#111317] border border-[#262b35] space-y-3">
-        <div class="flex items-center justify-between">
-          <span class="text-xs font-bold uppercase tracking-wider text-slate-300">Connexion rapide (3 profils : Stagiaire · Visiteur · Admin)</span>
-          <span class="text-xs text-slate-400">Accès direct selon le rôle</span>
-        </div>
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
-          <button type="button" onclick="quickConnectProfile('stagiaire')" class="p-3.5 rounded-xl bg-[#181b21] hover:bg-amber-500/20 border border-amber-500/40 text-left transition-all"><span class="text-xs font-bold text-amber-300 block">1. Stagiaire</span><span class="text-[11px] text-slate-400">Suivi 4 semaines & Cours</span></button>
-          <button type="button" onclick="quickConnectProfile('visiteur')" class="p-3.5 rounded-xl bg-[#181b21] hover:bg-emerald-500/20 border border-emerald-500/40 text-left transition-all"><span class="text-xs font-bold text-emerald-300 block">2. Visiteur</span><span class="text-[11px] text-slate-400">Métiers, Écoles, Actu & Jobs</span></button>
-          <button type="button" onclick="quickConnectProfile('admin')" class="p-3.5 rounded-xl bg-[#181b21] hover:bg-purple-500/20 border border-purple-500/40 text-left transition-all"><span class="text-xs font-bold text-purple-300 block">3. Admin</span><span class="text-[11px] text-slate-400">Console & Maître de stage</span></button>
         </div>
       </div>
 
