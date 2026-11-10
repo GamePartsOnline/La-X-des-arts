@@ -62,6 +62,15 @@ L'école réunit deux filières indépendantes et complémentaires formées aux 
 - [x] Grille corrective détaillée par cours : 3 erreurs types, 3 remédiations pédagogiques, notation sur 5 compétences
 - [x] Dashboard Nouvel Élève : accueil, sélection des filières et cours recommandés
 - [x] Boîte à outils interactive d'atelier : Checklist 300 DPI, nuancier des noirs, arborescence GPO, notation 100 points
-- [x] Respect strict de la limite de 300 lignes par fichier de code (100% des 15 modules JS sous le plafond)
+- [x] Respect strict de la limite de 300 lignes par fichier de code (100% des 22 modules JS et 3 modules serveur sous le plafond)
 - [x] Refonte ergonomique du menu latéral : suppression des scrollbars imbriquées, filtres rapides 1-clic (Tous / Dessin / PAO), accordéons pliables et standardisation des 26 titres de cours courts et explicites
+- [x] Backend Node.js 24 + SQLite zéro dépendance avec authentification, persistance des leçons et dépôts binaires
+- [x] Entrée directe sur le portail de connexion (`#login-gate-view`, zéro page d'accueil publique) et séparation stricte en 3 rôles (`stagiaire`, `visiteur`, `admin`, sans aucun rôle professeur)
+- [x] Blason officiel en Noir et Blanc (`assets/logo_croisee_nb.svg`) et positionnement : « Nouvelle façon d'apprendre gratuitement ! »
+- [x] Référentiel complet des 24 Fiches Métiers créatifs (sans images artificielles, codes ROME, diplômes DN MADE/DSAA/RPIP/RNCP et liens directs cliquables vers les écoles)
+- [x] Annuaire interactif des 26 Écoles, CFA RPIP & Plateformes par secteur géographique, avec affichage des tarifs (`0 €` public, CFA rémunéré, tarifs annuels des écoles privées RNCP) et explication du modèle économique (gratuit vs payant)
+- [x] Intégration complète des documents officiels GPO SARL (`00_GPO _ Documents STAGE`) : Programme de stage 4 semaines (20 jours : J01 à J20), Cahiers d'exercices 07/08/09/10, Projet Stickers Foire de Châlons 2027 (10 €), Brochure Rapport de stage en 10 parties, et Dossier confidentiel Maître de stage (`90_TUTEUR_NE_PAS_DONNER`, barème sur 100 points réservé à l'Admin)
+- [x] Onglet `ACTU & NEWS` en flux continu et onglet `JOBS & STAGES` en mode connecté (`GET/POST/DELETE /api/jobs`)
+- [x] Règle permanente : documentation et analyse en ligne systématiques avant toute proposition ou révision de cours ou de page du site
+- [ ] Déploiement Coolify (`laxdesarts.gposarl.com`) et vérification visuelle en ligne
 - [ ] Export PDF / SVG récapitulatif des planches de cours

@@ -1,5 +1,5 @@
 // =====================================================================
-// RENDU DU COURS EN PLEINE LARGEUR & NAVIGATION DIRECTE
+// VUE COURS ÉPURÉE, LISIBLE & FILTRÉE SELON LE PROFIL DE L'UTILISATEUR
 // =====================================================================
 
 function setDisciplineFilter(disc) {
@@ -7,11 +7,17 @@ function setDisciplineFilter(disc) {
   renderCourses();
 }
 
+function getAuthorizedCoursesForUser() {
+  const all = window.COURSES_DATA || [];
+  if (typeof isCourseAllowedForCurrentUser !== 'function') return all;
+  return all.filter(c => isCourseAllowedForCurrentUser(c.id));
+}
+
 function selectCourse(id) {
   if (typeof handleCourseClickSecurity === 'function' && !handleCourseClickSecurity(id)) {
     return;
   }
-  const found = COURSES_DATA.find(c => c.id === id);
+  const found = (window.COURSES_DATA || []).find(c => c.id === id);
   if (found) {
     currentCourse = found;
   }
@@ -19,199 +25,105 @@ function selectCourse(id) {
   renderCourses();
 }
 
-function setSidebarFiliere(mode) {
-  const groupDessin = document.getElementById('sidebar-group-dessin');
-  const groupGraph = document.getElementById('sidebar-group-graphisme');
-  const btnAll = document.getElementById('filter-pill-all');
-  const btnDessin = document.getElementById('filter-pill-dessin');
-  const btnGraph = document.getElementById('filter-pill-graphisme');
-
-  if (btnAll) btnAll.className = 'py-1 rounded-lg text-slate-400 hover:text-white transition-all';
-  if (btnDessin) btnDessin.className = 'py-1 rounded-lg text-slate-400 hover:text-white transition-all';
-  if (btnGraph) btnGraph.className = 'py-1 rounded-lg text-slate-400 hover:text-white transition-all';
-
-  if (mode === 'dessin') {
-    if (groupDessin) groupDessin.classList.remove('hidden');
-    if (groupGraph) groupGraph.classList.add('hidden');
-    if (btnDessin) btnDessin.className = 'py-1 rounded-lg bg-[#f8485e] text-white shadow-md shadow-[#f8485e]/25 transition-all';
-  } else if (mode === 'graphisme') {
-    if (groupDessin) groupDessin.classList.add('hidden');
-    if (groupGraph) groupGraph.classList.remove('hidden');
-    if (btnGraph) btnGraph.className = 'py-1 rounded-lg bg-[#3b82f6] text-white shadow-md shadow-blue-500/25 transition-all';
-  } else {
-    if (groupDessin) groupDessin.classList.remove('hidden');
-    if (groupGraph) groupGraph.classList.remove('hidden');
-    if (btnAll) btnAll.className = 'py-1 rounded-lg bg-[#27293d] text-white shadow transition-all';
-  }
-}
-
-function toggleSidebarAccordion(section) {
-  const list = document.getElementById(`sidebar-list-${section}`);
-  const chevron = document.getElementById(`chevron-${section}`);
-  if (!list) return;
-  const isHidden = list.classList.toggle('hidden');
-  if (chevron) {
-    chevron.style.transform = isHidden ? 'rotate(-90deg)' : 'rotate(0deg)';
-  }
-}
-
-function updateSidebarActiveCourse() {
-  const activeId = currentCourse ? currentCourse.id : null;
-  const isGraph = currentCourse && currentCourse.discipline === 'graphisme';
-
-  const targetListId = isGraph ? 'sidebar-list-graphisme' : 'sidebar-list-dessin';
-  const targetList = document.getElementById(targetListId);
-  if (targetList && targetList.classList.contains('hidden')) {
-    targetList.classList.remove('hidden');
-    const chevron = document.getElementById(isGraph ? 'chevron-graphisme' : 'chevron-dessin');
-    if (chevron) chevron.style.transform = 'rotate(0deg)';
-  }
-
-  document.querySelectorAll('.course-nav-btn').forEach(btn => {
-    const isCurrent = btn.getAttribute('data-course-id') === activeId || btn.getAttribute('onclick')?.includes(`'${activeId}'`);
-    const badge = btn.querySelector('.course-badge');
-    const arrow = btn.querySelector('svg');
-    const isBtnGraph = btn.getAttribute('data-course-id')?.includes('-g') || badge?.textContent?.includes('G-');
-
-    if (isCurrent) {
-      btn.className = 'course-nav-btn w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-xs font-bold text-white bg-[#252836] border border-[#2b3553] shadow-sm transition-all group';
-      if (badge) {
-        badge.className = isBtnGraph
-          ? 'course-badge text-[10px] font-mono font-black px-1.5 py-0.5 rounded bg-[#3b82f6] text-white shadow shadow-cyan-500/40 shrink-0'
-          : 'course-badge text-[10px] font-mono font-black px-1.5 py-0.5 rounded bg-[#f8485e] text-white shadow shadow-pink-500/40 shrink-0';
-      }
-      if (arrow) arrow.classList.replace('opacity-0', 'opacity-100');
-    } else {
-      btn.className = 'course-nav-btn w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-[#20242c] transition-all group';
-      if (badge) {
-        badge.className = isBtnGraph
-          ? 'course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-blue-500/15 text-blue-400 shrink-0'
-          : 'course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-pink-500/15 text-pink-400 shrink-0';
-      }
-      if (arrow) arrow.classList.replace('opacity-100', 'opacity-0');
-    }
-  });
-}
+function setSidebarFiliere() {}
+function toggleSidebarAccordion() {}
+function updateSidebarActiveCourse() {}
+function renderThemesProgrammeSection() {}
 
 function renderCourses() {
   const detailEl = document.getElementById('course-detail');
   if (!detailEl) return;
 
-  updateSidebarActiveCourse();
+  const authorized = getAuthorizedCoursesForUser();
+  if (authorized.length === 0) {
+    detailEl.innerHTML = `
+      <div class="max-w-3xl mx-auto p-8 rounded-2xl bg-[#181b21] border border-[#262b35] text-center space-y-3">
+        <h2 class="text-xl font-bold text-white">Aucun cours ouvert pour votre profil</h2>
+        <p class="text-sm text-slate-300">L'administrateur valide les thèmes et cours auxquels chaque profil a accès.</p>
+      </div>
+    `;
+    return;
+  }
 
-  const isGraphDetail = currentCourse.discipline === 'graphisme';
-  const badgeColor = isGraphDetail 
-    ? 'bg-blue-500/15 text-blue-400 border border-blue-500/30' 
-    : 'bg-[#f8485e]/15 text-[#f8485e] border border-[#f8485e]/30';
-  const discName = isGraphDetail ? 'Design Graphique & PAO' : 'Dessin Classique & Peinture';
+  if (!authorized.some(c => c.id === currentCourse?.id)) {
+    currentCourse = authorized[0];
+  }
 
-  const currentIndex = COURSES_DATA.findIndex(c => c.id === currentCourse.id);
-  const prevCourse = currentIndex > 0 ? COURSES_DATA[currentIndex - 1] : null;
-  const nextCourse = currentIndex < COURSES_DATA.length - 1 ? COURSES_DATA[currentIndex + 1] : null;
+  const themes = window.THEMES_PROGRAMME_DATA || [];
+  const currentTheme = themes.find(t => (t.coursIds || []).includes(currentCourse.id)) || themes[0] || { code: 'Thème 1', titre: 'Observation', norme: 'Atelier' };
+  const currentIndex = authorized.findIndex(c => c.id === currentCourse.id);
+  const prevCourse = currentIndex > 0 ? authorized[currentIndex - 1] : null;
+  const nextCourse = currentIndex < authorized.length - 1 ? authorized[currentIndex + 1] : null;
+  const customCourses = typeof backendCustomCourses !== 'undefined' ? backendCustomCourses : [];
+  const esc = typeof escapeBackend === 'function' ? escapeBackend : (v => String(v ?? ''));
 
   detailEl.innerHTML = `
-    <div class="space-y-6">
-      <!-- Barre Supérieure de Navigation Pleine Largeur du Cours -->
-      <div class="p-4 rounded-2xl bg-[#27293d] border border-[#2b3553]/60 shadow-lg shadow-black/20 flex flex-wrap items-center justify-between gap-3">
-        <div class="flex items-center gap-2 text-xs text-slate-400">
-          <span class="cursor-pointer hover:text-white transition-colors" onclick="showTab('accueil')">Dashboard</span>
-          <span>/</span>
-          <span class="font-semibold ${isGraphDetail ? 'text-blue-400' : 'text-[#f8485e]'}">${discName}</span>
-          <span>/</span>
-          <span class="font-bold text-white">${currentCourse.num}</span>
+    <div class="max-w-4xl mx-auto space-y-6">
+      <!-- Barre de sélection directe et épurée (1 seule ligne, sans pavé de texte) -->
+      <div class="p-4 rounded-xl bg-[#181b21] border border-[#262b35] flex flex-wrap items-center justify-between gap-3">
+        <div class="flex items-center gap-3 flex-1 min-w-[240px]">
+          <label for="course-quick-select" class="text-xs font-semibold text-slate-400 whitespace-nowrap">Choisir un cours :</label>
+          <select id="course-quick-select" onchange="selectCourse(this.value)" class="flex-1 px-3.5 py-2 rounded-lg bg-[#111317] border border-[#262b35] text-sm font-medium text-white focus:outline-none focus:border-sky-500">
+            ${themes.map(th => {
+              const thCourses = (th.coursIds || []).map(cid => authorized.find(c => c.id === cid)).filter(Boolean);
+              if (!thCourses.length) return '';
+              return `<optgroup label="${th.code} - ${th.titre}">
+                ${thCourses.map(c => `<option value="${c.id}" ${c.id === currentCourse.id ? 'selected' : ''}>${c.num} · ${c.title}</option>`).join('')}
+              </optgroup>`;
+            }).join('')}
+          </select>
         </div>
 
         <div class="flex items-center gap-2">
-          ${prevCourse ? `
-            <button onclick="selectCourse('${prevCourse.id}')" class="px-3.5 py-1.5 rounded-xl bg-[#1f2233] hover:bg-[#2d324d] border border-[#2b3553] text-xs font-semibold text-slate-300 hover:text-white transition-all flex items-center gap-1.5" title="${prevCourse.title}">
-              <span>←</span>
-              <span>${prevCourse.num}</span>
-            </button>
-          ` : ''}
-
-          <span class="text-[11px] text-slate-400 font-mono px-2">
-            ${currentIndex + 1} / ${COURSES_DATA.length}
-          </span>
-
-          ${nextCourse ? `
-            <button onclick="selectCourse('${nextCourse.id}')" class="px-3.5 py-1.5 rounded-xl bg-[#1f2233] hover:bg-[#2d324d] border border-[#2b3553] text-xs font-semibold text-slate-300 hover:text-white transition-all flex items-center gap-1.5" title="${nextCourse.title}">
-              <span>${nextCourse.num}</span>
-              <span>→</span>
-            </button>
-          ` : ''}
+          ${prevCourse ? `<button onclick="selectCourse('${prevCourse.id}')" class="px-3.5 py-2 rounded-lg bg-[#111317] hover:bg-[#252a36] border border-[#262b35] text-sm font-medium text-slate-200 transition-all">← ${prevCourse.num}</button>` : ''}
+          <span class="text-xs text-slate-400 font-mono px-2">${currentIndex + 1} / ${authorized.length}</span>
+          ${nextCourse ? `<button onclick="selectCourse('${nextCourse.id}')" class="px-3.5 py-2 rounded-lg bg-[#111317] hover:bg-[#252a36] border border-[#262b35] text-sm font-medium text-slate-200 transition-all">${nextCourse.num} →</button>` : ''}
         </div>
       </div>
 
-      <!-- Sélecteur de Persona : Débutant, Niveau Avancé, Professeur -->
-      ${typeof renderPersonaNavigation === 'function' ? renderPersonaNavigation() : ''}
-
-      <!-- En-tête du Cours -->
-      <div class="space-y-2">
-        <div class="flex flex-wrap items-center gap-2">
-          <span class="text-[10px] font-bold px-2.5 py-1 rounded ${badgeColor} uppercase tracking-wider">
-            ${currentCourse.num} · ${currentCourse.domain}
-          </span>
-          <span class="text-[10px] font-semibold px-2 py-0.5 rounded bg-[#272b35] text-slate-300">
-            Niveau : ${currentCourse.level}
-          </span>
-          <span class="text-[10px] font-semibold px-2 py-0.5 rounded bg-[#272b35] text-slate-300">
-            Durée : ${currentCourse.duration}
-          </span>
+      <!-- En-tête lisible du Cours -->
+      <div class="p-6 rounded-xl bg-[#181b21] border border-[#262b35] space-y-3">
+        <div class="flex flex-wrap items-center justify-between gap-2 text-xs text-slate-400">
+          <span class="font-semibold text-sky-400">${currentTheme.code} · ${currentTheme.titre}</span>
+          <span>Durée conseillée : ${currentCourse.duration || '25 min'}</span>
         </div>
-        <h2 class="font-serif text-2xl lg:text-3xl font-black text-white">${currentCourse.title}</h2>
-        <p class="text-xs lg:text-sm text-slate-300 leading-relaxed">${currentCourse.summary}</p>
+        <h1 class="text-2xl lg:text-3xl font-bold text-white leading-snug">${currentCourse.num} : ${currentCourse.title}</h1>
+        <p class="text-base text-slate-200 leading-relaxed">${currentCourse.summary}</p>
+        <p class="text-xs text-slate-400 pt-1 border-t border-[#262b35]">Repère technique : <strong class="text-slate-200">${currentTheme.norme}</strong></p>
       </div>
 
-      <!-- Grande Planche Visuelle Démonstrative HD -->
-      <div class="space-y-2">
-        <div class="relative rounded-2xl overflow-hidden border border-[#2b3553] shadow-2xl bg-black/60 group">
-          <img src="${currentCourse.image}" alt="${currentCourse.title}" class="w-full max-h-[440px] object-contain mx-auto transition-transform duration-500 group-hover:scale-[1.01]" />
-          <div class="absolute top-3 right-3 px-3 py-1 rounded-lg bg-black/70 backdrop-blur-md border border-white/10 text-[10px] font-mono text-slate-300">
-            Planche HD · ${currentCourse.num}
-          </div>
-        </div>
-
-        <!-- Citation et Référence de la Source Officielle -->
-        ${typeof renderCourseSourceCard === 'function' ? renderCourseSourceCard(currentCourse) : ''}
+      <!-- Planche Visuelle HD -->
+      <div class="rounded-xl overflow-hidden border border-[#262b35] bg-[#0d0f13]">
+        <img src="${currentCourse.image}" alt="${currentCourse.title}" onclick="if(typeof openImageModal==='function')openImageModal('${currentCourse.image}')" class="w-full max-h-[460px] object-contain mx-auto cursor-pointer" />
       </div>
 
-      <!-- Contenu Pédagogique Recadré selon le Persona (Débutant, Avancé ou Professeur) -->
+      <!-- Points clés de la leçon -->
       ${typeof renderCourseDetailContent === 'function' ? renderCourseDetailContent(currentCourse) : ''}
 
-      <!-- Module d'Exercice & Envoi du Travail -->
+      <!-- Exercice pratique & Dépôt (Acquis / Non acquis) -->
       ${typeof renderCourseExerciseBlock === 'function' ? renderCourseExerciseBlock(currentCourse) : ''}
 
-      ${currentCourse.correction ? `
-        <!-- Grille Officielle des 5 Critères d'Évaluation -->
-        <div class="p-5 rounded-2xl bg-[#27293d] border border-[#2b3553]/60 space-y-3">
-          <div class="flex items-center justify-between pb-2 border-b border-[#2b3553]">
-            <h4 class="text-xs font-bold text-slate-200 uppercase tracking-wider">Barème Continu d'Atelier (5 Critères Clés)</h4>
-            <span class="text-xs font-bold text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-full border border-emerald-500/20">Moyenne Promotion : 9.2 / 10</span>
-          </div>
-          <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
-            <div class="p-3 rounded-xl bg-[#1f2233] border border-[#2b3553] text-center">
-              <p class="text-[10px] text-slate-400 uppercase">Silhouette</p>
-              <p class="text-base font-extrabold text-[#f8485e] mt-0.5">${currentCourse.correction.grades.silhouette}/10</p>
-            </div>
-            <div class="p-3 rounded-xl bg-[#1f2233] border border-[#2b3553] text-center">
-              <p class="text-[10px] text-slate-400 uppercase">Structure</p>
-              <p class="text-base font-extrabold text-[#f8485e] mt-0.5">${currentCourse.correction.grades.structure}/10</p>
-            </div>
-            <div class="p-3 rounded-xl bg-[#1f2233] border border-[#2b3553] text-center">
-              <p class="text-[10px] text-slate-400 uppercase">Valeurs</p>
-              <p class="text-base font-extrabold text-[#f8485e] mt-0.5">${currentCourse.correction.grades.valeurs}/10</p>
-            </div>
-            <div class="p-3 rounded-xl bg-[#1f2233] border border-[#2b3553] text-center">
-              <p class="text-[10px] text-slate-400 uppercase">Bords</p>
-              <p class="text-base font-extrabold text-emerald-400 mt-0.5">${currentCourse.correction.grades.bords}/10</p>
-            </div>
-            <div class="p-3 rounded-xl bg-[#1f2233] border border-[#2b3553] text-center">
-              <p class="text-[10px] text-slate-400 uppercase">Finition</p>
-              <p class="text-base font-extrabold text-emerald-400 mt-0.5">${currentCourse.correction.grades.couleur}/10</p>
-            </div>
+      ${customCourses.length ? `
+        <div class="p-5 rounded-xl bg-[#181b21] border border-[#262b35] space-y-3">
+          <h3 class="text-sm font-bold text-white">Cours complémentaires déposés par l'administration (${customCourses.length})</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            ${customCourses.map(c => `
+              <div class="p-4 rounded-lg bg-[#111317] border border-[#262b35] space-y-1">
+                <div class="flex items-center justify-between text-xs text-emerald-400 font-semibold">
+                  <span>${esc(c.code)} · ${esc(c.pole === 'graphisme' ? 'Graphisme' : 'Dessin')}</span>
+                  <span>Par ${esc(c.author)}</span>
+                </div>
+                <h4 class="text-sm font-bold text-white">${esc(c.title)}</h4>
+                <p class="text-xs text-slate-300 leading-relaxed">${esc(c.summary)}</p>
+              </div>
+            `).join('')}
           </div>
         </div>
       ` : ''}
     </div>
   `;
+}
+
+if (typeof window !== 'undefined') {
+  Object.assign(window, { renderCourses, selectCourse, setDisciplineFilter, getAuthorizedCoursesForUser });
 }

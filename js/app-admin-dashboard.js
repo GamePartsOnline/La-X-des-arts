@@ -1,214 +1,197 @@
 // =====================================================================
-// TABLEAU DE BORD ADMINISTRATEUR - SUPERVISION DU STAGE & VALIDATION
-// GESTION COMPLÈTE DES LEÇONS, ARBITRAGE DU NIVEAU & DÉBLOCAGE SEMAINE 2
+// ESPACE DÉDIÉ ADMINISTRATEUR & MAÎTRE DE STAGE (#content-admin)
+// COMPTE ADMIN VERROUILLÉ, GESTION DES 3 RÔLES, ACCÈS COURS & DOSSIER 90_TUTEUR
 // =====================================================================
 
 let currentAdminFilter = 'all';
 
 function setAdminLessonFilter(filter) {
   currentAdminFilter = filter;
-  renderAdminLessonsList();
+  renderAdminLessonsList('admin-lessons-list');
 }
 
 function adminValidateLesson(lessonId, customNote, customComment) {
   const lessons = getStageLessons();
   const lesson = lessons.find(l => l.id === lessonId);
   if (!lesson) return;
-
   lesson.status = 'validee';
-  lesson.dateValidation = new Date().toISOString().split('T')[0];
-  if (customNote) lesson.note = customNote;
+  lesson.note = 'Acquis';
   if (customComment) lesson.commentAdmin = customComment;
-
   saveStageLessons(lessons);
-
-  if (typeof playChime === 'function') playChime(660, 0.2);
-  if (typeof showCustomToast === 'function') {
-    showCustomToast("Leçon Validée", `${lesson.num} : "${lesson.titre}" validée.`, "success");
-  }
-
   renderAdminDashboard();
-  if (typeof renderStagiaireDashboard === 'function') renderStagiaireDashboard();
 }
 
 function adminRejectLesson(lessonId, remark) {
   const lessons = getStageLessons();
   const lesson = lessons.find(l => l.id === lessonId);
   if (!lesson) return;
-
   lesson.status = 'a_faire';
-  lesson.commentAdmin = remark || "Travail à retravailler selon les consignes du tuteur.";
+  lesson.note = 'Non acquis';
+  lesson.commentAdmin = remark || 'Compétence non acquise : travail à reprendre.';
   saveStageLessons(lessons);
-
-  if (typeof playChime === 'function') playChime(330, 0.2);
-  if (typeof showCustomToast === 'function') {
-    showCustomToast("Correction Demandée", `${lesson.num} renvoyée pour correction.`, "warning");
-  }
-
   renderAdminDashboard();
-  if (typeof renderStagiaireDashboard === 'function') renderStagiaireDashboard();
+}
+
+function buildCourseDepositFormHTML() {
+  const themes = window.THEMES_PROGRAMME_DATA || [];
+  return `
+    <form onsubmit="submitCustomCourse(event)" class="p-6 rounded-2xl bg-[#181b21] border border-[#262b35] space-y-4">
+      <div class="border-b border-[#262b35] pb-3">
+        <h3 class="text-base font-bold text-white">Déposer un nouveau cours dans le programme (Admin)</h3>
+        <p class="text-xs text-slate-400">Le cours sera immédiatement rattaché au pôle choisi (Dessin S1 ou Graphisme S2-S4).</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+        <select name="theme" class="px-3 py-2.5 rounded-xl bg-[#111317] border border-[#262b35] text-sm text-white">
+          ${themes.map(t => `<option value="${t.id}">${t.code} · ${t.titre}</option>`).join('')}
+        </select>
+        <select name="pole" class="px-3 py-2.5 rounded-xl bg-[#111317] border border-[#262b35] text-sm text-white">
+          <option value="dessin">Pôle Dessin (Semaine 1)</option>
+          <option value="graphisme">Pôle Graphisme & PAO (Semaines 2-4)</option>
+        </select>
+        <input name="code" placeholder="Code (ex. D-11 ou G-17)" required class="px-3 py-2.5 rounded-xl bg-[#111317] border border-[#262b35] text-sm text-white">
+        <input name="norme" placeholder="Norme (ex. ISO 12647-2 / Sight-Size)" required class="px-3 py-2.5 rounded-xl bg-[#111317] border border-[#262b35] text-sm text-white">
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <input name="title" placeholder="Intitulé complet du cours" required class="md:col-span-1 px-3 py-2.5 rounded-xl bg-[#111317] border border-[#262b35] text-sm text-white">
+        <input name="summary" placeholder="Objectif pédagogique, étapes et critères d'acquisition..." required class="md:col-span-2 px-3 py-2.5 rounded-xl bg-[#111317] border border-[#262b35] text-sm text-white">
+      </div>
+      <div class="flex justify-end">
+        <button type="submit" class="px-5 py-2.5 rounded-xl bg-[#f8485e] hover:bg-[#e0374c] text-white text-xs font-bold">Publier le cours</button>
+      </div>
+    </form>
+  `;
 }
 
 function renderAdminDashboard() {
   const container = document.getElementById('admin-dashboard-container');
   if (!container) return;
 
-  const lessons = getStageLessons();
+  const lessons = typeof getStageLessons === 'function' ? getStageLessons() : [];
   const total = lessons.length;
   const validees = lessons.filter(l => l.status === 'validee').length;
-  const enAttente = lessons.filter(l => l.status === 'en_attente').length;
-  const isS2Unlocked = typeof getGraphismeUnlockedState === 'function' ? getGraphismeUnlockedState() : false;
+  const learnerName = (typeof STAGIAIRE_PROFILE !== 'undefined' && STAGIAIRE_PROFILE.nom) ? STAGIAIRE_PROFILE.nom : 'Sarah Martin';
+  const tuteur = window.TUTEUR_CONFIDENTIAL_DATA || {};
 
   container.innerHTML = `
     <div class="space-y-6">
-      <div class="p-6 rounded-3xl bg-[#1b1e24] border border-[#23262f] shadow-xl flex flex-wrap items-center justify-between gap-4">
-        <div>
-          <div class="flex items-center gap-2">
-            <span class="w-2.5 h-2.5 rounded-full bg-[#f8485e] animate-pulse"></span>
-            <span class="text-[10px] font-mono font-bold uppercase tracking-wider text-[#f8485e]">Supervision d'Atelier</span>
-            <span class="text-xs px-2.5 py-0.5 rounded-full bg-[#131417] text-slate-300 border border-[#23262f]">Stagiaire : Sarah Martin</span>
+      <!-- En-tête Console d'Administration Globale & Maître de Stage -->
+      <div class="p-6 rounded-2xl bg-[#181b21] border border-[#262b35] flex flex-wrap items-center justify-between gap-4">
+        <div class="space-y-1">
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="px-2.5 py-1 rounded-md bg-purple-500/15 text-purple-300 border border-purple-500/30 text-xs font-semibold">Administration & Maître de Stage</span>
+            <span class="px-2.5 py-1 rounded-md bg-[#111317] text-slate-300 border border-[#262b35] text-xs">3 Rôles stricts : Stagiaire · Visiteur · Admin (Verrouillé)</span>
           </div>
-          <h2 class="font-serif text-2xl font-black text-white mt-1">Tableau de Bord Administrateur</h2>
-          <p class="text-xs text-slate-300">Validez les leçons au fur et à mesure et arbitrez le passage en Semaine 2 (Design Graphique).</p>
+          <h1 class="text-2xl font-bold text-white pt-1">Console d'Administration, Suivi des Stagiaires & Dossier Tuteur</h1>
+          <p class="text-sm text-slate-300">Validez les inscriptions, attribuez les rôles (Stagiaire ou Visiteur), ouvrez les cours par profil et évaluez les travaux.</p>
         </div>
-
-        <div class="flex items-center gap-3">
-          <button onclick="toggleGraphismeUnlockByAdmin()" class="px-5 py-2.5 rounded-xl font-bold text-xs transition-all flex items-center gap-2 shadow-lg ${isS2Unlocked ? 'bg-[#1c1e26] hover:bg-[#252834] text-amber-400 border border-amber-500/30' : 'bg-[#f8485e] hover:bg-[#e0374c] text-white shadow-lg shadow-[#f8485e]/25'}">
-            <span>${isS2Unlocked ? 'Re-verrouiller la Semaine 2 (Graphisme)' : 'Valider le Niveau Sarah & Débloquer la Semaine 2'}</span>
+        <div class="flex flex-wrap items-center gap-2">
+          <button onclick="if(typeof resetLessonsToSingleExample==='function')resetLessonsToSingleExample()" class="px-3.5 py-2 rounded-xl bg-[#111317] hover:bg-[#262b35] border border-[#262b35] text-slate-200 font-bold text-xs">
+            Réinitialiser (1 seul cours validé L-01)
           </button>
         </div>
       </div>
 
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-center">
-        <div class="p-4 rounded-2xl bg-[#15171c] border border-[#23262f]">
-          <span class="text-[10px] uppercase font-mono font-bold text-slate-400">Total Leçons</span>
-          <p class="text-2xl font-black text-white mt-0.5">${total}</p>
-        </div>
-        <div class="p-4 rounded-2xl bg-[#15171c] border border-emerald-500/30">
-          <span class="text-[10px] uppercase font-mono font-bold text-emerald-400">Validées par l'Admin</span>
-          <p class="text-2xl font-black text-emerald-400 mt-0.5">${validees}</p>
-        </div>
-        <div class="p-4 rounded-2xl bg-[#15171c] border border-amber-500/30">
-          <span class="text-[10px] uppercase font-mono font-bold text-amber-300">À Valider</span>
-          <p class="text-2xl font-black text-amber-300 mt-0.5">${enAttente}</p>
-        </div>
-        <div class="p-4 rounded-2xl bg-[#15171c] border border-rose-500/30">
-          <span class="text-[10px] uppercase font-mono font-bold text-rose-300">Accès Semaine 2</span>
-          <p class="text-sm font-black ${isS2Unlocked ? 'text-emerald-400' : 'text-[#f8485e]'} mt-1">
-            ${isS2Unlocked ? 'DÉBLOQUÉE' : 'VERROUILLÉE'}
-          </p>
-        </div>
-      </div>
+      <!-- 1. Gestion des Comptes & Accès aux Cours (Compte Admin verrouillé) -->
+      <div id="backend-accounts-slot"></div>
 
-      <div class="p-4 rounded-2xl bg-[#1b1e24] border border-[#272b35] flex flex-wrap items-center justify-between gap-3">
-        <div class="flex items-center gap-2">
-          <span class="text-xs font-bold text-white uppercase tracking-wider">Leçons de Stage :</span>
-          <div class="flex items-center gap-1 bg-[#131417] p-1 rounded-xl border border-[#272b35] text-xs">
-            <button onclick="setAdminLessonFilter('all')" class="px-3 py-1 rounded-lg font-bold transition-all ${currentAdminFilter === 'all' ? 'bg-[#23262f] text-white shadow' : 'text-slate-400 hover:text-white'}">
-              Toutes (${total})
-            </button>
-            <button onclick="setAdminLessonFilter('en_attente')" class="px-3 py-1 rounded-lg font-bold transition-all ${currentAdminFilter === 'en_attente' ? 'bg-amber-500/30 text-amber-300 shadow' : 'text-slate-400 hover:text-white'}">
-              À Valider (${enAttente})
-            </button>
-            <button onclick="setAdminLessonFilter('validee')" class="px-3 py-1 rounded-lg font-bold transition-all ${currentAdminFilter === 'validee' ? 'bg-emerald-500/30 text-emerald-300 shadow' : 'text-slate-400 hover:text-white'}">
-              Validées (${validees})
-            </button>
+      <!-- 2. Dossier Confidentiel Maître de Stage : 90_TUTEUR_NE_PAS_DONNER -->
+      ${tuteur.bareme100 ? `
+        <section class="p-6 rounded-2xl bg-[#181b21] border border-amber-500/40 space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-[#262b35] pb-3">
+            <div>
+              <span class="px-2.5 py-0.5 rounded bg-amber-500/20 text-amber-300 font-mono text-xs font-bold">CONFIDENTIEL · 90_TUTEUR_NE_PAS_DONNER</span>
+              <h2 class="text-lg font-bold text-white mt-1">Grille de Correction & Barème sur 100 Points (Évaluation Début J01 / Fin J19)</h2>
+              <p class="text-xs text-slate-300">${tuteur.avertissement}</p>
+            </div>
           </div>
-        </div>
-        <span class="text-[11px] text-slate-400 font-mono">Semaine 1 : Dessin · Semaine 2 : PAO</span>
-      </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+            ${tuteur.bareme100.map(b => `
+              <div class="p-4 rounded-xl bg-[#111317] border border-[#262b35] space-y-1.5">
+                <div class="flex items-center justify-between gap-2">
+                  <span class="text-xs font-bold text-white">${b.partie}</span>
+                  <span class="px-2 py-0.5 rounded bg-[#f8485e] text-white font-mono text-xs font-bold">${b.points} pts</span>
+                </div>
+                <p class="text-xs text-slate-300 leading-relaxed">${b.detail}</p>
+              </div>
+            `).join('')}
+          </div>
+          <div class="p-3.5 rounded-xl bg-[#111317] border border-[#262b35] text-xs text-slate-300 flex flex-col lg:flex-row lg:items-center justify-between gap-2">
+            <span><strong class="text-amber-300">Lecture indicative (/100) :</strong> ${tuteur.lectureScore}</span>
+            <span class="font-mono text-emerald-300">Pilote École : ${tuteur.piloteEcoleStructure}</span>
+          </div>
+        </section>
+      ` : ''}
 
-      <div id="admin-lessons-list" class="space-y-4"></div>
+      <!-- 3. Sélection d'un Stagiaire, Fichiers déposés & Validation Acquis / Non acquis -->
+      <section class="p-6 rounded-2xl bg-[#181b21] border border-[#262b35] space-y-5">
+        <div class="flex flex-wrap items-center justify-between gap-3 border-b border-[#262b35] pb-4">
+          <div>
+            <h2 class="text-lg font-bold text-white">Suivi Pédagogique & Validation des Exercices (${learnerName})</h2>
+            <p class="text-xs text-slate-400">1 seul exercice (L-01) validé par défaut à titre d'exemple (${validees}/${total} Acquis).</p>
+          </div>
+          <div id="backend-student-selector-slot"></div>
+        </div>
+
+        <div id="backend-review-slot"></div>
+        <div id="admin-lessons-list" class="space-y-3 pt-2"></div>
+      </section>
+
+      <!-- 4. Dépôt de Cours -->
+      ${buildCourseDepositFormHTML()}
     </div>
   `;
 
-  renderAdminLessonsList();
+  renderAdminLessonsList('admin-lessons-list');
+  if (typeof renderBackendReview === 'function') renderBackendReview().catch(() => {});
 }
 
-function renderAdminLessonsList() {
-  const container = document.getElementById('admin-lessons-list');
+function renderAdminLessonsList(targetId = 'admin-lessons-list') {
+  const container = document.getElementById(targetId);
   if (!container) return;
 
-  let lessons = getStageLessons();
-  if (currentAdminFilter === 'validee') {
-    lessons = lessons.filter(l => l.status === 'validee');
-  } else if (currentAdminFilter === 'en_attente') {
-    lessons = lessons.filter(l => l.status === 'en_attente');
-  }
-
-  if (lessons.length === 0) {
-    container.innerHTML = `<div class="p-8 rounded-2xl bg-[#1b1e24] border border-[#272b35] text-center text-slate-400 text-xs">Aucune leçon dans cette catégorie.</div>`;
-    return;
-  }
+  const role = typeof getActiveRole === 'function' ? getActiveRole() : 'admin';
+  const canValidate = role === 'admin';
+  let lessons = typeof getStageLessons === 'function' ? getStageLessons() : [];
+  if (currentAdminFilter === 'validee') lessons = lessons.filter(l => l.status === 'validee');
+  else if (currentAdminFilter === 'en_attente') lessons = lessons.filter(l => l.status === 'en_attente');
 
   container.innerHTML = lessons.map(lesson => {
     const isValidee = lesson.status === 'validee';
     const isAttente = lesson.status === 'en_attente';
     const statusBadge = isValidee
-      ? `<span class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-mono text-[10px] font-bold border border-emerald-500/30">Validée ✓ (${lesson.note})</span>`
+      ? `<span class="px-2.5 py-0.5 rounded-md bg-emerald-500/20 text-emerald-300 text-xs font-bold">Acquis</span>`
       : isAttente
-      ? `<span class="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-mono text-[10px] font-bold border border-amber-500/30 animate-pulse">En attente d'évaluation</span>`
-      : `<span class="px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-400 font-mono text-[10px] font-bold">À réaliser par Sarah</span>`;
+      ? `<span class="px-2.5 py-0.5 rounded-md bg-amber-500/20 text-amber-300 text-xs font-bold">Soumis · À évaluer</span>`
+      : `<span class="px-2.5 py-0.5 rounded-md bg-[#111317] text-slate-400 text-xs border border-[#262b35]">Non acquis · À réaliser</span>`;
 
     return `
-      <div class="p-5 rounded-2xl bg-[#1b1e24] border ${isAttente ? 'border-amber-500/50' : 'border-[#272b35]'} shadow-lg space-y-4">
-        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-3 border-b border-[#272b35] pb-3">
-          <div class="flex items-center gap-3">
-            <span class="w-8 h-8 rounded-xl ${lesson.semaine === 1 ? 'bg-[#f8485e]/15 text-[#f8485e]' : 'bg-blue-500/15 text-blue-400'} font-mono font-black text-xs flex items-center justify-center shrink-0">
-              ${lesson.num}
-            </span>
-            <div>
-              <div class="flex items-center gap-2">
-                <span class="text-[10px] uppercase font-bold text-slate-400">Semaine ${lesson.semaine} · ${lesson.filiere === 'dessin' ? 'Dessin sur papier' : 'PAO & Atelier'}</span>
-                ${statusBadge}
-              </div>
-              <h4 class="font-serif font-bold text-white text-base mt-0.5">${lesson.titre}</h4>
-            </div>
+      <div class="p-4 rounded-xl bg-[#111317] border ${isValidee ? 'border-emerald-500/40' : isAttente ? 'border-amber-500/50' : 'border-[#262b35]'} flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
+        <div class="space-y-1 min-w-0">
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="px-2 py-0.5 rounded bg-[#181b21] text-[#f8485e] font-mono text-xs font-bold">${lesson.num} · Pôle ${lesson.semaine === 1 ? 'Dessin S1' : 'Graphisme S2-S4'}</span>
+            ${statusBadge}
           </div>
-
-          <div class="flex items-center gap-2 self-end md:self-center">
-            ${!isValidee ? `
-              <button onclick="adminValidateLesson('${lesson.id}', '18 / 20', 'Travail conforme validé par le tuteur.')" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition-all flex items-center gap-1.5 shadow-md shadow-emerald-600/25">
-                <span>Valider la Leçon ✓</span>
-              </button>
-            ` : `
-              <button onclick="adminRejectLesson('${lesson.id}', 'Reprise demandée pour ajuster les valeurs.')" class="px-3.5 py-2 rounded-xl bg-[#23262f] hover:bg-amber-900/40 text-amber-300 text-xs font-semibold transition-all border border-amber-500/30">
-                Demander Correction ↺
-              </button>
-            `}
-          </div>
+          <h4 class="font-bold text-white text-sm">${lesson.titre}</h4>
+          <p class="text-xs text-slate-400">${lesson.consigne}</p>
         </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
-          <div class="md:col-span-4 rounded-xl overflow-hidden border border-[#272b35] bg-black max-h-44 group cursor-pointer" onclick="if (typeof openImageModal === 'function') openImageModal('${lesson.image}')">
-            <img src="${lesson.image}" alt="${lesson.titre}" class="w-full h-44 object-cover group-hover:scale-105 transition-transform duration-300" />
-          </div>
-
-          <div class="md:col-span-8 space-y-2 text-xs">
-            <div>
-              <span class="font-bold text-slate-300 uppercase text-[10px] tracking-wider">Consigne d'Atelier :</span>
-              <p class="text-slate-300 leading-relaxed mt-0.5">${lesson.consigne}</p>
-            </div>
-
-            <div class="p-3 rounded-xl bg-[#131417] border border-[#272b35] space-y-1">
-              <div class="flex justify-between items-center text-[10px] text-slate-400">
-                <span>Support : <strong class="text-white">${lesson.support}</strong></span>
-                <span>Date validation : <strong class="text-slate-200">${lesson.dateValidation || 'En attente'}</strong></span>
-              </div>
-              <p class="text-slate-300 text-[11px]">
-                <strong class="text-[#f8485e]">Avis du Tuteur :</strong> ${lesson.commentAdmin}
-              </p>
-            </div>
-          </div>
+        <div class="flex items-center gap-2 shrink-0">
+          ${canValidate ? (!isValidee ? `
+            <button onclick="adminValidateLesson('${lesson.id}', 'Acquis', 'Compétence acquise selon les normes d\\'atelier GPO.')" class="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs">
+              Marquer Acquis
+            </button>
+          ` : `
+            <button onclick="adminRejectLesson('${lesson.id}', 'Compétence non acquise : à retravailler.')" class="px-3.5 py-2 rounded-xl bg-[#181b21] hover:bg-amber-900/40 text-amber-300 text-xs font-semibold border border-amber-500/30">
+              Repasser Non acquis
+            </button>
+          `) : ''}
         </div>
       </div>
     `;
   }).join('');
 }
 
+const renderProfDashboard = renderAdminDashboard;
+
 if (typeof window !== 'undefined') {
-  window.renderAdminDashboard = renderAdminDashboard;
-  window.adminValidateLesson = adminValidateLesson;
-  window.adminRejectLesson = adminRejectLesson;
-  window.setAdminLessonFilter = setAdminLessonFilter;
+  Object.assign(window, { renderAdminDashboard, renderProfDashboard, adminValidateLesson, adminRejectLesson, setAdminLessonFilter });
 }

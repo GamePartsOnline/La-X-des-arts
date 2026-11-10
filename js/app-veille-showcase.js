@@ -1,0 +1,254 @@
+// =====================================================================
+// ACTU & NEWS EN FLUX CONTINU (#content-veille), JOBS & STAGES EN MODE
+// CONNECTÉ (#content-jobs) & EXPOSITION D'ATELIER (#content-exposition)
+// =====================================================================
+
+let currentVeilleCategory = 'all', currentJobsTypeFilter = 'all', cachedBackendJobs = [];
+
+const DEFAULT_VEILLE_ITEMS = [
+  { id: 'veille-1', cat: 'logiciels', date: '2026-11-10 · En direct', badge: 'Suite PAO & Édition', titre: 'Adobe InDesign, Illustrator & Photoshop (Éditions 2025 / 2026)', sourceNom: 'Adobe Creative Cloud', sourceUrl: 'https://www.adobe.com/fr/creativecloud.html', norme: 'PDF/X-4 (ISO 15930-7) · Profils ICC natifs · Accélération GPU', resume: 'InDesign introduit la Disposition Flex (adaptation automatique des grilles aux changements de format) et la conversion directe de PDF en documents InDesign éditables. Photoshop intègre l\'outil Relight non destructif.' },
+  { id: 'veille-2', cat: 'normes', date: '2026-11-09 · Flux ISO', badge: 'Norme Prépresse ISO 12647-2', titre: 'Passage de FOGRA39 (ISO Coated v2) à FOGRA51 (PSO Coated v3) & PDF/X-4', sourceNom: 'FOGRA & ECI', sourceUrl: 'https://www.fogra.org/', norme: 'ISO 12647-2 · Mesure M1 (azurants optiques) · TAC <= 300% · 300 DPI', resume: 'Le profil PSO Coated v3 (FOGRA51) complète désormais ISO Coated v2 (FOGRA39) en mesurant les papiers couchés modernes sous illuminant D50 (mode M1). L\'échange de fichiers d\'imprimerie repose sur PDF/X-4.' },
+  { id: 'veille-3', cat: 'logiciels', date: '2026-11-07 · Open-Source', badge: 'Animation 2D/3D Libre', titre: 'Blender 4.3+ et Grease Pencil 3.0 pour le Dessin 2D dans l\'Espace 3D', sourceNom: 'Fondation Blender', sourceUrl: 'https://www.blender.org/', norme: 'Pipeline Open-Source · Groupes de calques · Geometry Nodes 2D', resume: 'Entièrement réécrit pour le multi-threading, Grease Pencil 3.0 apporte les groupes de calques hiérarchiques et la compatibilité directe avec les Geometry Nodes pour combiner trait dessiné à la main et décors 3D.' },
+  { id: 'veille-4', cat: 'logiciels', date: '2026-11-05 · Tablette', badge: 'Peinture & Animation iPad', titre: 'Procreate Dreams 2 & Procreate 5.4 : Mini Flipbook amovible et Export Studio', sourceNom: 'Savage Interactive', sourceUrl: 'https://procreate.com/', norme: 'Animation 24 ips · Espace Display P3 / sRGB · Pression stylet', resume: 'Procreate Dreams évolue avec un Flipbook détachable pour dessiner image par image comme sur papier, le verrouillage de trame Scrub Lock et un nouvel Export Studio professionnel.' },
+  { id: 'veille-5', cat: 'logiciels', date: '2026-11-02 · BD & Peinture', badge: 'Digital Painting Open-Source', titre: 'Krita 5.3 / 6.0 (Qt6) & Clip Studio Paint 3.x : Texte sur canevas et HDR', sourceNom: 'Krita Foundation & Celsys', sourceUrl: 'https://krita.org/', norme: 'Profils ICC CMJN / sRGB · Trait noir 600-1200 DPI pour la BD', resume: 'Krita modernise son moteur de texte directement sur le canevas et migre vers Qt6. Clip Studio Paint renforce ses outils de pose 3D anatomique et d\'export prépresse pour la bande dessinée.' },
+  { id: 'veille-6', cat: 'normes', date: '2026-10-28 · Standard Web', badge: 'Norme Web & UI Design', titre: 'Norme d\'Accessibilité W3C WCAG 2.2 & Directive Européenne Accessibilité', sourceNom: 'W3C WAI', sourceUrl: 'https://www.w3.org/WAI/standards-guidelines/wcag/', norme: 'Contraste AA >= 4.5:1 (AAA >= 7:1) · Cibles tactiles >= 24px/44px', resume: 'Tout designer UI/UX et graphiste web doit vérifier mathématiquement le contraste typographique (minimum 4.5:1 pour le texte courant) et la taille minimale des zones cliquables.' },
+  { id: 'veille-7', cat: 'atelier', date: '2026-11-08 · Atelier GPO', badge: 'Impression-Découpe 1:1', titre: 'Flux Roland VersaWorks & Tracés Vectoriels CutContour / Tons Métalliques', sourceNom: 'Roland DG Academy', sourceUrl: 'https://www.rolanddg.eu/fr', norme: 'Ton direct CutContour (100% M, 0.25 pt) · Overbleed 2 à 10 mm', resume: 'En atelier de signalétique et d\'habillage de bornes d\'arcade 1:1, la fiabilité de la découpe vinyle repose sur un tracé vectoriel nommé exactement CutContour en ton direct, avec ponts de 1.5 à 2 mm pour les pochoirs.' },
+  { id: 'veille-8', cat: 'art', date: '2026-11-04 · Écoles d\'Art', badge: 'Pédagogie & Admissions', titre: 'L\'hybridation Papier Traditionnel & Numérique dans les Écoles Supérieures', sourceNom: 'GOBELINS & Estienne', sourceUrl: 'https://www.gobelins.fr/', norme: 'Carnet de croquis physique obligatoire avant toute modélisation ou PAO', resume: 'Les jurys d\'admission et les studios (Fortiche, Ubisoft, maisons d\'édition) rappellent que la maîtrise du dessin d\'observation sur papier reste le socle irremplaçable face aux outils numériques.' }
+];
+
+const DEFAULT_JOBS_OFFERS = [
+  { id: 'job-gpo-1', type: 'Stage', title: 'Stage Graphiste Print, Stickers & Habillage Jeux d\'Arcade (4 semaines)', company: 'GPO SARL · Atelier Graph2Print', location: 'Givry-en-Argonne (51330 · Grand Est)', region: 'grand-est', remuneration: 'Stage conventionné · Projet réel Foire de Châlons 2027', norme: 'Illustrator · CutContour · 300 DPI · Pochoirs & Bornes 1:1', description: 'Participation à la création de la planche de stickers Foire de Châlons 2027 (prix public 10 €), habillage de bornes d\'arcade et flippers, pochoirs de découpe et préparation de dossiers d\'impression (01_BRIEF à 06_ARCHIVES).', contact_url: 'https://laxdesarts.gposarl.com' },
+  { id: 'job-rpip-2', type: 'Alternance', title: 'Apprenti(e) Opérateur Prépresse & Signalétique Grand Format (Bac Pro RPIP / BTS ERPC)', company: 'Imprimerie & Signalétique Partenaire', location: 'Nantes / Rennes / Paris', region: 'ouest', remuneration: 'Contrat d\'apprentissage rémunéré (27 % à 100 % du SMIC)', norme: 'ISO 12647-2 (FOGRA51) · PDF/X-4 · Traceur Éco-Solvant & Plotter', description: 'Contrôle en amont des fichiers clients (preflight PDF/X-4), imposition, profils ICC, amalgame de stickers sur laize vinyle et conduite de traceur d\'impression-découpe.', contact_url: 'https://grafipolis.fr/' },
+  { id: 'job-illu-3', type: 'Stage', title: 'Stage Assistant(e) Illustrateur Éditorial & Maquettiste PAO', company: 'Studio d\'Édition Jeunesse & Bande Dessinée', location: 'Lyon / Angoulême', region: 'auvergne-rhone-alpes', remuneration: 'Gratification légale de stage', norme: 'InDesign Grilles 12 colonnes · Séparation trait 100% K / CMJN', description: 'Recherches de personnages (shape language), crayonnés préparatoires, mise au net haute résolution (600 DPI) et assemblage des cahiers sous Adobe InDesign.', contact_url: 'https://www.cohl.fr/' },
+  { id: 'job-ui-4', type: 'Emploi', title: 'Designer Graphique & UI/UX Junior (Design System WCAG 2.2 & Identité 1-Bit)', company: 'Agence Digitale & Branding', location: 'Paris / Télétravail hybride', region: 'ile-de-france', remuneration: '30 000 € à 36 000 € brut / an', norme: 'Figma · Courbes de Bézier orthogonales · Contraste AA >= 4.5:1', description: 'Conception de logotypes vectoriels validés au test de la silhouette 1-Bit (15 mm), déclinaison de chartes graphiques print/web et composants d\'interface accessibles.', contact_url: 'https://www.gobelins.fr/' }
+];
+
+const DEFAULT_CREATOR_SHOWCASE = [
+  { id: 'expo-1', categorie: 'Illustration & Valeurs', titre: 'Étude Académique & Méthode de Correction Sargent', technique: 'Fusain, pierre noire et rehauts sur papier 300g · Contrôle des 4 bords', norme: 'Notan 5 valeurs · Visée Sight-Size 1:1', image: 'assets/masterclass_sargent_methode_correction.jpg' },
+  { id: 'expo-2', categorie: 'Digital Painting & Concept', titre: 'Éclairage Dramatique, Volume & Diffusion Sous-Cutanée', technique: 'Peinture numérique calibrée · Harmonie thermique chaud/froid', norme: 'Espace sRGB / CMJN 300 DPI · Gamut Masking', image: 'assets/session_arcane_fortiche.jpg' },
+  { id: 'expo-3', categorie: 'Dessin d\'Ornement & Édition', titre: 'Composition Décorative, Ligne Claire & Harmonie Éditoriale', technique: 'Encrage de précision, pleins et déliés et aquarelle', norme: 'Séparation trait 100% K + Quadrichromie FOGRA39', image: 'assets/session_mucha_art.jpg' },
+  { id: 'expo-4', categorie: 'Cadrage & Scénographie', titre: 'Architecture Spatiale, Perspective & Profondeur en 3 Plans', technique: 'Concept d\'environnement au ratio cinématographique 2.39:1', norme: '3 plans de profondeur · Point focal par contraste', image: 'assets/session_dune_cinema.jpg' },
+  { id: 'expo-5', categorie: 'Atelier PAO & Prépresse RPIP', titre: 'Planches Pédagogiques, Tracés Vectoriels & Contrôle des Bords', technique: 'Courbes de Bézier orthogonales, grilles 12 colonnes et préparation print', norme: 'PDF/X-4 · 300 DPI · Fonds perdus 3 mm · CutContour', image: 'assets/planche_pedagogique_edge_control.jpg' },
+  { id: 'expo-6', categorie: 'Identité & Design System', titre: 'Conception de la Plateforme & Blason Noir et Blanc 1-Bit', technique: 'Architecture UI WCAG 2.2 et emblème vectoriel pur', norme: 'Test silhouette 1-Bit 15 mm · Contraste AA/AAA', image: 'assets/logo_croisee_nb.svg' }
+];
+
+function getVeilleItems() { try { return [...JSON.parse(localStorage.getItem('croisee_veille_items_v1') || '[]'), ...DEFAULT_VEILLE_ITEMS]; } catch { return DEFAULT_VEILLE_ITEMS; } }
+function getCreatorShowcaseItems() { try { return [...JSON.parse(localStorage.getItem('croisee_creator_showcase_v1') || '[]'), ...DEFAULT_CREATOR_SHOWCASE]; } catch { return DEFAULT_CREATOR_SHOWCASE; } }
+function setVeilleCategoryFilter(cat) { currentVeilleCategory = cat; renderVeilleView(); }
+function setJobsTypeFilter(type) { currentJobsTypeFilter = type; renderJobsView(); }
+
+function addVeilleArticle(e) {
+  e.preventDefault();
+  const f = e.currentTarget;
+  const item = { id: 'veille-' + Date.now(), cat: f.cat.value, date: new Date().toISOString().slice(0, 10) + ' · Flux direct', badge: f.badge.value.trim(), titre: f.titre.value.trim(), sourceNom: f.sourceNom.value.trim(), sourceUrl: f.sourceUrl.value.trim(), norme: f.norme.value.trim(), resume: f.resume.value.trim() };
+  const saved = JSON.parse(localStorage.getItem('croisee_veille_items_v1') || '[]');
+  saved.unshift(item);
+  localStorage.setItem('croisee_veille_items_v1', JSON.stringify(saved));
+  f.reset(); renderVeilleView();
+  if (typeof showCustomToast === 'function') showCustomToast('Actu publiée', 'Nouvelle dépêche ajoutée au flux ACTU & NEWS.', 'success');
+}
+
+function addCreatorShowcaseItem(e) {
+  e.preventDefault();
+  const f = e.currentTarget;
+  const item = { id: 'expo-' + Date.now(), categorie: f.categorie.value.trim(), titre: f.titre.value.trim(), technique: f.technique.value.trim(), norme: f.norme.value.trim(), image: f.image.value.trim() || 'assets/atelier_demo_digital_painting.jpg' };
+  const saved = JSON.parse(localStorage.getItem('croisee_creator_showcase_v1') || '[]');
+  saved.unshift(item);
+  localStorage.setItem('croisee_creator_showcase_v1', JSON.stringify(saved));
+  f.reset(); renderCreatorShowcaseView();
+  if (typeof showCustomToast === 'function') showCustomToast('Œuvre exposée', 'Réalisation ajoutée à l\'exposition.', 'success');
+}
+
+// 1. ONGLET ACTU & NEWS EN FLUX CONTINU (#content-veille)
+function renderVeilleView() {
+  const container = document.getElementById('veille-workspace-container');
+  if (!container) return;
+  const all = getVeilleItems();
+  const filtered = currentVeilleCategory === 'all' ? all : all.filter(i => i.cat === currentVeilleCategory);
+  const isAdmin = (typeof getActiveRole === 'function' ? getActiveRole() : 'visiteur') === 'admin';
+
+  container.innerHTML = `
+    <div class="space-y-6">
+      <div class="p-6 lg:p-8 rounded-2xl bg-[#181b21] border border-[#262b35] flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+        <div class="space-y-1.5 max-w-3xl">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span class="px-2.5 py-1 rounded-md bg-[#f8485e]/15 text-[#f8485e] font-mono text-xs font-semibold">FLUX CONTINU · ${all.length} Dépêches Créatives & Normes ISO</span>
+          </div>
+          <h1 class="text-2xl lg:text-3xl font-bold text-white">ACTU & NEWS : Logiciels, Prépresse ISO & Écoles</h1>
+          <p class="text-sm text-slate-300 leading-relaxed">Fil continu d'actualités techniques : nouveautés Adobe CC 2026, Blender Grease Pencil 3.0, Procreate Dreams 2, Krita 6, normes FOGRA51 / PDF/X-4 et vie d'atelier.</p>
+        </div>
+        <div class="flex flex-wrap items-center gap-1.5 bg-[#111317] p-1.5 rounded-2xl border border-[#262b35] shrink-0">
+          ${[{ id: 'all', label: `Flux complet (${all.length})` }, { id: 'logiciels', label: 'Logiciels' }, { id: 'normes', label: 'Normes ISO' }, { id: 'atelier', label: 'Atelier 1:1' }, { id: 'art', label: 'Art & Écoles' }].map(c => `<button onclick="setVeilleCategoryFilter('${c.id}')" class="px-3 py-2 rounded-xl text-xs font-bold ${currentVeilleCategory === c.id ? 'bg-[#f8485e] text-white' : 'text-slate-300 hover:text-white'}">${c.label}</button>`).join('')}
+        </div>
+      </div>
+
+      ${isAdmin ? `
+        <form onsubmit="addVeilleArticle(event)" class="p-5 rounded-2xl bg-[#181b21] border border-[#262b35] space-y-3">
+          <h3 class="text-xs font-mono font-bold uppercase text-[#f8485e]">Publier dans le flux ACTU & NEWS (Admin)</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            <select name="cat" class="px-3 py-2 rounded-xl bg-[#111317] border border-[#262b35] text-xs text-white"><option value="logiciels">Logiciels & Outils</option><option value="normes">Normes & Prépresse</option><option value="atelier">Matériel & Atelier</option><option value="art">Art & Écoles</option></select>
+            <input name="badge" placeholder="Badge (ex. Mise à jour 2026)" required class="px-3 py-2 rounded-xl bg-[#111317] border border-[#262b35] text-xs text-white">
+            <input name="sourceNom" placeholder="Nom de la source (ex. Adobe / W3C)" required class="px-3 py-2 rounded-xl bg-[#111317] border border-[#262b35] text-xs text-white">
+            <input name="sourceUrl" type="url" placeholder="https://..." required class="px-3 py-2 rounded-xl bg-[#111317] border border-[#262b35] text-xs text-white">
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <input name="titre" placeholder="Titre de l'actualité" required class="px-3 py-2 rounded-xl bg-[#111317] border border-[#262b35] text-xs text-white">
+            <input name="norme" placeholder="Norme ou spécification technique associée" required class="px-3 py-2 rounded-xl bg-[#111317] border border-[#262b35] text-xs text-white">
+          </div>
+          <div class="flex gap-3">
+            <input name="resume" placeholder="Synthèse technique et impact pour l'atelier..." required class="flex-1 px-3 py-2 rounded-xl bg-[#111317] border border-[#262b35] text-xs text-white">
+            <button class="px-5 py-2 rounded-xl bg-[#f8485e] hover:bg-[#e0374c] text-white text-xs font-bold shrink-0">Publier au flux</button>
+          </div>
+        </form>
+      ` : ''}
+
+      <div class="relative border-l-2 border-[#262b35] ml-3 pl-6 space-y-4">
+        ${filtered.map(item => `
+          <article class="relative p-5 rounded-2xl bg-[#181b21] border border-[#262b35] hover:border-[#f8485e] transition-all space-y-3">
+            <span class="absolute -left-[31px] top-6 w-3.5 h-3.5 rounded-full bg-[#f8485e] border-2 border-[#111317]"></span>
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <span class="px-2.5 py-0.5 rounded bg-[#f8485e]/15 text-[#f8485e] font-mono text-xs font-bold">${item.badge}</span>
+              <span class="text-xs font-mono text-emerald-400">${item.date}</span>
+            </div>
+            <h2 class="text-lg font-bold text-white leading-snug">${item.titre}</h2>
+            <p class="text-sm text-slate-300 leading-relaxed">${item.resume}</p>
+            <div class="pt-3 border-t border-[#262b35] flex flex-wrap items-center justify-between gap-3 text-xs">
+              <span class="font-mono text-amber-300">Norme : ${item.norme}</span>
+              <a href="${item.sourceUrl}" target="_blank" rel="noopener noreferrer" class="font-bold text-emerald-400 hover:underline">Source officielle : ${item.sourceNom} ↗</a>
+            </div>
+          </article>
+        `).join('')}
+      </div>
+    </div>
+  `;
+}
+
+// 2. ONGLET JOBS & STAGES EN MODE CONNECTÉ (#content-jobs)
+async function submitJobOffer(e) {
+  e.preventDefault();
+  const f = e.currentTarget;
+  try {
+    await fetch('/api/jobs', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: f.type.value, title: f.title.value, company: f.company.value, location: f.location.value, region: f.region.value, remuneration: f.remuneration.value, norme: f.norme.value, description: f.description.value, contactUrl: f.contactUrl.value }) });
+    f.reset();
+    if (typeof showCustomToast === 'function') showCustomToast('Offre publiée', 'Annonce ajoutée à JOBS & STAGES.', 'success');
+    await renderJobsView();
+  } catch {}
+}
+
+async function deleteJobOffer(jobId) {
+  try { await fetch('/api/jobs/' + jobId, { method: 'DELETE', headers: { 'Content-Type': 'application/json' }, body: '{}' }); await renderJobsView(); } catch {}
+}
+
+async function renderJobsView() {
+  const container = document.getElementById('jobs-workspace-container');
+  if (!container) return;
+  try { const res = await fetch('/api/jobs'); if (res.ok) cachedBackendJobs = await res.json(); } catch {}
+
+  const allJobs = [...cachedBackendJobs, ...DEFAULT_JOBS_OFFERS];
+  const filtered = currentJobsTypeFilter === 'all' ? allJobs : allJobs.filter(j => j.type === currentJobsTypeFilter);
+  const isAdmin = (typeof getActiveRole === 'function' ? getActiveRole() : 'visiteur') === 'admin';
+  const esc = typeof escapeBackend === 'function' ? escapeBackend : (v => String(v ?? ''));
+
+  container.innerHTML = `
+    <div class="space-y-6">
+      <div class="p-6 lg:p-8 rounded-2xl bg-[#181b21] border border-[#262b35] flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+        <div class="space-y-1.5 max-w-3xl">
+          <span class="px-2.5 py-1 rounded-md bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 font-mono text-xs font-semibold">ESPACE CONNECTÉ · ${allJobs.length} Offres Vérifiées</span>
+          <h1 class="text-2xl lg:text-3xl font-bold text-white">JOBS & STAGES : Immersion Atelier, Alternance RPIP & Studios</h1>
+          <p class="text-sm text-slate-300">Offres de stages graphistes (dont le stage 4 semaines chez GPO SARL), contrats d'apprentissage RPIP/PAO et postes en illustration et prépresse.</p>
+        </div>
+        <div class="flex flex-wrap items-center gap-1.5 bg-[#111317] p-1.5 rounded-2xl border border-[#262b35] shrink-0">
+          ${['all', 'Stage', 'Alternance', 'Emploi'].map(t => `<button onclick="setJobsTypeFilter('${t}')" class="px-3.5 py-2 rounded-xl text-xs font-bold ${currentJobsTypeFilter === t ? 'bg-[#f8485e] text-white' : 'text-slate-300 hover:text-white'}">${t === 'all' ? `Toutes (${allJobs.length})` : t}</button>`).join('')}
+        </div>
+      </div>
+
+      ${isAdmin ? `
+        <form onsubmit="submitJobOffer(event)" class="p-5 rounded-2xl bg-[#181b21] border border-[#262b35] space-y-3">
+          <h3 class="text-xs font-mono font-bold uppercase text-emerald-400">Publier une offre dans JOBS & STAGES (Admin)</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            <select name="type" class="px-3 py-2 rounded-xl bg-[#111317] border border-[#262b35] text-xs text-white"><option value="Stage">Stage</option><option value="Alternance">Alternance RPIP / Design</option><option value="Emploi">Emploi CDD / CDI</option></select>
+            <input name="title" placeholder="Intitulé du poste ou du stage" required class="px-3 py-2 rounded-xl bg-[#111317] border border-[#262b35] text-xs text-white">
+            <input name="company" placeholder="Entreprise / Atelier (ex. GPO SARL)" required class="px-3 py-2 rounded-xl bg-[#111317] border border-[#262b35] text-xs text-white">
+            <input name="location" placeholder="Ville & Département" required class="px-3 py-2 rounded-xl bg-[#111317] border border-[#262b35] text-xs text-white">
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <input name="remuneration" placeholder="Gratification / Salaire" required class="px-3 py-2 rounded-xl bg-[#111317] border border-[#262b35] text-xs text-white">
+            <input name="norme" placeholder="Compétences & Normes (ex. Illustrator, CutContour)" required class="px-3 py-2 rounded-xl bg-[#111317] border border-[#262b35] text-xs text-white">
+            <input name="contactUrl" placeholder="Lien ou email de candidature" required class="px-3 py-2 rounded-xl bg-[#111317] border border-[#262b35] text-xs text-white">
+            <input type="hidden" name="region" value="grand-est">
+          </div>
+          <div class="flex gap-3">
+            <input name="description" placeholder="Missions détaillées confiées au stagiaire ou collaborateur..." required class="flex-1 px-3 py-2 rounded-xl bg-[#111317] border border-[#262b35] text-xs text-white">
+            <button class="px-5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shrink-0">Publier l'offre</button>
+          </div>
+        </form>
+      ` : ''}
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        ${filtered.map(j => `
+          <div class="p-6 rounded-2xl bg-[#181b21] border border-[#262b35] flex flex-col justify-between space-y-4">
+            <div class="space-y-2.5">
+              <div class="flex items-center justify-between gap-2">
+                <span class="px-2.5 py-0.5 rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 font-mono text-xs font-bold">${esc(j.type)}</span>
+                <span class="text-xs font-mono text-slate-300">${esc(j.location)}</span>
+              </div>
+              <h2 class="text-lg font-bold text-white">${esc(j.title)}</h2>
+              <p class="text-xs font-bold text-[#f8485e]">${esc(j.company)} · <span class="text-amber-300 font-mono">${esc(j.remuneration)}</span></p>
+              <p class="text-sm text-slate-300 leading-relaxed">${esc(j.description)}</p>
+            </div>
+            <div class="pt-3 border-t border-[#262b35] space-y-2.5">
+              <div class="p-2.5 rounded-xl bg-[#111317] border border-[#262b35] text-xs font-mono text-sky-300">Prérequis : ${esc(j.norme)}</div>
+              <div class="flex items-center justify-between gap-2">
+                ${isAdmin && typeof j.id === 'number' ? `<button onclick="deleteJobOffer(${j.id})" class="px-3 py-1.5 rounded-lg bg-rose-950/70 text-rose-300 text-xs font-bold">Supprimer</button>` : `<span></span>`}
+                <a href="${esc(j.contact_url || j.contactUrl || '#')}" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl bg-[#f8485e] hover:bg-[#e0374c] text-white text-xs font-bold">Candidater / Voir l'offre ↗</a>
+              </div>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+}
+
+// 3. EXPOSITION DES TRAVAUX D'ATELIER (#content-exposition)
+function renderCreatorShowcaseView() {
+  const container = document.getElementById('creator-showcase-container');
+  if (!container) return;
+  const items = getCreatorShowcaseItems();
+  const isAdmin = (typeof getActiveRole === 'function' ? getActiveRole() : 'visiteur') === 'admin';
+
+  container.innerHTML = `
+    <div class="space-y-6">
+      <div class="p-6 lg:p-8 rounded-2xl bg-[#181b21] border border-[#262b35]">
+        <span class="px-2.5 py-1 rounded-md bg-amber-500/15 text-amber-300 border border-amber-500/30 text-xs font-semibold">Galerie d'Exposition de l'Atelier</span>
+        <h1 class="text-2xl lg:text-3xl font-bold text-white mt-1.5">Exposition des Travaux & Réalisations</h1>
+        <p class="text-sm text-slate-300 mt-1">Planches d'étude académique, peintures numériques et gabarits prépresse 1:1 exposés par la direction d'atelier.</p>
+      </div>
+      ${isAdmin ? `
+        <form onsubmit="addCreatorShowcaseItem(event)" class="p-5 rounded-2xl bg-[#181b21] border border-amber-500/40 space-y-3">
+          <h4 class="text-xs font-mono font-bold uppercase text-amber-300">Exposer un nouveau travail dans la Galerie (Admin)</h4>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            <input name="categorie" placeholder="Catégorie" required class="px-3 py-2 rounded-xl bg-[#111317] border border-[#262b35] text-xs text-white"><input name="titre" placeholder="Titre de l'œuvre" required class="px-3 py-2 rounded-xl bg-[#111317] border border-[#262b35] text-xs text-white"><input name="norme" placeholder="Norme appliquée" required class="px-3 py-2 rounded-xl bg-[#111317] border border-[#262b35] text-xs text-white"><input name="image" placeholder="Chemin image (ex. assets/session_mucha_art.jpg)" class="px-3 py-2 rounded-xl bg-[#111317] border border-[#262b35] text-xs text-white">
+          </div>
+          <div class="flex gap-3"><input name="technique" placeholder="Description technique..." required class="flex-1 px-3 py-2 rounded-xl bg-[#111317] border border-[#262b35] text-xs text-white"><button class="px-5 py-2 rounded-xl bg-[#f8485e] text-white text-xs font-bold shrink-0">Exposer</button></div>
+        </form>
+      ` : ''}
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        ${items.map(w => `
+          <div onclick="if(typeof openImageModal==='function')openImageModal('${w.image}')" class="rounded-2xl bg-[#181b21] border border-[#262b35] hover:border-[#f8485e] overflow-hidden cursor-pointer transition-all group flex flex-col justify-between">
+            <div>
+              <div class="h-48 bg-black overflow-hidden border-b border-[#262b35] relative"><img src="${w.image}" alt="${w.titre}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" /><span class="absolute top-2.5 left-2.5 px-2.5 py-0.5 rounded bg-black/80 border border-white/20 text-xs font-mono font-bold text-white">${w.categorie}</span></div>
+              <div class="p-4 space-y-1.5"><h2 class="text-base font-bold text-white">${w.titre}</h2><p class="text-xs text-slate-300 leading-relaxed">${w.technique}</p></div>
+            </div>
+            <div class="px-4 py-2.5 border-t border-[#262b35] bg-[#111317] flex items-center justify-between text-xs font-mono"><span class="text-amber-300 truncate">${w.norme}</span><span class="text-[#f8485e] font-bold shrink-0">Agrandi →</span></div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+}
+
+if (typeof window !== 'undefined') {
+  Object.assign(window, { renderVeilleView, setVeilleCategoryFilter, addVeilleArticle, renderJobsView, setJobsTypeFilter, submitJobOffer, deleteJobOffer, renderCreatorShowcaseView, addCreatorShowcaseItem });
+}

@@ -18,7 +18,7 @@ function renderCourseExerciseBlock(course) {
             </div>
           </div>
           <span class="text-xs font-bold px-3 py-1.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
-            Note Pédagogique : ${submission.grade || 'En attente'}
+            Évaluation : ${submission.grade || 'En attente (Acquis / Non acquis)'}
           </span>
         </div>
 
@@ -91,7 +91,7 @@ function renderCourseExerciseBlock(course) {
           <div class="md:col-span-9 space-y-3">
             <div>
               <label class="text-[11px] font-semibold text-slate-300 block mb-1">
-                Remarques ou questions pour le professeur (facultatif) :
+                Remarques ou questions pour le tuteur / maître de stage (facultatif) :
               </label>
               <textarea id="course-student-notes-${course.id}" rows="2" placeholder="Ex: J'ai particulièrement soigné la ligne de terminateur et le raccord des tangentes..." class="w-full px-3 py-2 rounded-xl bg-[#131417] border border-[#272b35] text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-[#d6a55b]"></textarea>
             </div>

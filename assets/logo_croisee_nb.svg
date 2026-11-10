@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="240" height="240" role="img" aria-label="Blason Noir et Blanc La Croisée des Arts">
+  <rect width="240" height="240" rx="36" fill="#0a0a0c"/>
+  <rect x="8" y="8" width="224" height="224" rx="28" fill="none" stroke="#ffffff" stroke-width="3"/>
+  <rect x="16" y="16" width="208" height="208" rx="22" fill="none" stroke="#ffffff" stroke-width="1" stroke-dasharray="6 4" opacity="0.55"/>
+
+  <!-- Repères d'hirondelles prépresse (Crop marks) aux 4 coins -->
+  <path d="M28 42 V28 H42 M212 42 V28 H198 M28 198 V212 H42 M212 198 V212 H198" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="square"/>
+
+  <!-- Cercle de proportion académique (Nombre d'Or / Visée) -->
+  <circle cx="120" cy="112" r="66" fill="none" stroke="#ffffff" stroke-width="2.5"/>
+  <circle cx="120" cy="112" r="56" fill="#ffffff"/>
+
+  <!-- Croisée centrale : Plume d'art & Compas / Plume Bézier en négatif noir sur blanc -->
+  <!-- Axe diagonal 1 : Crayon / Fusain d'observation -->
+  <path d="M84 148 L146 86 L156 96 L94 158 Z" fill="#0a0a0c"/>
+  <polygon points="76,156 84,148 94,158" fill="#0a0a0c"/>
+  <polygon points="149,83 159,93 164,78" fill="#0a0a0c"/>
+
+  <!-- Axe diagonal 2 : Plume vectorielle Bézier -->
+  <path d="M120 64 L148 110 L132 146 L108 146 L92 110 Z" fill="#0a0a0c"/>
+  <line x1="120" y1="64" x2="120" y2="112" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round"/>
+  <circle cx="120" cy="112" r="6.5" fill="#ffffff"/>
+
+  <!-- Monogramme CA entrelacé au cœur du blason -->
+  <text x="120" y="141" text-anchor="middle" font-family="Cinzel, Georgia, serif" font-weight="900" font-size="22" letter-spacing="3" fill="#ffffff">CA</text>
+
+  <!-- Tangentes de Bézier horizontales (Noir & Blanc pur) -->
+  <line x1="68" y1="64" x2="172" y2="64" stroke="#0a0a0c" stroke-width="2"/>
+  <rect x="64" y="60" width="8" height="8" fill="#ffffff" stroke="#0a0a0c" stroke-width="2"/>
+  <rect x="168" y="60" width="8" height="8" fill="#ffffff" stroke="#0a0a0c" stroke-width="2"/>
+
+  <!-- Cartouche typographique inférieur Noir & Blanc -->
+  <rect x="34" y="186" width="172" height="28" rx="6" fill="#ffffff"/>
+  <text x="120" y="204" text-anchor="middle" font-family="Montserrat, Arial, sans-serif" font-weight="900" font-size="11.5" letter-spacing="2.5" fill="#0a0a0c">CROISÉE DES ARTS</text>
+</svg>
