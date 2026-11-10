@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="fr" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>La Croisée des Arts · École de Dessin & Digital Painting</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Cinzel:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            serif: ['Cinzel', 'serif']
+          },
+          colors: {
+            brand: {
+              dark: '#131417',
+              sidebar: '#181a1f',
+              card: '#1b1e24',
+              cardHover: '#232730',
+              border: '#272b35',
+              gold: '#d6a55b',
+              goldLight: '#e6bf65',
+              goldDark: '#cf9c36',
+              cyan: '#00e1d9',
+              muted: '#8f95a3'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #131417;
+      color: #f0f2f5;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+    .gold-gradient-text {
+      background: linear-gradient(135deg, #fceda8 0%, #d6a55b 50%, #99732b 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .gold-pill-active {
+      background: linear-gradient(135deg, #e6bf65 0%, #cf9c36 100%);
+      color: #131417;
+      box-shadow: 0 4px 14px rgba(207, 156, 54, 0.25);
+    }
+    .stopwatch-ring-glow {
+      filter: drop-shadow(0 0 12px rgba(0, 225, 217, 0.35)) drop-shadow(0 0 12px rgba(230, 191, 101, 0.35));
+    }
+    /* Custom scrollbars */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #131417;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #272b35;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #d6a55b;
+    }
+
+    /* ============================================================ */
+    /* THEME SYSTEM (Obsidian Capture, Midnight OLED, Parchment)    */
+    /* ============================================================ */
+
+    /* THEME 1 : OBSIDIAN (Défaut exact de la capture d'écran) */
+    :root, [data-theme="obsidian"] {
+      --bg-canvas: #131417;
+      --bg-sidebar: #181a1f;
+      --bg-card: #1b1e24;
+      --bg-card-hover: #232730;
+      --border-main: #272b35;
+      --text-main: #ffffff;
+      --text-muted: #8f95a3;
+      --gold-primary: #d6a55b;
+    }
+
+    /* THEME 2 : MIDNIGHT OLED (Noir absolu, ultra-contraste anti-fatigue) */
+    [data-theme="midnight"] body,
+    [data-theme="midnight"] .bg-\[\#131417\] {
+      background-color: #060709 !important;
+    }
+    [data-theme="midnight"] aside,
+    [data-theme="midnight"] header,
+    [data-theme="midnight"] .bg-\[\#181a1f\],
+    [data-theme="midnight"] .bg-\[\#181a1f\]\/95 {
+      background-color: #0b0c10 !important;
+    }
+    [data-theme="midnight"] .bg-\[\#1b1e24\] {
+      background-color: #0f1117 !important;
+    }
+    [data-theme="midnight"] .hover\:bg-\[\#20242c\]:hover,
+    [data-theme="midnight"] .bg-\[\#20242c\],
+    [data-theme="midnight"] .bg-\[\#232730\] {
+      background-color: #161922 !important;
+    }
+    [data-theme="midnight"] .border-\[\#272b35\] {
+      border-color: #1c212b !important;
+    }
+    [data-theme="midnight"] ::-webkit-scrollbar-track {
+      background: #060709;
+    }
+    [data-theme="midnight"] ::-webkit-scrollbar-thumb {
+      background: #1c212b;
+    }
+
+    /* THEME 3 : ATELIER CLAIR PARCHEMIN (Papier d'art & lumière naturelle) */
+    [data-theme="parchment"] body,
+    [data-theme="parchment"] .bg-\[\#131417\] {
+      background-color: #f6f4ee !important;
+      color: #1e1b18 !important;
+    }
+    [data-theme="parchment"] aside,
+    [data-theme="parchment"] header,
+    [data-theme="parchment"] .bg-\[\#181a1f\],
+    [data-theme="parchment"] .bg-\[\#181a1f\]\/95 {
+      background-color: #ece7de !important;
+      color: #1e1b18 !important;
+    }
+    [data-theme="parchment"] .bg-\[\#1b1e24\] {
+      background-color: #ffffff !important;
+      box-shadow: 0 4px 20px -2px rgba(44, 38, 30, 0.05) !important;
+    }
+    [data-theme="parchment"] .border-\[\#272b35\] {
+      border-color: #ded7cb !important;
+    }
+    [data-theme="parchment"] .text-white {
+      color: #1c1917 !important;
+    }
+    [data-theme="parchment"] .text-slate-200,
+    [data-theme="parchment"] .text-slate-300 {
+      color: #292524 !important;
+    }
+    [data-theme="parchment"] .text-slate-400,
+    [data-theme="parchment"] .text-\[\#8f95a3\] {
+      color: #6a645d !important;
+    }
+    [data-theme="parchment"] .text-slate-500 {
+      color: #8c8479 !important;
+    }
+    [data-theme="parchment"] .hover\:bg-\[\#20242c\]:hover,
+    [data-theme="parchment"] .bg-\[\#20242c\],
+    [data-theme="parchment"] .bg-\[\#232730\] {
+      background-color: #dfd8cc !important;
+    }
+    [data-theme="parchment"] ::-webkit-scrollbar-track {
+      background: #f6f4ee;
+    }
+    [data-theme="parchment"] ::-webkit-scrollbar-thumb {
+      background: #ded7cb;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col md:flex-row antialiased selection:bg-amber-500/30 selection:text-amber-200">
+
+  <!-- LEFT SIDEBAR -->
+  <aside class="w-full md:w-64 bg-[#181a1f] border-r border-[#272b35] flex flex-col justify-between shrink-0 p-4 lg:p-5">
+    <div class="space-y-6">
+      <!-- Brand Logo & Title -->
+      <div class="cursor-pointer" onclick="showTab('accueil')">
+        <h1 class="font-serif font-black text-lg lg:text-xl tracking-wider text-[#dfb15b] leading-tight">
+          LA CROISÉE<br />DES ARTS
+        </h1>
+      </div>
+
+      <!-- Navigation Tree -->
+      <nav class="space-y-4">
+        <!-- Académie Accordion -->
+        <div class="space-y-1">
+          <div class="flex items-center justify-between px-3 py-2 rounded-xl text-xs font-bold text-slate-300 hover:bg-[#20242c] cursor-pointer">
+            <span class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-[#d6a55b]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+              Académie
+            </span>
+            <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </div>
+        </div>
+
+        <!-- Cours Accordion (Active Section) -->
+        <div class="space-y-1">
+          <div class="flex items-center justify-between px-3 py-2 rounded-xl text-xs font-bold text-[#d6a55b] bg-[#232730] cursor-pointer">
+            <span class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-[#d6a55b]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+              Cours
+            </span>
+            <svg class="w-3.5 h-3.5 text-[#d6a55b]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </div>
+
+          <!-- Tree List with connecting lines -->
+          <div class="pl-5 pt-1 space-y-1 border-l-2 border-[#272b35] ml-4">
+            <button onclick="showTab('cours'); selectCourse('masterclass-sargent');" class="w-full flex items-center justify-between py-1.5 px-2 text-xs font-semibold text-[#d6a55b] hover:text-white group">
+              <span class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full border-2 border-[#d6a55b] bg-[#131417]"></span>
+                Masterclass Sargent
+              </span>
+              <svg class="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </button>
+            <button onclick="showTab('cours'); selectCourse('fiche-01');" class="w-full flex items-center justify-between py-1.5 px-2 text-xs font-semibold text-slate-400 hover:text-white group">
+              <span class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-600"></span>
+                Contrôle des Bords
+              </span>
+              <svg class="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </button>
+            <button onclick="showTab('cours'); selectCourse('fiche-02');" class="w-full flex items-center justify-between py-1.5 px-2 text-xs font-semibold text-slate-400 hover:text-white group">
+              <span class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-600"></span>
+                Couleur & Gamut
+              </span>
+              <svg class="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </button>
+            <button onclick="showTab('cours'); selectCourse('fiche-03');" class="w-full flex items-center justify-between py-1.5 px-2 text-xs font-semibold text-slate-400 hover:text-white group">
+              <span class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-600"></span>
+                Shape Language
+              </span>
+              <svg class="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </button>
+            <button onclick="showTab('cours'); selectCourse('fiche-04');" class="w-full flex items-center justify-between py-1.5 px-2 text-xs font-semibold text-slate-400 hover:text-white group">
+              <span class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-600"></span>
+                Drapés & Plis
+              </span>
+              <svg class="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </button>
+            <button onclick="showTab('cours'); selectCourse('fiche-05');" class="w-full flex items-center justify-between py-1.5 px-2 text-xs font-semibold text-slate-400 hover:text-white group">
+              <span class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-600"></span>
+                Rendu de Peau (SSS)
+              </span>
+              <svg class="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </button>
+            <button onclick="showTab('cours'); selectCourse('fiche-06');" class="w-full flex items-center justify-between py-1.5 px-2 text-xs font-semibold text-slate-400 hover:text-white group">
+              <span class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-600"></span>
+                Cadrage Cinéma
+              </span>
+              <svg class="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Lesson Progress Widget -->
+        <div class="p-3.5 rounded-xl bg-[#131417] border border-[#272b35] space-y-2">
+          <div class="flex justify-between text-[11px] font-bold">
+            <span class="text-slate-300">Progression Cursus</span>
+            <span class="text-[#d6a55b]">4 / 10</span>
+          </div>
+          <div class="w-full h-1.5 rounded-full bg-[#272b35] overflow-hidden">
+            <div class="h-full bg-gradient-to-r from-[#e6bf65] to-[#cf9c36] rounded-full" style="width: 40%;"></div>
+          </div>
+        </div>
+
+        <!-- Community Counters -->
+        <div class="p-3.5 rounded-xl bg-[#131417] border border-[#272b35] space-y-2.5">
+          <div class="text-[10px] uppercase tracking-wider font-bold text-[#d6a55b]">Communauté</div>
+          <div class="flex items-center justify-between text-xs">
+            <span class="flex items-center gap-1.5 text-slate-300 font-medium">
+              <svg class="w-3.5 h-3.5 text-[#d6a55b]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+              Membres
+            </span>
+            <span class="font-extrabold text-white">265</span>
+          </div>
+          <div class="flex items-center justify-between text-xs">
+            <span class="flex items-center gap-1.5 text-slate-300 font-medium">
+              <svg class="w-3.5 h-3.5 text-amber-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.316.492-.533 1.035-.694 1.58C8.835 6.64 8 9.5 8 11.5a4.5 4.5 0 109 0c0-1.488-.507-2.906-1.39-4.103a11.163 11.163 0 00-3.215-3.844zM10 13a2.5 2.5 0 100-5 2.5 2.5 0 000 5z" clip-rule="evenodd"/></svg>
+              Croquis Partagés
+            </span>
+            <span class="font-extrabold text-[#d6a55b]">11.7k</span>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+    <!-- User Profile Footer in Sidebar -->
+    <div class="pt-4 border-t border-[#272b35] flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&auto=format&fit=crop&q=80" alt="Avatar" class="w-9 h-9 rounded-full border border-[#272b35] object-cover" />
+        <div>
+          <p class="text-xs font-bold text-white leading-tight">C. Dubois</p>
+          <p class="text-[10px] text-[#8f95a3]">Apprenant · Cycle 3</p>
+        </div>
+      </div>
+      <div class="relative cursor-pointer p-1.5 rounded-lg hover:bg-[#20242c] text-slate-400">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+        <span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-rose-500 ring-2 ring-[#181a1f]"></span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN COLUMN -->
+  <div class="flex-1 flex flex-col min-w-0 bg-[#131417]">
+    
+    <!-- TOP HEADER -->
+    <header class="sticky top-0 z-40 bg-[#181a1f]/95 backdrop-blur-md border-b border-[#272b35] px-4 lg:px-8 py-3 flex items-center justify-between">
+      <!-- Navigation Pills -->
+      <nav class="flex items-center gap-2">
+        <button id="btn-cours" onclick="showTab('cours')" class="nav-btn px-5 py-2 rounded-full text-xs font-bold text-[#8f95a3] hover:text-white transition-all">
+          Cours
+        </button>
+        <button id="btn-accueil" onclick="showTab('accueil')" class="nav-btn px-5 py-2 rounded-full text-xs font-bold gold-pill-active transition-all">
+          Ateliers Chrono
+        </button>
+        <button id="btn-galerie" onclick="showTab('galerie')" class="nav-btn px-5 py-2 rounded-full text-xs font-bold text-[#8f95a3] hover:text-white transition-all">
+          Galerie
+        </button>
+        <button id="btn-dashboard" onclick="showTab('dashboard')" class="nav-btn px-5 py-2 rounded-full text-xs font-bold text-[#8f95a3] hover:text-white transition-all">
+          Espace Étudiant
+        </button>
+      </nav>
+
+      <!-- Theme Switcher & Right Profile Menu -->
+      <div class="flex items-center gap-3">
+        <!-- Theme Mode Selector Popover Button -->
+        <div class="relative" id="theme-selector-container">
+          <button id="theme-menu-btn" onclick="toggleThemeMenu()" class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#1b1e24] border border-[#272b35] hover:border-[#d6a55b] transition-all text-xs font-semibold text-slate-200" title="Changer le thème d'affichage">
+            <span id="theme-btn-icon" class="text-amber-400">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+            </span>
+            <span id="theme-btn-label" class="hidden sm:inline text-[11px] font-bold">Obsidienne</span>
+            <svg class="w-3 h-3 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+
+          <!-- Dropdown Menu -->
+          <div id="theme-dropdown" class="hidden absolute right-0 mt-2 w-64 rounded-2xl bg-[#181a1f] border border-[#272b35] shadow-2xl p-2 z-50 space-y-1">
+            <div class="px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-[#8f95a3] border-b border-[#272b35] mb-1">
+              Ambiance d'affichage
+            </div>
+            
+            <button onclick="setTheme('obsidian')" id="theme-opt-obsidian" class="w-full flex items-center justify-between p-2.5 rounded-xl text-left text-xs font-semibold hover:bg-[#20242c] transition-all group">
+              <div class="flex items-center gap-2.5">
+                <span class="w-4 h-4 rounded-full bg-[#131417] border border-[#d6a55b] flex items-center justify-center text-[10px]"></span>
+                <div>
+                  <p class="text-white group-hover:text-[#d6a55b] transition-colors">Sombre Obsidienne</p>
+                  <p class="text-[10px] text-[#8f95a3]">Warm dark & capture d'écran</p>
+                </div>
+              </div>
+              <span class="theme-check text-[#d6a55b] font-bold">✓</span>
+            </button>
+
+            <button onclick="setTheme('midnight')" id="theme-opt-midnight" class="w-full flex items-center justify-between p-2.5 rounded-xl text-left text-xs font-semibold hover:bg-[#20242c] transition-all group">
+              <div class="flex items-center gap-2.5">
+                <span class="w-4 h-4 rounded-full bg-[#060709] border border-cyan-400 flex items-center justify-center text-[10px]"></span>
+                <div>
+                  <p class="text-white group-hover:text-cyan-400 transition-colors">Sombre Minuit OLED</p>
+                  <p class="text-[10px] text-[#8f95a3]">Noir pur & repos nocturne</p>
+                </div>
+              </div>
+              <span class="theme-check text-cyan-400 font-bold hidden">✓</span>
+            </button>
+
+            <button onclick="setTheme('parchment')" id="theme-opt-parchment" class="w-full flex items-center justify-between p-2.5 rounded-xl text-left text-xs font-semibold hover:bg-[#20242c] transition-all group">
+              <div class="flex items-center gap-2.5">
+                <span class="w-4 h-4 rounded-full bg-[#f6f4ee] border border-amber-600 flex items-center justify-center text-[10px]"></span>
+                <div>
+                  <p class="text-white group-hover:text-amber-500 transition-colors">Atelier Clair Parchemin</p>
+                  <p class="text-[10px] text-[#8f95a3]">Lumière du jour & papier d'art</p>
+                </div>
+              </div>
+              <span class="theme-check text-amber-500 font-bold hidden">✓</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="hidden sm:flex items-center gap-2.5 pl-2 border-l border-[#272b35]">
+          <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&auto=format&fit=crop&q=80" alt="Avatar" class="w-8 h-8 rounded-full border border-[#272b35] object-cover" />
+          <span class="text-xs font-bold text-slate-200">C. Dubois</span>
+        </div>
+
+        <button onclick="openSettingsModal()" class="text-[#8f95a3] hover:text-white transition-colors p-1.5 rounded-lg hover:bg-[#20242c]" title="Paramètres de l'Atelier">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- CONTENT BODY -->
+    <main class="flex-1 p-4 lg:p-6 space-y-6 max-w-7xl w-full mx-auto">
+
+      <!-- TAB 1 : DASHBOARD ATELIERS CHRONO (EXACT DESIGN DU SCREENSHOT) -->
+      <div id="content-accueil" class="tab-content space-y-6">
+
+        <!-- TOP BANNER : MASTERCLASS PORTRAIT CLASSIQUE -->
+        <section class="rounded-2xl bg-gradient-to-r from-[#2a2013] via-[#1b1e24] to-[#1c1d22] border border-[#684e27]/80 p-4 lg:p-5 flex items-center justify-between cursor-pointer group hover:border-[#d6a55b] transition-all" onclick="showTab('cours'); selectCourse('masterclass-sargent');">
+          <div class="space-y-1">
+            <span class="text-[10px] font-bold tracking-widest uppercase text-[#d6a55b]">MASTERCLASS</span>
+            <h2 class="font-serif text-lg lg:text-2xl font-black text-white group-hover:text-[#e6bf65] transition-colors">
+              MASTERCLASS : ÉTUDE DE PORTRAIT CLASSIQUE
+            </h2>
+            <p class="text-xs text-slate-300">Méthode Alla Prima en 4 strates, 4 bords et déconstruction du volume facial.</p>
+          </div>
+          <div class="w-24 sm:w-36 h-20 rounded-xl overflow-hidden border border-[#684e27] shrink-0 bg-black">
+            <img src="assets/portrait_classique_masterclass.jpg" alt="Portrait Classique" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+          </div>
+        </section>
+
+        <!-- CENTER SPLIT : LIVE DEMO STUDIO & ATELIER CHRONO STOPWATCH -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+          <!-- Left Column : Live Digital Painting Player / Canvas Workspace -->
+          <div class="lg:col-span-8 bg-[#1b1e24] border border-[#272b35] rounded-2xl p-4 lg:p-5 flex flex-col justify-between space-y-4">
+            <!-- Header bar of the demo -->
+            <div class="flex items-center justify-between pb-3 border-b border-[#272b35]">
+              <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-[#00e1d9] animate-pulse"></span>
+                <span class="text-xs font-bold text-white">Atelier Démonstration · Anatomie Faciale & Plans de Face</span>
+              </div>
+              <button onclick="showTab('studio')" class="px-3 py-1 rounded-lg bg-[#232730] hover:bg-[#d6a55b] hover:text-[#131417] text-xs font-bold text-[#d6a55b] transition-all flex items-center gap-1.5">
+                Passer en Mode Toile Stylet →
+              </button>
+            </div>
+
+            <!-- Video Player Image Frame -->
+            <div class="relative rounded-xl overflow-hidden border border-[#272b35] bg-black group">
+              <img src="assets/atelier_demo_digital_painting.jpg" alt="Atelier Peinture Numérique" class="w-full h-auto max-h-[420px] object-contain mx-auto" />
+              <!-- Video Controls Overlay -->
+              <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent p-3 flex flex-col gap-2">
+                <!-- Golden Timeline Bar -->
+                <div class="w-full h-1 bg-slate-700/80 rounded-full cursor-pointer relative">
+                  <div class="w-1/3 h-full bg-[#d6a55b] rounded-full relative">
+                    <span class="absolute right-0 top-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-white shadow"></span>
+                  </div>
+                </div>
+                <div class="flex items-center justify-between text-xs text-slate-300">
+                  <div class="flex items-center gap-3">
+                    <button class="text-[#d6a55b] hover:text-white" title="Play">
+                      <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"/></svg>
+                    </button>
+                    <span class="text-[11px] font-mono">14:32 / 45:10</span>
+                  </div>
+                  <div class="flex items-center gap-3">
+                    <span class="text-[11px] text-[#00e1d9]">Qualité HD 1080p</span>
+                    <button onclick="openImageModal(this.closest('.space-y-4').querySelector('img').src)" class="hover:text-white" title="Plein écran">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/></svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <p class="text-xs text-slate-400">
+              Décomposition des masses musculaires zygomatiques et de la ligne de terminateur. Suivez la démonstration puis lancez l'exercice chronométré.
+            </p>
+          </div>
+
+          <!-- Right Column : Atelier Chrono Glowing Stopwatch Card -->
+          <div class="lg:col-span-4 bg-[#1b1e24] border border-[#272b35] rounded-2xl p-5 flex flex-col justify-between space-y-6">
+            
+            <div class="flex items-center justify-between pb-2 border-b border-[#272b35]">
+              <span class="text-xs font-bold text-[#d6a55b] tracking-wider uppercase">ATELIER CHRONO</span>
+              <button onclick="showTab('studio')" class="text-slate-400 hover:text-white" title="Infos atelier">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              </button>
+            </div>
+
+            <!-- Glowing Stopwatch Display -->
+            <div class="flex flex-col items-center justify-center py-2">
+              <div class="relative w-48 h-48 rounded-full p-1.5 flex items-center justify-center stopwatch-ring-glow" style="background: linear-gradient(135deg, #00e1d9 0%, #06b6d4 40%, #f59e0b 80%, #e6bf65 100%);">
+                <!-- Top crown button of stopwatch -->
+                <div class="absolute -top-3 w-6 h-3 rounded-t-md bg-[#d6a55b] border border-[#131417]"></div>
+                <div class="w-full h-full rounded-full bg-[#131417] flex flex-col items-center justify-center">
+                  <span id="timer-display-main" class="font-mono font-black text-4xl text-white tracking-wider">15:00</span>
+                  <span class="text-[10px] text-[#8f95a3] tracking-widest uppercase mt-1">minutes:seconds</span>
+                </div>
+              </div>
+
+              <!-- Quick Action Controls -->
+              <div class="flex items-center gap-3 mt-5">
+                <button id="main-timer-toggle-btn" onclick="toggleTimerMain()" class="px-6 py-2 rounded-full gold-pill-active text-xs font-extrabold transition-all">
+                  Démarrer la Pose
+                </button>
+                <button onclick="resetTimerMain(15 * 60)" class="px-4 py-2 rounded-full bg-[#272b35] hover:bg-slate-700 text-slate-300 text-xs font-bold transition-all">
+                  Reset
+                </button>
+              </div>
+            </div>
+
+            <!-- Workshop Reference Strip (Étude de main 15 min) -->
+            <div class="space-y-3 pt-3 border-t border-[#272b35]">
+              <div class="flex items-center justify-between">
+                <h4 class="text-xs font-bold text-white uppercase tracking-wider">ÉTUDE DE MAIN (15 MIN)</h4>
+                <div class="flex items-center gap-1 text-slate-400">
+                  <button class="p-1 hover:text-white"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg></button>
+                  <button class="p-1 hover:text-white"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></button>
+                </div>
+              </div>
+
+              <!-- Strip of hands reference photos -->
+              <div class="rounded-xl overflow-hidden border border-[#272b35] bg-black cursor-pointer group" onclick="openImageModal(this.querySelector('img').src)">
+                <img src="assets/references_mains_morphologie.jpg" alt="Références Mains" class="w-full h-16 object-cover group-hover:scale-105 transition-transform" />
+              </div>
+              <p class="text-[11px] text-slate-400 leading-relaxed">
+                Analyser le bloc palmaire, aligner les courbures des phalanges et focaliser sur les ombres de contact.
+              </p>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- BOTTOM SECTION : GALERIE DE SOUMISSIONS ÉTUDIANTS -->
+        <section class="space-y-4 pt-2">
+          <div class="flex items-center justify-between">
+            <h3 class="font-serif font-bold text-base text-[#d6a55b] tracking-wider uppercase">
+              GALERIE DE SOUMISSIONS ÉTUDIANTS
+            </h3>
+            <div class="flex items-center gap-1 text-slate-400">
+              <button onclick="showTab('galerie')" class="text-xs text-[#8f95a3] hover:text-[#d6a55b] mr-2">Voir tout →</button>
+              <button class="p-1 hover:text-white"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg></button>
+              <button class="p-1 hover:text-white"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></button>
+            </div>
+          </div>
+
+          <!-- 5 Student Cards Matching the Screenshot -->
+          <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+            
+            <!-- Student Card 1 : Léa Moreau -->
+            <div class="rounded-2xl bg-[#1b1e24] border border-[#272b35] overflow-hidden group hover:border-[#d6a55b] transition-all cursor-pointer" onclick="openImageModal(this.querySelector('img').src)">
+              <div class="h-32 bg-black overflow-hidden">
+                <img src="assets/etudiant_portrait_lea.jpg" alt="Léa Moreau" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+              </div>
+              <div class="p-3 space-y-1">
+                <p class="text-xs font-bold text-white truncate">Léa Moreau</p>
+                <p class="text-[11px] text-slate-400 truncate">Portrait Éclairé</p>
+                <div class="flex items-center justify-between pt-1">
+                  <span class="text-[10px] text-[#8f95a3]">Critique</span>
+                  <span class="text-xs font-bold text-[#00e1d9] flex items-center gap-0.5">★ 8.8/10</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Student Card 2 : Paul Dubois -->
+            <div class="rounded-2xl bg-[#1b1e24] border border-[#272b35] overflow-hidden group hover:border-[#d6a55b] transition-all cursor-pointer" onclick="openImageModal(this.querySelector('img').src)">
+              <div class="h-32 bg-black overflow-hidden">
+                <img src="assets/etudiant_portrait_paul.jpg" alt="Paul Dubois" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+              </div>
+              <div class="p-3 space-y-1">
+                <p class="text-xs font-bold text-white truncate">Paul Dubois</p>
+                <p class="text-[11px] text-slate-400 truncate">Portrait Éclairé</p>
+                <div class="flex items-center justify-between pt-1">
+                  <span class="text-xs text-[#00e1d9]">★★★★★</span>
+                  <span class="text-xs font-bold text-[#00e1d9]">9.2/10</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Student Card 3 : Léa Moreau Écorché -->
+            <div class="rounded-2xl bg-[#1b1e24] border border-[#272b35] overflow-hidden group hover:border-[#d6a55b] transition-all cursor-pointer" onclick="openImageModal(this.querySelector('img').src)">
+              <div class="h-32 bg-black overflow-hidden">
+                <img src="assets/etudiant_ecorche_anatomie.jpg" alt="Léa Moreau Écorché" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+              </div>
+              <div class="p-3 space-y-1">
+                <p class="text-xs font-bold text-white truncate">Léa Moreau</p>
+                <p class="text-[11px] text-slate-400 truncate">Écorché Musculaire</p>
+                <div class="flex items-center justify-between pt-1">
+                  <span class="text-[10px] text-[#8f95a3]">Critique</span>
+                  <span class="text-xs font-bold text-[#00e1d9] flex items-center gap-0.5">★ 8.5/10</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Student Card 4 : Tim Moreau Fusain -->
+            <div class="rounded-2xl bg-[#1b1e24] border border-[#272b35] overflow-hidden group hover:border-[#d6a55b] transition-all cursor-pointer" onclick="openImageModal(this.querySelector('img').src)">
+              <div class="h-32 bg-black overflow-hidden">
+                <img src="assets/etudiant_fusain_tim.jpg" alt="Tim Moreau" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+              </div>
+              <div class="p-3 space-y-1">
+                <p class="text-xs font-bold text-white truncate">Tim Moreau</p>
+                <p class="text-[11px] text-slate-400 truncate">Portrait au Fusain</p>
+                <div class="flex items-center justify-between pt-1">
+                  <span class="text-[10px] text-[#8f95a3]">Critique</span>
+                  <span class="text-xs font-bold text-[#00e1d9] flex items-center gap-0.5">★ 9.2/10</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Student Card 5 : Léa Moreau Profil Roux -->
+            <div class="rounded-2xl bg-[#1b1e24] border border-[#272b35] overflow-hidden group hover:border-[#d6a55b] transition-all cursor-pointer" onclick="openImageModal(this.querySelector('img').src)">
+              <div class="h-32 bg-black overflow-hidden">
+                <img src="assets/etudiant_profil_roux.jpg" alt="Léa Moreau Profil Roux" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+              </div>
+              <div class="p-3 space-y-1">
+                <p class="text-xs font-bold text-white truncate">Léa Moreau</p>
+                <p class="text-[11px] text-slate-400 truncate">Profil Chevelure Rousse</p>
+                <div class="flex items-center justify-between pt-1">
+                  <span class="text-xs text-[#00e1d9]">★★★★★</span>
+                  <span class="text-xs font-bold text-[#00e1d9]">8.5/10</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+      </div>
+
+      <!-- TAB 2 : COURS & FICHES TECHNIQUES -->
+      <div id="content-cours" class="tab-content hidden space-y-6">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          <!-- Sidebar : Liste des fiches -->
+          <div class="lg:col-span-4 space-y-4">
+            <div class="p-4 rounded-2xl bg-[#1b1e24] border border-[#272b35]">
+              <h3 class="font-bold text-white text-base mb-1">Médiathèque Pédagogique</h3>
+              <p class="text-xs text-slate-400">Toutes les leçons possèdent leur planche d'étude dédiée haute définition signée.</p>
+            </div>
+            <div id="courses-list" class="space-y-3"></div>
+          </div>
+
+          <!-- Main : Détail de la fiche sélectionnée -->
+          <div class="lg:col-span-8" id="course-detail"></div>
+        </div>
+      </div>
+
+      <!-- TAB 3 : STUDIO ATELIER CHRONO INTERACTIF -->
+      <div id="content-studio" class="tab-content hidden space-y-6">
+        <!-- Session Header & Selector -->
+        <div class="p-6 rounded-2xl bg-[#1b1e24] border border-[#272b35] flex flex-wrap items-center justify-between gap-4">
+          <div>
+            <span class="text-xs font-bold px-2.5 py-1 rounded bg-[#00e1d9]/20 text-[#00e1d9]">STUDIO CHRONO-CROISÉE EN DIRECT</span>
+            <h2 id="session-title" class="text-xl lg:text-2xl font-extrabold text-white mt-1">Dune 1 & 2 : Monumentalité et Cadrage Cinéma</h2>
+            <p id="session-tips" class="text-xs text-slate-400 mt-0.5">Focus sur les échelles de proportions et les contrastes de valeurs chaudes.</p>
+          </div>
+
+          <!-- Choose Session -->
+          <div class="flex items-center gap-3">
+            <label class="text-xs text-slate-400 font-medium">Changer de session :</label>
+            <select id="session-select" onchange="selectSession(this.value)" class="bg-[#131417] border border-[#272b35] text-slate-200 text-xs rounded-xl p-2.5 focus:border-[#d6a55b] outline-none">
+            </select>
+          </div>
+        </div>
+
+        <!-- Studio Main Workspace : Split View -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <!-- Panneau Gauche : Canvas de Dessin Interactif -->
+          <div class="lg:col-span-7 bg-[#1b1e24] border border-[#272b35] rounded-2xl p-4 lg:p-6 flex flex-col justify-between">
+            <div class="flex flex-wrap items-center justify-between gap-3 mb-4 pb-3 border-b border-[#272b35]">
+              <!-- Palette / Brush Tools -->
+              <div class="flex items-center gap-2">
+                <span class="text-xs font-bold text-slate-400">Outils :</span>
+                <button onclick="studio.setEraser(false)" class="p-2 rounded-lg bg-[#272b35] text-xs font-bold hover:bg-slate-700">Crayon</button>
+                <button onclick="studio.setEraser(true)" class="p-2 rounded-lg bg-[#272b35] text-xs font-bold hover:bg-slate-700">Gomme</button>
+                <input type="color" value="#e2e8f0" onchange="studio.setColor(this.value)" class="w-8 h-8 rounded cursor-pointer bg-transparent border-0" title="Couleur" />
+              </div>
+
+              <!-- Size Selector -->
+              <div class="flex items-center gap-2">
+                <span class="text-xs font-bold text-slate-400">Taille :</span>
+                <button onclick="studio.setSize(2)" class="w-7 h-7 rounded-lg bg-[#272b35] text-xs font-bold hover:bg-[#d6a55b] hover:text-[#131417]">2</button>
+                <button onclick="studio.setSize(6)" class="w-7 h-7 rounded-lg bg-[#272b35] text-xs font-bold hover:bg-[#d6a55b] hover:text-[#131417]">6</button>
+                <button onclick="studio.setSize(14)" class="w-7 h-7 rounded-lg bg-[#272b35] text-xs font-bold hover:bg-[#d6a55b] hover:text-[#131417]">14</button>
+                <button onclick="studio.setSize(26)" class="w-7 h-7 rounded-lg bg-[#272b35] text-xs font-bold hover:bg-[#d6a55b] hover:text-[#131417]">26</button>
+              </div>
+
+              <!-- Canvas Actions -->
+              <div class="flex items-center gap-2">
+                <button onclick="studio.undo()" class="p-2 rounded-lg bg-[#272b35] text-xs font-bold hover:bg-slate-700" title="Annuler">Annuler</button>
+                <button onclick="studio.clear()" class="p-2 rounded-lg bg-rose-500/20 text-rose-300 text-xs font-bold hover:bg-rose-500/30">Effacer</button>
+                <button onclick="studio.exportPNG()" class="px-3 py-2 rounded-lg gold-pill-active text-xs font-bold">Exporter PNG</button>
+              </div>
+            </div>
+
+            <!-- The Canvas -->
+            <div class="w-full flex-1 flex items-center justify-center rounded-xl overflow-hidden border border-[#272b35] bg-[#131417]">
+              <canvas id="drawing-canvas" class="cursor-crosshair w-full block"></canvas>
+            </div>
+            <p class="text-[11px] text-slate-500 mt-2 text-center">Dessinez au stylet ou à la souris sur la zone. Exportez votre croquis à la fin du temps imparti.</p>
+          </div>
+
+          <!-- Panneau Droit : Chronomètre & Moodboard de Références -->
+          <div class="lg:col-span-5 space-y-6">
+            <!-- Chronomètre Interactif Néon -->
+            <div class="p-6 rounded-2xl bg-[#1b1e24] border border-[#00e1d9]/30 flex flex-col items-center justify-center text-center space-y-4 stopwatch-ring-glow">
+              <span class="text-xs font-bold tracking-widest uppercase text-[#00e1d9]">Temps de Pose Restant</span>
+              
+              <div class="relative w-44 h-44 flex items-center justify-center">
+                <svg class="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+                  <circle cx="50" cy="50" r="45" stroke="#272b35" stroke-width="6" fill="transparent" />
+                  <circle id="timer-progress" cx="50" cy="50" r="45" stroke="#00e1d9" stroke-width="6" stroke-dasharray="283" stroke-dashoffset="0" stroke-linecap="round" fill="transparent" class="transition-all duration-1000 ease-linear" />
+                </svg>
+                <div id="timer-display" class="absolute font-mono font-black text-4xl text-[#00e1d9] tracking-wider">15:00</div>
+              </div>
+
+              <!-- Controls -->
+              <div class="flex items-center gap-3">
+                <button id="timer-toggle-btn" onclick="toggleTimer()" class="px-6 py-2.5 rounded-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-sm shadow-lg shadow-emerald-500/20 transition-all">
+                  Démarrer
+                </button>
+                <button onclick="resetTimer(initialTime)" class="px-4 py-2.5 rounded-full bg-[#272b35] hover:bg-slate-700 text-slate-300 font-bold text-sm transition-all">
+                  Réinitialiser
+                </button>
+              </div>
+
+              <!-- Quick Durations -->
+              <div class="flex items-center gap-2 pt-2">
+                <button onclick="resetTimer(10 * 60)" class="px-3 py-1 rounded-full bg-[#272b35] hover:bg-slate-700 text-xs text-slate-400 font-semibold">10 min</button>
+                <button onclick="resetTimer(15 * 60)" class="px-3 py-1 rounded-full bg-[#272b35] hover:bg-slate-700 text-xs text-slate-400 font-semibold">15 min</button>
+                <button onclick="resetTimer(20 * 60)" class="px-3 py-1 rounded-full bg-[#272b35] hover:bg-slate-700 text-xs text-slate-400 font-semibold">20 min</button>
+              </div>
+            </div>
+
+            <!-- Référence Visuelle Active -->
+            <div class="p-4 rounded-2xl bg-[#1b1e24] border border-[#272b35] space-y-3">
+              <div class="flex items-center justify-between">
+                <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider">Planche d'Observation en Direct</h4>
+                <button onclick="openImageModal(document.getElementById('session-ref-img').src)" class="text-xs text-[#d6a55b] hover:text-white font-medium">Agrandir</button>
+              </div>
+              <div class="rounded-xl overflow-hidden border border-[#272b35] bg-black cursor-pointer" onclick="openImageModal(document.getElementById('session-ref-img').src)">
+                <img id="session-ref-img" src="assets/studio_dessin_interactif_chrono_croisee.jpg" class="w-full h-auto max-h-[300px] object-contain" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 4 : GALERIE & ÉVALUATIONS -->
+      <div id="content-galerie" class="tab-content hidden space-y-8">
+        <!-- Calculateur d'Auto-Évaluation Standardisé -->
+        <section class="p-6 lg:p-8 rounded-3xl bg-[#1b1e24] border border-[#272b35] space-y-6">
+          <div class="flex flex-wrap items-center justify-between gap-4 border-b border-[#272b35] pb-4">
+            <div>
+              <h3 class="font-serif text-2xl font-bold text-white">Grille d'Évaluation Standardisée (5 Critères)</h3>
+              <p class="text-xs text-slate-400">Passez votre croquis au crible des critères d'apprentissage de l'école pour mesurer vos progrès.</p>
+            </div>
+            <div class="px-5 py-3 rounded-2xl bg-[#d6a55b]/10 border border-[#d6a55b]/30 text-center">
+              <span class="text-[10px] text-[#d6a55b] font-bold uppercase tracking-widest block">Note Globale</span>
+              <span id="eval-score-result" class="text-2xl font-extrabold text-[#d6a55b] font-mono">9.0 / 10</span>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="space-y-2 p-4 rounded-xl bg-[#131417] border border-[#272b35]">
+              <div class="flex justify-between text-xs font-bold text-slate-300">
+                <span>1. Silhouette & Lisibilité</span>
+                <span id="label-crit-1" class="text-[#d6a55b]">9 / 10</span>
+              </div>
+              <input type="range" min="1" max="10" value="9" step="0.5" id="crit-1" oninput="updateEvaluationScore()" class="w-full accent-amber-500" />
+              <p class="text-[11px] text-slate-500">Le dessin est-il immédiatement reconnaissable en aplat noir ?</p>
+            </div>
+
+            <div class="space-y-2 p-4 rounded-xl bg-[#131417] border border-[#272b35]">
+              <div class="flex justify-between text-xs font-bold text-slate-300">
+                <span>2. Structure & Perspective</span>
+                <span id="label-crit-2" class="text-[#d6a55b]">9 / 10</span>
+              </div>
+              <input type="range" min="1" max="10" value="9" step="0.5" id="crit-2" oninput="updateEvaluationScore()" class="w-full accent-amber-500" />
+              <p class="text-[11px] text-slate-500">Les points de fuite et les repères osseux sont-ils stables ?</p>
+            </div>
+
+            <div class="space-y-2 p-4 rounded-xl bg-[#131417] border border-[#272b35]">
+              <div class="flex justify-between text-xs font-bold text-slate-300">
+                <span>3. Hiérarchie des Valeurs (Notan)</span>
+                <span id="label-crit-3" class="text-[#d6a55b]">9 / 10</span>
+              </div>
+              <input type="range" min="1" max="10" value="9" step="0.5" id="crit-3" oninput="updateEvaluationScore()" class="w-full accent-amber-500" />
+              <p class="text-[11px] text-slate-500">Séparation binaire nette entre lumière et ombre sans gris boueux.</p>
+            </div>
+
+            <div class="space-y-2 p-4 rounded-xl bg-[#131417] border border-[#272b35]">
+              <div class="flex justify-between text-xs font-bold text-slate-300">
+                <span>4. Contrôle des 4 Bords</span>
+                <span id="label-crit-4" class="text-[#d6a55b]">9 / 10</span>
+              </div>
+              <input type="range" min="1" max="10" value="9" step="0.5" id="crit-4" oninput="updateEvaluationScore()" class="w-full accent-amber-500" />
+              <p class="text-[11px] text-slate-500">Alternance entre bords nets au point focal et bords perdus dans l'ombre.</p>
+            </div>
+
+            <div class="space-y-2 p-4 rounded-xl bg-[#131417] border border-[#272b35]">
+              <div class="flex justify-between text-xs font-bold text-slate-300">
+                <span>5. Gamut & Température</span>
+                <span id="label-crit-5" class="text-[#d6a55b]">9 / 10</span>
+              </div>
+              <input type="range" min="1" max="10" value="9" step="0.5" id="crit-5" oninput="updateEvaluationScore()" class="w-full accent-amber-500" />
+              <p class="text-[11px] text-slate-500">Réciprocité respectée (lumière chaude et ombres froides).</p>
+            </div>
+
+            <div class="p-4 rounded-xl bg-gradient-to-br from-[#d6a55b]/10 to-[#00e1d9]/10 border border-[#d6a55b]/30 flex flex-col justify-between">
+              <div>
+                <h4 class="text-xs font-bold text-white mb-1">Enregistrer cette auto-évaluation</h4>
+                <p class="text-[11px] text-slate-400">Consignez votre score dans votre livret d'apprentissage personnel.</p>
+              </div>
+              <button onclick="alert('Évaluation enregistrée avec succès dans votre livret apprenant !')" class="w-full py-2.5 rounded-xl gold-pill-active text-xs font-bold transition-all">
+                Valider la Session
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Galerie des Étudiants -->
+        <section class="space-y-4">
+          <h3 class="font-serif font-bold text-xl text-white">Derniers Travaux de la Promotion</h3>
+          <div id="student-gallery-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        </section>
+      </div>
+
+      <!-- TAB 5 : ESPACE APPRENANT -->
+      <div id="content-dashboard" class="tab-content hidden space-y-8">
+        <section class="p-8 rounded-3xl bg-[#1b1e24] border border-[#272b35] space-y-6">
+          <div class="flex flex-wrap items-center justify-between gap-4 border-b border-[#272b35] pb-6">
+            <div class="flex items-center gap-4">
+              <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&auto=format&fit=crop&q=80" alt="Avatar" class="w-16 h-16 rounded-2xl border-2 border-[#d6a55b] object-cover" />
+              <div>
+                <h2 class="text-2xl font-extrabold text-white">Cyril Dubois</h2>
+                <p class="text-xs text-[#d6a55b] font-medium">Cursus Peinture Numérique & Concept Art · Promotion 2026</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="px-4 py-2 rounded-xl bg-[#00e1d9]/10 border border-[#00e1d9]/30 text-[#00e1d9] text-xs font-bold">Cycle 3 en Cours</span>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div class="p-4 rounded-2xl bg-[#131417] border border-[#272b35]">
+              <span class="text-[11px] text-[#8f95a3] font-medium">Sessions Complétées</span>
+              <p class="text-2xl font-black text-white mt-1">28</p>
+            </div>
+            <div class="p-4 rounded-2xl bg-[#131417] border border-[#272b35]">
+              <span class="text-[11px] text-[#8f95a3] font-medium">Heures de Pratique</span>
+              <p class="text-2xl font-black text-[#d6a55b] mt-1">42 h</p>
+            </div>
+            <div class="p-4 rounded-2xl bg-[#131417] border border-[#272b35]">
+              <span class="text-[11px] text-[#8f95a3] font-medium">Moyenne Générale</span>
+              <p class="text-2xl font-black text-[#00e1d9] mt-1">9.1 / 10</p>
+            </div>
+            <div class="p-4 rounded-2xl bg-[#131417] border border-[#272b35]">
+              <span class="text-[11px] text-[#8f95a3] font-medium">Badges d'Excellence</span>
+              <p class="text-2xl font-black text-purple-400 mt-1">6 / 8</p>
+            </div>
+          </div>
+
+          <!-- Documentation Téléchargeable & Guides -->
+          <div class="space-y-3 pt-4">
+            <h3 class="font-bold text-sm text-white uppercase tracking-wider">Ressources & Référentiels Officiels de l'École</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              <div class="p-4 rounded-xl bg-[#131417] border border-[#272b35] flex items-center justify-between">
+                <div>
+                  <p class="text-xs font-bold text-white">Syllabus des 4 Cursus</p>
+                  <p class="text-[10px] text-slate-400">Programme complet de formation</p>
+                </div>
+                <span class="text-xs text-[#d6a55b] font-bold">MD</span>
+              </div>
+              <div class="p-4 rounded-xl bg-[#131417] border border-[#272b35] flex items-center justify-between">
+                <div>
+                  <p class="text-xs font-bold text-white">Catalogue Ateliers Chrono</p>
+                  <p class="text-[10px] text-slate-400">10 sessions d'entraînement</p>
+                </div>
+                <span class="text-xs text-[#d6a55b] font-bold">MD</span>
+              </div>
+              <div class="p-4 rounded-xl bg-[#131417] border border-[#272b35] flex items-center justify-between">
+                <div>
+                  <p class="text-xs font-bold text-white">Livret de la Critique</p>
+                  <p class="text-[10px] text-slate-400">Grille des 5 critères d'évaluation</p>
+                </div>
+                <span class="text-xs text-[#d6a55b] font-bold">MD</span>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- MODAL ZOOM IMAGE ULTRA-HAUTE RÉSOLUTION -->
+  <div id="image-modal" class="fixed inset-0 z-50 bg-black/95 backdrop-blur-md hidden flex items-center justify-center p-4 lg:p-10" onclick="closeImageModal()">
+    <div class="relative max-w-6xl w-full max-h-[90vh] flex flex-col items-center" onclick="event.stopPropagation()">
+      <button onclick="closeImageModal()" class="absolute -top-12 right-0 px-4 py-2 rounded-xl bg-[#272b35] text-white hover:bg-[#d6a55b] hover:text-[#131417] text-xs font-bold transition-all">
+        Fermer (Échap)
+      </button>
+      <img id="modal-img-src" src="" alt="Zoom Planche" class="max-w-full max-h-[85vh] rounded-xl border border-[#272b35] shadow-2xl object-contain" />
+    </div>
+  </div>
+
+  <!-- MODAL PARAMÈTRES DE L'ATELIER & PRÉFÉRENCES D'AFFICHAGE -->
+  <div id="settings-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4" onclick="closeSettingsModal()">
+    <div class="relative max-w-xl w-full bg-[#181a1f] border border-[#272b35] rounded-3xl p-6 lg:p-8 space-y-6 shadow-2xl" onclick="event.stopPropagation()">
+      <div class="flex items-center justify-between border-b border-[#272b35] pb-4">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-2xl bg-[#d6a55b]/20 flex items-center justify-center text-[#d6a55b]">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          </div>
+          <div>
+            <h3 class="font-serif font-bold text-lg text-white">Paramètres de l'Atelier</h3>
+            <p class="text-xs text-[#8f95a3]">Personnalisation de l'espace de travail et affichage</p>
+          </div>
+        </div>
+        <button onclick="closeSettingsModal()" class="text-slate-400 hover:text-white p-2 rounded-xl hover:bg-[#20242c]">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Thème Visuel -->
+      <div class="space-y-3">
+        <label class="text-xs font-bold uppercase tracking-wider text-[#d6a55b]">Ambiance & Thème Visuel</label>
+        <div class="grid grid-cols-3 gap-3">
+          <button onclick="setTheme('obsidian')" class="theme-choice-btn p-3 rounded-2xl border text-center transition-all bg-[#1b1e24] border-[#272b35] hover:border-[#d6a55b]" data-choice="obsidian">
+            <div class="w-6 h-6 mx-auto rounded-full bg-[#131417] border border-[#d6a55b] mb-2"></div>
+            <p class="text-xs font-bold text-white">Obsidienne</p>
+            <p class="text-[10px] text-[#8f95a3]">Thème Atelier</p>
+          </button>
+          <button onclick="setTheme('midnight')" class="theme-choice-btn p-3 rounded-2xl border text-center transition-all bg-[#1b1e24] border-[#272b35] hover:border-cyan-400" data-choice="midnight">
+            <div class="w-6 h-6 mx-auto rounded-full bg-[#060709] border border-cyan-400 mb-2"></div>
+            <p class="text-xs font-bold text-white">Minuit OLED</p>
+            <p class="text-[10px] text-[#8f95a3]">Repos Visuel</p>
+          </button>
+          <button onclick="setTheme('parchment')" class="theme-choice-btn p-3 rounded-2xl border text-center transition-all bg-[#1b1e24] border-[#272b35] hover:border-amber-600" data-choice="parchment">
+            <div class="w-6 h-6 mx-auto rounded-full bg-[#f6f4ee] border border-amber-600 mb-2"></div>
+            <p class="text-xs font-bold text-white">Parchemin</p>
+            <p class="text-[10px] text-[#8f95a3]">Clair Papier</p>
+          </button>
+        </div>
+      </div>
+
+      <!-- Options Audio & Ateliers -->
+      <div class="space-y-3 border-t border-[#272b35] pt-4">
+        <label class="text-xs font-bold uppercase tracking-wider text-[#d6a55b]">Confort des Sessions</label>
+        <div class="flex items-center justify-between p-3 rounded-2xl bg-[#1b1e24] border border-[#272b35]">
+          <div>
+            <p class="text-xs font-bold text-white">Signal sonore à l'expiration</p>
+            <p class="text-[10px] text-[#8f95a3]">Carillon Web Audio à la fin du compte à rebours</p>
+          </div>
+          <input type="checkbox" id="sound-toggle" checked class="w-5 h-5 accent-amber-500 rounded cursor-pointer" />
+        </div>
+      </div>
+
+      <!-- Signature et Règle d'Or -->
+      <div class="p-4 rounded-2xl bg-[#131417] border border-[#272b35] text-center space-y-1">
+        <p class="text-xs font-serif font-bold text-[#d6a55b]">LA CROISÉE DES ARTS</p>
+        <p class="text-[10px] text-[#8f95a3]">ÉCOLE DE DESSIN TRADITIONNEL & DIGITAL PAINTING</p>
+        <p class="text-[9px] text-slate-500">Règle fondamentale : Poser la bonne valeur à la bonne place, avec le bon bord.</p>
+      </div>
+
+      <div class="flex justify-end pt-2">
+        <button onclick="closeSettingsModal()" class="px-6 py-2.5 rounded-xl gold-pill-active text-xs font-bold transition-all">
+          Enregistrer & Fermer
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="courses.js"></script>
+  <script src="studio.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
