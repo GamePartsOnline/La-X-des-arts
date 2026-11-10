@@ -61,6 +61,18 @@ function showTab(tabId) {
     renderCourses();
   }
 
+  if (tabId === 'techniques' && typeof renderTechniquesView === 'function') {
+    renderTechniquesView();
+  }
+
+  if (tabId === 'admin' && typeof renderAdminDashboard === 'function') {
+    renderAdminDashboard();
+  }
+
+  if (tabId === 'stagiaire' && typeof renderStagiaireDashboard === 'function') {
+    renderStagiaireDashboard();
+  }
+
   if (tabId === 'graphisme' && typeof updateGraphismeTabLockUI === 'function') {
     updateGraphismeTabLockUI();
   }
@@ -82,12 +94,14 @@ function setTheme(theme) {
   const themeIndicator = document.getElementById('theme-indicator-dot');
   const themeLabel = document.getElementById('theme-btn-label');
   if (themeLabel) {
+    if (theme === 'schdesign') themeLabel.textContent = 'schdesign.hu (Coral)';
     if (theme === 'black-dashboard') themeLabel.textContent = 'Black Dashboard';
     if (theme === 'obsidian') themeLabel.textContent = 'Obsidienne';
     if (theme === 'midnight') themeLabel.textContent = 'Minuit OLED';
     if (theme === 'parchment') themeLabel.textContent = 'Parchemin';
   }
   if (themeIndicator) {
+    if (theme === 'schdesign') themeIndicator.className = 'w-3 h-3 rounded-full bg-[#f8485e] shadow-sm shadow-[#f8485e]/50';
     if (theme === 'black-dashboard') themeIndicator.className = 'w-3 h-3 rounded-full bg-pink-500 shadow-sm shadow-pink-500/50';
     if (theme === 'obsidian') themeIndicator.className = 'w-3 h-3 rounded-full bg-amber-500 shadow-sm shadow-amber-500/50';
     if (theme === 'midnight') themeIndicator.className = 'w-3 h-3 rounded-full bg-cyan-400 shadow-sm shadow-cyan-400/50';
@@ -96,7 +110,7 @@ function setTheme(theme) {
 }
 
 function initTheme() {
-  const saved = localStorage.getItem('croisee_theme') || 'black-dashboard';
+  const saved = localStorage.getItem('croisee_theme') || 'schdesign';
   setTheme(saved);
 }
 

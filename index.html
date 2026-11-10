@@ -7,27 +7,35 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Cinzel:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Roboto+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Cinzel:wght@500;600;700;800;900&display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
       darkMode: 'class',
       theme: {
         extend: {
           fontFamily: {
-            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            sans: ['Montserrat', '"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"Roboto Mono"', 'ui-monospace', 'monospace'],
             serif: ['Cinzel', 'serif']
           },
           colors: {
+            primary: '#f8485e',
+            schdesign: {
+              coral: '#f8485e',
+              dark: '#111216',
+              surface: '#181a20',
+              border: '#272b35'
+            },
             brand: {
-              dark: '#131417',
-              sidebar: '#181a1f',
+              dark: '#111216',
+              sidebar: '#181a20',
               card: '#1b1e24',
               cardHover: '#232730',
               border: '#272b35',
               gold: '#d6a55b',
               goldLight: '#e6bf65',
               goldDark: '#cf9c36',
-              cyan: '#00e1d9',
+              cyan: '#00f2c3',
               muted: '#8f95a3'
             }
           }
@@ -37,10 +45,27 @@
   </script>
   <style>
     body {
-      background-color: #1e1e2f;
+      background-color: #111216;
       color: #ffffff;
-      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-family: 'Montserrat', 'Plus Jakarta Sans', sans-serif;
       transition: background-color 0.25s ease, color 0.25s ease;
+    }
+    .schdesign-pill-active {
+      background-color: #f8485e !important;
+      color: #ffffff !important;
+      box-shadow: 0 4px 18px 0px rgba(248, 72, 94, 0.45) !important;
+    }
+    .btn-schdesign {
+      background-color: #f8485e;
+      color: #ffffff;
+      font-weight: 700;
+      box-shadow: 0 4px 18px 0px rgba(248, 72, 94, 0.35);
+      transition: all 0.2s ease;
+    }
+    .btn-schdesign:hover {
+      background-color: #e0374c;
+      box-shadow: 0 6px 22px 0px rgba(248, 72, 94, 0.55);
+      transform: translateY(-1px);
     }
     .gold-gradient-text {
       background: linear-gradient(135deg, #fceda8 0%, #d6a55b 50%, #99732b 100%);
@@ -283,6 +308,11 @@
         <button onclick="showTab('cours')" id="sidebar-btn-cours" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-[#20242c] transition-all">
           <svg class="w-4 h-4 text-[#e14eca]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
           <span>Programme des Leçons</span>
+        </button>
+
+        <button onclick="showTab('techniques')" id="sidebar-btn-techniques" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-semibold text-[#f8485e] hover:text-white hover:bg-[#20242c] transition-all">
+          <svg class="w-4 h-4 text-[#f8485e]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>
+          <span>Techniques du Dessin</span>
         </button>
 
         <button onclick="showTab('graphisme')" id="sidebar-btn-graphisme" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-[#20242c] transition-all">
@@ -555,6 +585,10 @@
         <button id="btn-cours" onclick="showTab('cours')" class="nav-btn px-4 py-2 rounded-full text-xs font-bold text-[#8f95a3] hover:text-white transition-all">
           Programme des Leçons
         </button>
+        <button id="btn-techniques" onclick="showTab('techniques')" class="nav-btn px-4 py-2 rounded-full text-xs font-bold text-slate-300 hover:text-white transition-all flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 rounded-full bg-[#f8485e]"></span>
+          <span>Techniques & Médiums</span>
+        </button>
         <button id="btn-graphisme" onclick="showTab('graphisme')" class="nav-btn px-4 py-2 rounded-full text-xs font-bold text-[#8f95a3] hover:text-white transition-all flex items-center gap-1.5">
           <span class="w-1.5 h-1.5 rounded-full bg-[#00f2c3]"></span>
           <span>Design Graphique (S2)</span>
@@ -595,6 +629,17 @@
             <div class="px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-slate-400 border-b border-[#2b3553] mb-1">
               Ambiance d'affichage
             </div>
+
+            <button onclick="setTheme('schdesign')" id="theme-opt-schdesign" class="w-full flex items-center justify-between p-2.5 rounded-xl text-left text-xs font-semibold hover:bg-[#20242c] transition-all group">
+              <div class="flex items-center gap-2.5">
+                <span class="w-4 h-4 rounded-full bg-[#f8485e] border border-[#f8485e] flex items-center justify-center text-[10px]"></span>
+                <div>
+                  <p class="text-white group-hover:text-[#f8485e] transition-colors font-bold">schdesign.hu (Coral Studio)</p>
+                  <p class="text-[10px] text-slate-400">Design minimaliste BME & accent corail</p>
+                </div>
+              </div>
+              <span class="theme-check text-[#f8485e] font-bold">✓</span>
+            </button>
 
             <button onclick="setTheme('black-dashboard')" id="theme-opt-black-dashboard" class="w-full flex items-center justify-between p-2.5 rounded-xl text-left text-xs font-semibold hover:bg-[#27293d] transition-all group">
               <div class="flex items-center gap-2.5">
@@ -664,6 +709,11 @@
       <!-- TAB STAGIAIRE : ESPACE DE STAGE SARAH MARTIN -->
       <div id="content-stagiaire" class="tab-content space-y-6">
         <div id="stagiaire-dashboard-container"></div>
+      </div>
+
+      <!-- TAB TECHNIQUES : TECHNIQUES DU DESSIN & MÉDIUMS TRADITIONNELS (CHARTE SCHDESIGN.HU) -->
+      <div id="content-techniques" class="tab-content hidden space-y-6">
+        <div id="techniques-workspace-container"></div>
       </div>
 
       <!-- TAB 1 : DASHBOARD GÉNÉRAL & STATISTIQUES -->
@@ -2111,6 +2161,8 @@
   <script src="js/stage-lessons-data.js"></script>
   <script src="js/app-admin-dashboard.js"></script>
   <script src="js/app-stagiaire-dashboard.js"></script>
+  <script src="js/techniques-data.js"></script>
+  <script src="js/app-techniques-view.js"></script>
   <script src="js/app-roles-stage.js"></script>
   <script src="js/app-courses.js"></script>
   <script src="js/app-easter-egg.js"></script>
