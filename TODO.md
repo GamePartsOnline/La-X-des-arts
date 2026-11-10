@@ -14,7 +14,12 @@ L'école réunit deux filières indépendantes et complémentaires formées aux 
 ## 2. Programme Académique Détaillé
 
 ### Pôle A : Dessin d'Art Classique (10 Cours)
-- **D-01 : Tenue de l'Outil, Mémoire Musculaire & Visée Sight-Size** (Méthode Bargue, geste de l'épaule, visée comparative 1:1).
+- **D-01 : Contrôle du Geste, Lignes, Ellipses & Construction par Formes Simples** (Cahier 07 GPO Ex. 1 à 3 : départ de l'épaule, tracé fantôme, droites/points reliés 20 min, cercles/ellipses/5 cylindres 20 min, 10 objets en formes géométriques simples 25 min, auto-évaluation facile/difficile).
+  - *Notions à déplacer ultérieurement (répartition sans surcharge) :*
+    - Contour continu sans lever le crayon & Visée des proportions d'un objet réel (10 min sans gommer) -> à intégrer dans **D-02 (Cahier 07 Ex. 4 & 5)**.
+    - Ombres propres/portées & Boîte en perspective transformée en borne d'arcade -> à intégrer dans **D-03 (Cahier 07 Ex. 6 & 7)**.
+    - Croquis rapides d'attitudes sur le vif (lapin, chouette, 10 croquis d'1 min & 5 croquis de 3 min) -> à intégrer dans le module **Croquis Minute (Cahier 07 Ex. 11)**.
+    - Proportions académiques de la tête et du visage (nez, menton, repères crâniens) -> à conserver uniquement dans **D-05 (Anatomie & Portrait Loomis)**.
 - **D-02 : Volumes Primaires & Perspective Linéaire Spatiale** (Perspective 1, 2 et 3 points de fuite, boîtes englobantes, ellipses).
 - **D-03 : Notan Binaire & Décomposition des 5 Valeurs** (Méthode Sargent, séparation stricte ombre/lumière, terminateur).
 - **D-04 : Contrôle des 4 Bords de Transition** (Tranchant, Ferme, Doux, Perdu, guidage du point focal).

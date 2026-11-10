@@ -1,6 +1,17 @@
 let pendingCourseUploads = {};
 function cancelCoursePendingUpload(id) { delete pendingCourseUploads[id]; renderCourses(); }
 
+function syncCourseSelfEval(courseId) {
+  const easy = document.getElementById(`course-self-easy-${courseId}`)?.value?.trim() || '';
+  const hard = document.getElementById(`course-self-hard-${courseId}`)?.value?.trim() || '';
+  const target = document.getElementById(`course-student-notes-${courseId}`);
+  if (!target) return;
+  const parts = [];
+  if (easy) parts.push(`Ce qui a été facile : ${easy}`);
+  if (hard) parts.push(`Ce qui a été difficile : ${hard}`);
+  target.value = parts.join(' | ');
+}
+
 function renderCourseExerciseBlock(course) {
   const submission = getCourseSubmission(course.id);
   const pending = pendingCourseUploads[course.id];
@@ -8,53 +19,52 @@ function renderCourseExerciseBlock(course) {
   if (submission) {
     return `
       <!-- Statut de Travail Soumis et Évalué -->
-      <div class="p-6 rounded-2xl bg-gradient-to-br from-emerald-950/40 via-[#131417] to-[#1b1e24] border border-emerald-500/40 space-y-4">
-        <div class="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-emerald-500/20">
+      <div class="p-6 rounded-xl bg-[#181b21] border border-emerald-500/40 space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-[#262b35]">
           <div class="flex items-center gap-2.5">
-            <span class="w-3 h-3 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span class="w-3 h-3 rounded-full bg-emerald-400"></span>
             <div>
-              <span class="text-[10px] font-bold uppercase tracking-wider text-emerald-400">TRAVAIL TRANSMIS AU TUTEUR</span>
+              <span class="text-xs font-bold uppercase tracking-wider text-emerald-400">Travail transmis au maître de stage</span>
               <h4 class="text-sm font-bold text-white mt-0.5">${course.exercise.title}</h4>
             </div>
           </div>
-          <span class="text-xs font-bold px-3 py-1.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+          <span class="text-xs font-bold px-3 py-1.5 rounded-lg bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">
             Évaluation : ${submission.grade || 'En attente (Acquis / Non acquis)'}
           </span>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
           ${submission.dataUrl ? `
-            <div class="md:col-span-3 rounded-xl overflow-hidden border border-[#272b35] bg-black cursor-pointer group" onclick="openImageModal('${submission.dataUrl}')">
+            <div class="md:col-span-3 rounded-xl overflow-hidden border border-[#262b35] bg-[#0d0f13] cursor-pointer group" onclick="openImageModal('${submission.dataUrl}')">
               <img src="${submission.dataUrl}" alt="Aperçu du travail élève" class="w-full h-28 object-cover group-hover:scale-105 transition-transform" />
             </div>
           ` : `
-            <div class="md:col-span-3 p-4 rounded-xl bg-[#1b1e24] border border-[#272b35] flex flex-col items-center justify-center text-center">
-              <svg class="w-8 h-8 text-[#d6a55b] mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-              <span class="text-[10px] text-slate-300 font-mono truncate max-w-full">${submission.fileName}</span>
-              <span class="text-[9px] text-slate-500">${submission.fileSize}</span>
+            <div class="md:col-span-3 p-4 rounded-xl bg-[#111317] border border-[#262b35] flex flex-col items-center justify-center text-center">
+              <span class="text-xs text-slate-300 font-mono truncate max-w-full">${submission.fileName}</span>
+              <span class="text-[11px] text-slate-400 mt-1">${submission.fileSize || ''}</span>
             </div>
           `}
           
           <div class="md:col-span-9 space-y-2">
             <div class="flex flex-wrap items-center gap-3 text-xs text-slate-300">
               <span class="font-semibold text-white">Fichier déposé :</span>
-              <span class="font-mono text-emerald-400 bg-emerald-950/40 px-2 py-0.5 rounded border border-emerald-500/30">${submission.fileName}</span>
+              <span class="font-mono text-emerald-400 bg-[#111317] px-2.5 py-1 rounded border border-[#262b35]">${submission.fileName}</span>
               <span class="text-slate-500">|</span>
               <span class="text-slate-400">Transmis le ${submission.submittedAt}</span>
             </div>
 
             ${submission.studentNotes ? `
-              <p class="text-xs text-slate-300 italic bg-[#131417] p-2.5 rounded-lg border border-[#272b35]">
-                <strong class="not-italic text-slate-400">Note de l'élève :</strong> "${submission.studentNotes}"
+              <p class="text-xs text-slate-200 bg-[#111317] p-3 rounded-lg border border-[#262b35]">
+                <strong class="text-sky-400">Auto-évaluation de la stagiaire :</strong> ${submission.studentNotes}
               </p>
             ` : ''}
 
-            <p class="text-xs text-emerald-300/90 leading-relaxed">
-              ${submission.feedback || (submission.status === 'en_attente' ? 'Votre travail attend la correction du tuteur.' : 'Correction enregistrée par le tuteur.')}
+            <p class="text-xs text-emerald-300 leading-relaxed">
+              <strong class="text-white">Observation du tuteur :</strong> ${submission.feedback || (submission.status === 'en_attente' ? 'En attente du retour du maître de stage.' : 'Correction enregistrée par le maître de stage.')}
             </p>
 
             <div class="pt-1 flex items-center gap-3">
-              <button onclick="resetCourseFileUpload('${course.id}')" class="px-3 py-1.5 rounded-lg bg-[#272b35] hover:bg-slate-700 text-slate-300 text-xs font-semibold transition-all">
+              <button onclick="resetCourseFileUpload('${course.id}')" class="px-3.5 py-2 rounded-lg bg-[#111317] hover:bg-[#252a36] border border-[#262b35] text-slate-200 text-xs font-semibold transition-all">
                 Remplacer ce fichier / Déposer une nouvelle version
               </button>
             </div>
@@ -67,40 +77,47 @@ function renderCourseExerciseBlock(course) {
   if (pending) {
     return `
       <!-- Fichier sélectionné en attente de validation -->
-      <div class="p-6 rounded-2xl bg-[#1b1e24] border border-[#d6a55b]/40 space-y-4">
-        <div class="flex items-center justify-between pb-3 border-b border-[#272b35]">
+      <div class="p-6 rounded-xl bg-[#181b21] border border-[#f8485e]/50 space-y-4">
+        <div class="flex items-center justify-between pb-3 border-b border-[#262b35]">
           <div>
-            <span class="text-[10px] font-bold uppercase tracking-wider text-[#d6a55b]">FICHIER PRÊT À TRANSMETTRE</span>
+            <span class="text-xs font-bold uppercase tracking-wider text-[#f8485e]">Fichier prêt à transmettre au maître de stage</span>
             <h4 class="text-sm font-bold text-white mt-0.5">${course.exercise.title}</h4>
           </div>
-          <span class="text-xs text-slate-400">${pending.size}</span>
+          <span class="text-xs font-mono text-slate-400">${pending.size}</span>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-start">
           ${pending.dataUrl ? `
-            <div class="md:col-span-3 rounded-xl overflow-hidden border border-[#272b35] bg-black">
-              <img src="${pending.dataUrl}" alt="Aperçu sélectionné" class="w-full h-28 object-cover" />
+            <div class="md:col-span-3 rounded-xl overflow-hidden border border-[#262b35] bg-[#0d0f13]">
+              <img src="${pending.dataUrl}" alt="Aperçu sélectionné" class="w-full h-32 object-cover" />
             </div>
           ` : `
-            <div class="md:col-span-3 p-4 rounded-xl bg-[#131417] border border-[#272b35] text-center">
-              <svg class="w-8 h-8 text-[#d6a55b] mx-auto mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
-              <span class="text-[10px] text-slate-300 font-mono block truncate">${pending.name}</span>
+            <div class="md:col-span-3 p-4 rounded-xl bg-[#111317] border border-[#262b35] text-center">
+              <span class="text-xs text-slate-200 font-mono block truncate">${pending.name}</span>
             </div>
           `}
 
           <div class="md:col-span-9 space-y-3">
-            <div>
-              <label class="text-[11px] font-semibold text-slate-300 block mb-1">
-                Remarques ou questions pour le tuteur / maître de stage (facultatif) :
-              </label>
-              <textarea id="course-student-notes-${course.id}" rows="2" placeholder="Ex: J'ai particulièrement soigné la ligne de terminateur et le raccord des tangentes..." class="w-full px-3 py-2 rounded-xl bg-[#131417] border border-[#272b35] text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-[#d6a55b]"></textarea>
+            <div class="p-3.5 rounded-lg bg-[#111317] border border-[#262b35] space-y-3">
+              <span class="text-xs font-bold text-sky-400 block">Votre bilan personnel sur cet exercice :</span>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div>
+                  <label class="text-xs font-semibold text-emerald-400 block mb-1">Ce qui a été facile pour moi :</label>
+                  <input type="text" id="course-self-easy-${course.id}" oninput="syncCourseSelfEval('${course.id}')" placeholder="Ex : Relier deux points en ligne droite, construire la tasse..." class="w-full px-3 py-2 rounded-lg bg-[#181b21] border border-[#262b35] text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500" />
+                </div>
+                <div>
+                  <label class="text-xs font-semibold text-amber-400 block mb-1">Ce qui m'a semblé le plus difficile :</label>
+                  <input type="text" id="course-self-hard-${course.id}" oninput="syncCourseSelfEval('${course.id}')" placeholder="Ex : Garder les ellipses symétriques sans tourner le poignet..." class="w-full px-3 py-2 rounded-lg bg-[#181b21] border border-[#262b35] text-xs text-white placeholder-slate-500 focus:outline-none focus:border-amber-500" />
+                </div>
+              </div>
+              <textarea id="course-student-notes-${course.id}" rows="2" placeholder="Remarque ou question complémentaire..." class="w-full px-3 py-2 rounded-lg bg-[#181b21] border border-[#262b35] text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-sky-500"></textarea>
             </div>
 
             <div class="flex flex-wrap items-center gap-3">
-              <button onclick="submitCourseFile('${course.id}')" class="px-5 py-2.5 rounded-xl gold-pill-active text-xs font-bold transition-all shadow-lg shadow-amber-500/20">
-                Transmettre mon Travail pour Correction Pédagogique
+              <button onclick="submitCourseFile('${course.id}')" class="px-5 py-2.5 rounded-lg bg-[#f8485e] hover:bg-[#e0374c] text-white text-xs font-bold transition-all">
+                Transmettre mon exercice pour correction
               </button>
-              <button onclick="cancelCoursePendingUpload('${course.id}')" class="px-4 py-2 rounded-xl bg-[#272b35] hover:bg-slate-700 text-slate-300 text-xs font-semibold transition-all">
+              <button onclick="cancelCoursePendingUpload('${course.id}')" class="px-4 py-2.5 rounded-lg bg-[#111317] hover:bg-[#252a36] border border-[#262b35] text-slate-200 text-xs font-semibold transition-all">
                 Changer de fichier
               </button>
             </div>
@@ -110,42 +127,46 @@ function renderCourseExerciseBlock(course) {
     `;
   }
 
-  // État initial : Présentation de l'exercice et dropzone de fichier
+  // État initial : Présentation de l'exercice et dropzone
   return `
-    <div class="p-6 rounded-2xl bg-[#27293d] border border-[#2b3553]/60 space-y-5 shadow-lg shadow-black/20">
-      <div>
-        <div class="flex items-center justify-between">
-          <span class="text-[10px] font-bold text-[#f8485e] uppercase tracking-wider">
-            EXERCICE D'APPLICATION PRATIQUE (${course.duration || '20 min'})
+    <div class="p-6 rounded-xl bg-[#181b21] border border-[#262b35] space-y-5">
+      <div class="space-y-2">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <span class="text-xs font-bold text-[#f8485e] uppercase tracking-wider">
+            Exercice d'application (${course.duration || '25 min'})
           </span>
-          <span class="text-[10px] font-semibold text-slate-400">Modalité : Travail sur feuille ou vectoriel</span>
+          <span class="text-xs font-mono text-slate-400">Sur feuille A4 (photo ou scan)</span>
         </div>
-        <h4 class="text-base font-bold text-white mt-1">${course.exercise.title}</h4>
-        <p class="text-xs text-slate-300 leading-relaxed mt-1.5">${course.exercise.instructions}</p>
+        <h4 class="text-base font-bold text-white">${course.exercise.title}</h4>
+        <p class="text-sm text-slate-200 leading-relaxed">${course.exercise.instructions}</p>
+      </div>
+
+      <div class="p-3.5 rounded-lg bg-[#111317] border border-[#262b35] flex flex-wrap items-center justify-between gap-2 text-xs text-slate-300">
+        <span><strong class="text-sky-400">Auto-évaluation :</strong> Lors de l'envoi, vous pourrez noter en une phrase <em>ce qui a été facile</em> et <em>ce qui vous a semblé difficile</em>.</span>
+        <span class="font-mono text-emerald-400">Conserver les traits de construction</span>
       </div>
 
       <!-- Consigne d'atelier et dépôt de fichier -->
-      <div class="p-5 rounded-xl bg-[#1f2233] border border-dashed border-[#2b3553] hover:border-[#f8485e]/60 transition-all text-center space-y-3 cursor-pointer group" onclick="document.getElementById('course-file-input-${course.id}').click()">
+      <div class="p-6 rounded-xl bg-[#111317] border border-dashed border-[#262b35] hover:border-[#f8485e] transition-all text-center space-y-3 cursor-pointer group" onclick="document.getElementById('course-file-input-${course.id}').click()">
         <input type="file" id="course-file-input-${course.id}" class="hidden" accept=".jpg,.jpeg,.png,.pdf,.svg,.ai,.psd,.webp" onchange="handleCourseFileUpload(event, '${course.id}')" />
         
-        <div class="w-12 h-12 mx-auto rounded-full bg-[#27293d] border border-[#2b3553] group-hover:border-[#f8485e] flex items-center justify-center text-slate-400 group-hover:text-[#f8485e] transition-all">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
-        </div>
-
         <div>
-          <p class="text-xs font-bold text-white group-hover:text-[#f8485e] transition-colors">
-            Déposez votre fichier pour correction pédagogique
+          <p class="text-sm font-bold text-white group-hover:text-[#f8485e] transition-colors">
+            Déposer la photo de vos feuilles d'exercices pour validation par le tuteur
           </p>
-          <p class="text-[11px] text-slate-400 mt-0.5">
-            Photo de votre feuille de dessin, carnet de croquis, ou maquette vectorielle (JPG, PNG, PDF, SVG, AI, PSD)
+          <p class="text-xs text-slate-400 mt-1">
+            Formats acceptés : Photo de feuille A4 ou carnet (JPG, PNG, WEBP, PDF)
           </p>
         </div>
 
-        <button type="button" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#27293d] group-hover:bg-[#f8485e] group-hover:text-white text-xs font-bold text-[#f8485e] transition-all">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
-          Sélectionner un fichier depuis mon ordinateur
+        <button type="button" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#181b21] border border-[#262b35] group-hover:bg-[#f8485e] group-hover:border-[#f8485e] group-hover:text-white text-xs font-bold text-[#f8485e] transition-all">
+          Sélectionner ma photo / mon fichier sur l'ordinateur
         </button>
       </div>
     </div>
   `;
+}
+
+if (typeof window !== 'undefined') {
+  Object.assign(window, { syncCourseSelfEval });
 }

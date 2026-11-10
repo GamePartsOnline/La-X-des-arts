@@ -84,17 +84,21 @@ function renderCourses() {
       <!-- En-tête lisible du Cours -->
       <div class="p-6 rounded-xl bg-[#181b21] border border-[#262b35] space-y-3">
         <div class="flex flex-wrap items-center justify-between gap-2 text-xs text-slate-400">
-          <span class="font-semibold text-sky-400">${currentTheme.code} · ${currentTheme.titre}</span>
-          <span>Durée conseillée : ${currentCourse.duration || '25 min'}</span>
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="font-semibold text-sky-400">${currentTheme.code} · ${currentTheme.titre}</span>
+            ${currentCourse.level ? `<span class="px-2 py-0.5 rounded bg-[#111317] border border-[#262b35] text-slate-300 font-mono">${currentCourse.level}</span>` : ''}
+          </div>
+          <span>Durée conseillée : <strong class="text-slate-200">${currentCourse.duration || '25 min'}</strong></span>
         </div>
         <h1 class="text-2xl lg:text-3xl font-bold text-white leading-snug">${currentCourse.num} : ${currentCourse.title}</h1>
         <p class="text-base text-slate-200 leading-relaxed">${currentCourse.summary}</p>
-        <p class="text-xs text-slate-400 pt-1 border-t border-[#262b35]">Repère technique : <strong class="text-slate-200">${currentTheme.norme}</strong></p>
+        <p class="text-xs text-slate-400 pt-1 border-t border-[#262b35]">Repère méthodologique : <strong class="text-slate-200">${currentTheme.norme}</strong></p>
       </div>
 
       <!-- Planche Visuelle HD -->
       <div class="rounded-xl overflow-hidden border border-[#262b35] bg-[#0d0f13]">
         <img src="${currentCourse.image}" alt="${currentCourse.title}" onclick="if(typeof openImageModal==='function')openImageModal('${currentCourse.image}')" class="w-full max-h-[460px] object-contain mx-auto cursor-pointer" />
+        ${currentCourse.imageCaption ? `<div class="px-4 py-2.5 bg-[#111317] border-t border-[#262b35] text-xs text-slate-300 text-center">${currentCourse.imageCaption}</div>` : ''}
       </div>
 
       <!-- Points clés de la leçon -->

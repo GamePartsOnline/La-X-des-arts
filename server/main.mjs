@@ -3,7 +3,9 @@ import {readFile,stat} from 'node:fs/promises';
 import {resolve,extname,sep} from 'node:path';
 import {randomBytes,createHash} from 'node:crypto';
 import {db,root,hash,verify,publicUser,isLockedAdmin,lessons,courses,ROLES,STAFF_ROLES,COURSE_ACCESS_MODES,ROLE_META,DEMO_PROFILES} from './store.mjs';
+import {startDailyNewsBotScheduler,handleExtendedApiRoutes} from './news-bot.mjs';
 const PORT=Number(process.env.PORT || 5173);
+startDailyNewsBotScheduler();
 const fail=(status,message)=>{throw Object.assign(new Error(message),{status});};
 const json=(res,status,value)=>{res.writeHead(status,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'});res.end(JSON.stringify(value));};
 const digest=s=>createHash('sha256').update(s).digest('hex');
@@ -36,6 +38,10 @@ export const server=createServer(async(req,res)=>{
  }
  if(path==='/api/custom-courses'&&req.method==='GET'){
   return json(res,200,db.prepare('SELECT * FROM custom_courses ORDER BY created DESC').all());
+ }
+ if(path==='/api/course-overrides'&&req.method==='GET'){
+  const rows=db.prepare('SELECT course_id,payload,updated_by,updated_at FROM course_overrides').all();
+  return json(res,200,rows.map(r=>({courseId:r.course_id,...JSON.parse(r.payload),updatedBy:r.updated_by,updatedAt:r.updated_at})));
  }
  if(path.startsWith('/api/')){
  if(!['GET','HEAD'].includes(req.method)){
@@ -72,6 +78,7 @@ export const server=createServer(async(req,res)=>{
  const u=user(req);if(!u)fail(401,'Connexion requise');
  if(path==='/api/me'&&req.method==='GET')return json(res,200,publicUser(u));
  if(path==='/api/logout'&&req.method==='POST'){db.prepare('DELETE FROM sessions WHERE token=?').run(digest(/session=([^;]+)/.exec(req.headers.cookie)?.[1]||''));res.setHeader('Set-Cookie','session=; HttpOnly; SameSite=Strict; Path=/; Max-Age=0');return json(res,200,{ok:true});}
+ if(await handleExtendedApiRoutes(req,res,url,path,u,isStaff,body,json,fail)!==false)return;
  if(path==='/api/jobs'&&req.method==='GET'){
   return json(res,200,db.prepare('SELECT * FROM jobs ORDER BY id DESC').all());
  }

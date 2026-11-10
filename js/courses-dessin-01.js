@@ -7,38 +7,87 @@ const COURSES_DESSIN_P1 = [
     id: "cours-d01-visuelle-trait",
     num: "D-01",
     discipline: "dessin",
-    shortTitle: "Croquis Animaux",
-    title: "Croquis d'Animaux & Observation sur Papier",
-    domain: "Observation & Dessin sur Papier Réel",
-    level: "Initiation Atelier",
-    duration: "25 min",
+    shortTitle: "Trait, Ellipses & Formes Simples",
+    title: "Contrôle du Geste, Lignes, Ellipses & Construction par Formes Simples",
+    domain: "Fondamentaux du Trait & Construction Géométrique",
+    level: "Initiation · Fondamentaux",
+    duration: "3 × 20 min",
+    materiel: "Crayon HB (construction légère), crayon 2B ou feutre fin (trait final), feuilles A4 (sans règle).",
+    methode: "Dater sa feuille et conserver tous les traits de construction sans gommer afin de mesurer sa progression.",
     image: "assets/session_sargent_croquis.jpg",
-    summary: "Planche d'observation réalisée à l'atelier : croquis direct au crayon graphite sur papier réel d'attitudes et d'expressions animales (lapin, chouette, oiseau, raton-laveur).",
+    imageCaption: "Du tracé de construction géométrique (cercles, axes et ellipses au crayon léger) au trait franc.",
+    summary: "Apprendre à libérer le geste depuis l'épaule, tracer des lignes droites et des ellipses régulières à main levée, bâtir des cylindres et décomposer tout objet réel en formes géométriques simples.",
     artist: {
       name: "Atelier La Croisée des Arts",
-      quote: "Poser le geste franc et observer la silhouette vivante sans hésitation.",
-      bio: "Planche originale d'étude réalisée à l'atelier."
+      quote: "L'objectif de ce premier cours n'est pas de faire un beau dessin à tout prix, mais d'éduquer la main et l'œil : un trait franc et une construction simple passent toujours avant les détails.",
+      bio: "Fondamentaux du dessin d'observation."
     },
     theory: [
-      { title: "1. Tenue de l'Outil & Articulation Motrice", desc: "Ne jamais tenir le crayon comme un stylo d'écriture coincé entre les doigts. Tenir le manche à mi-longueur, paume ouverte, pour faire partir le geste de l'épaule et du coude." },
-      { title: "2. La Méthode de Visée Comparative (Sight-Size)", desc: "Tendre le bras verrouillé au coude, fermer un œil et utiliser le crayon ou une aiguille à tricoter pour mesurer les ratios de hauteur et largeur du modèle." },
-      { title: "3. La Ligne d'Aplomb et les Horizontales", desc: "Projeter mentalement une verticale absolue depuis le point culminant pour vérifier où tombent le nez, le menton ou le talon. Tracer des lignes de niveau pour caler les symétries." },
-      { title: "4. L'Échauffement Musculaire Quotidien", desc: "Remplir une feuille A4 de lignes droites parallèles sans règle, d'ellipses régulières et de cercles parfaits d'un seul jet fluide." }
+      {
+        title: "Tenue du crayon, départ de l'épaule et tracé fantôme",
+        desc: "Ne tenez pas le crayon au ras de la mine comme pour écrire (ce qui bloque le poignet et produit de petits traits hachés). Tenez votre crayon à mi-longueur, verrouillez légèrement le poignet et faites partir le mouvement du coude et de l'épaule. Avant de toucher le papier, survolez deux fois la trajectoire dans le vide entre vos deux repères (tracé fantôme) puis tracez d'un seul jet."
+      },
+      {
+        title: "Contrôle de la ligne droite à main levée",
+        desc: "Une ligne franche et continue, même légèrement décalée d'un millimètre, vaut toujours mieux qu'une ligne tremblante ou repassée dix fois. Entraînez votre bras sur des séries d'horizontales, de verticales et de diagonales parallèles, puis placez deux points sur la feuille et reliez-les sans règle sur des distances courtes puis longues. Tournez votre feuille si nécessaire pour garder l'angle de bras le plus confortable."
+      },
+      {
+        title: "Cercles, ellipses sur axe et cylindres",
+        desc: "Un cercle vu en biais dans l'espace devient une ellipse. Laissez tourner le bras sur 2 passages souples sans freiner : l'ellipse doit rester symétrique autour de son axe central et ses deux extrémités doivent être bien arrondies (jamais pointues en amande). En reliant deux ellipses parallèles par deux droites, vous obtenez le cylindre, volume de base d'une bouteille, d'une tasse ou d'un bras."
+      },
+      {
+        title: "Décomposition d'objets en 5 formes géométriques simples",
+        desc: "Tout objet complexe se construit d'abord avec 5 formes primaires : carré, rectangle, cercle, triangle et cylindre. Tracez toujours cet échafaudage au crayon léger (en laissant visibles les traits de construction et l'axe de symétrie central sans gommer) avant d'affirmer le contour définitif : tasse, lampe, joystick, haut-parleur, boîte ou bouteille."
+      }
+    ],
+    subExercises: [
+      {
+        code: "EXERCICE 1",
+        title: "Lignes et contrôle du geste",
+        duration: "20 min",
+        skill: "Régularité, précision, geste continu",
+        task: "Tracer à main levée des séries de lignes horizontales, verticales et diagonales, puis relier deux points sans règle. Refaire avec des lignes longues puis courtes.",
+        svgType: "lignes"
+      },
+      {
+        code: "EXERCICE 2",
+        title: "Courbes, cercles, ellipses et cylindres",
+        duration: "20 min",
+        skill: "Souplesse du trait, volumes simples",
+        task: "Remplir une page de cercles et d'ellipses de tailles différentes. Dessiner ensuite 5 cylindres simples à partir d'ellipses.",
+        svgType: "ellipses"
+      },
+      {
+        code: "EXERCICE 3",
+        title: "Formes géométriques simples",
+        duration: "25 min",
+        skill: "Simplification, construction",
+        task: "Construire 10 objets uniquement à partir de carrés, rectangles, cercles, triangles et cylindres : tasse, lampe, joystick, haut-parleur, caisse, bouteille, etc.",
+        svgType: "objets"
+      }
+    ],
+    evaluationCriteria: [
+      "Assurance et continuité du trait (absence de petits traits hachés)",
+      "Régularité des droites et souplesse des ellipses (extrémités arrondies)",
+      "Construction par formes simples (carré, rectangle, cercle, triangle, cylindre)",
+      "Observation des proportions et symétrie autour de l'axe central",
+      "Compréhension des premiers volumes (cylindres bien construits)",
+      "Propreté et lisibilité de la planche (traits de construction conservés)"
     ],
     exercise: {
-      title: "Exercice sur Papier : Planche d'Échauffement & Visée",
-      instructions: "Sur une feuille de carnet A4, réalisez au crayon 2B : 10 lignes droites parfaites sans trembler, 8 ellipses inclinées à 45° et le dessin d'une bouteille d'atelier mesurée à la visée sight-size avec sa ligne d'aplomb centrale. Photographiez votre feuille."
+      title: "Mise en pratique : Lignes, Ellipses & 10 Objets en Formes Simples",
+      instructions: "Sur feuille A4 (au crayon HB puis 2B, sans règle) : 1) tracez vos séries de lignes droites et reliez des points à main levée, 2) remplissez une page de cercles, d'ellipses et de 5 cylindres, 3) construisez 10 objets simples à partir de carrés, rectangles, cercles, triangles et cylindres (tasse, lampe, joystick, haut-parleur, bouteille...). Photographiez votre travail pour obtenir un retour."
     },
     correction: {
       student_errors: [
-        { label: "Geste crispé du poignet (traits hachurés)", detail: "Dessiner par petits coups de crayon hésitants comme des poils au lieu d'un trait continu franc." },
-        { label: "Proportions déformées à vue d'œil", detail: "Commencer le dessin sans mesurer le ratio hauteur/largeur avec le crayon tendu." },
-        { label: "Asymétrie gauche/droite", detail: "Dessiner un côté plus large que l'autre sans vérifier les horizontales de repère." }
+        { label: "Trait « poilu » ou haché (poignet crispé)", detail: "Avancer par une multitude de petits coups de crayon hésitants au lieu d'un seul tracé continu venant de l'épaule." },
+        { label: "Ellipses pointues en « amande » ou bosselées", detail: "Freiner aux extrémités de l'ovale en créant deux pointes au lieu d'une courbe régulière symétrique autour de son axe." },
+        { label: "Dessin du contour extérieur sans structure interne", detail: "Tracer directement le bord final du joystick ou de la tasse sans poser d'abord les rectangles, cylindres et axes de symétrie." }
       ],
       remediations: [
-        { label: "Posture debout ou reculée", detail: "Se tenir droit, bras tendu, pour embrasser le modèle et la feuille d'un seul regard." },
-        { label: "Mesure systématique de l'unité étalon", detail: "Prendre la largeur du goulot comme unité et compter combien de fois elle entre dans la hauteur totale." },
-        { label: "Tracé fantôme avant le contact", detail: "Faire le geste dans l'air au-dessus du papier deux ou trois fois avant de poser le trait définitif." }
+        { label: "Tracé fantôme 2 fois dans le vide avant contact", detail: "Repérer le point de départ et le point d'arrivée, simuler le geste au-dessus du papier, puis tracer d'un coup franc." },
+        { label: "Double rotation souple sur chaque ellipse", detail: "Laisser tourner toute l'articulation du coude 2 tours complets sur chaque cercle ou ellipse avant de relever la mine." },
+        { label: "Échafaudage géométrique visible (interdiction de gommer)", detail: "Bâtir chaque objet en transparence (boîtes, cylindres, axe central) au crayon HB léger avant d'appuyer le trait final 2B." }
       ],
       grades: { silhouette: 9, structure: 9.5, valeurs: 8.5, bords: 9, couleur: 8.5 }
     }

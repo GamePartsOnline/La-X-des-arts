@@ -13,7 +13,12 @@ CREATE TABLE IF NOT EXISTS sessions(token TEXT PRIMARY KEY,user_id INTEGER REFER
 CREATE TABLE IF NOT EXISTS lessons(user_id INTEGER REFERENCES users(id),lesson_id TEXT,state TEXT NOT NULL,PRIMARY KEY(user_id,lesson_id));
 CREATE TABLE IF NOT EXISTS submissions(id INTEGER PRIMARY KEY,user_id INTEGER REFERENCES users(id),course_id TEXT,file_name TEXT,content BLOB,notes TEXT,status TEXT DEFAULT 'en_attente',grade REAL,feedback TEXT DEFAULT '',created TEXT DEFAULT CURRENT_TIMESTAMP);
 CREATE TABLE IF NOT EXISTS custom_courses(id TEXT PRIMARY KEY,theme TEXT,pole TEXT,code TEXT,title TEXT,norme TEXT,summary TEXT,author TEXT,created TEXT DEFAULT CURRENT_TIMESTAMP);
+CREATE TABLE IF NOT EXISTS course_overrides(course_id TEXT PRIMARY KEY,payload TEXT NOT NULL,updated_by TEXT DEFAULT 'Admin',updated_at TEXT DEFAULT CURRENT_TIMESTAMP);
 CREATE TABLE IF NOT EXISTS jobs(id INTEGER PRIMARY KEY,type TEXT NOT NULL,title TEXT NOT NULL,company TEXT NOT NULL,location TEXT NOT NULL,region TEXT NOT NULL,remuneration TEXT,norme TEXT,description TEXT NOT NULL,contact_url TEXT NOT NULL,created TEXT DEFAULT CURRENT_TIMESTAMP);
+CREATE TABLE IF NOT EXISTS news_articles(id TEXT PRIMARY KEY,cat TEXT NOT NULL,badge TEXT NOT NULL,titre TEXT NOT NULL,source_nom TEXT NOT NULL,source_url TEXT NOT NULL,norme TEXT NOT NULL,resume TEXT NOT NULL,published_at TEXT NOT NULL,arrival_order INTEGER NOT NULL);
+CREATE TABLE IF NOT EXISTS news_reads(user_id INTEGER REFERENCES users(id),article_id TEXT,read_at TEXT DEFAULT CURRENT_TIMESTAMP,PRIMARY KEY(user_id,article_id));
+CREATE TABLE IF NOT EXISTS bot_runs(id INTEGER PRIMARY KEY,ran_at TEXT NOT NULL,fetched_count INTEGER DEFAULT 0,added_count INTEGER DEFAULT 0,sources TEXT DEFAULT '');
+CREATE TABLE IF NOT EXISTS stagiaire_works(id INTEGER PRIMARY KEY,user_id INTEGER REFERENCES users(id),student_name TEXT NOT NULL,title TEXT NOT NULL,category TEXT NOT NULL,week INTEGER DEFAULT 1,course_id TEXT DEFAULT '',technique TEXT DEFAULT '',image_data TEXT NOT NULL,notes TEXT DEFAULT '',tutor_comment TEXT DEFAULT '',status TEXT DEFAULT 'expose',created_at TEXT DEFAULT CURRENT_TIMESTAMP);
 `);
 try { db.exec(`ALTER TABLE users ADD COLUMN prof_id INTEGER DEFAULT NULL`); } catch {}
 try { db.exec(`ALTER TABLE users ADD COLUMN course_access TEXT DEFAULT 'dessin'`); } catch {}
@@ -26,9 +31,9 @@ export const STAFF_ROLES = ['admin'];
 export const LEARNER_ROLES = ['stagiaire'];
 export const COURSE_ACCESS_MODES = ['dessin', 'graphisme', 'complet', 'aucun'];
 export const ROLE_META = {
-  stagiaire: { label: 'Stagiaire', subtitle: 'Cours privés d\'atelier, exercices Acquis / Non acquis, Métiers, Écoles, Actu & Jobs', defaultTab: 'stagiaire', unlockedByDefault: 0, courseAccess: 'dessin' },
-  visiteur: { label: 'Visiteur', subtitle: '24 Métiers, Annuaire des Écoles & Partenaires (Tuto.com, DPS), Actu & News, Jobs & Exposition', defaultTab: 'visiteur', unlockedByDefault: 0, courseAccess: 'aucun' },
-  admin: { label: 'Admin', subtitle: 'Direction d\'Atelier : Gestion des Stagiaires, Accès Cours, Actu, Jobs & Exposition', defaultTab: 'admin', unlockedByDefault: 1, courseAccess: 'complet' }
+  stagiaire: { label: 'Stagiaire', subtitle: 'Cours privés d\'atelier, Galerie de travaux, Exercices Acquis / Non acquis, Métiers, Écoles & CPF, Blog Actu & Jobs', defaultTab: 'stagiaire', unlockedByDefault: 0, courseAccess: 'dessin' },
+  visiteur: { label: 'Visiteur', subtitle: '24 Métiers, Annuaire des Écoles & Formations CPF, Blog Actu & News, Jobs & Exposition', defaultTab: 'visiteur', unlockedByDefault: 0, courseAccess: 'aucun' },
+  admin: { label: 'Admin', subtitle: 'Direction d\'Atelier : Éditeur de Cours, Gestion Stagiaires, Galerie, Bot News, Jobs & Dossier Tuteur', defaultTab: 'admin', unlockedByDefault: 1, courseAccess: 'complet' }
 };
 export function hash(password) { const salt=randomBytes(16).toString('hex'); return salt+':'+scryptSync(password,salt,64).toString('hex'); }
 export function verify(password, stored) { const [salt,key]=stored.split(':'); return timingSafeEqual(Buffer.from(key,'hex'),scryptSync(password,salt,64)); }

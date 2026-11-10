@@ -1,6 +1,6 @@
 // =====================================================================
-// ASSEMBLAGE DES 24 MÉTIERS, ANNUAIRE OFFICIEL DES 26 ÉCOLES & SITES
-// CLASSÉS PAR SECTEUR GÉOGRAPHIQUE, STATUT, TARIFS ANNUELS & MODÈLES ÉCONOMIQUES
+// ASSEMBLAGE DES 24 MÉTIERS, ANNUAIRE OFFICIEL DES ÉCOLES, SITES & FORMATIONS CPF
+// CLASSÉS PAR SECTEUR GÉOGRAPHIQUE, STATUT, TARIFS ANNUELS & ÉLIGIBILITÉ CPF 2026
 // =====================================================================
 
 const METIERS_DATA = [
@@ -18,7 +18,7 @@ const SECTEURS_GEOGRAPHIQUES = [
   { id: 'occitanie-sud', label: 'Occitanie & Sud (Montpellier, Toulouse, Nice)' },
   { id: 'hauts-de-france', label: 'Hauts-de-France (Valenciennes)' },
   { id: 'multi-campus', label: 'Réseaux Multi-Campus' },
-  { id: 'en-ligne', label: '100% En Ligne & Plateformes Partenaires' }
+  { id: 'en-ligne', label: '100% En Ligne, Plateformes & CPF' }
 ];
 
 const SCHOOLS_DIRECTORY_DATA = [
@@ -30,11 +30,11 @@ const SCHOOLS_DIRECTORY_DATA = [
     cursus: "DN MADE (Graphisme, Illustration, Livre, Gravure), BTS ERPC, DSAA Typographie & Illustration Scientifique"
   },
   {
-    nom: "GOBELINS Paris & Annecy", url: "https://www.gobelins.fr/", categorie: "École de l'Image (CCI Paris)", statut: "public",
-    secteur: "ile-de-france", secteurs: ["ile-de-france", "auvergne-rhone-alpes"], ville: "Paris & Annecy", diplomes: ["Bachelor", "Master", "Prépresse & Motion"],
-    tarif: "0 € en Alternance (ou 9 700 € à 11 600 € / an en initial)",
-    pourquoiTarif: "École consulaire de la CCI Paris : la scolarité est gratuite et rémunérée en contrat d'apprentissage (financée par l'OPCO), ou payante en statut étudiant initial.",
-    cursus: "Cinéma d'Animation 2D/3D, Character Design, Design Graphique, Motion Design, UI/UX & Prépresse"
+    nom: "GOBELINS Paris & Annecy (Initial, Alternance & CPF)", url: "https://www.gobelins.fr/", categorie: "École de l'Image (CCI Paris · Éligible CPF)", statut: "public", cpf: true,
+    secteur: "ile-de-france", secteurs: ["ile-de-france", "auvergne-rhone-alpes"], ville: "Paris & Annecy", diplomes: ["Bachelor", "Master", "RNCP37943 CPF", "Motion RNCP35874"],
+    tarif: "0 € en Alternance · Formation Continue éligible CPF (9 700 € à 11 600 € en initial)",
+    pourquoiTarif: "École consulaire de la CCI Paris : gratuite et rémunérée en apprentissage (OPCO), et cycles certifiants PAO/Graphisme/Motion finançables via le CPF.",
+    cursus: "Cinéma d'Animation 2D/3D, Design Graphique, Motion Design, Prépresse & Formation Continue CPF (Illustrator, InDesign, Photoshop)"
   },
   {
     nom: "École Duperré", url: "https://duperre.org/", categorie: "École Publique Supérieure", statut: "public",
@@ -170,10 +170,10 @@ const SCHOOLS_DIRECTORY_DATA = [
     cursus: "Bachelor Auteur de Bande Dessinée, Roman Graphique & Illustration"
   },
   {
-    nom: "Tuto.com (Partenaire Formation & Vidéos)", url: "https://fr.tuto.com/", searchUrl: "https://fr.tuto.com/recherche/?q=", categorie: "Plateforme Francophone & Parcours Mentorés", statut: "plateforme",
-    secteur: "en-ligne", secteurs: ["en-ligne"], ville: "100% En ligne", diplomes: ["Cours vidéo à l'unité", "Parcours Mentorés CPF"],
-    tarif: "Tutoriels gratuits · Abonnement 34,90 €/mois (329 €/an) · Parcours CPF",
-    pourquoiTarif: "Modèle hybride : des centaines de tutoriels d'initiation sont gratuits ; les cours complets et parcours mentorés sont payants (ou financés CPF) pour rémunérer les formateurs experts.",
+    nom: "Tuto.com (Partenaire Formation & Parcours CPF)", url: "https://fr.tuto.com/", searchUrl: "https://fr.tuto.com/recherche/?q=", categorie: "Plateforme Francophone & Parcours Mentorés CPF", statut: "plateforme", cpf: true,
+    secteur: "en-ligne", secteurs: ["en-ligne"], ville: "100% En ligne", diplomes: ["Cours vidéo à l'unité", "Parcours Mentorés CPF", "TOSA Adobe RS"],
+    tarif: "Tutoriels gratuits · Abonnement 34,90 €/mois · Parcours CPF (Reste à charge 150 €)",
+    pourquoiTarif: "Modèle hybride : tutoriels d'initiation gratuits ; parcours mentorés finançables par le CPF (sanctionnés par certification TOSA ou bloc RNCP).",
     cursus: "Plateforme historique de formation : Graphisme, Prépresse PDF/X-4, Illustrator, InDesign, Photoshop, Affinity, Blender & Illustration"
   },
   {
@@ -186,14 +186,14 @@ const SCHOOLS_DIRECTORY_DATA = [
   {
     nom: "21 Draw", url: "https://www.21-draw.com/", categorie: "Plateforme Internationale d'Illustration", statut: "plateforme",
     secteur: "en-ligne", secteurs: ["en-ligne"], ville: "100% En ligne", diplomes: ["Masterclasses Artistes"],
-    tarif: " ~59 $ / an (Abonnement promo) ou ~25 $ par cours à vie",
+    tarif: "~59 $ / an (Abonnement promo) ou ~25 $ par cours à vie",
     pourquoiTarif: "Plateforme payante à tarif accessible car elle produit et rémunère directement des masterclasses d'artistes seniors issus de Disney, Pixar, Marvel et DreamWorks.",
     cursus: "Character Design, Anatomie, Storyboarding & Environnements par des artistes Disney, Pixar et Marvel"
   },
   {
-    nom: "École La Fontaine", url: "https://www.ecolelafontaine.fr/", categorie: "École d'Art 100% en ligne", statut: "plateforme",
-    secteur: "en-ligne", secteurs: ["en-ligne"], ville: "Enseignement à distance", diplomes: ["Prépa Design", "Bachelor RNCP"],
-    tarif: "2 700 € à 4 944 € / an (Finançable CPF, OPCO ou Alternance)",
+    nom: "École La Fontaine (RNCP & CPF à distance)", url: "https://www.ecolelafontaine.fr/", categorie: "École d'Art 100% en ligne · Éligible CPF", statut: "plateforme", cpf: true,
+    secteur: "en-ligne", secteurs: ["en-ligne"], ville: "Enseignement à distance", diplomes: ["Prépa Design", "Bachelor RNCP", "Blocs CPF"],
+    tarif: "2 700 € à 4 944 € / an (Finançable CPF sans plafond RNCP, OPCO ou Alternance)",
     pourquoiTarif: "École privée à distance délivrant des titres officiels RNCP : le tarif inclut les corrections personnalisées en visio, les jurys d'examen et le suivi pédagogique.",
     cursus: "Prépa Design, Bachelor Designer Graphique, Bachelor Designer UI, Design d'Espace & Illustration à distance"
   },
@@ -203,11 +203,39 @@ const SCHOOLS_DIRECTORY_DATA = [
     tarif: "5 800 € (Prépa) à 6 450 € / an (Bachelors & Mastères)",
     pourquoiTarif: "École supérieure privée 100 % en ligne : les frais couvrent les classes virtuelles hebdomadaires en direct avec des professionnels de studios et les licences pédagogiques.",
     cursus: "Bachelors Concept Art, Illustration, Design Graphique & Motion Design en ligne"
+  },
+  {
+    nom: "Pyramyd Formation (Design, PAO & Prépresse CPF)", url: "https://pyramyd-formation.com/", categorie: "Organisme Référent Chaîne Graphique & CPF", statut: "cpf", cpf: true,
+    secteur: "ile-de-france", secteurs: ["ile-de-france", "en-ligne"], ville: "Paris & Distanciel", diplomes: ["Certifications TOSA Adobe", "Parcours PAO CPF"],
+    tarif: "Finançable CPF (Plafond RS 1 500 € · Reste à charge 150 € ou 0 € via OPCO/Employeur)",
+    pourquoiTarif: "Organisme certifié Qualiopi spécialisé dans les arts graphiques : les parcours Illustrator, InDesign, Photoshop et Prépresse sont adossés aux certifications TOSA (Répertoire Spécifique).",
+    cursus: "Maîtrise de la chaîne graphique, Prépresse ISO 12647-2, Adobe InDesign, Illustrator, Photoshop, Typographie & Direction Artistique"
+  },
+  {
+    nom: "CIFAP (Centre de Formation Graphisme & Médias CPF)", url: "https://www.cifap.com/", categorie: "Centre de Formation Continue & CPF", statut: "cpf", cpf: true,
+    secteur: "ile-de-france", secteurs: ["ile-de-france"], ville: "Montreuil (Grand Paris)", diplomes: ["Infographiste PAO", "TOSA Adobe RS"],
+    tarif: "Finançable CPF, Plan de développement des compétences (OPCO / AFDAS) ou France Travail",
+    pourquoiTarif: "Centre professionnel agréé Qualiopi : coûts pris en charge par les droits CPF, l'AFDAS (intermittents/auteurs) ou l'OPCO de l'entreprise.",
+    cursus: "Cycles complets Infographiste Metteur en Page PAO, Production Graphique Print & Web, Retouche Chromie et Suite Adobe"
+  },
+  {
+    nom: "Titre Pro Infographiste Metteur en Page (RNCP37943 · Mon Compte Formation)", url: "https://www.moncompteformation.gouv.fr/", categorie: "Diplôme d'État Ministère du Travail · 100% CPF", statut: "cpf", cpf: true,
+    secteur: "en-ligne", secteurs: ["en-ligne", "multi-campus", "ile-de-france", "grand-est", "ouest", "auvergne-rhone-alpes"], ville: "France entière & En ligne", diplomes: ["Titre Pro RNCP37943 (Niveau 4 / Bac)", "3 Blocs CCP"],
+    tarif: "Finançable CPF sans plafond (RNCP) · Participation forfaitaire 150 € (0 € si demandeur d'emploi)",
+    pourquoiTarif: "Enregistré au RNCP (code RNCP37943, ex-RNCP1267) par le Ministère du Travail : échappe au plafond de 1 500 € du Répertoire Spécifique et permet de financer une reconversion complète.",
+    cursus: "CCP 1 : Élaborer une proposition graphique · CCP 2 : Réaliser des supports de communication print PDF/X-4 · CCP 3 : Contribuer aux supports numériques"
+  },
+  {
+    nom: "Certifications TOSA Adobe (Illustrator, Photoshop, InDesign · RS)", url: "https://www.isograd.com/FR/tosa.php", categorie: "Certification Officielle Répertoire Spécifique (CPF)", statut: "cpf", cpf: true,
+    secteur: "en-ligne", secteurs: ["en-ligne", "multi-campus"], ville: "Passage en ligne ou Centre agréé", diplomes: ["TOSA Illustrator", "TOSA Photoshop", "TOSA InDesign"],
+    tarif: "Plafond CPF Répertoire Spécifique : 1 500 € max + Ticket modérateur 150 €",
+    pourquoiTarif: "Toute formation courte aux logiciels Adobe financée par le CPF doit obligatoirement inclure le passage d'une certification du Répertoire Spécifique (TOSA ou Adobe Certified Professional).",
+    cursus: "Évaluation adaptative sur 1000 points attestant du niveau opérationnel (Initial, Basique, Opérationnel, Avancé, Expert) sur Illustrator, Photoshop et InDesign"
   }
 ];
 
 const THEMES_PROGRAMME_DATA = [
-  { id: "theme-1", code: "THÈME 01", pole: "dessin", titre: "Observation, Geste & Proportions sur Papier", norme: "Visée Sight-Size 1:1 · Méthode Charles Bargue · Papier sans acide ISO 9706", resume: "Tenir son outil depuis l'épaule, mesurer les angles au fil à plomb et poser une enveloppe géométrique juste.", coursIds: ["cours-d01-visuelle-trait"], objectifs: ["Tracer des droites et courbes franches", "Mesurer un rapport largeur/hauteur exact à bras tendu"] },
+  { id: "theme-1", code: "THÈME 01", pole: "dessin", titre: "Contrôle du Geste, Lignes, Ellipses & Formes Simples", norme: "Départ de l'épaule · Tracé fantôme · Ellipses sur axe · 5 Formes primaires", resume: "Libérer le geste depuis l'épaule, tracer des droites et des ellipses régulières à main levée, bâtir 5 cylindres et décomposer 10 objets en formes géométriques simples.", coursIds: ["cours-d01-visuelle-trait"], objectifs: ["Tracer des droites et ellipses franches à main levée sans règle", "Construire 5 cylindres et 10 objets par formes simples"] },
   { id: "theme-2", code: "THÈME 02", pole: "dessin", titre: "Perspective Spatiale & Construction des Volumes", norme: "Géométrie descriptive · Ligne d'horizon & 1 à 3 points de fuite · Ellipses", resume: "Inscrire tout objet complexe dans une boîte englobante en perspective juste.", coursIds: ["cours-d02-geometrie-perspective"], objectifs: ["Converger les fuyantes vers la ligne d'horizon", "Aligner le petit axe d'une ellipse sur l'axe de son cylindre"] },
   { id: "theme-3", code: "THÈME 03", pole: "dessin", titre: "Lumière, Hiérarchie des Valeurs (Notan) & Contrôle des 4 Bords", norme: "Échelle des 5 Valeurs de Sargent · 4 Bords (Net, Ferme, Doux, Perdu)", resume: "Séparer la famille de la lumière de la famille de l'ombre et moduler les bords.", coursIds: ["cours-d03-notan-valeurs", "cours-d04-modulation-bords"], objectifs: ["Respecter la loi de compression tonale", "Hiérarchiser les bords tranchants au point focal"] },
   { id: "theme-4", code: "THÈME 04", pole: "dessin", titre: "Anatomie Humaine, Modèle Vivant & Mécanique des Drapés", norme: "Construction Loomis · Plans d'Asaro · Contrapposto · 7 Plis d'Atelier", resume: "Bâtir la tête et le corps par leurs repères osseux et dessiner les plis selon leurs points de tension.", coursIds: ["cours-d05-anatomie-portrait", "cours-d06-modele-vivant-dune", "cours-d07-drapes-mecanique-plis"], objectifs: ["Respecter les 3 tiers du visage", "Identifier les 7 types de plis"] },
