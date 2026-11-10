@@ -25,8 +25,8 @@ function updateSidebarActiveCourse() {
       btn.classList.remove('text-slate-400');
       if (dot) {
         dot.className = currentCourse.discipline === 'graphisme' 
-          ? 'w-2 h-2 rounded-full border-2 border-[#00e1d9] bg-[#00e1d9] shadow-sm shadow-cyan-500/50' 
-          : 'w-2 h-2 rounded-full border-2 border-[#d6a55b] bg-[#d6a55b] shadow-sm shadow-amber-500/50';
+          ? 'w-2 h-2 rounded-full border-2 border-[#00f2c3] bg-[#00f2c3] shadow-md shadow-cyan-500/50' 
+          : 'w-2 h-2 rounded-full border-2 border-[#e14eca] bg-[#e14eca] shadow-md shadow-pink-500/50';
       }
     } else if (btn.getAttribute('onclick')?.includes('selectCourse')) {
       btn.classList.remove('text-white');
@@ -45,8 +45,10 @@ function renderCourses() {
   updateSidebarActiveCourse();
 
   const isGraphDetail = currentCourse.discipline === 'graphisme';
-  const badgeColor = isGraphDetail ? 'bg-[#00e1d9]/20 text-[#00e1d9]' : 'bg-[#d6a55b]/20 text-[#d6a55b]';
-  const discName = isGraphDetail ? 'Design Graphique' : 'Dessin & Peinture';
+  const badgeColor = isGraphDetail 
+    ? 'bg-[#00f2c3]/15 text-[#00f2c3] border border-[#00f2c3]/30' 
+    : 'bg-[#e14eca]/15 text-[#e14eca] border border-[#e14eca]/30';
+  const discName = isGraphDetail ? 'Design Graphique & PAO' : 'Dessin Classique & Peinture';
 
   const currentIndex = COURSES_DATA.findIndex(c => c.id === currentCourse.id);
   const prevCourse = currentIndex > 0 ? COURSES_DATA[currentIndex - 1] : null;
@@ -55,29 +57,29 @@ function renderCourses() {
   detailEl.innerHTML = `
     <div class="space-y-6">
       <!-- Barre Supérieure de Navigation Pleine Largeur du Cours -->
-      <div class="p-3.5 rounded-2xl bg-[#1b1e24] border border-[#272b35] flex flex-wrap items-center justify-between gap-3">
+      <div class="p-4 rounded-2xl bg-[#27293d] border border-[#2b3553]/60 shadow-lg shadow-black/20 flex flex-wrap items-center justify-between gap-3">
         <div class="flex items-center gap-2 text-xs text-slate-400">
-          <span class="cursor-pointer hover:text-white" onclick="showTab('accueil')">Dashboard</span>
+          <span class="cursor-pointer hover:text-white transition-colors" onclick="showTab('accueil')">Dashboard</span>
           <span>/</span>
-          <span class="font-semibold ${isGraphDetail ? 'text-[#00e1d9]' : 'text-[#d6a55b]'}">${discName}</span>
+          <span class="font-semibold ${isGraphDetail ? 'text-[#00f2c3]' : 'text-[#e14eca]'}">${discName}</span>
           <span>/</span>
           <span class="font-bold text-white">${currentCourse.num}</span>
         </div>
 
         <div class="flex items-center gap-2">
           ${prevCourse ? `
-            <button onclick="selectCourse('${prevCourse.id}')" class="px-3 py-1.5 rounded-xl bg-[#131417] hover:bg-[#20242c] border border-[#272b35] text-xs font-semibold text-slate-300 hover:text-white transition-all flex items-center gap-1.5" title="${prevCourse.title}">
+            <button onclick="selectCourse('${prevCourse.id}')" class="px-3.5 py-1.5 rounded-xl bg-[#1f2233] hover:bg-[#2d324d] border border-[#2b3553] text-xs font-semibold text-slate-300 hover:text-white transition-all flex items-center gap-1.5" title="${prevCourse.title}">
               <span>←</span>
               <span>${prevCourse.num}</span>
             </button>
           ` : ''}
 
-          <span class="text-[11px] text-slate-500 font-mono px-2">
+          <span class="text-[11px] text-slate-400 font-mono px-2">
             ${currentIndex + 1} / ${COURSES_DATA.length}
           </span>
 
           ${nextCourse ? `
-            <button onclick="selectCourse('${nextCourse.id}')" class="px-3 py-1.5 rounded-xl bg-[#131417] hover:bg-[#20242c] border border-[#272b35] text-xs font-semibold text-slate-300 hover:text-white transition-all flex items-center gap-1.5" title="${nextCourse.title}">
+            <button onclick="selectCourse('${nextCourse.id}')" class="px-3.5 py-1.5 rounded-xl bg-[#1f2233] hover:bg-[#2d324d] border border-[#2b3553] text-xs font-semibold text-slate-300 hover:text-white transition-all flex items-center gap-1.5" title="${nextCourse.title}">
               <span>${nextCourse.num}</span>
               <span>→</span>
             </button>
@@ -103,7 +105,7 @@ function renderCourses() {
       </div>
 
       <!-- Citation & Référence -->
-      <div class="p-4 rounded-xl bg-[#1b1e24] border-l-4 ${isGraphDetail ? 'border-[#00e1d9]' : 'border-[#d6a55b]'} space-y-2">
+      <div class="p-4 rounded-xl bg-[#1f2233] border-l-4 ${isGraphDetail ? 'border-[#00f2c3]' : 'border-[#e14eca]'} space-y-2">
         <p class="text-xs italic text-slate-200">"${currentCourse.artist.quote}"</p>
         <div class="flex items-center justify-between text-[11px]">
           <span class="font-bold text-white">${currentCourse.artist.name}</span>
@@ -116,7 +118,7 @@ function renderCourses() {
         <h3 class="font-serif font-bold text-base text-white">Méthodologie & Fondements Clés</h3>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
           ${currentCourse.theory.map(t => `
-            <div class="p-4 rounded-xl bg-[#1b1e24] border border-[#272b35]">
+            <div class="p-4 rounded-xl bg-[#27293d] border border-[#2b3553]/60">
               <h4 class="font-bold text-sm text-slate-200 mb-1">${t.title}</h4>
               <p class="text-xs text-slate-400 leading-relaxed">${t.desc}</p>
             </div>
@@ -129,10 +131,10 @@ function renderCourses() {
 
       ${currentCourse.correction ? `
         <!-- Correction d'Élève & Analyse Comparative Avant / Après -->
-        <div class="p-6 rounded-2xl bg-[#131417] border border-[#272b35] space-y-6">
-          <div class="flex items-center justify-between pb-3 border-b border-[#272b35]">
+        <div class="p-6 rounded-2xl bg-[#27293d] border border-[#2b3553]/60 space-y-6">
+          <div class="flex items-center justify-between pb-3 border-b border-[#2b3553]">
             <div>
-              <span class="text-[10px] font-bold px-2.5 py-1 rounded bg-purple-500/20 text-purple-300 uppercase tracking-wider">ÉTUDE COMPARATIVE AVANT / APRÈS</span>
+              <span class="text-[10px] font-bold px-2.5 py-1 rounded bg-[#ba54f5]/20 text-[#ba54f5] uppercase tracking-wider">ÉTUDE COMPARATIVE AVANT / APRÈS</span>
               <h3 class="font-serif font-bold text-white text-lg mt-1">Critique Constructive & Remédiation Académique</h3>
             </div>
             <span class="text-xs font-semibold px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400">
@@ -174,25 +176,25 @@ function renderCourses() {
           <div class="pt-2">
             <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider mb-3">Grille Officielle des 5 Critères d'Évaluation</h4>
             <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
-              <div class="p-3 rounded-xl bg-[#1b1e24] border border-[#272b35] text-center">
-                <p class="text-[10px] text-[#8f95a3] uppercase">Silhouette</p>
-                <p class="text-base font-extrabold text-[#d6a55b] mt-0.5">${currentCourse.correction.grades.silhouette}/10</p>
+              <div class="p-3 rounded-xl bg-[#1f2233] border border-[#2b3553] text-center">
+                <p class="text-[10px] text-slate-400 uppercase">Silhouette</p>
+                <p class="text-base font-extrabold text-[#e14eca] mt-0.5">${currentCourse.correction.grades.silhouette}/10</p>
               </div>
-              <div class="p-3 rounded-xl bg-[#1b1e24] border border-[#272b35] text-center">
-                <p class="text-[10px] text-[#8f95a3] uppercase">Structure</p>
-                <p class="text-base font-extrabold text-[#d6a55b] mt-0.5">${currentCourse.correction.grades.structure}/10</p>
+              <div class="p-3 rounded-xl bg-[#1f2233] border border-[#2b3553] text-center">
+                <p class="text-[10px] text-slate-400 uppercase">Structure</p>
+                <p class="text-base font-extrabold text-[#e14eca] mt-0.5">${currentCourse.correction.grades.structure}/10</p>
               </div>
-              <div class="p-3 rounded-xl bg-[#1b1e24] border border-[#272b35] text-center">
-                <p class="text-[10px] text-[#8f95a3] uppercase">Valeurs</p>
-                <p class="text-base font-extrabold text-[#d6a55b] mt-0.5">${currentCourse.correction.grades.valeurs}/10</p>
+              <div class="p-3 rounded-xl bg-[#1f2233] border border-[#2b3553] text-center">
+                <p class="text-[10px] text-slate-400 uppercase">Valeurs</p>
+                <p class="text-base font-extrabold text-[#e14eca] mt-0.5">${currentCourse.correction.grades.valeurs}/10</p>
               </div>
-              <div class="p-3 rounded-xl bg-[#1b1e24] border border-[#272b35] text-center">
-                <p class="text-[10px] text-[#8f95a3] uppercase">Bords</p>
-                <p class="text-base font-extrabold text-[#d6a55b] mt-0.5">${currentCourse.correction.grades.bords}/10</p>
+              <div class="p-3 rounded-xl bg-[#1f2233] border border-[#2b3553] text-center">
+                <p class="text-[10px] text-slate-400 uppercase">Bords</p>
+                <p class="text-base font-extrabold text-[#00f2c3] mt-0.5">${currentCourse.correction.grades.bords}/10</p>
               </div>
-              <div class="p-3 rounded-xl bg-[#1b1e24] border border-[#272b35] text-center">
-                <p class="text-[10px] text-[#8f95a3] uppercase">Couleur</p>
-                <p class="text-base font-extrabold text-[#d6a55b] mt-0.5">${currentCourse.correction.grades.couleur}/10</p>
+              <div class="p-3 rounded-xl bg-[#1f2233] border border-[#2b3553] text-center">
+                <p class="text-[10px] text-slate-400 uppercase">Technique</p>
+                <p class="text-base font-extrabold text-[#00f2c3] mt-0.5">${currentCourse.correction.grades.couleur}/10</p>
               </div>
             </div>
           </div>

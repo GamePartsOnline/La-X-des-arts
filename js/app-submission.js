@@ -181,10 +181,10 @@ function renderCourseExerciseBlock(course) {
 
   // État initial : Présentation de l'exercice et dropzone de fichier
   return `
-    <div class="p-6 rounded-2xl bg-[#1b1e24] border border-[#272b35] space-y-5">
+    <div class="p-6 rounded-2xl bg-[#27293d] border border-[#2b3553]/60 space-y-5 shadow-lg shadow-black/20">
       <div>
         <div class="flex items-center justify-between">
-          <span class="text-[10px] font-bold text-[#d6a55b] uppercase tracking-wider">
+          <span class="text-[10px] font-bold text-[#e14eca] uppercase tracking-wider">
             EXERCICE D'APPLICATION PRATIQUE (${course.duration || '20 min'})
           </span>
           <span class="text-[10px] font-semibold text-slate-400">Modalité : Travail sur feuille ou vectoriel</span>
@@ -194,15 +194,15 @@ function renderCourseExerciseBlock(course) {
       </div>
 
       <!-- Consigne d'atelier et dépôt de fichier -->
-      <div class="p-5 rounded-xl bg-[#131417] border border-dashed border-[#272b35] hover:border-[#d6a55b]/60 transition-all text-center space-y-3 cursor-pointer group" onclick="document.getElementById('course-file-input-${course.id}').click()">
+      <div class="p-5 rounded-xl bg-[#1f2233] border border-dashed border-[#2b3553] hover:border-[#e14eca]/60 transition-all text-center space-y-3 cursor-pointer group" onclick="document.getElementById('course-file-input-${course.id}').click()">
         <input type="file" id="course-file-input-${course.id}" class="hidden" accept=".jpg,.jpeg,.png,.pdf,.svg,.ai,.psd,.webp" onchange="handleCourseFileUpload(event, '${course.id}')" />
         
-        <div class="w-12 h-12 mx-auto rounded-full bg-[#1b1e24] border border-[#272b35] group-hover:border-[#d6a55b] flex items-center justify-center text-slate-400 group-hover:text-[#d6a55b] transition-all">
+        <div class="w-12 h-12 mx-auto rounded-full bg-[#27293d] border border-[#2b3553] group-hover:border-[#e14eca] flex items-center justify-center text-slate-400 group-hover:text-[#e14eca] transition-all">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
         </div>
 
         <div>
-          <p class="text-xs font-bold text-white group-hover:text-[#d6a55b] transition-colors">
+          <p class="text-xs font-bold text-white group-hover:text-[#e14eca] transition-colors">
             Déposez votre fichier pour correction pédagogique
           </p>
           <p class="text-[11px] text-slate-400 mt-0.5">
@@ -210,7 +210,7 @@ function renderCourseExerciseBlock(course) {
           </p>
         </div>
 
-        <button type="button" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#232730] group-hover:bg-[#d6a55b] group-hover:text-[#131417] text-xs font-bold text-[#d6a55b] transition-all">
+        <button type="button" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#27293d] group-hover:bg-[#e14eca] group-hover:text-white text-xs font-bold text-[#e14eca] transition-all">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
           Sélectionner un fichier depuis mon ordinateur
         </button>
