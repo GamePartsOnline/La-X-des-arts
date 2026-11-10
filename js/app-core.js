@@ -42,6 +42,17 @@ function showTab(tabId) {
     activeBtn.className = 'nav-btn px-5 py-2 rounded-full text-xs font-bold gold-pill-active transition-all';
   }
 
+  // Synchronisation de l'état actif dans la navigation de la barre latérale
+  document.querySelectorAll('aside nav button[id^="sidebar-btn-"]').forEach(sBtn => {
+    sBtn.classList.remove('bg-[#252836]', 'text-white', 'border', 'border-[#2b3553]');
+    sBtn.classList.add('text-slate-300');
+  });
+  const activeSidebarBtn = document.getElementById(`sidebar-btn-${tabId}`);
+  if (activeSidebarBtn) {
+    activeSidebarBtn.classList.remove('text-slate-300');
+    activeSidebarBtn.classList.add('bg-[#252836]', 'text-white', 'border', 'border-[#2b3553]');
+  }
+
   if (tabId === 'cours' && typeof renderCourses === 'function') {
     renderCourses();
   }

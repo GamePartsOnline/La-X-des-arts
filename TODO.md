@@ -63,4 +63,5 @@ L'école réunit deux filières indépendantes et complémentaires formées aux 
 - [x] Dashboard Nouvel Élève : accueil, sélection des filières et cours recommandés
 - [x] Boîte à outils interactive d'atelier : Checklist 300 DPI, nuancier des noirs, arborescence GPO, notation 100 points
 - [x] Respect strict de la limite de 300 lignes par fichier de code (100% des 15 modules JS sous le plafond)
+- [x] Refonte ergonomique du menu latéral : suppression des scrollbars imbriquées, filtres rapides 1-clic (Tous / Dessin / PAO), accordéons pliables et standardisation des 26 titres de cours courts et explicites
 - [ ] Export PDF / SVG récapitulatif des planches de cours

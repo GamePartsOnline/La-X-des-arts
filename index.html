@@ -249,8 +249,8 @@
 <body class="min-h-screen flex flex-col md:flex-row antialiased selection:bg-amber-500/30 selection:text-amber-200">
 
   <!-- LEFT SIDEBAR -->
-  <aside class="w-full md:w-64 bg-[#181a1f] border-r border-[#272b35] flex flex-col justify-between shrink-0 p-4 lg:p-5 md:h-screen md:sticky md:top-0 md:overflow-y-auto">
-    <div class="space-y-6">
+  <aside class="w-full md:w-72 bg-[#181a1f] border-r border-[#272b35] flex flex-col justify-between shrink-0 p-4 md:h-screen md:sticky md:top-0 md:overflow-y-auto">
+    <div class="space-y-5">
       <!-- Brand Logo & Title (Black Dashboard Signature) -->
       <div class="cursor-pointer flex items-center gap-3 pb-3 border-b border-[#2b3553]/60" onclick="showTab('accueil')">
         <div id="brand-logo-badge" onclick="handleLogoEasterEggClick(event)" class="w-10 h-10 rounded-xl bg-gradient-to-br from-[#e14eca] to-[#ba54f5] flex items-center justify-center font-black text-white text-base shadow-lg shadow-pink-500/25 shrink-0 select-none cursor-pointer hover:scale-105 active:scale-95 transition-transform" title="La Croisée des Arts">
@@ -266,265 +266,264 @@
         </div>
       </div>
 
-      <!-- Navigation Tree -->
-      <nav class="space-y-4">
-        <!-- Académie Accordion -->
-        <div class="space-y-1">
-          <div class="flex items-center justify-between px-3 py-2 rounded-xl text-xs font-bold text-slate-300 hover:bg-[#20242c] cursor-pointer">
-            <span class="flex items-center gap-2">
-              <svg class="w-4 h-4 text-[#d6a55b]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
-              Académie
-            </span>
-            <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-          </div>
-        </div>
+      <!-- Navigation Générale -->
+      <nav class="space-y-1">
+        <div class="px-2 pb-1 text-[10px] font-bold uppercase tracking-wider text-slate-500">Navigation</div>
+        
+        <button onclick="showTab('accueil')" id="sidebar-btn-accueil" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-[#20242c] transition-all">
+          <svg class="w-4 h-4 text-[#e14eca]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+          <span>Tableau de Bord</span>
+        </button>
 
-        <!-- Cours Accordion (Active Section) -->
-        <div class="space-y-1">
-          <div class="flex items-center justify-between px-3 py-2 rounded-xl text-xs font-bold text-[#d6a55b] bg-[#232730] cursor-pointer">
-            <span class="flex items-center gap-2">
-              <svg class="w-4 h-4 text-[#d6a55b]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
-              Cours
-            </span>
-            <svg class="w-3.5 h-3.5 text-[#d6a55b]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-          </div>
+        <button onclick="showTab('studio')" id="sidebar-btn-studio" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-[#20242c] transition-all">
+          <svg class="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+          <span>Studio de Dessin</span>
+        </button>
 
-          <!-- Tree List Dessin & Peinture (Programme Académique Classique) -->
-          <div class="pl-5 pt-1 space-y-1 border-l-2 border-[#272b35] ml-4 max-h-[240px] overflow-y-auto pr-1">
-            <button onclick="showTab('cours'); selectCourse('cours-d01-visuelle-trait');" class="w-full flex items-center justify-between py-1.5 px-2 text-xs font-semibold text-[#d6a55b] hover:text-white group">
-              <span class="flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full border-2 border-[#d6a55b] bg-[#131417]"></span>
-                D-01 Visée Sight-Size & Trait
-              </span>
-              <svg class="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-            </button>
-            <button onclick="showTab('cours'); selectCourse('cours-d02-geometrie-perspective');" class="w-full flex items-center justify-between py-1.5 px-2 text-xs font-semibold text-slate-400 hover:text-white group">
-              <span class="flex items-center gap-2">
-                <span class="w-1.5 h-1.5 rounded-full bg-slate-600"></span>
-                D-02 Volumes & Perspective
-              </span>
-              <svg class="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-            </button>
-            <button onclick="showTab('cours'); selectCourse('cours-d03-notan-valeurs');" class="w-full flex items-center justify-between py-1.5 px-2 text-xs font-semibold text-slate-400 hover:text-white group">
-              <span class="flex items-center gap-2">
-                <span class="w-1.5 h-1.5 rounded-full bg-slate-600"></span>
-                D-03 Notan & 5 Valeurs
-              </span>
-              <svg class="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-            </button>
-            <button onclick="showTab('cours'); selectCourse('cours-d04-modulation-bords');" class="w-full flex items-center justify-between py-1.5 px-2 text-xs font-semibold text-slate-400 hover:text-white group">
-              <span class="flex items-center gap-2">
-                <span class="w-1.5 h-1.5 rounded-full bg-slate-600"></span>
-                D-04 Contrôle des 4 Bords
-              </span>
-              <svg class="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-            </button>
-            <button onclick="showTab('cours'); selectCourse('cours-d05-anatomie-portrait');" class="w-full flex items-center justify-between py-1.5 px-2 text-xs font-semibold text-slate-400 hover:text-white group">
-              <span class="flex items-center gap-2">
-                <span class="w-1.5 h-1.5 rounded-full bg-slate-600"></span>
-                D-05 Crâne & Portrait 3/4
-              </span>
-              <svg class="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-            </button>
-            <button onclick="showTab('cours'); selectCourse('cours-d06-modele-vivant-dune');" class="w-full flex items-center justify-between py-1.5 px-2 text-xs font-semibold text-slate-400 hover:text-white group">
-              <span class="flex items-center gap-2">
-                <span class="w-1.5 h-1.5 rounded-full bg-slate-600"></span>
-                D-06 Modèle Vivant (Dune)
-              </span>
-              <svg class="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-            </button>
-            <button onclick="showTab('cours'); selectCourse('cours-d07-drapes-mecanique-plis');" class="w-full flex items-center justify-between py-1.5 px-2 text-xs font-semibold text-slate-400 hover:text-white group">
-              <span class="flex items-center gap-2">
-                <span class="w-1.5 h-1.5 rounded-full bg-slate-600"></span>
-                D-07 Drapés & Mécanique Plis
-              </span>
-              <svg class="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-            </button>
-            <button onclick="showTab('cours'); selectCourse('cours-d08-gamut-masking-harmonie');" class="w-full flex items-center justify-between py-1.5 px-2 text-xs font-semibold text-slate-400 hover:text-white group">
-              <span class="flex items-center gap-2">
-                <span class="w-1.5 h-1.5 rounded-full bg-slate-600"></span>
-                D-08 Gamut Masking & Harmonie
-              </span>
-              <svg class="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-            </button>
-            <button onclick="showTab('cours'); selectCourse('cours-d09-rendu-peau-sss');" class="w-full flex items-center justify-between py-1.5 px-2 text-xs font-semibold text-slate-400 hover:text-white group">
-              <span class="flex items-center gap-2">
-                <span class="w-1.5 h-1.5 rounded-full bg-slate-600"></span>
-                D-09 Rendu Peau & SSS
-              </span>
-              <svg class="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-            </button>
-            <button onclick="showTab('cours'); selectCourse('cours-d10-composition-cadrage-cinema');" class="w-full flex items-center justify-between py-1.5 px-2 text-xs font-semibold text-slate-400 hover:text-white group">
-              <span class="flex items-center gap-2">
-                <span class="w-1.5 h-1.5 rounded-full bg-slate-600"></span>
-                D-10 Cadrage Cinéma 2.39:1
-              </span>
-              <svg class="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-            </button>
-          </div>
-        </div>
+        <button onclick="showTab('graphisme')" id="sidebar-btn-graphisme" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-[#20242c] transition-all">
+          <svg class="w-4 h-4 text-[#00f2c3]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>
+          <span>Filière Graphisme RPIP</span>
+        </button>
 
-        <!-- Pôle Design Graphique Section -->
-        <div class="space-y-1">
-          <div class="flex items-center justify-between px-3 py-2 rounded-xl text-xs font-bold text-[#00e1d9] bg-[#232730] cursor-pointer" onclick="showTab('graphisme')">
-            <span class="flex items-center gap-2">
-              <svg class="w-4 h-4 text-[#00e1d9]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>
-              Design Graphique & PAO
-            </span>
-            <span class="text-[9px] font-extrabold px-1.5 py-0.5 rounded bg-[#00e1d9]/20 text-[#00e1d9] tracking-wider">FILIÈRE</span>
-          </div>
+        <button onclick="showTab('galerie')" id="sidebar-btn-galerie" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-[#20242c] transition-all">
+          <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+          <span>Galerie des Devoirs</span>
+        </button>
 
-          <!-- Tree List Graphisme (Programme Académique Scolaire RPIP & Atelier) -->
-          <div class="pl-5 pt-1 space-y-1 border-l-2 border-[#272b35] ml-4 max-h-[360px] overflow-y-auto pr-1">
-            <button onclick="showTab('cours'); selectCourse('cours-g01-brief');" class="w-full flex items-center justify-between py-1.5 px-2 text-xs font-semibold text-[#00e1d9] hover:text-white group">
-              <span class="flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full border-2 border-[#00e1d9] bg-[#131417]"></span>
-                G-01 Cadrage & Brief Vague
-              </span>
-              <svg class="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-            </button>
-            <button onclick="showTab('cours'); selectCourse('cours-g02-pistes');" class="w-full flex items-center justify-between py-1.5 px-2 text-xs font-semibold text-slate-400 hover:text-white group">
-              <span class="flex items-center gap-2">
-                <span class="w-1.5 h-1.5 rounded-full bg-slate-600"></span>
-                G-02 Moodboard & 3 Pistes
-              </span>
-              <svg class="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-            </button>
-            <button onclick="showTab('cours'); selectCourse('cours-g03-bitmap-vectoriel');" class="w-full flex items-center justify-between py-1.5 px-2 text-xs font-semibold text-slate-400 hover:text-white group">
-              <span class="flex items-center gap-2">
-                <span class="w-1.5 h-1.5 rounded-full bg-slate-600"></span>
-                G-03 Bitmap vs Vectoriel
-              </span>
-              <svg class="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-            </button>
-            <button onclick="showTab('cours'); selectCourse('cours-g04-bezier');" class="w-full flex items-center justify-between py-1.5 px-2 text-xs font-semibold text-slate-400 hover:text-white group">
-              <span class="flex items-center gap-2">
-                <span class="w-1.5 h-1.5 rounded-full bg-slate-600"></span>
-                G-04 Courbes de Bézier
-              </span>
-              <svg class="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-            </button>
-            <button onclick="showTab('cours'); selectCourse('cours-g05-pathfinder');" class="w-full flex items-center justify-between py-1.5 px-2 text-xs font-semibold text-slate-400 hover:text-white group">
-              <span class="flex items-center gap-2">
-                <span class="w-1.5 h-1.5 rounded-full bg-slate-600"></span>
-                G-05 Booléens & Pathfinder
-              </span>
-              <svg class="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-            </button>
-            <button onclick="showTab('cours'); selectCourse('cours-g06-typo-anatomie');" class="w-full flex items-center justify-between py-1.5 px-2 text-xs font-semibold text-slate-400 hover:text-white group">
-              <span class="flex items-center gap-2">
-                <span class="w-1.5 h-1.5 rounded-full bg-slate-600"></span>
-                G-06 Anatomie Typo & Vox
-              </span>
-              <svg class="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-            </button>
-            <button onclick="showTab('cours'); selectCourse('cours-g07-hierarchie-typo');" class="w-full flex items-center justify-between py-1.5 px-2 text-xs font-semibold text-slate-400 hover:text-white group">
-              <span class="flex items-center gap-2">
-                <span class="w-1.5 h-1.5 rounded-full bg-slate-600"></span>
-                G-07 Affiche 100% Typo
-              </span>
-              <svg class="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-            </button>
-            <button onclick="showTab('cours'); selectCourse('cours-g08-grilles-composition');" class="w-full flex items-center justify-between py-1.5 px-2 text-xs font-semibold text-slate-400 hover:text-white group">
-              <span class="flex items-center gap-2">
-                <span class="w-1.5 h-1.5 rounded-full bg-slate-600"></span>
-                G-08 Grilles 12 Col & Baseline
-              </span>
-              <svg class="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-            </button>
-            <button onclick="showTab('cours'); selectCourse('cours-g09-colorimetrie-rvb-cmjn');" class="w-full flex items-center justify-between py-1.5 px-2 text-xs font-semibold text-slate-400 hover:text-white group">
-              <span class="flex items-center gap-2">
-                <span class="w-1.5 h-1.5 rounded-full bg-slate-600"></span>
-                G-09 RVB vs CMJN & FOGRA39
-              </span>
-              <svg class="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-            </button>
-            <button onclick="showTab('cours'); selectCourse('cours-g10-pantone-harmonie');" class="w-full flex items-center justify-between py-1.5 px-2 text-xs font-semibold text-slate-400 hover:text-white group">
-              <span class="flex items-center gap-2">
-                <span class="w-1.5 h-1.5 rounded-full bg-slate-600"></span>
-                G-10 Pantone & Règle 60-30-10
-              </span>
-              <svg class="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-            </button>
-            <button onclick="showTab('cours'); selectCourse('cours-g11-logo-1bit');" class="w-full flex items-center justify-between py-1.5 px-2 text-xs font-semibold text-slate-400 hover:text-white group">
-              <span class="flex items-center gap-2">
-                <span class="w-1.5 h-1.5 rounded-full bg-slate-600"></span>
-                G-11 Logo & Silhouette 1-Bit
-              </span>
-              <svg class="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-            </button>
-            <button onclick="showTab('cours'); selectCourse('cours-g12-prepresse-300dpi');" class="w-full flex items-center justify-between py-1.5 px-2 text-xs font-semibold text-slate-400 hover:text-white group">
-              <span class="flex items-center gap-2">
-                <span class="w-1.5 h-1.5 rounded-full bg-slate-600"></span>
-                G-12 Prépresse 300 DPI & Noirs
-              </span>
-              <svg class="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-            </button>
-            <button onclick="showTab('cours'); selectCourse('cours-g13-stickers-cutcontour');" class="w-full flex items-center justify-between py-1.5 px-2 text-xs font-semibold text-slate-400 hover:text-white group">
-              <span class="flex items-center gap-2">
-                <span class="w-1.5 h-1.5 rounded-full bg-slate-600"></span>
-                G-13 Stickers & CutContour
-              </span>
-              <svg class="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-            </button>
-            <button onclick="showTab('cours'); selectCourse('cours-g14-pochoir-ponts');" class="w-full flex items-center justify-between py-1.5 px-2 text-xs font-semibold text-slate-400 hover:text-white group">
-              <span class="flex items-center gap-2">
-                <span class="w-1.5 h-1.5 rounded-full bg-slate-600"></span>
-                G-14 Pochoir & Ponts Découpe
-              </span>
-              <svg class="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-            </button>
-            <button onclick="showTab('cours'); selectCourse('cours-g15-gabarit-arcade-1-1');" class="w-full flex items-center justify-between py-1.5 px-2 text-xs font-semibold text-slate-400 hover:text-white group">
-              <span class="flex items-center gap-2">
-                <span class="w-1.5 h-1.5 rounded-full bg-slate-600"></span>
-                G-15 Borne Arcade 1:1
-              </span>
-              <svg class="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-            </button>
-            <button onclick="showTab('cours'); selectCourse('cours-g16-organisation-atelier-nommage');" class="w-full flex items-center justify-between py-1.5 px-2 text-xs font-semibold text-slate-400 hover:text-white group">
-              <span class="flex items-center gap-2">
-                <span class="w-1.5 h-1.5 rounded-full bg-slate-600"></span>
-                G-16 Atelier, V01/BAT & Nommage
-              </span>
-              <svg class="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-            </button>
-          </div>
-        </div>
-
-        <!-- Lesson Progress Widget -->
-        <div class="p-3.5 rounded-xl bg-[#131417] border border-[#272b35] space-y-2">
-          <div class="flex justify-between text-[11px] font-bold">
-            <span class="text-slate-300">Progression Cursus</span>
-            <span class="text-[#d6a55b]">4 / 10</span>
-          </div>
-          <div class="w-full h-1.5 rounded-full bg-[#272b35] overflow-hidden">
-            <div class="h-full bg-gradient-to-r from-[#e6bf65] to-[#cf9c36] rounded-full" style="width: 40%;"></div>
-          </div>
-        </div>
-
-        <!-- Community Counters -->
-        <div class="p-3.5 rounded-xl bg-[#131417] border border-[#272b35] space-y-2.5">
-          <div class="text-[10px] uppercase tracking-wider font-bold text-[#d6a55b]">Communauté</div>
-          <div class="flex items-center justify-between text-xs">
-            <span class="flex items-center gap-1.5 text-slate-300 font-medium">
-              <svg class="w-3.5 h-3.5 text-[#d6a55b]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
-              Membres
-            </span>
-            <span class="font-extrabold text-white">265</span>
-          </div>
-          <div class="flex items-center justify-between text-xs">
-            <span class="flex items-center gap-1.5 text-slate-300 font-medium">
-              <svg class="w-3.5 h-3.5 text-amber-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.316.492-.533 1.035-.694 1.58C8.835 6.64 8 9.5 8 11.5a4.5 4.5 0 109 0c0-1.488-.507-2.906-1.39-4.103a11.163 11.163 0 00-3.215-3.844zM10 13a2.5 2.5 0 100-5 2.5 2.5 0 000 5z" clip-rule="evenodd"/></svg>
-              Croquis Partagés
-            </span>
-            <span class="font-extrabold text-[#d6a55b]">11.7k</span>
-          </div>
-        </div>
+        <button onclick="showTab('dashboard')" id="sidebar-btn-dashboard" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-[#20242c] transition-all">
+          <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+          <span>Espace Étudiant</span>
+        </button>
       </nav>
+
+      <!-- Section Catalogue des Cours -->
+      <div class="space-y-3 pt-3 border-t border-[#272b35]">
+        <div class="flex items-center justify-between px-2">
+          <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Programme des Cours</span>
+          <span class="text-[10px] font-mono font-bold text-slate-400">26 cours</span>
+        </div>
+
+        <!-- Filtre rapide 1-clic -->
+        <div class="grid grid-cols-3 gap-1 bg-[#131417] p-1 rounded-xl border border-[#272b35] text-[11px] font-bold">
+          <button id="filter-pill-all" onclick="setSidebarFiliere('all')" class="py-1 rounded-lg bg-[#27293d] text-white shadow transition-all">Tous</button>
+          <button id="filter-pill-dessin" onclick="setSidebarFiliere('dessin')" class="py-1 rounded-lg text-slate-400 hover:text-white transition-all">Dessin (10)</button>
+          <button id="filter-pill-graphisme" onclick="setSidebarFiliere('graphisme')" class="py-1 rounded-lg text-slate-400 hover:text-white transition-all">PAO (16)</button>
+        </div>
+
+        <!-- Section 1 : Dessin d'Art (10 cours) -->
+        <div id="sidebar-group-dessin" class="space-y-1">
+          <div onclick="toggleSidebarAccordion('dessin')" class="flex items-center justify-between px-2 py-1.5 rounded-lg text-xs font-bold text-[#e14eca] hover:bg-[#20242c] cursor-pointer select-none">
+            <span class="flex items-center gap-2">
+              <svg id="chevron-dessin" class="w-3.5 h-3.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              <span>Dessin d'Art</span>
+            </span>
+            <span class="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded bg-[#e14eca]/20 text-[#e14eca]">10 cours</span>
+          </div>
+
+          <div id="sidebar-list-dessin" class="space-y-0.5 pl-1">
+            <button onclick="showTab('cours'); selectCourse('cours-d01-visuelle-trait');" class="course-nav-btn w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-[#20242c] transition-all group" data-course-id="cours-d01-visuelle-trait">
+              <span class="flex items-center gap-2 min-w-0">
+                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-pink-500/15 text-pink-400 shrink-0">D-01</span>
+                <span class="truncate">Visée & Trait</span>
+              </span>
+              <svg class="w-3.5 h-3.5 text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </button>
+            <button onclick="showTab('cours'); selectCourse('cours-d02-geometrie-perspective');" class="course-nav-btn w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-[#20242c] transition-all group" data-course-id="cours-d02-geometrie-perspective">
+              <span class="flex items-center gap-2 min-w-0">
+                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-pink-500/15 text-pink-400 shrink-0">D-02</span>
+                <span class="truncate">Volumes & Perspective</span>
+              </span>
+              <svg class="w-3.5 h-3.5 text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </button>
+            <button onclick="showTab('cours'); selectCourse('cours-d03-notan-valeurs');" class="course-nav-btn w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-[#20242c] transition-all group" data-course-id="cours-d03-notan-valeurs">
+              <span class="flex items-center gap-2 min-w-0">
+                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-pink-500/15 text-pink-400 shrink-0">D-03</span>
+                <span class="truncate">Ombre & Lumière</span>
+              </span>
+              <svg class="w-3.5 h-3.5 text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </button>
+            <button onclick="showTab('cours'); selectCourse('cours-d04-modulation-bords');" class="course-nav-btn w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-[#20242c] transition-all group" data-course-id="cours-d04-modulation-bords">
+              <span class="flex items-center gap-2 min-w-0">
+                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-pink-500/15 text-pink-400 shrink-0">D-04</span>
+                <span class="truncate">Les 4 Bords</span>
+              </span>
+              <svg class="w-3.5 h-3.5 text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </button>
+            <button onclick="showTab('cours'); selectCourse('cours-d05-anatomie-portrait');" class="course-nav-btn w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-[#20242c] transition-all group" data-course-id="cours-d05-anatomie-portrait">
+              <span class="flex items-center gap-2 min-w-0">
+                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-pink-500/15 text-pink-400 shrink-0">D-05</span>
+                <span class="truncate">Anatomie du Visage</span>
+              </span>
+              <svg class="w-3.5 h-3.5 text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </button>
+            <button onclick="showTab('cours'); selectCourse('cours-d06-modele-vivant-dune');" class="course-nav-btn w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-[#20242c] transition-all group" data-course-id="cours-d06-modele-vivant-dune">
+              <span class="flex items-center gap-2 min-w-0">
+                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-pink-500/15 text-pink-400 shrink-0">D-06</span>
+                <span class="truncate">Modèle Vivant</span>
+              </span>
+              <svg class="w-3.5 h-3.5 text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </button>
+            <button onclick="showTab('cours'); selectCourse('cours-d07-drapes-mecanique-plis');" class="course-nav-btn w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-[#20242c] transition-all group" data-course-id="cours-d07-drapes-mecanique-plis">
+              <span class="flex items-center gap-2 min-w-0">
+                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-pink-500/15 text-pink-400 shrink-0">D-07</span>
+                <span class="truncate">Drapés & Plis</span>
+              </span>
+              <svg class="w-3.5 h-3.5 text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </button>
+            <button onclick="showTab('cours'); selectCourse('cours-d08-gamut-masking-harmonie');" class="course-nav-btn w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-[#20242c] transition-all group" data-course-id="cours-d08-gamut-masking-harmonie">
+              <span class="flex items-center gap-2 min-w-0">
+                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-pink-500/15 text-pink-400 shrink-0">D-08</span>
+                <span class="truncate">Harmonie des Couleurs</span>
+              </span>
+              <svg class="w-3.5 h-3.5 text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </button>
+            <button onclick="showTab('cours'); selectCourse('cours-d09-rendu-peau-sss');" class="course-nav-btn w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-[#20242c] transition-all group" data-course-id="cours-d09-rendu-peau-sss">
+              <span class="flex items-center gap-2 min-w-0">
+                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-pink-500/15 text-pink-400 shrink-0">D-09</span>
+                <span class="truncate">Rendu de la Peau</span>
+              </span>
+              <svg class="w-3.5 h-3.5 text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </button>
+            <button onclick="showTab('cours'); selectCourse('cours-d10-composition-cadrage-cinema');" class="course-nav-btn w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-[#20242c] transition-all group" data-course-id="cours-d10-composition-cadrage-cinema">
+              <span class="flex items-center gap-2 min-w-0">
+                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-pink-500/15 text-pink-400 shrink-0">D-10</span>
+                <span class="truncate">Cadrage & Composition</span>
+              </span>
+              <svg class="w-3.5 h-3.5 text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Section 2 : Design Graphique & PAO (16 cours) -->
+        <div id="sidebar-group-graphisme" class="space-y-1">
+          <div onclick="toggleSidebarAccordion('graphisme')" class="flex items-center justify-between px-2 py-1.5 rounded-lg text-xs font-bold text-[#00f2c3] hover:bg-[#20242c] cursor-pointer select-none">
+            <span class="flex items-center gap-2">
+              <svg id="chevron-graphisme" class="w-3.5 h-3.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              <span>Design Graphique</span>
+            </span>
+            <span class="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded bg-[#00f2c3]/20 text-[#00f2c3]">16 cours</span>
+          </div>
+
+          <div id="sidebar-list-graphisme" class="space-y-0.5 pl-1">
+            <button onclick="showTab('cours'); selectCourse('cours-g01-brief');" class="course-nav-btn w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-[#20242c] transition-all group" data-course-id="cours-g01-brief">
+              <span class="flex items-center gap-2 min-w-0">
+                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-cyan-500/15 text-[#00f2c3] shrink-0">G-01</span>
+                <span class="truncate">Analyse du Brief</span>
+              </span>
+              <svg class="w-3.5 h-3.5 text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </button>
+            <button onclick="showTab('cours'); selectCourse('cours-g02-pistes');" class="course-nav-btn w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-[#20242c] transition-all group" data-course-id="cours-g02-pistes">
+              <span class="flex items-center gap-2 min-w-0">
+                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-cyan-500/15 text-[#00f2c3] shrink-0">G-02</span>
+                <span class="truncate">Moodboard & Pistes</span>
+              </span>
+              <svg class="w-3.5 h-3.5 text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </button>
+            <button onclick="showTab('cours'); selectCourse('cours-g03-bitmap-vectoriel');" class="course-nav-btn w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-[#20242c] transition-all group" data-course-id="cours-g03-bitmap-vectoriel">
+              <span class="flex items-center gap-2 min-w-0">
+                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-cyan-500/15 text-[#00f2c3] shrink-0">G-03</span>
+                <span class="truncate">Image Vectorielle</span>
+              </span>
+              <svg class="w-3.5 h-3.5 text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </button>
+            <button onclick="showTab('cours'); selectCourse('cours-g04-bezier');" class="course-nav-btn w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-[#20242c] transition-all group" data-course-id="cours-g04-bezier">
+              <span class="flex items-center gap-2 min-w-0">
+                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-cyan-500/15 text-[#00f2c3] shrink-0">G-04</span>
+                <span class="truncate">Courbes de Bézier</span>
+              </span>
+              <svg class="w-3.5 h-3.5 text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </button>
+            <button onclick="showTab('cours'); selectCourse('cours-g05-pathfinder');" class="course-nav-btn w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-[#20242c] transition-all group" data-course-id="cours-g05-pathfinder">
+              <span class="flex items-center gap-2 min-w-0">
+                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-cyan-500/15 text-[#00f2c3] shrink-0">G-05</span>
+                <span class="truncate">Outils Booléens</span>
+              </span>
+              <svg class="w-3.5 h-3.5 text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </button>
+            <button onclick="showTab('cours'); selectCourse('cours-g06-typo-anatomie');" class="course-nav-btn w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-[#20242c] transition-all group" data-course-id="cours-g06-typo-anatomie">
+              <span class="flex items-center gap-2 min-w-0">
+                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-cyan-500/15 text-[#00f2c3] shrink-0">G-06</span>
+                <span class="truncate">Typographie & Polices</span>
+              </span>
+              <svg class="w-3.5 h-3.5 text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </button>
+            <button onclick="showTab('cours'); selectCourse('cours-g07-hierarchie-typo');" class="course-nav-btn w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-[#20242c] transition-all group" data-course-id="cours-g07-hierarchie-typo">
+              <span class="flex items-center gap-2 min-w-0">
+                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-cyan-500/15 text-[#00f2c3] shrink-0">G-07</span>
+                <span class="truncate">Hiérarchie Typo</span>
+              </span>
+              <svg class="w-3.5 h-3.5 text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </button>
+            <button onclick="showTab('cours'); selectCourse('cours-g08-grilles-composition');" class="course-nav-btn w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-[#20242c] transition-all group" data-course-id="cours-g08-grilles-composition">
+              <span class="flex items-center gap-2 min-w-0">
+                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-cyan-500/15 text-[#00f2c3] shrink-0">G-08</span>
+                <span class="truncate">Grilles & Mise en Page</span>
+              </span>
+              <svg class="w-3.5 h-3.5 text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </button>
+            <button onclick="showTab('cours'); selectCourse('cours-g09-colorimetrie-rvb-cmjn');" class="course-nav-btn w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-[#20242c] transition-all group" data-course-id="cours-g09-colorimetrie-rvb-cmjn">
+              <span class="flex items-center gap-2 min-w-0">
+                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-cyan-500/15 text-[#00f2c3] shrink-0">G-09</span>
+                <span class="truncate">Couleurs RVB & CMJN</span>
+              </span>
+              <svg class="w-3.5 h-3.5 text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </button>
+            <button onclick="showTab('cours'); selectCourse('cours-g10-pantone-harmonie');" class="course-nav-btn w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-[#20242c] transition-all group" data-course-id="cours-g10-pantone-harmonie">
+              <span class="flex items-center gap-2 min-w-0">
+                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-cyan-500/15 text-[#00f2c3] shrink-0">G-10</span>
+                <span class="truncate">Nuancier Pantone</span>
+              </span>
+              <svg class="w-3.5 h-3.5 text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </button>
+            <button onclick="showTab('cours'); selectCourse('cours-g11-logo-1bit');" class="course-nav-btn w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-[#20242c] transition-all group" data-course-id="cours-g11-logo-1bit">
+              <span class="flex items-center gap-2 min-w-0">
+                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-cyan-500/15 text-[#00f2c3] shrink-0">G-11</span>
+                <span class="truncate">Création de Logotype</span>
+              </span>
+              <svg class="w-3.5 h-3.5 text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </button>
+            <button onclick="showTab('cours'); selectCourse('cours-g12-prepresse-300dpi');" class="course-nav-btn w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-[#20242c] transition-all group" data-course-id="cours-g12-prepresse-300dpi">
+              <span class="flex items-center gap-2 min-w-0">
+                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-cyan-500/15 text-[#00f2c3] shrink-0">G-12</span>
+                <span class="truncate">Normes Prépresse</span>
+              </span>
+              <svg class="w-3.5 h-3.5 text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </button>
+            <button onclick="showTab('cours'); selectCourse('cours-g13-stickers-cutcontour');" class="course-nav-btn w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-[#20242c] transition-all group" data-course-id="cours-g13-stickers-cutcontour">
+              <span class="flex items-center gap-2 min-w-0">
+                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-cyan-500/15 text-[#00f2c3] shrink-0">G-13</span>
+                <span class="truncate">Stickers & Découpe</span>
+              </span>
+              <svg class="w-3.5 h-3.5 text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </button>
+            <button onclick="showTab('cours'); selectCourse('cours-g14-pochoir-ponts');" class="course-nav-btn w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-[#20242c] transition-all group" data-course-id="cours-g14-pochoir-ponts">
+              <span class="flex items-center gap-2 min-w-0">
+                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-cyan-500/15 text-[#00f2c3] shrink-0">G-14</span>
+                <span class="truncate">Découpe Vinyle</span>
+              </span>
+              <svg class="w-3.5 h-3.5 text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </button>
+            <button onclick="showTab('cours'); selectCourse('cours-g15-gabarit-arcade-1-1');" class="course-nav-btn w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-[#20242c] transition-all group" data-course-id="cours-g15-gabarit-arcade-1-1">
+              <span class="flex items-center gap-2 min-w-0">
+                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-cyan-500/15 text-[#00f2c3] shrink-0">G-15</span>
+                <span class="truncate">Gabarit Grand Format</span>
+              </span>
+              <svg class="w-3.5 h-3.5 text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </button>
+            <button onclick="showTab('cours'); selectCourse('cours-g16-organisation-atelier-nommage');" class="course-nav-btn w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-[#20242c] transition-all group" data-course-id="cours-g16-organisation-atelier-nommage">
+              <span class="flex items-center gap-2 min-w-0">
+                <span class="course-badge text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-cyan-500/15 text-[#00f2c3] shrink-0">G-16</span>
+                <span class="truncate">Organisation & BAT</span>
+              </span>
+              <svg class="w-3.5 h-3.5 text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- User Profile Footer in Sidebar -->
-    <div class="pt-4 border-t border-[#272b35] flex items-center justify-between">
+    <div class="pt-4 mt-6 border-t border-[#272b35] flex items-center justify-between">
       <div class="flex items-center gap-3">
         <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&auto=format&fit=crop&q=80" alt="Avatar" class="w-9 h-9 rounded-full border border-[#272b35] object-cover" />
         <div>
@@ -748,7 +747,7 @@
             <div class="flex flex-wrap items-center justify-between text-xs text-slate-400 pt-2 border-t border-[#2b3553]/40">
               <div class="flex items-center gap-4">
                 <span class="flex items-center gap-1.5 text-xs text-slate-300">
-                  <span class="w-3 h-1 rounded-full bg-[#e14eca]"></span> Dessin d'Art (Sight-Size & Anatomie)
+                  <span class="w-3 h-1 rounded-full bg-[#e14eca]"></span> Dessin d'Art (Visée & Anatomie)
                 </span>
                 <span class="flex items-center gap-1.5 text-xs text-slate-300">
                   <span class="w-3 h-1 rounded-full bg-[#00f2c3]"></span> Design Graphique (Bézier & Prépresse)
@@ -825,7 +824,7 @@
                 <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-[#e14eca]/10 text-[#e14eca]">4 Paliers</span>
               </div>
               <h3 class="text-lg font-bold text-white group-hover:text-[#ba54f5] transition-colors">
-                Du Sight-Size au Cadrage Cinéma 2.39:1
+                De la Visée d'Observation au Cadrage Cinéma
               </h3>
               <p class="text-xs text-slate-300 leading-relaxed">
                 Apprentissage académique rigoureux sur feuille de papier : visée comparative, volumes géométriques, Notan binaire, modulation des 4 bords, anatomie de tête de 3/4 et modèle vivant (Atelier Dune).
@@ -884,12 +883,12 @@
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <!-- Carte 1 : D-01 Visée Sight-Size -->
+            <!-- Carte 1 : D-01 Visée & Trait -->
             <div class="p-4 rounded-2xl bg-[#1b1e24] border border-[#272b35] hover:border-[#d6a55b] transition-all flex flex-col justify-between cursor-pointer group" onclick="showTab('cours'); selectCourse('cours-d01-visuelle-trait');">
               <div class="space-y-2">
                 <span class="text-[9px] font-bold px-2 py-0.5 rounded bg-[#d6a55b]/20 text-[#d6a55b] uppercase">Dessin · D-01</span>
-                <h4 class="font-bold text-sm text-white group-hover:text-[#d6a55b] transition-colors">Visée Sight-Size & Trait</h4>
-                <p class="text-[11px] text-slate-400 leading-relaxed">Postures, lâcher-prise de l'épaule et visée comparative 1:1 de l'Académie Bargue.</p>
+                <h4 class="font-bold text-sm text-white group-hover:text-[#d6a55b] transition-colors">Visée & Trait</h4>
+                <p class="text-[11px] text-slate-400 leading-relaxed">Tenue de l'outil, geste de l'épaule et visée comparative de l'Académie Bargue.</p>
               </div>
               <span class="text-xs font-bold text-[#d6a55b] mt-3 flex items-center justify-between pt-2 border-t border-[#272b35]">
                 <span>Accéder au cours</span>
@@ -897,11 +896,11 @@
               </span>
             </div>
 
-            <!-- Carte 2 : G-01 Brief Client -->
+            <!-- Carte 2 : G-01 Analyse du Brief -->
             <div class="p-4 rounded-2xl bg-[#1b1e24] border border-[#272b35] hover:border-[#00e1d9] transition-all flex flex-col justify-between cursor-pointer group" onclick="showTab('cours'); selectCourse('cours-g01-brief');">
               <div class="space-y-2">
                 <span class="text-[9px] font-bold px-2 py-0.5 rounded bg-[#00e1d9]/20 text-[#00e1d9] uppercase">Graphisme · G-01</span>
-                <h4 class="font-bold text-sm text-white group-hover:text-[#00e1d9] transition-colors">Brief & Analyse de Demande</h4>
+                <h4 class="font-bold text-sm text-white group-hover:text-[#00e1d9] transition-colors">Analyse du Brief</h4>
                 <p class="text-[11px] text-slate-400 leading-relaxed">Poser les 6 questions indispensables face à un client vague avant tout croquis.</p>
               </div>
               <span class="text-xs font-bold text-[#00e1d9] mt-3 flex items-center justify-between pt-2 border-t border-[#272b35]">
@@ -910,12 +909,12 @@
               </span>
             </div>
 
-            <!-- Carte 3 : G-04 Bézier & Vectoriel -->
+            <!-- Carte 3 : G-04 Courbes de Bézier -->
             <div class="p-4 rounded-2xl bg-[#1b1e24] border border-[#272b35] hover:border-purple-400 transition-all flex flex-col justify-between cursor-pointer group" onclick="showTab('cours'); selectCourse('cours-g04-bezier');">
               <div class="space-y-2">
                 <span class="text-[9px] font-bold px-2 py-0.5 rounded bg-purple-500/20 text-purple-400 uppercase">Graphisme · G-04</span>
-                <h4 class="font-bold text-sm text-white group-hover:text-purple-400 transition-colors">Vectoriel & Courbes de Bézier</h4>
-                <p class="text-[11px] text-slate-400 leading-relaxed">Ancrages stricts aux extremums, tangentes orthogonales et dessin mathématique.</p>
+                <h4 class="font-bold text-sm text-white group-hover:text-purple-400 transition-colors">Courbes de Bézier</h4>
+                <p class="text-[11px] text-slate-400 leading-relaxed">Ancrages stricts aux extremums, tangentes orthogonales et dessin vectoriel.</p>
               </div>
               <span class="text-xs font-bold text-purple-400 mt-3 flex items-center justify-between pt-2 border-t border-[#272b35]">
                 <span>Accéder au cours</span>
@@ -923,12 +922,12 @@
               </span>
             </div>
 
-            <!-- Carte 4 : D-06 Poses Papier Dune -->
+            <!-- Carte 4 : D-06 Modèle Vivant -->
             <div class="p-4 rounded-2xl bg-[#1b1e24] border border-[#272b35] hover:border-amber-400 transition-all flex flex-col justify-between cursor-pointer group" onclick="showTab('cours'); selectCourse('cours-d06-modele-vivant-dune');">
               <div class="space-y-2">
                 <span class="text-[9px] font-bold px-2 py-0.5 rounded bg-amber-500/20 text-amber-400 uppercase">Dessin · D-06</span>
-                <h4 class="font-bold text-sm text-white group-hover:text-amber-400 transition-colors">Modèle Vivant & Poses (Dune)</h4>
-                <p class="text-[11px] text-slate-400 leading-relaxed">Étude sur papier physique : ligne d'action, contrapposto et drapés sous tension.</p>
+                <h4 class="font-bold text-sm text-white group-hover:text-amber-400 transition-colors">Modèle Vivant</h4>
+                <p class="text-[11px] text-slate-400 leading-relaxed">Étude sur papier : ligne d'action, contrapposto et équilibre de la pose.</p>
               </div>
               <span class="text-xs font-bold text-amber-400 mt-3 flex items-center justify-between pt-2 border-t border-[#272b35]">
                 <span>Accéder au cours</span>
@@ -1336,7 +1335,7 @@
                     <span class="text-[10px] font-black px-2 py-0.5 rounded bg-blue-500/20 text-blue-400">G-08 · TECHNIQUE</span>
                     <span class="text-[10px] text-slate-400 font-mono">35 min</span>
                   </div>
-                  <h5 class="text-sm font-bold text-white group-hover:text-blue-400 transition-colors">Grilles 12 Colonnes & Baseline</h5>
+                  <h5 class="text-sm font-bold text-white group-hover:text-blue-400 transition-colors">Grilles & Mise en Page</h5>
                   <p class="text-xs text-slate-300">Armature invisible de la page, calcul des gouttières et calage vertical sur la grille de ligne de base.</p>
                 </div>
                 <button onclick="showTab('cours'); selectCourse('cours-g08-grilles-composition');" class="mt-3 pt-2.5 border-t border-[#272b35] flex items-center justify-between text-xs font-bold text-blue-400 hover:underline">
@@ -1393,7 +1392,7 @@
                     <span class="text-[10px] font-black px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400">G-11 · TECHNIQUE</span>
                     <span class="text-[10px] text-slate-400 font-mono">30 min</span>
                   </div>
-                  <h5 class="text-sm font-bold text-white group-hover:text-emerald-400 transition-colors">Logo & Silhouette 1-Bit</h5>
+                  <h5 class="text-sm font-bold text-white group-hover:text-emerald-400 transition-colors">Création de Logotype</h5>
                   <p class="text-xs text-slate-300">Test du noir absolu sur blanc sans nuance, réduction 16x16 px, zone d'exclusion et interdits de charte.</p>
                 </div>
                 <button onclick="showTab('cours'); selectCourse('cours-g11-logo-1bit');" class="mt-3 pt-2.5 border-t border-[#272b35] flex items-center justify-between text-xs font-bold text-emerald-400 hover:underline">
