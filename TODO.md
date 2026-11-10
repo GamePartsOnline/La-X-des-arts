@@ -37,5 +37,6 @@ Emplacement de travail : C:\DEV\la-croisee-des-arts
 - [x] Dashboard Nouvel Élève sur la page d'accueil : onboarding, orientation double filière, 3 premières actions et cours de démarrage
 - [x] Boîte à outils interactive : Checklist 300 DPI, nuancier des formules de noir cliquables, échelle UI 8px, arborescence d'atelier GPO et barème d'évaluation en 100 points
 - [x] Découpage architectural modulaire strict : 100 % des fichiers de code sous la limite des 300 lignes
+- [x] Suppression de la colonne centrale intermédiaire dans l'onglet Cours : affichage direct en pleine largeur avec barre de navigation rapide et surbrillance dans l'arborescence latérale
 - [ ] Ajout d'outils vectoriels interactifs avancés dans le studio canvas
 - [ ] Système d'export PDF/SVG des travaux d'ateliers
