@@ -1,3 +1,4 @@
+import {createHash} from 'node:crypto';
 import { db } from './store.mjs';
 
 const SEED_ARTICLES = [
@@ -31,7 +32,8 @@ export function initExtendedTables() {
   const countWorks = db.prepare('SELECT COUNT(*) AS c FROM stagiaire_works').get().c;
   if (countWorks === 0) {
     const stag = db.prepare("SELECT id, name FROM users WHERE role='stagiaire' ORDER BY id ASC LIMIT 1").get();
-    const uid = stag?.id || 1;
+    if (!stag) return;
+    const uid = stag.id;
     const sname = stag?.name || 'Sarah Martin (Stagiaire)';
     const insWork = db.prepare('INSERT INTO stagiaire_works(user_id,student_name,title,category,week,course_id,technique,image_data,notes,tutor_comment,status) VALUES(?,?,?,?,?,?,?,?,?,?,?)');
     for (const w of SEED_GALLERY) insWork.run(uid, sname, w.title, w.category, w.week, w.course_id, w.technique, w.image_data, w.notes, w.tutor_comment, w.status);
@@ -39,6 +41,7 @@ export function initExtendedTables() {
 }
 
 const RSS_FEEDS = [
+  { name: 'Le Journal des Arts', url: 'https://www.lejournaldesarts.fr/rss.xml', cat: 'art', badge: 'Bot RSS · Art', norme: 'Actualité artistique' },
   { name: 'Blender.org', url: 'https://www.blender.org/feed/', cat: 'logiciels', badge: 'Bot RSS · Blender 3D/2D', norme: 'Pipeline Open-Source 2D/3D' },
   { name: 'Krita Official', url: 'https://krita.org/en/feed/', cat: 'logiciels', badge: 'Bot RSS · Krita Painting', norme: 'Digital Painting & CMJN' },
   { name: 'Inkscape News', url: 'https://inkscape.org/news/feed/', cat: 'logiciels', badge: 'Bot RSS · Inkscape Vector', norme: 'SVG & Découpe Vectorielle' }
@@ -52,7 +55,7 @@ function parseRssItems(xml, feedMeta) {
     const link = (/<link[^>]*href=["']([^"']+)["']/i.exec(block)?.[1] || /<link[^>]*>([^<]+)<\/link>/i.exec(block)?.[1] || feedMeta.url).trim();
     const desc = (/<(description|summary|content)[^>]*>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/\1>/i.exec(block)?.[2] || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 280);
     if (title && title.length > 5) {
-      const id = 'rss-' + Buffer.from(link || title).toString('base64url').slice(0, 22);
+      const id = 'rss-' + createHash('sha256').update(link || title).digest('hex').slice(0, 24);
       items.push({ id, cat: feedMeta.cat, badge: feedMeta.badge, titre: title.slice(0, 160), source_nom: feedMeta.name, source_url: link, norme: feedMeta.norme, resume: desc || `Actualité officielle collectée automatiquement par le Bot sur ${feedMeta.name}.` });
     }
   }
@@ -77,6 +80,7 @@ export async function runNewsBotNow(allowNetwork = process.env.NODE_ENV !== 'tes
           const parsed = parseRssItems(await res.text(), feed);
           fetched += parsed.length;
           for (const item of parsed) {
+            if (db.prepare('SELECT id FROM news_articles WHERE source_url=? OR lower(trim(titre))=lower(trim(?))').get(item.source_url,item.titre)) continue;
             const info = ins.run(item.id, item.cat, item.badge, item.titre, item.source_nom, item.source_url, item.norme, item.resume, nowStr, nextOrder);
             if (info.changes > 0) { added++; nextOrder++; }
           }
@@ -91,7 +95,7 @@ export async function runNewsBotNow(allowNetwork = process.env.NODE_ENV !== 'tes
     if (info.changes > 0) { added++; nextOrder++; break; }
   }
 
-  db.prepare('INSERT INTO bot_runs(ran_at,fetched_count,added_count,sources) VALUES(?,?,?,?)').run(nowStr, fetched, added, 'Adobe CC, FOGRA/ISO, Blender, Krita, Inkscape, GWG');
+  db.prepare('INSERT INTO bot_runs(ran_at,fetched_count,added_count,sources) VALUES(?,?,?,?)').run(nowStr, fetched, added, 'Adobe CC, FOGRA/ISO, Blender, Krita, Inkscape, GWG, Le Journal des Arts');
   return { ranAt: nowStr, fetchedCount: fetched, addedCount: added };
 }
 
@@ -165,7 +169,7 @@ export async function handleExtendedApiRoutes(req, res, url, path, u, isStaff, b
         schedule: 'Automatique · Toutes les 24h (Quotidien)',
         lastRun: lastBot?.ran_at || '2026-11-10 08:00',
         lastAdded: lastBot?.added_count ?? 0,
-        sources: lastBot?.sources || 'Adobe CC, FOGRA/ISO, Blender, Krita, Inkscape, GWG',
+        sources: lastBot?.sources || 'Adobe CC, FOGRA/ISO, Blender, Krita, Inkscape, GWG, Le Journal des Arts',
         totalCount: enriched.length,
         readCount,
         unreadCount: enriched.length - readCount

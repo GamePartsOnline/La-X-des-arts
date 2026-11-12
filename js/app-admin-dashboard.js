@@ -85,8 +85,8 @@ function renderAdminDashboard() {
           <p class="text-sm text-slate-300">Validez les inscriptions, attribuez les rôles (Stagiaire ou Visiteur), ouvrez les cours par profil et évaluez les travaux.</p>
         </div>
         <div class="flex flex-wrap items-center gap-2">
-          <button onclick="if(typeof resetLessonsToSingleExample==='function')resetLessonsToSingleExample()" class="px-3.5 py-2 rounded-xl bg-[#111317] hover:bg-[#262b35] border border-[#262b35] text-slate-200 font-bold text-xs">
-            Réinitialiser (1 seul cours validé L-01)
+          <button onclick="if(typeof resetStudentLessons==='function')resetStudentLessons()" class="px-3.5 py-2 rounded-xl bg-[#111317] hover:bg-[#262b35] border border-[#262b35] text-slate-200 font-bold text-xs">
+            Réinitialiser les validations
           </button>
         </div>
       </div>
@@ -127,7 +127,7 @@ function renderAdminDashboard() {
         <div class="flex flex-wrap items-center justify-between gap-3 border-b border-[#262b35] pb-4">
           <div>
             <h2 class="text-lg font-bold text-white">Suivi Pédagogique & Validation des Exercices (${learnerName})</h2>
-            <p class="text-xs text-slate-400">1 seul exercice (L-01) validé par défaut à titre d'exemple (${validees}/${total} Acquis).</p>
+            <p class="text-xs text-slate-400">${validees}/${total} acquis. Aucun cours validé à l’arrivée.</p>
           </div>
           <div id="backend-student-selector-slot"></div>
         </div>

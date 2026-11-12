@@ -118,6 +118,7 @@ function getRoleNavTabs(role) {
       { id: 'metiers', label: '24 Métiers' },
       { id: 'ecoles', label: 'Écoles & Tarifs (26)' },
       { id: 'veille', label: 'ACTU & NEWS' },
+      { id: 'bugs', label: 'Signaler un bug' },
       { id: 'jobs', label: 'JOBS & STAGES' },
       { id: 'exposition', label: 'Exposition' }
     ];
@@ -130,6 +131,7 @@ function getRoleNavTabs(role) {
       { id: 'metiers', label: '24 Métiers' },
       { id: 'ecoles', label: 'Écoles & Tarifs (26)' },
       { id: 'veille', label: 'ACTU & NEWS' },
+      { id: 'bugs', label: 'Signaler un bug' },
       { id: 'jobs', label: 'JOBS & STAGES' }
     ];
   }
@@ -139,7 +141,8 @@ function getRoleNavTabs(role) {
     { id: 'metiers', label: '24 Métiers' },
     { id: 'ecoles', label: 'Écoles & Tarifs (26)' },
     { id: 'veille', label: 'ACTU & NEWS' },
-    { id: 'jobs', label: 'JOBS & STAGES' },
+    { id: 'bugs', label: 'Signaler un bug' },
+      { id: 'jobs', label: 'JOBS & STAGES' },
     { id: 'exposition', label: 'Exposition' }
   ];
 }

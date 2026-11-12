@@ -79,3 +79,13 @@ L'école réunit deux filières indépendantes et complémentaires formées aux 
 - [x] Règle permanente : documentation et analyse en ligne systématiques avant toute proposition ou révision de cours ou de page du site
 - [ ] Déploiement Coolify (`laxdesarts.gposarl.com`) et vérification visuelle en ligne
 - [ ] Export PDF / SVG récapitulatif des planches de cours
+
+## Demande du 2026-11-12
+
+- [ ] Galerie : afficher uniquement les travaux liés au compte du stagiaire connecté. Vérifier les contrôles serveur et supprimer tout recours à la galerie d’un autre stagiaire.
+
+- [ ] Veille Jobs : exclure animation touristique, animation pour enfants et événementiel. Conserver uniquement les métiers de création visuelle, graphisme, illustration, PAO, design, animation 2D/3D, VFX et jeu vidéo.
+- [ ] Encodage Jobs : corriger les accents des annonces déjà collectées et le décodage à l’import. Diagnostic : ProfilCulture annonce UTF-8 mais contient quelques octets invalides ; le repli actuel en Windows-1252 pour tout le document corrompt les accents valides. Préférer UTF-8 selon le charset, puis réparer les champs affectés sans altérer les accents corrects.
+- [ ] Compteur Jobs : utilisateur voit 6 annonces alors que 83 ont été annoncées. Vérifier total dédoublonné, filtres actifs, pagination et résultats réellement affichés. Afficher explicitement total, résultats filtrés et plage de la page.
+- [ ] Tableau de bord stagiaire : erreur préexistante sur c.blocLabel.split dans js/app-stagiaire-dashboard.js:171 quand blocLabel est absent ; empêche la restauration visuelle de session. Prévoir un libellé de repli et vérifier le parcours.
+- [ ] Vérifier le déploiement Coolify depuis main et la configuration du domaine lacroiseedesarts.gposarl.com (entrée A annoncée créée vers 37.59.104.240).

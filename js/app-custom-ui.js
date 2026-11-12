@@ -212,3 +212,9 @@ window.addEventListener('click', (e) => {
     themeDropdown.classList.add('hidden');
   }
 });
+
+// Compatibilité avec les actions du portail et leurs notifications.
+function showCustomToast(title, message, type = 'info') {
+  const escapeText = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  return showAtelierToast({title: escapeText(title), message: escapeText(message), type});
+}

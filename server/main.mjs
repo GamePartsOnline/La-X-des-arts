@@ -1,3 +1,4 @@
+import {startJobsWatch,runJobsWatch,jobsWatchStatus,externalJobs} from './jobs-watch.mjs';
 import {createServer} from 'node:http';
 import {readFile,stat} from 'node:fs/promises';
 import {resolve,extname,sep} from 'node:path';
@@ -6,6 +7,7 @@ import {db,root,hash,verify,publicUser,isLockedAdmin,lessons,courses,ROLES,STAFF
 import {startDailyNewsBotScheduler,handleExtendedApiRoutes} from './news-bot.mjs';
 const PORT=Number(process.env.PORT || 5173);
 startDailyNewsBotScheduler();
+startJobsWatch();
 const fail=(status,message)=>{throw Object.assign(new Error(message),{status});};
 const json=(res,status,value)=>{res.writeHead(status,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'});res.end(JSON.stringify(value));};
 const digest=s=>createHash('sha256').update(s).digest('hex');
@@ -76,11 +78,43 @@ export const server=createServer(async(req,res)=>{
   return json(res,201,{id:Number(row.lastInsertRowid),role:'en_attente',message:'Inscription enregistree. L\'administrateur attribuera votre profil et vos cours lors de la validation.'});
  }
  const u=user(req);if(!u)fail(401,'Connexion requise');
+ if(path==='/api/me/password'&&req.method==='PUT'){
+  if(u.role!=='stagiaire')fail(403,'Accès réservé aux stagiaires');
+  const b=await body(req);
+  if(typeof b.currentPassword!=='string'||b.currentPassword.length>256||typeof b.newPassword!=='string'||b.newPassword.length<12||b.newPassword.length>256)fail(400,'Nouveau mot de passe : 12 à 256 caractères');
+  const key='password:'+u.id,now=Date.now();let rate=attempts.get(key);
+  if(!rate||rate.until<now){rate={count:0,until:now+900000};attempts.set(key,rate);}if(++rate.count>10)fail(429,'Trop de tentatives, réessayez dans 15 minutes');
+  if(!verify(b.currentPassword,u.password))fail(400,'Mot de passe actuel incorrect');
+  if(b.currentPassword===b.newPassword)fail(400,'Choisissez un nouveau mot de passe différent');
+  db.prepare('UPDATE users SET password=? WHERE id=?').run(hash(b.newPassword),u.id);
+  db.prepare('DELETE FROM sessions WHERE user_id=?').run(u.id);attempts.delete(key);
+  return createSession(res,{...u,password:undefined});
+ }
+ if(path==='/api/bug-reports'&&req.method==='GET'){
+  const total=isStaff(u)?db.prepare('SELECT COUNT(*) AS n FROM bug_reports').get().n:db.prepare('SELECT COUNT(*) AS n FROM bug_reports WHERE user_id=?').get(u.id).n;
+  const requested=Number(url.searchParams.get('page')||1),page=Math.min(Math.max(1,Number.isSafeInteger(requested)?requested:1),Math.max(1,Math.ceil(total/10))),offset=(page-1)*10;
+  const reports=isStaff(u)?db.prepare('SELECT b.*,u.name AS author FROM bug_reports b LEFT JOIN users u ON u.id=b.user_id ORDER BY b.id DESC LIMIT 10 OFFSET ?').all(offset):db.prepare('SELECT * FROM bug_reports WHERE user_id=? ORDER BY id DESC LIMIT 10 OFFSET ?').all(u.id,offset);
+  return json(res,200,{reports,total,page,pageSize:10});
+ }
+ if(path==='/api/bug-reports'&&req.method==='POST'){
+  const b=await body(req);
+  if(typeof b.title!=='string'||!b.title.trim()||b.title.length>160||typeof b.description!=='string'||!b.description.trim()||b.description.length>4000||typeof b.page!=='string'||b.page.length>500)fail(400,'Titre, description et page invalides');
+  if(db.prepare("SELECT COUNT(*) AS n FROM bug_reports WHERE user_id=? AND created_at>datetime('now','-1 hour')").get(u.id).n>=10)fail(429,'Maximum 10 signalements par heure');
+  const r=db.prepare('INSERT INTO bug_reports(user_id,title,description,page) VALUES(?,?,?,?)').run(u.id,b.title.trim(),b.description.trim(),b.page.trim());return json(res,201,{id:Number(r.lastInsertRowid)});
+ }
+ const bugMatch=/^\/api\/bug-reports\/(\d+)$/.exec(path);
+ if(bugMatch&&req.method==='PUT'){
+  if(!isStaff(u))fail(403,'Administrateur requis');const b=await body(req);
+  if(!['ouvert','resolu'].includes(b.status))fail(400,'Statut invalide');
+  if(!db.prepare('UPDATE bug_reports SET status=? WHERE id=?').run(b.status,Number(bugMatch[1])).changes)fail(404,'Signalement inconnu');return json(res,200,{ok:true});
+ }
  if(path==='/api/me'&&req.method==='GET')return json(res,200,publicUser(u));
  if(path==='/api/logout'&&req.method==='POST'){db.prepare('DELETE FROM sessions WHERE token=?').run(digest(/session=([^;]+)/.exec(req.headers.cookie)?.[1]||''));res.setHeader('Set-Cookie','session=; HttpOnly; SameSite=Strict; Path=/; Max-Age=0');return json(res,200,{ok:true});}
  if(await handleExtendedApiRoutes(req,res,url,path,u,isStaff,body,json,fail)!==false)return;
+ if(path==='/api/jobs/watch'&&req.method==='GET')return json(res,200,jobsWatchStatus());
+ if(path==='/api/jobs/watch'&&req.method==='POST'){if(!isStaff(u))fail(403,'Administrateur requis');return json(res,200,await runJobsWatch());}
  if(path==='/api/jobs'&&req.method==='GET'){
-  return json(res,200,db.prepare('SELECT * FROM jobs ORDER BY id DESC').all());
+  return json(res,200,[...db.prepare('SELECT * FROM jobs ORDER BY id DESC').all(),...externalJobs()]);
  }
  if(path==='/api/jobs'&&req.method==='POST'){
   if(!isStaff(u))fail(403,'Administrateur requis pour publier une offre');

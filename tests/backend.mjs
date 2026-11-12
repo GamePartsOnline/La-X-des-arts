@@ -6,7 +6,6 @@ import {join} from 'node:path';
 const folder=mkdtempSync(join(tmpdir(),'croisee-test-'));
 process.env.DATA_DIR=folder;process.env.NODE_ENV='test';
 const {db,hash,courses,lessons,ROLE_META}=await import('../server/store.mjs');
-const {server}=await import('../server/main.mjs');
 for(const [email,role] of [
   ['admin@test.invalid','admin'],
   ['student@test.invalid','stagiaire'],
@@ -15,6 +14,7 @@ for(const [email,role] of [
 ]) {
   db.prepare('INSERT INTO users(email,name,role,password,unlocked,course_access) VALUES(?,?,?,?,?,?)').run(email,role,role,hash('Test-password-12345'),ROLE_META[role]?.unlockedByDefault??0,ROLE_META[role]?.courseAccess??'dessin');
 }
+const {server}=await import('../server/main.mjs');
 await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
 const base=`http://127.0.0.1:${server.address().port}`;
 async function request(path,method='GET',body,cookie){return fetch(base+path,{method,headers:{'Content-Type':'application/json',...(cookie?{Cookie:cookie}:{})},...(body!==undefined?{body:JSON.stringify(body)}:{})});}
@@ -53,9 +53,9 @@ test('authenticated jobs board is readable by connected users and writable only 
   const jobsList=await(await request('/api/jobs','GET',undefined,student)).json();
   assert.equal(jobsList.length,1);
 });
-test('lesson workflow is persisted and controlled by admin (only L-01 Acquis by default)',async()=>{
+test('lesson workflow is persisted and controlled by admin (no courses validated by default)',async()=>{
   const initial=await(await request('/api/lessons','GET',undefined,student)).json();
-  assert.equal(initial.filter(l=>l.status==='validee').length,1);
+  assert.equal(initial.filter(l=>l.status==='validee').length,0);
   assert.equal(initial[0].id,'lecon-d01');
   const id=lessons.find(l=>l.semaine===1 && l.id!=='lecon-d01').id;
   assert.equal((await request('/api/lessons/'+id,'PUT',{status:'validee'},student)).status,403);
@@ -65,7 +65,7 @@ test('lesson workflow is persisted and controlled by admin (only L-01 Acquis by 
   assert.equal(state.find(l=>l.id===id).note,'Acquis');
   assert.equal((await request('/api/lessons/reset-example?user=2','POST',{},admin)).status,200);
   const resetState=await(await request('/api/lessons','GET',undefined,student)).json();
-  assert.equal(resetState.filter(l=>l.status==='validee').length,1);
+  assert.equal(resetState.filter(l=>l.status==='validee').length,0);
 });
 test('courses are strictly reserved for stagiaires and blocked for visiteur',async()=>{
   const id=lessons.find(l=>l.semaine===2).id;
@@ -90,3 +90,53 @@ test('binary uploads, ownership, Acquis/Non acquis evaluation and deletion by ad
   assert.equal((await request('/api/submissions/'+id,'DELETE',undefined,admin)).status,200);
 });
 test('cross-origin writes blocked and logout revokes the session',async()=>{assert.equal((await fetch(base+'/api/logout',{method:'POST',headers:{Origin:'https://evil.invalid','Content-Type':'application/json',Cookie:other},body:'{}'})).status,403);assert.equal((await request('/api/logout','POST',{},other)).status,200);assert.equal((await request('/api/me','GET',undefined,other)).status,401);});
+
+ test('students change only their own password and revoke previous sessions',async()=>{
+  const payload={currentPassword:'Test-password-12345',newPassword:'Changed-password-67890'};
+  assert.equal((await request('/api/me/password','PUT',payload)).status,401);
+  assert.equal((await request('/api/me/password','PUT',payload,visiteur)).status,403);
+  assert.equal((await request('/api/me/password','PUT',{...payload,currentPassword:'wrong'},student)).status,400);
+  assert.equal((await request('/api/me/password','PUT',{...payload,newPassword:'short'},student)).status,400);
+  assert.equal((await request('/api/me/password','PUT',{...payload,newPassword:'Test-password-12345'},student)).status,400);
+  const changed=await request('/api/me/password','PUT',{...payload,user:1},student);
+  assert.equal(changed.status,200);
+  assert.equal((await request('/api/me','GET',undefined,student)).status,401);
+  const renewed=changed.headers.get('set-cookie').split(';')[0];
+  assert.equal((await request('/api/me','GET',undefined,renewed)).status,200);
+  assert.equal((await request('/api/login','POST',{email:'student@test.invalid',password:payload.currentPassword})).status,401);
+  assert.equal((await request('/api/login','POST',{email:'student@test.invalid',password:payload.newPassword})).status,200);
+  assert.equal((await request('/api/login','POST',{email:'admin@test.invalid',password:payload.currentPassword})).status,200);
+ });
+
+test('bug reports are private to their author and managed only by admin',async()=>{
+  const cookie=await login('visiteur@test.invalid','visiteur');
+  const payload={title:'Affichage du cours',description:'Le bouton ne répond pas.',page:'/cours'};
+  assert.equal((await request('/api/bug-reports','POST',payload)).status,401);
+  assert.equal((await request('/api/bug-reports','POST',{...payload,title:''},cookie)).status,400);
+  const created=await request('/api/bug-reports','POST',payload,cookie);assert.equal(created.status,201);
+  const {id}=await created.json();
+  assert.equal((await(await request('/api/bug-reports','GET',undefined,cookie)).json()).reports.length,1);
+  const freshAdmin=await login('admin@test.invalid','admin');
+  assert.equal((await(await request('/api/bug-reports','GET',undefined,freshAdmin)).json()).reports.length,1);
+  assert.equal((await request('/api/bug-reports/'+id,'PUT',{status:'resolu'},cookie)).status,403);
+  assert.equal((await request('/api/bug-reports/'+id,'PUT',{status:'resolu'},freshAdmin)).status,200);
+});
+
+test('jobs watch status is authenticated and manual collection is admin only',async()=>{
+  assert.equal((await request('/api/jobs/watch')).status,401);
+  const cookie=await login('visiteur@test.invalid','visiteur');
+  assert.equal((await request('/api/jobs/watch','GET',undefined,cookie)).status,200);
+  assert.equal((await request('/api/jobs/watch','POST',{},cookie)).status,403);
+});
+
+test('bug reports paginate ten per page without leaking other users reports',async()=>{
+  const cookie=await login('visiteur@test.invalid','visiteur');
+  const uid=db.prepare("SELECT id FROM users WHERE email='visiteur@test.invalid'").get().id;
+  for(let i=0;i<11;i++)db.prepare('INSERT INTO bug_reports(user_id,title,description,page) VALUES(?,?,?,?)').run(uid,'Pagination '+i,'Test','/');
+  const first=await(await request('/api/bug-reports','GET',undefined,cookie)).json();
+  const second=await(await request('/api/bug-reports?page=2','GET',undefined,cookie)).json();
+  assert.equal(first.reports.length,10);assert.equal(second.reports.length,2);assert.equal(first.total,12);
+  assert.ok(!first.reports.some(a=>second.reports.some(b=>a.id===b.id)));
+  const isolated=await login('admin@test.invalid','admin');
+  assert.equal((await(await request('/api/bug-reports?page=-1','GET',undefined,isolated)).json()).page,1);
+});

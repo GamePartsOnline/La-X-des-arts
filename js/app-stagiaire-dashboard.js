@@ -185,7 +185,7 @@ function renderStagiaireDashboard() {
       <section class="space-y-4">
         <div class="flex flex-wrap items-center justify-between gap-2">
           <h2 class="text-lg font-bold text-white">Cahiers d'Exercices du Stage (Évaluation Acquis / Non acquis)</h2>
-          <span class="text-xs text-slate-400">1 seul exercice (L-01) est validé par défaut à titre d'exemple</span>
+          <span class="text-xs text-slate-400">Aucun exercice validé à l’arrivée. Chaque validation est attribuée par le tuteur.</span>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           ${lessons.map(lesson => {

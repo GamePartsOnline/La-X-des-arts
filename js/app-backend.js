@@ -145,12 +145,12 @@ updateHeaderRoleUI = () => {
   }
   const meta = getProfileMeta(currentRole);
   const preview = backendUser.role === 'admin' ? '<select aria-label="Aperçu du site" onchange="previewAsRole(this.value || null)" class="px-2 py-1.5 rounded-lg bg-[#181b21] border border-[#262b35] text-xs text-white"><option value="" ' + (!adminPreviewRole ? 'selected' : '') + '>Administration</option><option value="stagiaire" ' + (adminPreviewRole === 'stagiaire' ? 'selected' : '') + '>Voir comme stagiaire</option><option value="visiteur" ' + (adminPreviewRole === 'visiteur' ? 'selected' : '') + '>Voir comme visiteur</option></select>' : '';
-  el.innerHTML = `<div class="flex items-center gap-2"><span class="px-3 py-1.5 rounded-lg bg-[#181b21] border border-[#262b35] text-xs text-white font-semibold truncate max-w-[220px]">${escapeBackend(backendUser.name)} · <span class="text-[#f8485e] font-mono">${escapeBackend(meta.label)}</span></span><button onclick="logoutBackendUser()" class="px-3 py-1.5 rounded-lg bg-[#181b21] hover:bg-rose-950/80 border border-[#262b35] text-xs font-bold text-slate-200 transition-all">Déconnexion</button></div>`;
+  el.innerHTML = `<div class="flex items-center gap-2"><span class="px-3 py-1.5 rounded-lg bg-[#181b21] border border-[#262b35] text-xs text-white font-semibold truncate max-w-[220px]">${escapeBackend(backendUser.name)} · <span class="text-[#f8485e] font-mono">${escapeBackend(meta.label)}</span></span>${backendUser.role === 'stagiaire' ? '<button type="button" onclick="openPasswordDialog()" class="px-3 py-1.5 rounded-lg bg-[#181b21] border border-[#262b35] text-xs text-white">Mot de passe</button>' : ''}<button onclick="logoutBackendUser()" class="px-3 py-1.5 rounded-lg bg-[#181b21] hover:bg-rose-950/80 border border-[#262b35] text-xs font-bold text-slate-200 transition-all">Déconnexion</button></div>`;
   el.insertAdjacentHTML('afterbegin', preview);
 };
 
-async function resetLessonsToSingleExample() {
-  try { await api('/lessons/reset-example' + studentQuery(), 'POST', {}); await refreshBackend(false); showCustomToast('Exemple restauré', 'Seule la leçon L-01 est validée (Acquis).', 'success'); } catch (e) { backendError(e); }
+async function resetStudentLessons() {
+  try { await api('/lessons/reset-example' + studentQuery(), 'POST', {}); await refreshBackend(false); showCustomToast('Suivi réinitialisé', 'Aucun cours validé.', 'success'); } catch (e) { backendError(e); }
 }
 stagiaireSubmitLesson = async id => { try { await api('/lessons/' + id, 'PUT', { status: 'en_attente' }); await refreshBackend(false); } catch (e) { backendError(e); } };
 adminValidateLesson = async (id, note, commentAdmin) => { try { await api('/lessons/' + id + studentQuery(), 'PUT', { status: 'validee', note: 'Acquis', commentAdmin }); await refreshBackend(false); } catch (e) { backendError(e); } };
@@ -218,6 +218,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 Object.assign(window, {
   openLoginModal, closeLoginModal, quickConnectProfile, submitLoginForm, submitRegistrationForm, logoutBackendUser, previewAsRole,
   selectBackendStudent, reviewBackendSubmission, deleteBackendSubmission,
-  createBackendAccount, updateBackendUserAccess, deleteBackendAccount, resetLessonsToSingleExample,
+  createBackendAccount, updateBackendUserAccess, deleteBackendAccount, resetStudentLessons,
   submitCustomCourse, switchUserRole, getStageLessons, saveStageLessons, adminToggleLesson, adminToggleCurrentCourse
 });

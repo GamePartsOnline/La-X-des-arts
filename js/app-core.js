@@ -54,6 +54,7 @@ function showTab(tabId) {
   if (tabId === 'metiers' && typeof renderMetiersView === 'function') renderMetiersView();
   if (tabId === 'ecoles' && typeof renderEcolesDirectoryPage === 'function') renderEcolesDirectoryPage();
   if (tabId === 'veille' && typeof renderVeilleView === 'function') renderVeilleView();
+  if (tabId === 'bugs' && typeof renderBugReports === 'function') renderBugReports();
   if (tabId === 'jobs' && typeof renderJobsView === 'function') renderJobsView();
   if (tabId === 'exposition' && typeof renderCreatorShowcaseView === 'function') renderCreatorShowcaseView();
 

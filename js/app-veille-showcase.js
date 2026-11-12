@@ -3,6 +3,7 @@
 // CONNECTÉ (#content-jobs) & EXPOSITION D'ATELIER (#content-exposition)
 // =====================================================================
 
+let currentJobsSearch = '', currentJobsPage = 1, currentNewsPage = 1;
 let currentVeilleCategory = 'all', currentJobsTypeFilter = 'all', cachedBackendJobs = [];
 
 const DEFAULT_VEILLE_ITEMS = [
@@ -16,7 +17,7 @@ const DEFAULT_VEILLE_ITEMS = [
   { id: 'veille-8', cat: 'art', date: '2026-11-04 · Écoles d\'Art', badge: 'Pédagogie & Admissions', titre: 'L\'hybridation Papier Traditionnel & Numérique dans les Écoles Supérieures', sourceNom: 'GOBELINS & Estienne', sourceUrl: 'https://www.gobelins.fr/', norme: 'Carnet de croquis physique obligatoire avant toute modélisation ou PAO', resume: 'Les jurys d\'admission et les studios (Fortiche, Ubisoft, maisons d\'édition) rappellent que la maîtrise du dessin d\'observation sur papier reste le socle irremplaçable face aux outils numériques.' }
 ];
 
-const DEFAULT_JOBS_OFFERS = [];
+const DEFAULT_JOBS_OFFERS = VERIFIED_JOB_OFFERS;
 
 const DEFAULT_CREATOR_SHOWCASE = [
   { id: 'expo-1', categorie: 'Illustration & Valeurs', titre: 'Étude Académique & Méthode de Correction Sargent', technique: 'Fusain, pierre noire et rehauts sur papier 300g · Contrôle des 4 bords', norme: 'Notan 5 valeurs · Visée Sight-Size 1:1', image: 'assets/masterclass_sargent_methode_correction.jpg' },
@@ -29,7 +30,7 @@ const DEFAULT_CREATOR_SHOWCASE = [
 
 function getVeilleItems() { try { return [...JSON.parse(localStorage.getItem('croisee_veille_items_v1') || '[]'), ...DEFAULT_VEILLE_ITEMS]; } catch { return DEFAULT_VEILLE_ITEMS; } }
 function getCreatorShowcaseItems() { try { return [...JSON.parse(localStorage.getItem('croisee_creator_showcase_v1') || '[]'), ...DEFAULT_CREATOR_SHOWCASE]; } catch { return DEFAULT_CREATOR_SHOWCASE; } }
-function setVeilleCategoryFilter(cat) { currentVeilleCategory = cat; renderVeilleView(); }
+function setVeilleCategoryFilter(cat) { currentVeilleCategory = cat; currentNewsPage = 1; renderVeilleView(); }
 async function editVeilleArticle(id) {
   const item = window.__veilleArticles?.find(article => article.id === id);
   if (!item || !String(id).startsWith('news-')) return;
@@ -44,7 +45,7 @@ async function editVeilleArticle(id) {
   } catch (error) { if (typeof showCustomToast === 'function') showCustomToast('Erreur', error.message, 'warning'); }
 }
 
-function setJobsTypeFilter(type) { currentJobsTypeFilter = type; renderJobsView(); }
+function setJobsTypeFilter(type) { currentJobsTypeFilter = type; currentJobsPage = 1; renderJobsView(); }
 
 function addVeilleArticle(e) {
   e.preventDefault();
@@ -74,8 +75,12 @@ async function renderVeilleView() {
   if (!container) return;
   let all = getVeilleItems();
   try { const response = await fetch('/api/news'); if (response.ok) { const data = await response.json(); const remote = data.articles.map(a => ({id:a.id,cat:a.cat,badge:a.badge,titre:a.titre,sourceNom:a.sourceNom,sourceUrl:a.sourceUrl,norme:a.norme,resume:a.resume,date:a.date})); const ids=new Set(remote.map(a=>a.id)); all=[...remote,...all.filter(a=>!ids.has(a.id))]; } } catch {}
+  const seenTitles = new Set(), seenLinks = new Set();
+  all = all.filter(item => { const title = item.titre.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]/g, ''); let link = item.sourceUrl || ''; try { const u = new URL(link); u.hash = ''; for (const k of [...u.searchParams.keys()]) if (k.startsWith('utm_')) u.searchParams.delete(k); link = u.href.replace(/\/$/, ''); } catch {} if (seenTitles.has(title) || (link && seenLinks.has(link))) return false; seenTitles.add(title); if (link) seenLinks.add(link); return true; });
   window.__veilleArticles = all;
   const filtered = currentVeilleCategory === 'all' ? all : all.filter(i => i.cat === currentVeilleCategory);
+  const newsPages = Math.max(1, Math.ceil(filtered.length / 10)); currentNewsPage = Math.min(currentNewsPage, newsPages);
+  const newsItems = filtered.slice((currentNewsPage - 1) * 10, currentNewsPage * 10).map(item => Object.fromEntries(Object.entries(item).map(([key,value]) => [key,typeof value === 'string' ? escapeBackend(value) : value])));
   const isAdmin = (typeof getActiveRole === 'function' ? getActiveRole() : 'visiteur') === 'admin';
 
   container.innerHTML = `
@@ -114,8 +119,9 @@ async function renderVeilleView() {
         </form>
       ` : ''}
 
+      <div class="flex justify-end items-center gap-3 text-sm text-slate-300"><button onclick="changeNewsPage(-1)" ${currentNewsPage <= 1 ? 'disabled' : ''}>Précédent</button><span>Page ${currentNewsPage} / ${newsPages}</span><button onclick="changeNewsPage(1)" ${currentNewsPage >= newsPages ? 'disabled' : ''}>Suivant</button></div>
       <div class="relative border-l-2 border-[#262b35] ml-3 pl-6 space-y-4">
-        ${filtered.map(item => `
+        ${newsItems.map(item => `
           <article class="relative p-5 rounded-2xl bg-[#181b21] border border-[#262b35] hover:border-[#f8485e] transition-all space-y-3">
             <span class="absolute -left-[31px] top-6 w-3.5 h-3.5 rounded-full bg-[#f8485e] border-2 border-[#111317]"></span>
             <div class="flex flex-wrap items-center justify-between gap-2">
@@ -156,8 +162,13 @@ async function renderJobsView() {
   if (!container) return;
   try { const res = await fetch('/api/jobs'); if (res.ok) cachedBackendJobs = await res.json(); } catch {}
 
-  const allJobs = [...cachedBackendJobs, ...DEFAULT_JOBS_OFFERS];
-  const filtered = currentJobsTypeFilter === 'all' ? allJobs : allJobs.filter(j => j.type === currentJobsTypeFilter);
+  const seenJobs = new Set();
+  const today = new Date().toISOString().slice(0, 10);
+  const allJobs = [...DEFAULT_JOBS_OFFERS, ...cachedBackendJobs].filter(j => { if (j.deadline && j.deadline < today) return false; const key = (j.contact_url || j.contactUrl || (j.company + j.title)).replace(/\/$/, ''); if (seenJobs.has(key)) return false; seenJobs.add(key); return true; });
+  const filtered = allJobs.filter(j => (currentJobsTypeFilter === 'all' || j.type === currentJobsTypeFilter) && (!currentJobsSearch || [j.title,j.company,j.location,j.description,j.sourceName].join(' ').toLocaleLowerCase('fr').includes(currentJobsSearch.toLocaleLowerCase('fr'))));
+  const pageCount = Math.max(1, Math.ceil(filtered.length / 10)); currentJobsPage = Math.min(currentJobsPage, pageCount);
+  const pageJobs = filtered.slice((currentJobsPage - 1) * 10, currentJobsPage * 10);
+  let watchStatus = null; try { watchStatus = await api('/jobs/watch'); } catch {}
   const isAdmin = (typeof getActiveRole === 'function' ? getActiveRole() : 'visiteur') === 'admin';
   const esc = typeof escapeBackend === 'function' ? escapeBackend : (v => String(v ?? ''));
 
@@ -167,13 +178,19 @@ async function renderJobsView() {
         <div class="space-y-1.5 max-w-3xl">
           <span class="px-2.5 py-1 rounded-md bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 font-mono text-xs font-semibold">ESPACE CONNECTÉ · ${allJobs.length} Offres publiées</span>
           <h1 class="text-2xl lg:text-3xl font-bold text-white">JOBS & STAGES : Immersion Atelier, Alternance RPIP & Studios</h1>
-          <p class="text-sm text-slate-300">Seules les offres publiées par l’administration sont affichées.</p>
+          <p class="text-sm text-slate-300">Offres sourcées en France, à l’international et en télétravail. Vérifiez leur disponibilité sur la page d’origine.</p>
         </div>
         <div class="flex flex-wrap items-center gap-1.5 bg-[#111317] p-1.5 rounded-2xl border border-[#262b35] shrink-0">
           ${['all', 'Stage', 'Alternance', 'Emploi'].map(t => `<button onclick="setJobsTypeFilter('${t}')" class="px-3.5 py-2 rounded-xl text-xs font-bold ${currentJobsTypeFilter === t ? 'bg-[#f8485e] text-white' : 'text-slate-300 hover:text-white'}">${t === 'all' ? `Toutes (${allJobs.length})` : t}</button>`).join('')}
         </div>
       </div>
 
+      <div class="p-4 rounded-xl bg-[#181b21] border border-[#262b35] space-y-3">
+        <div class="flex flex-wrap justify-between gap-3"><p class="text-sm text-slate-300">Veille toutes les 6 h · AFJV, ProfilCulture, CIPAC · Dernière collecte : ${watchStatus?.lastRun ? esc(new Date(watchStatus.lastRun.ranAt).toLocaleString('fr-FR')) : 'en attente'}${watchStatus?.running ? ' · Collecte en cours' : ''}</p>${isAdmin ? '<button onclick="refreshJobsWatch(this)" class="px-3 py-2 rounded-lg bg-emerald-700 text-white text-xs font-bold">Actualiser la veille</button>' : ''}</div>
+        ${watchStatus?.lastRun?.sources?.some(s => s.status === 'erreur') ? `<details class="text-xs text-amber-300"><summary>Sources à vérifier</summary>${watchStatus.lastRun.sources.filter(s => s.status === 'erreur').map(s => `<p>${esc(s.source)} : ${esc(s.message)}</p>`).join('')}</details>` : ''}
+        <form onsubmit="event.preventDefault(); currentJobsSearch=this.search.value.trim(); currentJobsPage=1; renderJobsView()" class="flex gap-2"><input name="search" aria-label="Rechercher une annonce" value="${esc(currentJobsSearch)}" placeholder="Métier, entreprise, ville, télétravail…" class="flex-1 min-w-0 p-2 rounded-lg bg-[#111317] text-white"><button class="px-3 py-2 rounded-lg bg-[#f8485e] text-white text-sm">Rechercher</button></form>
+        <p class="text-xs text-slate-400">${filtered.length} résultats · Les annonces à échéance connue sont masquées après clôture. Pour les autres, confirmez la disponibilité auprès de la source.</p>
+      </div>
       ${isAdmin ? `
         <form onsubmit="submitJobOffer(event)" class="p-5 rounded-2xl bg-[#181b21] border border-[#262b35] space-y-3">
           <h3 class="text-xs font-mono font-bold uppercase text-emerald-400">Publier une offre dans JOBS & STAGES (Admin)</h3>
@@ -196,8 +213,9 @@ async function renderJobsView() {
         </form>
       ` : ''}
 
+      <div class="flex items-center justify-end gap-3 text-sm text-slate-300"><button onclick="changeJobsPage(-1)" ${currentJobsPage <= 1 ? 'disabled' : ''}>Précédent</button><span>Page ${currentJobsPage} / ${pageCount}</span><button onclick="changeJobsPage(1)" ${currentJobsPage >= pageCount ? 'disabled' : ''}>Suivant</button></div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        ${filtered.map(j => `
+        ${pageJobs.map(j => `
           <div class="p-6 rounded-2xl bg-[#181b21] border border-[#262b35] flex flex-col justify-between space-y-4">
             <div class="space-y-2.5">
               <div class="flex items-center justify-between gap-2">
@@ -207,6 +225,7 @@ async function renderJobsView() {
               <h2 class="text-lg font-bold text-white">${esc(j.title)}</h2>
               <p class="text-xs font-bold text-[#f8485e]">${esc(j.company)} · <span class="text-amber-300 font-mono">${esc(j.remuneration)}</span></p>
               <p class="text-sm text-slate-300 leading-relaxed">${esc(j.description)}</p>
+              ${j.sourceName ? `<p class="text-xs text-slate-400">Source : ${esc(j.sourceName)} · Vérifiée le ${esc(j.verifiedAt)}${j.publishedAt ? ` · Publiée le ${esc(j.publishedAt)}` : ''}${j.deadline ? ` · Candidature avant le ${esc(j.deadline)}` : ' · Échéance non précisée'}</p>` : ''}
             </div>
             <div class="pt-3 border-t border-[#262b35] space-y-2.5">
               <div class="p-2.5 rounded-xl bg-[#111317] border border-[#262b35] text-xs font-mono text-sky-300">Prérequis : ${esc(j.norme)}</div>
