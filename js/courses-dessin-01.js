@@ -101,7 +101,7 @@ const COURSES_DESSIN_P1 = [
     domain: "Conception Visuelle & Dynamique des Formes",
     level: "Fondamental",
     duration: "30 min",
-    image: "assets/planche_pedagogique_shape_language.jpg",
+    image: "assets/2026-11-12_cours-d02_V01.webp",
     summary: "Planche d'instruction La Croisée des Arts : langage des formes primaires et dynamique de silhouette. Carré et rectangle (défense, masse, stabilité), triangle et angles vifs (éclaireur, vitesse, agilité), cercle et courbes (sage, bienveillance, fluidité).",
     artist: {
       name: "La Croisée des Arts",
@@ -141,7 +141,7 @@ const COURSES_DESSIN_P1 = [
     domain: "Théorie de la Valeur & Clairs-Obscurs",
     level: "Académique",
     duration: "30 min",
-    image: "assets/masterclass_sargent_methode_correction.jpg",
+    image: "assets/2026-11-12_cours-d03_V01.webp",
     summary: "Méthode des grands maîtres : simplifier la scène en un Notan binaire (ombre pure vs lumière pure), puis graduer l'échelle en 5 valeurs distinctes (rehaut, demi-teinte claire, demi-teinte sombre, ombre propre, occlusion).",
     artist: {
       name: "John Singer Sargent (1856 - 1925)",
